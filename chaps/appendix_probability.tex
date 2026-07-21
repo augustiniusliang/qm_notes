@@ -1,0 +1,97 @@
+\chapter{Probability Theory Essentials}
+
+\begin{note}
+The quantum-mechanical probabilities of this book are interpreted in the frequentist (ensemble) sense: a probability is the limiting relative frequency of an outcome in an infinite sequence of identically prepared and independently measured trials. This appendix states the definitions and theorems of classical probability theory that the main text's probability arguments rest on, making explicit what Chapters~2 and~3 deploy without formal preamble. No claim is made that probability theory \emph{follows from} quantum mechanics; the direction of dependence is the reverse: the Born rule is a bridge from the amplitude calculus to a pre-existing theory of frequencies.
+\end{note}
+
+\section{The Ensemble Interpretation}
+\label{sec:ensemble-interpretation}
+
+Quantum mechanics makes statistical predictions about ensembles, not about single events. When the main text states that $P(\psi \to \phi) = |\braket{\phi|\psi}|^2$, the statement is: in a large number $N$ of identically prepared systems, each in state $\ket{\psi}$ and each subjected to the measurement that asks the question $\{\ket{\phi}, \text{all states orthogonal to } \ket{\phi}\}$, the fraction of trials that yield the outcome $\phi$ approaches $|\braket{\phi|\psi}|^2$ as $N \to \infty$.
+
+This is the \textbf{frequentist} (or \textbf{ensemble}) interpretation of probability, introduced at Chapter~2's Section~\ref{sec:born} and held consistently throughout the book. It is not the only interpretation of probability in quantum mechanics --- the Bayesian and propensity interpretations have their advocates --- but it is the interpretation that underwrites every experimental test of the theory: a prediction of quantum mechanics is tested by counting frequencies, and a frequency that deviates from the Born-rule prediction by more than the statistical fluctuation either falsifies the theory or signals a failure of the preparation or measurement protocol.
+
+The ensemble interpretation has one operational consequence that bears directly on the book's architecture. A probability is a property of the \emph{whole experimental arrangement} --- preparation, waiting, and interrogation --- not of the individual system. No single quantum event is assigned a probability; what is assigned a probability is the pattern of outcomes across the ensemble. This is why the theory's state vector $\ket{\psi}$ is a description of the preparation procedure (Chapter~2, §2.1), not of an individual system's hidden properties: the preparation \emph{defines} the ensemble, and the state vector encodes the ensemble's statistical behavior.
+
+The same interpretation governs the measurement axioms of Chapter~3. The expectation value $\langle A \rangle_\psi$ is an ensemble average: it is not what a single measurement will yield (no such statement is made) but the arithmetic mean of the outcomes that would be obtained by measuring $A$ on every member of the ensemble. The variance $(\Delta A)^2$ is the ensemble variance, and the uncertainty relations are constraints on the joint statistics of two ensembles (one for $A$, one for $B$, prepared identically but measured differently), not on the precision of a single joint measurement.
+
+\section{Conditional Probability}
+\label{sec:conditional-probability}
+
+Let $A$ and $B$ be two events (subsets of the sample space of a probabilistic experiment). The \textbf{conditional probability} of $A$ given $B$ is
+\begin{linenomath}
+    \begin{equation}
+        P(A|B) := \frac{P(A \cap B)}{P(B)},
+        \label{eq:conditional-prob}
+    \end{equation}
+\end{linenomath}
+provided $P(B) > 0$. It is the fraction of trials in which $A$ occurs among those trials in which $B$ has occurred.
+
+The quantum-mechanical analogue is the state-update rule. After a measurement of an observable with outcome subspace $P_\nu$, the conditional state (the L\"uders update of Chapter~3~\eqref{eq:luders-update}) is $\ket{\psi_\nu} = P_\nu\ket{\psi}/\sqrt{p_\nu}$, and the conditional probability for a subsequent measurement of $B$ is
+\begin{linenomath}
+    \begin{equation}
+        P(B = b_\mu \mid \text{outcome } \nu) = \frac{\braket{\psi|P_\nu P_\mu P_\nu|\psi}}{\braket{\psi|P_\nu|\psi}} = \braket{\psi_\nu|P_\mu|\psi_\nu}.
+        \label{eq:qm-conditional}
+    \end{equation}
+\end{linenomath}
+The analogy with~\eqref{eq:conditional-prob} is exact: the numerator is the probability of the joint outcome (first $\nu$, then $\mu$), and the denominator is the probability of the conditioning outcome $\nu$. The quantum formalism supplies the numerator through the composition principle for amplitudes (Chapter~2's~\eqref{eq:composition-law}): the amplitude for the sequence $\psi \to \nu \to \mu$ is $\braket{\mu|\nu}\braket{\nu|\psi}$, and the squared modulus of that product, summed over the $\mu$ subspace and normalized by $p_\nu$, is the conditional probability.
+
+\section{Expectation, Variance, and Moments}
+\label{sec:expectation-variance}
+
+Let $X$ be a real-valued random variable on a sample space, with probability distribution $p(x)$ (discrete) or density $\rho(x)$ (continuous). The \textbf{expectation} (mean) of $X$ is
+\begin{linenomath}
+    \begin{equation}
+        \langle X \rangle := \sum_x x\,p(x) \quad \text{or} \quad \langle X \rangle := \int x\,\rho(x)\,\dd x.
+        \label{eq:classical-expectation}
+    \end{equation}
+\end{linenomath}
+The expectation is linear: $\langle aX + bY \rangle = a\langle X \rangle + b\langle Y \rangle$. The \textbf{variance} is the mean-square deviation from the mean:
+\begin{linenomath}
+    \begin{equation}
+        \operatorname{Var}(X) := \langle (X - \langle X \rangle)^2 \rangle = \langle X^2 \rangle - \langle X \rangle^2,
+        \label{eq:classical-variance}
+    \end{equation}
+\end{linenomath}
+and the standard deviation is $\Delta X := \sqrt{\operatorname{Var}(X)}$.
+
+In quantum mechanics, the observable $A$ plays the role of the random variable, its spectral decomposition $A = \sum_n a_n P_n$ supplies the possible values $a_n$, and the state $\ket{\psi}$ supplies the distribution $p_n = \braket{\psi|P_n|\psi}$. The quantum expectation~\eqref{eq:expectation-operator} and variance~\eqref{eq:variance} are the direct transcriptions of~\eqref{eq:classical-expectation} and~\eqref{eq:classical-variance} into the spectral language. The linearity of the quantum expectation, $\langle A + B \rangle_\psi = \langle A \rangle_\psi + \langle B \rangle_\psi$, follows from the linearity of the operator trace \emph{in the state} (or, equivalently, from the additivity of the spectral sum), and it holds whether or not $A$ and $B$ commute. The failure of the \emph{product} expectation to factor, $\langle AB \rangle_\psi \neq \langle A \rangle_\psi \langle B \rangle_\psi$ in general, is the statistical signature of noncommutation.
+
+\section{The Law of Large Numbers}
+\label{sec:law-of-large-numbers}
+
+\medskip\noindent\textbf{Theorem (Weak Law of Large Numbers; stated without proof).} \emph{Let $X_1, X_2, \ldots$ be independent, identically distributed random variables with finite expectation $\mu = \langle X \rangle$ and finite variance $\sigma^2$. Define the sample mean $\bar{X}_N := (X_1 + \cdots + X_N)/N$. Then for any $\varepsilon > 0$,}
+\begin{linenomath}
+    \begin{equation}
+        \lim_{N \to \infty} P\bigl(\lvert\bar{X}_N - \mu\rvert \ge \varepsilon\bigr) = 0.
+        \label{eq:weak-lln}
+    \end{equation}
+\end{linenomath}
+\emph{That is, the sample mean converges in probability to the expectation.}
+
+The proof is a direct application of Chebyshev's inequality: $\operatorname{Var}(\bar{X}_N) = \sigma^2/N$, so $P(\lvert\bar{X}_N - \mu\rvert \ge \varepsilon) \le \sigma^2/N\varepsilon^2 \to 0$. The theorem supplies the book's operational definition of probability as limiting frequency: when the main text writes $p_n = \lvert\braket{e_n|\psi}\rvert^2$, it asserts that in $N$ independent trials the count of outcome $n$, divided by $N$, converges to $p_n$ in the sense of~\eqref{eq:weak-lln}.
+
+The \textbf{Strong Law of Large Numbers} (Kolmogorov, 1933; stated without proof) strengthens the convergence to \emph{almost sure} convergence: with probability one, $\lim_{N \to \infty} \bar{X}_N = \mu$. The distinction between the weak and strong laws is measure-theoretic and has no operational consequence for the finite ensembles of the laboratory, but it seals the logical consistency of the frequentist interpretation: the limiting frequency exists and equals the probability for almost every infinite sequence of trials.
+
+\section{Statistical Independence}
+\label{sec:statistical-independence}
+
+Two events $A$ and $B$ are \textbf{statistically independent} if $P(A \cap B) = P(A)P(B)$. In terms of conditional probabilities, $P(A|B) = P(A)$ --- knowing that $B$ occurred does not change the probability assigned to $A$. Two random variables $X$ and $Y$ are independent if the joint probability factorizes, $p(x,y) = p_X(x)\,p_Y(y)$, for all values.
+
+In quantum mechanics, statistical independence has no direct counterpart at the level of pure states: if two observables $A$ and $B$ commute, they possess a joint probability distribution (the product of their spectral measures on the common eigenbasis), but the factorization $p(a,b) = p(a)p(b)$ obtains only for product states in a tensor-product Hilbert space (Chapter~7). For noncommuting observables, no joint distribution exists in the classical sense, and the failure is not a failure of independence but a failure of the very concept of a joint probability. This is the content of the compatibility theorem of Chapter~3~\eqref{eq:common-eigenbasis}: $[A,B] = 0$ is the necessary and sufficient condition for the existence of a joint PVM, and the existence of a joint PVM is the quantum analogue of the existence of a joint probability. The classical notion of independence reappears in the composite-systems chapter as the definition of separable (unentangled) states.
+
+\section{Density Operators as Quantum Probability Measures}
+\label{sec:density-operators}
+
+A quantum state, on the ensemble interpretation, is a probability measure on the outcomes of every observable --- an assignment, to each self-adjoint operator, of a probability distribution on its spectrum. Gleason's theorem (stated without proof in Chapter~3, §3.3) establishes that on a Hilbert space of dimension $\ge 3$, every such assignment that is additive on orthogonal projectors is represented by a unique \textbf{density operator} $\rho$: a positive self-adjoint operator of unit trace, such that
+\begin{linenomath}
+    \begin{equation}
+        p(P) = \tr(\rho P)
+        \label{eq:density-probability}
+    \end{equation}
+\end{linenomath}
+for every projector $P$. Pure states correspond to rank-one density operators $\rho = \ket{\psi}\bra{\psi}$, for which $\tr(\rho P) = \braket{\psi|P|\psi}$ recovers the Born rule. Mixed states correspond to higher-rank density operators, which cannot be represented by a single state vector and which describe ensembles that are not preparable as superpositions of a single procedure.
+
+The density operator is the quantum analogue of the classical probability distribution. Its properties mirror the classical axioms: (i)~$\rho^\dagger = \rho$ and $\rho \ge 0$ (positivity: every probability is nonnegative); (ii)~$\tr\rho = 1$ (normalization: the total probability is one); (iii)~convexity: if $\rho_1$ and $\rho_2$ are density operators, so is $\lambda\rho_1 + (1-\lambda)\rho_2$ for any $\lambda \in [0,1]$, representing an ensemble formed by randomly choosing preparation procedure 1 with probability $\lambda$ and procedure 2 with probability $1-\lambda$. The set of all density operators on $\mathcal{H}$ is a convex set whose extreme points are exactly the pure states $\ket{\psi}\bra{\psi}$. The dimension of the state space is $(\dim\mathcal{H})^2 - 1$ (real parameters of a Hermitian unit-trace matrix), which for a two-state system gives the three-parameter Bloch sphere of Chapter~6~\eqref{eq:bloch-vector}.
+
+The density operator is the proper language for the ensemble interpretation because it makes the ensemble explicit: the spectral decomposition $\rho = \sum_k w_k \ket{k}\bra{k}$ (with $w_k \ge 0$, $\sum_k w_k = 1$) exhibits the state as a classical mixture of orthogonal pure states, prepared with classical probabilities $w_k$. The $w_k$ are classical probabilities in the sense that they reflect ignorance of which pure state was actually prepared, not quantum amplitudes; they combine by ordinary addition, not by the composition principles of Chapter~2. The full development of the density operator as a tool --- its equation of motion (the Liouville--von Neumann equation), the partial trace, entanglement measures, and the measurement problem --- belongs to Chapter~7.

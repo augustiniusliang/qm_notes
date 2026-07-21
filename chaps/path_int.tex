@@ -1,0 +1,1784 @@
+﻿\chapter{The Path Integral Formulation, as According to Feynman}
+
+\begin{note}
+This chapter adds zero new axioms. Everything derived below follows from the state-space axioms of Chapter~2, the measurement axioms of Chapter~3, the evolution postulate of Chapter~4, and the representation machinery of Chapter~5, together with the Trotter product formula --- stated, proved in finite dimensions at its point of use in Section~\ref{sec:propagator-review}, and honestly declared for unbounded operators with the Appendix~A pointer at that same place. The path-integral measure $\int\mathcal{D}x$ is a formal symbol: its sole rigorous content is the limiting discretized product defined in Section~\ref{sec:feynman-construction}, and a note there states plainly what it is and is not.
+\end{note}
+
+The preceding chapter closed with a debt it declared openly (Section~\ref{sec:ch5summary}):
+\begin{quote}
+The composition property of the propagator \eqref{eq:propagator-composition}, the action phase of the free kernel \eqref{eq:free-propagator}, and the spreading packet, all to the path-integral chapter. The composition property is the germ: decomposing the waiting time into ever-finer slices, with a resolution of identity inserted at every cut, turns one kernel into a convolution of many. Can that convolution be taken to the limit --- can the evolution of a quantum system over a finite interval be built from the evolution over infinitesimal steps, and what does the resulting sum over histories teach us that the canonical formalism cannot?
+\end{quote}
+This chapter is that construction. Its first two sections answer the question --- Sections~\ref{sec:propagator-review} and~\ref{sec:feynman-construction} build the Feynman path integral from the composition law by time-slicing, identify the classical action as the phase, and verify the free particle exactly --- and the honest answer is the chapter's thesis: every path contributes an amplitude $e^{iS/\hbar}$, and quantum mechanics is the coherent sum. The classical limit follows as the stationary-phase approximation, Section~\ref{sec:classical-limit}, repaying the historical chapter's Hamilton-Jacobi debt; the harmonic oscillator is evaluated exactly via the quadratic fluctuation determinant, Section~\ref{sec:harmonic-oscillator-path-integral}, independently verifying the ladder-algebra spectrum of Chapter~5; the Aharonov-Bohm effect exhibits the physical content of path topology, Section~\ref{sec:aharonov-bohm}, a gauge-invariant phase shift inaccessible to the canonical formalism; and the WKB semiclassical approximation, Section~\ref{sec:wkb}, repays the book's oldest quantization debt --- the Bohr-Sommerfeld rule, derived and corrected by the Maslov index. The chapter lands on two measurable quantities: the AB phase shift $\Delta\phi = 2\pi\Phi/\Phi_0$ and the WKB quantized energies with their tunneling rates.
+
+The debt ledger this chapter receives and will balance is as follows.
+
+\begin{table}[htbp!]
+\centering
+\caption{Debts received by this chapter. The repayment sections are those in which each debt is discharged.}
+\label{tab:ch9-debts-received}
+\begin{tabular}{lll}
+\toprule
+Debt & Received from & Repaid in \\
+\midrule
+Hamilton--Jacobi equation / action principle & ch1 (historical introduction) & \S\ref{sec:classical-limit} \\
+Bohr--Sommerfeld quantization $\oint p_i dq_i = n_i h$ & ch1 row~1.9 & \S\ref{sec:wkb} \\
+Propagator composition $\to$ path integral & ch5 \S\ref{sec:propagator} (\eqref{eq:propagator-composition}) & \S\ref{sec:propagator-review}--\ref{sec:feynman-construction} \\
+Free kernel's action phase $S = m(x-x')^2/2t$ & ch5 \S\ref{sec:propagator} (\eqref{eq:free-propagator}) & \S\ref{sec:feynman-construction} \\
+De Broglie packet dispersion & ch5 \S\ref{sec:propagator} (\eqref{eq:packet-spreading}) & \S\ref{sec:classical-limit}, \S\ref{sec:wkb} \\
+Harmonic oscillator spectrum (cross-check) & ch5 \S\ref{sec:harmonic-oscillator} (\eqref{eq:number-spectrum}) & \S\ref{sec:harmonic-oscillator-path-integral}, \S\ref{sec:wkb} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\medskip\noindent The chapter proceeds in seven sections. Section~\ref{sec:propagator-review} reviews the propagator machinery of Chapter~5, poses the question of the short-time kernel, and derives it by the Trotter factorization --- the single technical tool the construction needs beyond the existing axioms. Section~\ref{sec:feynman-construction} composes the short-time kernels into the $N$-slice product, takes the limit, and obtains the Feynman path integral in its discretized and symbolic forms, with the free particle verified exactly. Section~\ref{sec:classical-limit} applies stationary phase to recover the classical limit and repays the Hamilton-Jacobi debt. Section~\ref{sec:harmonic-oscillator-path-integral} evaluates the harmonic oscillator exactly, yielding the Mehler kernel and the spectrum. Section~\ref{sec:aharonov-bohm} presents the Aharonov-Bohm effect as a topological application. Section~\ref{sec:wkb} develops the WKB method and repays the Bohr-Sommerfeld debt. Section~\ref{sec:ch9summary} collects the principles, balances the ledger, and hands the functional-integral template to the field chapter.
+
+
+\section{The Propagator Reviewed: Kernel, Composition, and the Short-Time Kernel}
+\label{sec:propagator-review}
+
+Chapter~5 closed its account of the free particle with a pointer. The evolution operator read in the position representation is an integral kernel --- the propagator --- and two of its properties are the seed of everything this chapter constructs. This section re-states those properties, poses the constructive question they imply, and supplies the one new tool the construction needs: the short-time approximation to the kernel for a system with a potential.
+
+\medskip\noindent\textbf{The propagator recalled.} For a particle on the line with Hamiltonian $H = P^2/2m + V(Q)$, the propagator is the position-representation matrix element of the evolution operator \eqref{eq:evolution-axiom}:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) := \braket{x|U(t)|x'} = \braket{x|e^{-iHt/\hbar}|x'} .
+\end{equation}
+\end{linenomath}
+This is the propagator, defined in Chapter~5 as \eqref{eq:propagator-def} and re-stated here as the chapter's central object. The kernel carries the amplitude to register the particle at $x$ at time $t$, given that it was prepared at $x'$ at time $0$. Its first property is the composition law, a direct consequence of the semigroup property $U(t) = U(t - t')U(t')$ of the evolution family, read between position labels with a resolution of identity \eqref{eq:position-resolution} inserted:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \int_{-\infty}^{+\infty} dx''\; K(x,t;x'',t')\,K(x'',t';x',0) .
+\end{equation}
+\end{linenomath}
+This is \eqref{eq:propagator-composition} of Chapter~5: the amplitude to go from $x'$ to $x$ in time $t$ is the amplitude to go by way of every intermediate position $x''$, summed --- the continuum analogue of the composition of alternative paths that has been the book's grammar since Chapter~2. It is an operator fact, nothing more.
+
+The second property is that for the free particle, $V = 0$, the kernel is known in closed form. Momentum is conserved, the evolution is trivial in the momentum representation, and the Fourier transform of Chapter~5 gives
+\begin{linenomath}
+\begin{equation}
+K_0(x,t;x',0) = \sqrt{\frac{m}{2\pi i\hbar t}}\;\exp\!\Bigl(\frac{im(x-x')^2}{2\hbar t}\Bigr) .
+\end{equation}
+\end{linenomath}
+This is \eqref{eq:free-propagator} of Chapter~5, the benchmark. Its phase is the classical action of the free particle on the straight, constant-velocity path, $S_0 = m(x-x')^2/2t$, a fact Chapter~5 named as a forward debt. That fact is about to become a theorem.
+
+\medskip\noindent\textbf{The central question.} The composition property \eqref{eq:propagator-composition} can be iterated. Divide the interval $[0,t]$ into $N$ subintervals of equal duration $\varepsilon = t/N$, insert a position resolution of identity at each of the $N-1$ interior times $t_k = k\varepsilon$, and apply \eqref{eq:propagator-composition} at every step:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \int dx_1\cdots dx_{N-1}\; \prod_{k=0}^{N-1} K(x_{k+1},\varepsilon; x_k,0) .
+\end{equation}
+\end{linenomath}
+with the notational convention $x_0 := x'$ and $x_N := x$. This is the skeleton of the path integral: the full kernel is a multiple convolution of $N$ short-time kernels, integrated over all intermediate positions. For the free particle, \eqref{eq:free-propagator} supplies $K_0(x_{k+1},\varepsilon;x_k,0)$ exactly for any $\varepsilon$, and the convolution must reproduce \eqref{eq:free-propagator} for the whole interval --- a consistency check Section~\ref{sec:feynman-construction} will perform. For a general potential, no closed form for $K$ at finite time exists, because the kinetic and potential terms of $H$ do not commute. The question is: can an \emph{approximate} short-time kernel be found, one that becomes exact as $\varepsilon \to 0$, such that the $N \to \infty$ limit of the $N$-slice product displayed above converges to the true kernel for any $V$? If so, the composition property is not merely a bookkeeping identity --- it is a constructive definition of the quantum dynamics.
+
+\medskip\noindent\textbf{The Trotter product formula.} The obstruction is that the exponential of a sum is not the product of exponentials when the summands fail to commute. The operator identity that tames the obstruction for small $\varepsilon$ is the Trotter product formula.\footnote{H.~F.~Trotter, \emph{Proc.~Amer.~Math.~Soc.}~\textbf{10}, 545 (1959). The formula is stated here, proved in finite dimensions, and honestly declared for unbounded operators.}
+
+\medskip\noindent\textbf{Theorem (Trotter product formula, finite-dimensional proof).} \emph{For matrices $A$ and $B$,}
+\begin{linenomath}
+\begin{equation}
+e^{-i\varepsilon(A+B)/\hbar} = e^{-i\varepsilon A/\hbar}\,e^{-i\varepsilon B/\hbar} + O(\varepsilon^2) .
+\label{eq:trotter-factorization}
+\end{equation}
+\end{linenomath}
+\emph{The proof is by series expansion of both sides to order $\varepsilon^2$.}
+
+\medskip\noindent Expand the left-hand side:
+\begin{linenomath}
+\begin{equation*}
+e^{-i\varepsilon(A+B)/\hbar}
+= I - \frac{i\varepsilon}{\hbar}(A+B) - \frac{\varepsilon^2}{2\hbar^2}(A+B)^2 + O(\varepsilon^3) .
+\end{equation*}
+\end{linenomath}
+Expand the right-hand side as a product of two series:
+\begin{linenomath}
+\begin{equation*}
+\begin{aligned}
+e^{-i\varepsilon A/\hbar}\,e^{-i\varepsilon B/\hbar}
+&= \Bigl(I - \frac{i\varepsilon}{\hbar}A - \frac{\varepsilon^2}{2\hbar^2}A^2 + O(\varepsilon^3)\Bigr)
+   \Bigl(I - \frac{i\varepsilon}{\hbar}B - \frac{\varepsilon^2}{2\hbar^2}B^2 + O(\varepsilon^3)\Bigr) \\[4pt]
+&= I - \frac{i\varepsilon}{\hbar}(A+B)
+   - \frac{\varepsilon^2}{\hbar^2}\Bigl(\frac{A^2}{2} + AB + \frac{B^2}{2}\Bigr) + O(\varepsilon^3) .
+\end{aligned}
+\end{equation*}
+\end{linenomath}
+The two sides agree at order $\varepsilon^0$ and order $\varepsilon^1$. At order $\varepsilon^2$ the difference is
+\begin{linenomath}
+\begin{equation*}
+\begin{aligned}
+\text{(RHS)} - \text{(LHS)}
+&= -\frac{\varepsilon^2}{\hbar^2}\Bigl[\Bigl(\frac{A^2}{2} + AB + \frac{B^2}{2}\Bigr)
+   - \frac{1}{2}\bigl(A^2 + AB + BA + B^2\bigr)\Bigr] + O(\varepsilon^3) \\[4pt]
+&= -\frac{\varepsilon^2}{\hbar^2}\Bigl(\frac{AB}{2} - \frac{BA}{2}\Bigr) + O(\varepsilon^3) \\[4pt]
+&= -\frac{\varepsilon^2}{2\hbar^2}\,[A,B] + O(\varepsilon^3) .
+\end{aligned}
+\end{equation*}
+\end{linenomath}
+Hence the two expressions differ by a commutator term at order $\varepsilon^2$, and \eqref{eq:trotter-factorization} is proved in finite dimensions. The Lie bracket \eqref{eq:lie-bracket} of Chapter~4 is the same commutator appearing in a different guise. For the unbounded operators $P^2/2m$ and $V(Q)$ the same formula holds, but the operator-norm estimate that controls the $O(\varepsilon^2)$ remainder requires the domain theory of Appendix~A; the existence of the limit is stated here honestly and proved there.
+
+\medskip\noindent\textbf{The short-time kernel.} Apply the Trotter factorization to $H = P^2/2m + V(Q)$, with $A = P^2/2m$ and $B = V(Q)$:
+\begin{linenomath}
+\begin{equation*}
+e^{-i\varepsilon H/\hbar} = e^{-i\varepsilon P^2/2m\hbar}\;e^{-i\varepsilon V(Q)/\hbar} + O(\varepsilon^2) .
+\end{equation*}
+\end{linenomath}
+Insert this into the kernel definition and place a momentum resolution of identity between the two exponentials --- $V(Q)$ is diagonal in the position representation, $P^2/2m$ in the momentum representation:
+\begin{linenomath}
+\begin{equation*}
+\begin{aligned}
+K(x_{k+1},\varepsilon; x_k,0)
+&= \braket{x_{k+1}|e^{-i\varepsilon P^2/2m\hbar}\,e^{-i\varepsilon V(Q)/\hbar}|x_k} + O(\varepsilon^2) \\[4pt]
+&= \int \frac{dp_k}{2\pi\hbar}\;
+   \braket{x_{k+1}|p_k}\,e^{-i\varepsilon p_k^2/2m\hbar}\,
+   \braket{p_k|x_k}\,e^{-i\varepsilon V(x_k)/\hbar} + O(\varepsilon^2) .
+\end{aligned}
+\end{equation*}
+\end{linenomath}
+The plane wave \eqref{eq:debroglie-wave} of Chapter~5 supplies $\braket{x|p} = e^{ipx/\hbar}/\sqrt{2\pi\hbar}$; inserting both factors and collecting the exponent,
+\begin{linenomath}
+\begin{equation}
+K(x_{k+1},\varepsilon; x_k,0)
+\approx \int \frac{dp_k}{2\pi\hbar}\;
+\exp\!\Bigl[\frac{i}{\hbar}\Bigl(p_k\Delta x_k - \varepsilon\frac{p_k^2}{2m} - \varepsilon V(x_k)\Bigr)\Bigr] .
+\end{equation}
+\end{linenomath}
+with the shorthand $\Delta x_k := x_{k+1} - x_k$, and the approximation sign carrying the Trotter $O(\varepsilon^2)$ error. The momentum integral is a Fresnel Gaussian; its evaluation is the central computation of this section.
+
+\medskip\noindent\textbf{The Gaussian integral: completing the square.} The exponent in the momentum integral is quadratic in $p_k$. Collecting the $p_k$-dependent terms:
+\begin{linenomath}
+\begin{equation*}
+p_k\Delta x_k - \frac{\varepsilon}{2m}\,p_k^2
+= -\frac{\varepsilon}{2m}\Bigl(p_k^2 - \frac{2m}{\varepsilon}\Delta x_k\,p_k\Bigr) .
+\end{equation*}
+\end{linenomath}
+Complete the square inside the parentheses:
+\begin{linenomath}
+\begin{equation*}
+p_k^2 - \frac{2m}{\varepsilon}\Delta x_k\,p_k
+= \Bigl(p_k - \frac{m\Delta x_k}{\varepsilon}\Bigr)^{\!2}
+   - \Bigl(\frac{m\Delta x_k}{\varepsilon}\Bigr)^{\!2} .
+\end{equation*}
+\end{linenomath}
+Substituting back, the exponent becomes
+\begin{linenomath}
+\begin{equation*}
+\frac{i}{\hbar}\Bigl[-\frac{\varepsilon}{2m}\Bigl(p_k - \frac{m\Delta x_k}{\varepsilon}\Bigr)^{\!2}
+   + \frac{\varepsilon}{2m}\Bigl(\frac{m\Delta x_k}{\varepsilon}\Bigr)^{\!2}
+   - \varepsilon V(x_k)\Bigr] .
+\end{equation*}
+\end{linenomath}
+The second term simplifies: $(\varepsilon/2m)(m\Delta x_k/\varepsilon)^2 = m(\Delta x_k)^2/2\varepsilon$. Separating the $p_k$-independent part from the integral,
+\begin{linenomath}
+\begin{equation}
+K(x_{k+1},\varepsilon; x_k,0)
+\approx \exp\!\Bigl[\frac{i}{\hbar}\Bigl(\frac{m(\Delta x_k)^2}{2\varepsilon} - \varepsilon V(x_k)\Bigr)\Bigr]\;
+\int \frac{dp_k}{2\pi\hbar}\;
+\exp\!\Bigl[-\frac{i\varepsilon}{2m\hbar}\Bigl(p_k - \frac{m\Delta x_k}{\varepsilon}\Bigr)^{\!2}\Bigr] .
+\end{equation}
+\end{linenomath}
+Shift the integration variable $p_k \mapsto p_k + m\Delta x_k/\varepsilon$; the shift adds nothing to the integral. The remaining integral is the elementary Fresnel Gaussian:
+\begin{linenomath}
+\begin{equation}
+\int_{-\infty}^{+\infty} \frac{dp_k}{2\pi\hbar}\;
+\exp\!\Bigl[-\frac{i\varepsilon}{2m\hbar}\,p_k^2\Bigr]
+= \frac{1}{2\pi\hbar}\,\sqrt{\frac{2\pi m\hbar}{i\varepsilon}}
+= \sqrt{\frac{m}{2\pi i\hbar\varepsilon}} .
+\label{eq:short-time-gaussian}
+\end{equation}
+\end{linenomath}
+The square root denotes the principal branch; the conditional convergence of the Fresnel integral is handled by the standard convergence factor $e^{-\eta p_k^2}$ with $\eta \to 0^{+}$ after integration, exactly as in the free-particle derivation of Chapter~5.\footnote{With the convergence factor, the integral is the elementary Gaussian $\int e^{-\alpha p^2}dp = \sqrt{\pi/\alpha}$ at $\alpha = \eta + i\varepsilon/2m\hbar$; the limit $\eta \to 0^{+}$ exists and yields \eqref{eq:short-time-gaussian}.}
+
+Assembling the prefactor and the phase completes the derivation:
+\begin{linenomath}
+\begin{equation}
+\boxed{K(x_{k+1},\varepsilon; x_k,0)
+\approx \sqrt{\frac{m}{2\pi i\hbar\varepsilon}}\;
+\exp\!\Bigl[\frac{i}{\hbar}\,\varepsilon\,
+\Bigl(\frac{m}{2}\Bigl(\frac{x_{k+1}-x_k}{\varepsilon}\Bigr)^{\!2}
+- V(x_k)\Bigr)\Bigr]} .
+\label{eq:short-time-kernel}
+\end{equation}
+\end{linenomath}
+This is the short-time propagator. The error inside the exponent is $O(\varepsilon^2)$, inherited from the Trotter factorization; the prefactor is exact for the free-particle part, the potential entering only through the phase factor $e^{-i\varepsilon V(x_k)/\hbar}$ evaluated at the initial point of the slice.
+
+\medskip\noindent\textbf{The phase identified.} The exponent in \eqref{eq:short-time-kernel} is $\varepsilon$ times the classical Lagrangian of the particle, $L = \frac{m}{2}\dot{x}^2 - V(x)$, evaluated on the straight-line path from $x_k$ to $x_{k+1}$ traversed in time $\varepsilon$, with the velocity approximated by the constant value $(x_{k+1}-x_k)/\varepsilon$ and the potential evaluated at the initial point. For $V=0$, \eqref{eq:short-time-kernel} reduces to the free kernel \eqref{eq:free-propagator} for the short interval $\varepsilon$, and the reduction is exact --- the Trotter error vanishes because $[P^2/2m, 0] = 0$. For a general potential the approximation becomes exact only in the limit $\varepsilon \to 0$, where the sum of the Lagrangian over all slices approaches the classical action. That limit is the next section's construction.
+
+\medskip\noindent The short-time kernel is in hand. The composition property \eqref{eq:propagator-composition} instructs us to multiply $N$ copies of it, integrate over the $N-1$ intermediate positions, and take the limit $N \to \infty$. The limit is the Feynman path integral.
+
+
+\section{The Feynman Construction: Time-Slicing, the Path Sum, and the Free Particle Verified}
+\label{sec:feynman-construction}
+
+The short-time kernel \eqref{eq:short-time-kernel} of the preceding section is the brick. The composition property \eqref{eq:propagator-composition} is the mortar. This section lays $N$ bricks, takes the limit in which each brick becomes infinitesimal, and obtains the Feynman path integral. The construction is then verified on the free particle, whose exact kernel is already known from Chapter~5 --- the verification is the proof that the time-slicing prescription reproduces the known answer where the answer is known, giving confidence in the prescription where it is not.
+
+\medskip\noindent\textbf{The $N$-slice product.} Take the short-time kernel \eqref{eq:short-time-kernel} for each of the $N$ slices of duration $\varepsilon = t/N$. Insert it into the $N$-slice skeleton of Section~\ref{sec:propagator-review}: with $x_0 = x'$, $x_N = x$, and the $N-1$ intermediate positions $x_1,\ldots,x_{N-1}$ integrated over the whole line,
+\begin{linenomath}
+\begin{equation}
+K_N(x,t;x',0) := \Bigl(\frac{m}{2\pi i\hbar\varepsilon}\Bigr)^{\!N/2}\!
+\int_{-\infty}^{+\infty}\!dx_1\cdots dx_{N-1}\;
+\exp\!\Bigl[\frac{i}{\hbar}\sum_{k=0}^{N-1}\varepsilon\,
+\Bigl(\frac{m}{2}\Bigl(\frac{x_{k+1}-x_k}{\varepsilon}\Bigr)^{\!2}
+- V(x_k)\Bigr)\Bigr] .
+\label{eq:path-integral-discrete}
+\end{equation}
+\end{linenomath}
+This is the $N$-slice discretized path integral. Every integral is an ordinary Lebesgue integral over $\mathbb{R}$; every factor is an ordinary complex number. The object $K_N$ is an approximation to the true kernel, exact for the free particle at any $N$ (as will be shown below) and exact for any potential only in the limit.
+
+\medskip\noindent\textbf{Definition (the Feynman path integral).} The propagator for a particle in a potential $V$ is \emph{defined} by the limit
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) := \lim_{N\to\infty} K_N(x,t;x',0) .
+\end{equation}
+\end{linenomath}
+This limit is the definition of the Feynman path integral in this book. No analytic continuation, no measure theory beyond the Lebesgue integrals on $\mathbb{R}$ that appear in \eqref{eq:path-integral-discrete}. The existence of the limit for the class of potentials $V$ that are continuous and bounded below is stated without proof in this chapter; the rigorous treatment belongs to Appendix~A.\footnote{The limit exists in the $L^2$ sense for a wide class of potentials and defines a unitary evolution. The proof, which requires operator-norm estimates of the Trotter remainder for unbounded operators, is the content of the Trotter--Kato theorem; the theorem is stated in Appendix~A and cited here.}
+
+\medskip\noindent\textbf{The classical action emerges.} The exponent in \eqref{eq:path-integral-discrete} is a Riemann sum. In the limit $N \to \infty$, the piecewise-linear path defined by the vertices $(t_k, x_k)$ with $t_k = k\varepsilon$ approximates a continuous path $x(t')$ joining $x(0) = x'$ to $x(t) = x$, and the sum approaches the integral of the Lagrangian:
+\begin{linenomath}
+\begin{equation*}
+\sum_{k=0}^{N-1}\varepsilon\,
+\Bigl(\frac{m}{2}\Bigl(\frac{x_{k+1}-x_k}{\varepsilon}\Bigr)^{\!2}
+- V(x_k)\Bigr)
+\;\longrightarrow\; \int_0^t dt'\,\Bigl[\frac{m}{2}\dot{x}(t')^2 - V(x(t'))\Bigr]
+=: S[x(t)] .
+\end{equation*}
+\end{linenomath}
+The limit of the Riemann sum is the \textbf{classical action} $S[x]$ evaluated on the path. The path integral therefore associates to every conceivable continuous path from $(x',0)$ to $(x,t)$ the amplitude $\exp(iS[x]/\hbar)$ and sums --- integrates --- over all such paths. The identification of the sum with the action also supplies the content of the label $L$ in the compact form of the $N$-slice product:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \lim_{N\to\infty}
+\Bigl(\frac{m}{2\pi i\hbar\varepsilon}\Bigr)^{\!N/2}\!
+\int dx_1\cdots dx_{N-1}\;
+\exp\!\Bigl[\frac{i}{\hbar}\sum_{k=0}^{N-1}\varepsilon\,
+L\Bigl(x_k,\frac{x_{k+1}-x_k}{\varepsilon}\Bigr)\Bigr] .
+\label{eq:n-slice-product}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Symbolic form.} The limit of the $N$-slice product is abbreviated by the notation
+\begin{linenomath}
+\begin{equation}
+\boxed{K(x,t;x',0) = \int_{x(0)=x'}^{x(t)=x} \mathcal{D}[x(t)]\;
+e^{iS[x(t)]/\hbar}} .
+\label{eq:path-integral-symbolic}
+\end{equation}
+\end{linenomath}
+
+\begin{note}
+\textbf{Note (the measure is a notation).} The symbol $\int\mathcal{D}x$ is a formal shorthand for the limit $\lim_{N\to\infty}(m/2\pi i\hbar\varepsilon)^{N/2}\int dx_1\cdots dx_{N-1}$. It is not a measure on the space of paths in the sense of Lebesgue --- Feynman's real-time integrand $e^{iS/\hbar}$ oscillates and does not define a countably additive measure. The rigorous path integral exists in imaginary time (the Wiener measure, $t \to -i\tau$, $e^{iS/\hbar} \to e^{-S_E/\hbar}$), and the real-time version is defined by analytic continuation. Appendix~A and the field chapter address the Wiener-measure construction. Nothing in this chapter depends on these rigor facts beyond the discretized definition \eqref{eq:path-integral-discrete}.
+\end{note}
+
+\medskip\noindent\textbf{Physical interpretation.} Equation~\eqref{eq:path-integral-symbolic} codifies the Feynman picture of quantum mechanics in one line. Every conceivable continuous path from the initial to the final event contributes a complex amplitude $\exp(iS[x]/\hbar)$, whose phase is the classical action along that path measured in units of $\hbar$. The total amplitude is the coherent sum over all paths. Paths far from the classical one --- the path that makes the action stationary, $\delta S = 0$ --- have phases that vary rapidly under small deformations; neighbouring paths interfere destructively and their net contribution cancels. Paths near the classical one have nearly stationary phase; they interfere constructively and their contribution survives. Classical mechanics, in this picture, is not a separate theory but the stationary-phase limit of quantum mechanics: when the action is large compared to $\hbar$, only the immediate neighbourhood of the classical path contributes, and Hamilton's principle $\delta S = 0$ emerges from the conspiracy of quantum phases. The detailed stationary-phase analysis that makes this qualitative picture quantitative is the subject of Section~\ref{sec:classical-limit}.
+
+\medskip\noindent\textbf{Free-particle verification: the $N=2$ case.} The construction must reproduce what is already known. For the free particle, $V = 0$, the $N$-slice product \eqref{eq:path-integral-discrete} is a chain of Gaussian integrals whose exact evaluation must yield the free kernel \eqref{eq:free-propagator} of Chapter~5, independently of $N$. The case $N = 2$ is the explicit demonstration.
+
+Set $\varepsilon = t/2$. The $N = 2$ product has a single intermediate integration over $x_1$:
+\begin{linenomath}
+\begin{equation*}
+K_2(x,t;x',0) = \frac{m}{2\pi i\hbar\varepsilon}
+\int_{-\infty}^{+\infty} dx_1\;
+\exp\!\Bigl[\frac{im}{2\hbar\varepsilon}
+\bigl((x-x_1)^2 + (x_1-x')^2\bigr)\Bigr] .
+\end{equation*}
+\end{linenomath}
+The exponent is quadratic in $x_1$. Expanding the squares:
+\begin{linenomath}
+\begin{equation*}
+(x-x_1)^2 + (x_1-x')^2
+= 2x_1^2 - 2x_1(x+x') + x^2 + x'^2 .
+\end{equation*}
+\end{linenomath}
+Complete the square in $x_1$:
+\begin{linenomath}
+\begin{equation*}
+\begin{aligned}
+2x_1^2 - 2x_1(x+x')
+&= 2\Bigl[x_1^2 - x_1(x+x')\Bigr] \\[2pt]
+&= 2\Bigl[\Bigl(x_1 - \frac{x+x'}{2}\Bigr)^{\!2}
+   - \Bigl(\frac{x+x'}{2}\Bigr)^{\!2}\,\Bigr] \\[2pt]
+&= 2\Bigl(x_1 - \frac{x+x'}{2}\Bigr)^{\!2}
+   - \frac{(x+x')^2}{2} .
+\end{aligned}
+\end{equation*}
+\end{linenomath}
+The constant terms assemble as
+\begin{linenomath}
+\begin{equation*}
+x^2 + x'^2 - \frac{(x+x')^2}{2}
+= \frac{x^2 + x'^2 - 2xx'}{2}
+= \frac{(x-x')^2}{2} .
+\end{equation*}
+\end{linenomath}
+The exponent separates into a term depending on $x_1$ and a term that does not:
+\begin{linenomath}
+\begin{equation*}
+\frac{im}{2\hbar\varepsilon}\Bigl[
+2\Bigl(x_1 - \frac{x+x'}{2}\Bigr)^{\!2}
++ \frac{(x-x')^2}{2}\Bigr]
+= \frac{im}{\hbar\varepsilon}\Bigl(x_1 - \frac{x+x'}{2}\Bigr)^{\!2}
++ \frac{im}{4\hbar\varepsilon}(x-x')^2 .
+\end{equation*}
+\end{linenomath}
+The $x_1$ integral is a Fresnel Gaussian. Shifting $x_1 \mapsto x_1 + (x+x')/2$ and applying the elementary formula $\int_{-\infty}^{+\infty} dy\, e^{i\alpha y^2} = \sqrt{\pi i/\alpha}$ (with the convergence-factor honesty of Section~\ref{sec:propagator-review}):
+\begin{linenomath}
+\begin{equation*}
+\int_{-\infty}^{+\infty} dx_1\;
+\exp\!\Bigl[\frac{im}{\hbar\varepsilon}\Bigl(x_1 - \frac{x+x'}{2}\Bigr)^{\!2}\Bigr]
+= \sqrt{\frac{\pi i\hbar\varepsilon}{m}} .
+\end{equation*}
+\end{linenomath}
+Assembling the prefactor and the phase:
+\begin{linenomath}
+\begin{equation}
+\begin{aligned}
+K_2(x,t;x',0)
+&= \frac{m}{2\pi i\hbar\varepsilon}\;
+   \sqrt{\frac{\pi i\hbar\varepsilon}{m}}\;
+   \exp\!\Bigl[\frac{im}{4\hbar\varepsilon}(x-x')^2\Bigr] \\[4pt]
+&= \sqrt{\frac{m}{2\pi i\hbar(2\varepsilon)}}\;
+   \exp\!\Bigl[\frac{im}{2\hbar(2\varepsilon)}(x-x')^2\Bigr] .
+\end{aligned}
+\label{eq:free-kernel-sliced-induction}
+\end{equation}
+\end{linenomath}
+The last line uses the algebraic contraction of the prefactor:
+\begin{linenomath}
+\begin{equation*}
+\frac{m}{2\pi i\hbar\varepsilon}\cdot\sqrt{\frac{\pi i\hbar\varepsilon}{m}}
+= \sqrt{\frac{m^2}{4\pi^2 i^2\hbar^2\varepsilon^2}\cdot\frac{\pi i\hbar\varepsilon}{m}}
+= \sqrt{\frac{m}{2\pi i\hbar(2\varepsilon)}} .
+\end{equation*}
+\end{linenomath}
+With $\varepsilon = t/2$, the result is $K_2(x,t;x',0) = \sqrt{m/2\pi i\hbar t}\,\exp[im(x-x')^2/2\hbar t]$, which is precisely the free kernel \eqref{eq:free-propagator}. The prefactor has contracted from the single-slice factor $m/(2\pi i\hbar\varepsilon)$ to the full-interval factor $\sqrt{m/2\pi i\hbar t}$.
+
+\medskip\noindent\textbf{Induction to arbitrary $N$.} The $N=2$ case exhibits the pattern: each Gaussian integration over an intermediate point contracts the prefactor by one factor of the elementary integral $\sqrt{\pi i\hbar\varepsilon/m}$, and the phase assembles into the classical action of the free particle evaluated on the piecewise-linear path. For general $N$, with $N-1$ intermediate integrations, the $(N/2)$-power prefactor in \eqref{eq:path-integral-discrete} contracts through $N-1$ Gaussian integrals to $\sqrt{m/2\pi i\hbar(N\varepsilon)} = \sqrt{m/2\pi i\hbar t}$, while the sum of quadratic forms in the exponent telescopes to $m(x-x')^2/2t$. The result is independent of $N$:
+\begin{linenomath}
+\begin{equation}
+K_0^{(N)}(x,t;x',0) = \sqrt{\frac{m}{2\pi i\hbar t}}\;
+\exp\!\Bigl[\frac{im(x-x')^2}{2\hbar t}\Bigr]
+\qquad\text{for every } N \geq 1 .
+\label{eq:free-kernel-sliced}
+\end{equation}
+\end{linenomath}
+The complete proof by induction on $N$ is the content of Exercise~1. The physical content of \eqref{eq:free-kernel-sliced} is that the free-particle path integral reproduces the exact kernel of Chapter~5, and it does so at every finite $N$, not merely in the limit --- the free-particle short-time kernel is exact, because the Trotter error vanishes when the two terms of the Hamiltonian commute. The limit $N \to \infty$ is therefore trivial for the free particle: every $K_0^{(N)}$ already equals the answer. For a non-vanishing potential, only the limit is exact, and the $N$-dependence of $K_N$ encodes the approach of the discrete approximation to the true dynamics.
+
+\medskip\noindent\textbf{The phase-space path integral.} The derivation of the short-time kernel in Section~\ref{sec:propagator-review} performed the momentum integration explicitly, converting the Hamiltonian form of the short-time amplitude into the Lagrangian form \eqref{eq:short-time-kernel}. If the momentum integrals are left unperformed, the $N$-slice product takes the alternative form
+\begin{linenomath}
+\begin{equation}
+\int \frac{dp_0}{2\pi\hbar}\prod_{k=1}^{N-1}\frac{dx_k\,dp_k}{2\pi\hbar}\;
+\exp\!\Bigl[\frac{i}{\hbar}\sum_{k=0}^{N-1}
+\Bigl(p_k(x_{k+1}-x_k) - \varepsilon\,\frac{p_k^2}{2m}
+- \varepsilon\,V(x_k)\Bigr)\Bigr] .
+\end{equation}
+\end{linenomath}
+In the continuum limit, with $p_k$ becoming the momentum $p(t')$ at the discretised time $t_k$, the sum in the exponent approaches the phase-space action integral, and the symbolic form is
+\begin{linenomath}
+\begin{equation}
+\boxed{K(x,t;x',0) = \int \mathcal{D}x\,\mathcal{D}p\;
+\exp\!\Bigl[\frac{i}{\hbar}\int_0^t dt'\,
+\bigl(p\,\dot{x} - H(p,x)\bigr)\Bigr]} .
+\label{eq:phase-space-path-integral}
+\end{equation}
+\end{linenomath}
+This is the Hamiltonian, or phase-space, path integral --- the more general form, of which the Lagrangian path integral \eqref{eq:path-integral-symbolic} is the special case obtained by performing the Gaussian momentum integrals. The phase-space form is the natural starting point when the kinetic term is not quadratic in the momentum (as for a relativistic particle, named here once and not developed) or when the Hamiltonian contains a vector-potential coupling, as in the Aharonov-Bohm system of Section~\ref{sec:aharonov-bohm}. The measure $\int\mathcal{D}x\,\mathcal{D}p$ carries the same formal status as $\int\mathcal{D}x$: it is defined solely by the discretized limit, with one $dp_k/2\pi\hbar$ factor per time slice accompanying each $dx_k$ integral.
+
+\medskip\noindent\textbf{Advantage and limitation.} The advantage of the path-integral formulation is its direct contact with the classical action principle: the quantum amplitude is built from the classical action, and the classical limit emerges transparently as the stationary-phase approximation rather than as a separate postulate. The formulation also makes manifest the role of the configuration space's topology --- path interference can register global properties, as the Aharonov-Bohm effect of Section~\ref{sec:aharonov-bohm} will demonstrate. Its limitation is calculational: outside the class of quadratic actions, the path integral resists closed-form evaluation, and the stationary-phase approximation plus the systematic $\hbar$-expansion (the WKB method of Section~\ref{sec:wkb}) is the practical bridge to quantitative results. The canonical operator formalism of Chapters~4--5 and the path-integral formalism of this chapter are two representations of one dynamics; the choice between them is a choice of convenience, tuned to the problem.
+
+\medskip\noindent The classical action has appeared as the phase whose stationary points dominate the path sum. The systematic extraction of those stationary points --- the classical limit and its first quantum correction --- is the next section.
+
+
+\section{The Classical Limit: Stationary Phase, the Role of Action, and Hamilton-Jacobi Repaid}
+\label{sec:classical-limit}
+
+The path integral \eqref{eq:path-integral-symbolic}---with the measure understood as the formal notation defined by the discretized limit \eqref{eq:path-integral-discrete}---sums every conceivable path with the amplitude $e^{iS[x]/\hbar}$. When the action $S$ is large compared to $\hbar$, the phase oscillates rapidly from one path to the next, and contributions from neighbouring paths cancel. The only paths that survive are those for which the phase is stationary under small variations: $\delta S = 0$. These are the classical paths, and the stationary-phase approximation turns the path integral into Hamilton's principle. This section develops the stationary-phase method for finite-dimensional integrals, applies it to the functional integral, recovers the Hamilton-Jacobi equation as the $\hbar\to0$ limit of the Schrodinger propagator, and verifies the construction on the de~Broglie wave packet.
+
+\medskip\noindent\textbf{Stationary phase in one dimension.}
+Let $f(x)$ and $g(x)$ be smooth real-valued functions, and consider the integral
+\begin{linenomath}
+\begin{equation}
+I(\hbar) = \int_{-\infty}^{\infty} dx\; g(x)\, e^{i f(x)/\hbar},
+\end{equation}
+\end{linenomath}
+in the limit $\hbar \to 0$. The exponential oscillates with frequency $f'(x)/\hbar$; as $\hbar$ decreases, the oscillations become arbitrarily rapid except near points $x_c$ where $f'(x_c) = 0$, the stationary-phase points. Near such a point, expand $f(x)$ to second order and $g(x)$ to zeroth order:
+\begin{linenomath}
+\begin{align}
+f(x) &= f(x_c) + \frac{1}{2} f''(x_c)(x - x_c)^2 + O((x-x_c)^3), \\
+g(x) &= g(x_c) + O(x-x_c).
+\end{align}
+\end{linenomath}
+Insert the expansions and extend the integration limits to $\pm\infty$ (the error from this extension is of higher order in $\hbar$ because the integrand oscillates rapidly away from $x_c$):
+\begin{linenomath}
+\begin{align}
+I(\hbar) &\approx g(x_c)\, e^{i f(x_c)/\hbar} \int_{-\infty}^{\infty} dx\; \exp\!\left[\frac{i}{2\hbar} f''(x_c)(x-x_c)^2\right] \notag\\
+&= g(x_c)\, e^{i f(x_c)/\hbar}\; \sqrt{\frac{2\pi i\hbar}{f''(x_c)}}.
+\label{eq:stationary-phase-1d}
+\end{align}
+\end{linenomath}
+The last equality uses the Fresnel Gaussian integral $\int_{-\infty}^{\infty} d\xi\, e^{i a \xi^2/2} = \sqrt{2\pi i / a}$, valid for $a = f''(x_c)/\hbar \neq 0$ with the principal branch of the square root. If $f(x)$ has multiple stationary points, the integral receives a contribution of the form \eqref{eq:stationary-phase-1d} from each, and the total is their sum. For an $M$-dimensional integral over $\bm x \in \mathbb{R}^M$, the formula generalizes to
+\begin{linenomath}
+\begin{equation}
+\int d^M x\; g(\bm x)\, e^{i f(\bm x)/\hbar} \approx g(\bm x_c)\, e^{i f(\bm x_c)/\hbar}\;
+\sqrt{\frac{(2\pi i\hbar)^M}{\det H(\bm x_c)}},
+\end{equation}
+\end{linenomath}
+where $H_{ij}(\bm x_c) := \partial_i\partial_j f(\bm x_c)$ is the Hessian matrix at the stationary point, and the square root of the determinant carries the principal branch.
+
+\begin{note}
+The stationary-phase formula \eqref{eq:stationary-phase-1d} is the leading term of an asymptotic expansion in powers of $\hbar$. The next term is of order $\hbar$ relative to the leading term. The expansion is asymptotic, not convergent, in typical applications. The error in truncating at leading order is $O(\hbar)$ provided $f''(x_c) \neq 0$; when $f''(x_c) = 0$, the expansion must be carried to higher order, and the scaling with $\hbar$ changes.
+\end{note}
+
+\medskip\noindent\textbf{Functional stationary phase.}
+The path integral is an integral over the infinite-dimensional space of paths. The role of $f(x)$ is played by the classical action functional $S[x(t)]$, and the stationary-phase condition $\delta S = 0$ with fixed endpoints $x(0) = x'$, $x(t) = x$ selects the classical path $x_c(t')$ satisfying the Euler--Lagrange equation
+\begin{linenomath}
+\begin{equation}
+\frac{d}{dt'}\frac{\partial L}{\partial \dot{x}} - \frac{\partial L}{\partial x} = 0,
+\qquad L = \frac{m}{2}\dot{x}^2 - V(x).
+\end{equation}
+\end{linenomath}
+Expand an arbitrary path about the classical path:
+\begin{linenomath}
+\begin{equation}
+x(t') = x_c(t') + y(t'), \qquad y(0) = y(t) = 0.
+\end{equation}
+\end{linenomath}
+The action functional is expanded in a functional Taylor series:
+\begin{linenomath}
+\begin{align}
+S[x_c + y] = S[x_c] + \int_0^t dt'\, \frac{\delta S}{\delta x(t')}\bigg|_{x_c}\! y(t')
++ \frac{1}{2}\int_0^t dt'\int_0^t dt''\, y(t') \frac{\delta^2 S}{\delta x(t')\delta x(t'')}\bigg|_{x_c}\! y(t'')
++ \cdots
+\end{align}
+\end{linenomath}
+The linear term vanishes because $x_c$ satisfies $\delta S = 0$. The second (quadratic) term determines the leading quantum corrections. For the Lagrangian $L = \frac{m}{2}\dot{x}^2 - V(x)$, the second functional derivative is computed by varying the Euler--Lagrange equation. Write the action as $S = \int dt' [\frac{m}{2}\dot{x}^2 - V(x)]$. Varying once gives $\delta S = \int dt' [-m\ddot{x} - V'(x)]\delta x(t')$, with the boundary terms vanishing for fixed-endpoint variations. Varying a second time yields the Jacobi operator:
+\begin{linenomath}
+\begin{equation}
+\frac{\delta^2 S}{\delta x(t')\delta x(t'')}\bigg|_{x_c}
+= \left[-m\frac{d^2}{dt'^2} - V''(x_c(t'))\right]\delta(t'-t'').
+\label{eq:fluctuation-operator}
+\end{equation}
+\end{linenomath}
+The path integral therefore factorizes, to quadratic order, into the classical contribution times a Gaussian functional integral over the fluctuation $y(t')$:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) \approx e^{i S[x_c]/\hbar}
+\int_{y(0)=0}^{y(t)=0} \mathcal{D}y\;
+\exp\!\left[\frac{i}{2\hbar}\int_0^t dt' dt''\, y(t')\frac{\delta^2 S}{\delta x(t')\delta x(t'')}\bigg|_{x_c} y(t'')\right].
+\end{equation}
+\end{linenomath}
+The measure $\mathcal{D}y$ is the formal notation \S9.2 defines; the Gaussian functional integral is defined by the discretized limit --- the $N$-slice product with the quadratic form evaluated on the discrete path.
+
+\medskip\noindent\textbf{The Van Vleck propagator.}
+The Gaussian functional integral over $y$ evaluates to $[\det(\delta^2 S/\delta x\delta x)]^{-1/2}$, where the determinant is the functional determinant of the Jacobi operator \eqref{eq:fluctuation-operator} on the interval $[0,t]$ with Dirichlet boundary conditions $y(0)=y(t)=0$, normalized by the free-particle determinant. The result, after evaluating the prefactor, is the semiclassical Van Vleck propagator:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) \approx \sqrt{\frac{i}{2\pi\hbar}\,\frac{\partial^2 S_c}{\partial x\,\partial x'}}\;
+\exp\!\left[\frac{i}{\hbar}S_c(x,t;x',0)\right].
+\label{eq:van-vleck-propagator}
+\end{equation}
+\end{linenomath}
+Here $S_c(x,t;x',0)$ is the classical action evaluated on the unique classical path connecting $(x',0)$ to $(x,t)$, and the prefactor contains the Van Vleck determinant $\partial^2 S_c/\partial x\partial x'$. When multiple classical paths connect the endpoints, the propagator is the sum of terms of the form \eqref{eq:van-vleck-propagator}, one per classical path, each with an additional Maslov phase correction at caustics (points where $\partial^2 S_c / \partial x \partial x' = 0$ and the simple prefactor diverges).
+
+\begin{note}
+The full derivation of the prefactor \eqref{eq:van-vleck-propagator} from the functional determinant of the Jacobi operator is not given here in its most general form. The transformation from the functional determinant to the Van Vleck determinant $\partial^2 S_c/\partial x \partial x'$ relies on the Jacobi field equation and the properties of the action as a generating function. The free-particle and harmonic-oscillator cases, computed explicitly in \S\ref{sec:feynman-construction} and \S\ref{sec:harmonic-oscillator-path-integral}, verify the formula. The general derivation can be found in Schulman (1981) and Kleinert (2009).
+\end{note}
+
+\medskip\noindent\textbf{Recovery of classical mechanics.}
+In the limit $\hbar \to 0$, or operationally when $S_c \gg \hbar$, the path integral is dominated by the single classical path satisfying $\delta S = 0$. All other paths contribute phases that oscillate rapidly and cancel. A particle prepared at $x'$ at time zero and detected at $x$ at time $t$ has its transition amplitude controlled by the classical trajectory connecting the two events. Classical mechanics is not an independent postulate layered on top of quantum mechanics; it is the stationary-phase limit of the quantum superposition principle. Hamilton's principle $\delta S = 0$ emerges from the requirement that the amplitude $e^{iS/\hbar}$ not be cancelled by destructive interference from neighbouring paths.
+
+\medskip\noindent\textbf{Hamilton--Jacobi repaid.}
+The classical action $S_c(x,t;x',0)$, regarded as a function of the final position $x$ and the elapsed time $t$, satisfies a first-order partial differential equation. Differentiating the action with respect to the final endpoint: the definition $S_c = \int_0^t L(x_c(t'), \dot{x}_c(t'))\,dt'$ where $x_c$ solves the equations of motion with fixed $x(0)=x'$ and $x(t)=x$. Varying the final point $x \to x + \delta x$ shifts the entire classical path; the variation of the action with respect to the endpoint is the canonical momentum at that endpoint:
+\begin{linenomath}
+\begin{equation}
+\frac{\partial S_c}{\partial x} = p(t) = m\dot{x}_c(t).
+\end{equation}
+\end{linenomath}
+Similarly, the variation with respect to the final time $t$ is related to the Hamiltonian. For a time-independent Lagrangian, the total time derivative of the action along a path that solves the equations of motion is
+\begin{linenomath}
+\begin{equation}
+\frac{d S_c}{dt} = L(x_c(t),\dot{x}_c(t)) = p\dot{x} - H(x,p),
+\end{equation}
+\end{linenomath}
+where the second equality is the Legendre transform defining the Hamiltonian. Treating $S_c$ as a function of the final position $x$ and time $t$, with the initial point fixed, the chain rule gives
+\begin{linenomath}
+\begin{equation}
+\frac{d S_c}{dt} = \frac{\partial S_c}{\partial t} + \frac{\partial S_c}{\partial x}\,\dot{x}
+= \frac{\partial S_c}{\partial t} + p\dot{x}.
+\end{equation}
+\end{linenomath}
+Equating the two expressions for $dS_c/dt$ and eliminating $p\dot{x}$ yields the Hamilton--Jacobi equation:
+\begin{linenomath}
+\begin{equation}
+\frac{\partial S_c}{\partial t} + H\!\left(x, \frac{\partial S_c}{\partial x}\right) = 0,
+\qquad
+H(x,p) = \frac{p^2}{2m} + V(x).
+\label{eq:hj-recovery}
+\end{equation}
+\end{linenomath}
+This is the repayment of ch1's action-principle debt. In the $\hbar\to0$ limit, the Schrodinger equation for a wave function of the WKB form $\psi(x,t) \sim e^{iS(x,t)/\hbar}$ reduces, at leading order in $\hbar$, to \eqref{eq:hj-recovery}. The Schrodinger equation is the quantum deformation of the Hamilton--Jacobi equation, with the term $-(i\hbar/2m)\partial^2 S/\partial x^2$ supplying the $O(\hbar)$ quantum correction. The full WKB expansion is the subject of Section~\ref{sec:wkb}.
+
+\medskip\noindent\textbf{De Broglie packet: classical motion and spreading.}
+The stationary-phase method reproduces the dynamics of a quantum wave packet directly. The time-evolved wave function is
+\begin{linenomath}
+\begin{equation}
+\psi(x,t) = \int dx'\, K_0(x,t;x',0)\,\psi(x',0),
+\end{equation}
+\end{linenomath}
+where $K_0$ is the free-particle propagator \eqref{eq:free-propagator}. Writing $K_0 = \sqrt{m/2\pi i\hbar t}\, e^{i S_0/\hbar}$ with $S_0(x,t;x',0) = m(x-x')^2/2t$, the integral is of stationary-phase type in the variable $x'$. The total phase is
+\begin{linenomath}
+\begin{equation}
+\Phi(x') = S_0(x,t;x',0) + \frac{\hbar}{i}\ln\psi(x',0).
+\end{equation}
+\end{linenomath}
+The stationary-phase condition $\partial\Phi/\partial x' = 0$ gives
+\begin{linenomath}
+\begin{equation}
+\frac{\partial S_0}{\partial x'} + \frac{\hbar}{i}\frac{\psi'(x',0)}{\psi(x',0)} = 0.
+\label{eq:stationary-phase-packet}
+\end{equation}
+\end{linenomath}
+For a Gaussian initial wave packet of the form used in Section~\ref{sec:propagator} (ch5, \eqref{eq:packet-spreading}),
+\begin{linenomath}
+\begin{equation}
+\psi(x',0) = \frac{1}{(2\pi\sigma^2)^{1/4}}\,
+\exp\!\left[-\frac{(x'-x_0)^2}{4\sigma^2} + \frac{i}{\hbar}p_0(x'-x_0)\right],
+\end{equation}
+\end{linenomath}
+the logarithmic derivative is $\psi'/\psi = -(x'-x_0)/2\sigma^2 + ip_0/\hbar$. The derivative of the free action is $\partial S_0/\partial x' = -m(x-x')/t$. The stationary-phase condition becomes
+\begin{linenomath}
+\begin{equation}
+-\frac{m}{t}(x - x') - \frac{i\hbar}{2\sigma^2}(x'-x_0) + p_0 = 0.
+\end{equation}
+\end{linenomath}
+At leading order in $\hbar$, the imaginary term is $O(\hbar)$ relative to the real terms and the stationary point is $x' = x - p_0 t/m$, the classical trajectory of a free particle with momentum $p_0$. Including the $O(\hbar)$ term shifts the stationary point into the complex plane by an amount $O(\hbar)$, which contributes to the spreading. The quadratic fluctuation integral around the stationary point produces the Gaussian factor whose width evolves as
+\begin{linenomath}
+\begin{equation}
+\Delta x(t)^2 = \sigma^2 + \left(\frac{\Delta p}{m}\right)^2 t^2,
+\qquad \Delta p = \frac{\hbar}{2\sigma},
+\end{equation}
+\end{linenomath}
+reproducing the exact spreading law \eqref{eq:packet-spreading} derived in ch5 from the momentum-space representation. The stationary-phase approximation is exact for the free-particle Gaussian packet because the action is quadratic and the initial wave function is Gaussian: every term beyond quadratic order in the expansion of the phase vanishes identically.
+
+\medskip\noindent\textbf{Example: linear potential.}
+For a uniform gravitational field $V(x) = mgx$, the classical equation of motion is $m\ddot{x} = -mg$, whose solution with boundary conditions $x(0) = x'$, $x(t) = x$ is
+\begin{linenomath}
+\begin{equation}
+x_c(t') = x' + \left(\frac{x - x'}{t} + \frac{1}{2}gt\right)t' - \frac{1}{2}g t'^2.
+\end{equation}
+\end{linenomath}
+The velocity is $\dot{x}_c(t') = (x-x')/t + g(t/2 - t')$. The classical action is evaluated by inserting $x_c$ into $L = \frac{m}{2}\dot{x}^2 - mgx$ and integrating from $0$ to $t$. The kinetic term gives
+\begin{linenomath}
+\begin{equation}
+\int_0^t dt'\,\frac{m}{2}\dot{x}_c^2
+= \frac{m}{2}\int_0^t dt'\,\left[\frac{x-x'}{t} + g\left(\frac{t}{2} - t'\right)\right]^2
+= \frac{m(x-x')^2}{2t} + \frac{mg^2 t^3}{24}.
+\end{equation}
+\end{linenomath}
+The potential term gives
+\begin{linenomath}
+\begin{equation}
+-\int_0^t dt'\, mg\,x_c(t')
+= -mg\int_0^t dt'\,\left[x' + \left(\frac{x-x'}{t}+\frac{gt}{2}\right)t' - \frac{g}{2}t'^2\right]
+= -\frac{mgt}{2}(x+x') - \frac{mg^2 t^3}{12}.
+\end{equation}
+\end{linenomath}
+The two cubic terms in $g^2 t^3$ combine: $1/24 - 1/12 = -1/24$. The full classical action is
+\begin{linenomath}
+\begin{equation}
+S_c(x,t;x',0) = \frac{m}{2t}(x-x')^2 - \frac{mgt}{2}(x+x') - \frac{mg^2 t^3}{24}.
+\label{eq:linear-potential-action}
+\end{equation}
+\end{linenomath}
+The three terms have clear physical meanings: the first is the free-particle kinetic action, the second is the average potential energy times the duration, and the third is the action accumulated from the parabolic deviation from uniform motion. The Jacobi operator \eqref{eq:fluctuation-operator} has $V'' = 0$, so the fluctuation integral is identical to the free-particle case. The Van Vleck prefactor is exactly $\sqrt{m/2\pi i\hbar t}$, which is also the free-particle prefactor. The stationary-phase evaluation is therefore exact: for a linear potential, the action is quadratic in the path, and the semiclassical propagator \eqref{eq:van-vleck-propagator} with $S_c$ from \eqref{eq:linear-potential-action} and the free-particle prefactor gives the exact quantum-mechanical propagator. This is the second instance, after the free particle itself, where the semiclassical approximation is exact; the harmonic oscillator, the subject of Section~\ref{sec:harmonic-oscillator-path-integral}, is the paradigm.
+
+\begin{note}
+The exactness of the stationary-phase approximation for any Lagrangian at most quadratic in $x$ and $\dot{x}$ is a general theorem. When $L = a(t)\dot{x}^2 + b(t)x\dot{x} + c(t)x^2 + d(t)\dot{x} + e(t)x + f(t)$, the action is a quadratic functional, the functional integral is a Gaussian integral, and the stationary-phase (saddle-point) evaluation of a Gaussian integral is exact. The free particle, the linear potential, and the harmonic oscillator exhaust the elementary examples in one dimension; the forced harmonic oscillator adds a linear driving term and remains quadratic (and therefore exactly solvable).
+\end{note}
+
+\medskip\noindent\textbf{Advantage and limitation.}
+The advantage of the stationary-phase method is conceptual: it exhibits classical mechanics as the $\hbar\to0$ limit of quantum mechanics, not as a logically prior theory. Hamilton's principle, the Euler--Lagrange equations, and the Hamilton--Jacobi equation are all recovered from the quantum propagator by the systematic application of the stationary-phase condition. The method also provides the leading semiclassical approximation --- the Van Vleck propagator \eqref{eq:van-vleck-propagator} --- for any potential, with the classical action as the phase and the Van Vleck determinant as the prefactor encoding the focusing of classical trajectories. Its limitation is that the simple stationary-phase formula breaks down at caustics (where $\partial^2 S_c / \partial x \partial x' = 0$), near potential barriers where no real classical path connects the endpoints, and in regions where multiple classical paths contribute with comparable weight. The full machinery --- Maslov indices, complex classical paths, and uniform asymptotic expansions --- is needed to repair these defects. For quadratic actions, however, the stationary-phase approximation is exact, and the harmonic oscillator is the central example to which we now turn.
+
+
+\section{The Harmonic Oscillator: Exact Evaluation by Gaussian Integral}
+\label{sec:harmonic-oscillator-path-integral}
+
+The stationary-phase approximation is exact when the action is a quadratic functional of the path. The harmonic oscillator is the paradigm: its Lagrangian is quadratic in $x$ and $\dot{x}$, its classical equation of motion is linear, and every term beyond quadratic order in the functional Taylor expansion of the action vanishes identically. The path integral reduces to the classical action times a Gaussian fluctuation integral whose determinant can be evaluated in closed form. The result is the Mehler kernel --- the exact Feynman propagator for the harmonic oscillator --- from which the energy spectrum $E_n = \hbar\omega(n+1/2)$ is recovered independently of the operator method of ch5. The Maslov index, the phase accumulated at each half-period when classical paths reconverge, is computed directly from the prefactor's branch structure.
+
+\medskip\noindent\textbf{Lagrangian and classical action.}
+The Lagrangian for a one-dimensional harmonic oscillator of mass $m$ and frequency $\omega$ is
+\begin{linenomath}
+\begin{equation}
+L = \frac{m}{2}\dot{x}^2 - \frac{m\omega^2}{2}x^2.
+\end{equation}
+\end{linenomath}
+The Euler--Lagrange equation is $\ddot{x} + \omega^2 x = 0$, a linear second-order equation. The general solution is a superposition of $\sin\omega t'$ and $\cos\omega t'$. Imposing the boundary conditions $x(0) = x'$ and $x(t) = x$ fixes the two constants. Write $x_c(t') = A\sin\omega t' + B\cos\omega t'$. Then $x_c(0) = B = x'$, and $x_c(t) = A\sin\omega t + x'\cos\omega t = x$, giving $A = (x - x'\cos\omega t)/\sin\omega t$. The classical path is therefore
+\begin{linenomath}
+\begin{equation}
+x_c(t') = x'\,\frac{\sin\omega(t-t')}{\sin\omega t} + x\,\frac{\sin\omega t'}{\sin\omega t}.
+\label{eq:oscillator-classical-path}
+\end{equation}
+\end{linenomath}
+The form is symmetric in the initial and final positions, as required by time-reversal invariance of the Lagrangian.
+
+The classical action is evaluated on this path. A direct integration of the Lagrangian is possible but a shortcut simplifies the computation. For the harmonic oscillator, the Lagrangian can be written as a total time derivative on any solution of the equation of motion:
+\begin{linenomath}
+\begin{equation}
+L = \frac{m}{2}(\dot{x}_c^2 - \omega^2 x_c^2)
+= \frac{m}{2}\frac{d}{dt'}\bigl(x_c \dot{x}_c\bigr),
+\end{equation}
+\end{linenomath}
+because $d(x_c\dot{x}_c)/dt' = \dot{x}_c^2 + x_c\ddot{x}_c = \dot{x}_c^2 - \omega^2 x_c^2$, using the equation of motion $\ddot{x}_c = -\omega^2 x_c$. The action reduces to a boundary term:
+\begin{linenomath}
+\begin{equation}
+S_c = \int_0^t dt'\,L = \frac{m}{2}\Bigl[x_c(t)\dot{x}_c(t) - x_c(0)\dot{x}_c(0)\Bigr].
+\end{equation}
+\end{linenomath}
+The velocities at the endpoints are obtained from \eqref{eq:oscillator-classical-path}:
+\begin{linenomath}
+\begin{align}
+\dot{x}_c(0) &= \frac{\omega}{\sin\omega t}\bigl(x - x'\cos\omega t\bigr), \\
+\dot{x}_c(t) &= \frac{\omega}{\sin\omega t}\bigl(x\cos\omega t - x'\bigr).
+\end{align}
+\end{linenomath}
+Inserting $x_c(0) = x'$, $x_c(t) = x$, and the velocities into the boundary expression:
+\begin{linenomath}
+\begin{align}
+S_c &= \frac{m}{2}\left[x\cdot\frac{\omega}{\sin\omega t}(x\cos\omega t - x') - x'\cdot\frac{\omega}{\sin\omega t}(x - x'\cos\omega t)\right] \notag\\
+&= \frac{m\omega}{2\sin\omega t}\Bigl[x^2\cos\omega t - xx' - x'x + x'^2\cos\omega t\Bigr] \notag\\
+&= \frac{m\omega}{2\sin\omega t}\Bigl[(x^2 + x'^2)\cos\omega t - 2xx'\Bigr].
+\label{eq:oscillator-classical-action}
+\end{align}
+\end{linenomath}
+This is the classical action of the harmonic oscillator. The $\omega \to 0$ limit provides a consistency check. Expanding $\sin\omega t \approx \omega t - \omega^3 t^3/6$ and $\cos\omega t \approx 1 - \omega^2 t^2/2$, the leading behaviour of \eqref{eq:oscillator-classical-action} is
+\begin{linenomath}
+\begin{equation}
+S_c \xrightarrow{\omega\to 0} \frac{m}{2t}(x-x')^2,
+\end{equation}
+\end{linenomath}
+which is the free-particle action appearing in \eqref{eq:free-propagator}. The $\omega$-dependent corrections begin at $O(\omega^2)$ and encode the potential's influence on the classical motion.
+
+\medskip\noindent\textbf{Fluctuation integral.}
+Every path satisfying the boundary conditions can be written as the classical path plus a fluctuation vanishing at the endpoints:
+\begin{linenomath}
+\begin{equation}
+x(t') = x_c(t') + y(t'), \qquad y(0) = y(t) = 0.
+\end{equation}
+\end{linenomath}
+The action evaluated on $x_c + y$ splits into three groups of terms:
+\begin{linenomath}
+\begin{align}
+S[x_c + y] &= \int_0^t dt'\,\left[\frac{m}{2}(\dot{x}_c + \dot{y})^2 - \frac{m\omega^2}{2}(x_c + y)^2\right] \notag\\
+&= S_c + \int_0^t dt'\,m\bigl(\dot{x}_c\dot{y} - \omega^2 x_c y\bigr) + \int_0^t dt'\,\frac{m}{2}\bigl(\dot{y}^2 - \omega^2 y^2\bigr).
+\end{align}
+\end{linenomath}
+The first term is the classical action. The cross term (linear in $y$) is shown to vanish by an integration by parts. The $\dot{x}_c \dot{y}$ term is integrated:
+\begin{linenomath}
+\begin{equation}
+\int_0^t dt'\,\dot{x}_c \dot{y} = \bigl[\dot{x}_c y\bigr]_0^t - \int_0^t dt'\,\ddot{x}_c y = -\int_0^t dt'\,\ddot{x}_c y,
+\end{equation}
+\end{linenomath}
+because $y(0)=y(t)=0$ eliminates the boundary term. The cross term becomes
+\begin{linenomath}
+\begin{equation}
+m\int_0^t dt'\,\bigl(\dot{x}_c\dot{y} - \omega^2 x_c y\bigr)
+= -m\int_0^t dt'\,\bigl(\ddot{x}_c + \omega^2 x_c\bigr)y = 0,
+\end{equation}
+\end{linenomath}
+vanishing by the classical equation of motion $\ddot{x}_c + \omega^2 x_c = 0$. The action therefore splits exactly:
+\begin{linenomath}
+\begin{equation}
+S[x] = S_c + \frac{m}{2}\int_0^t dt'\,\bigl(\dot{y}^2 - \omega^2 y^2\bigr).
+\end{equation}
+\end{linenomath}
+No approximation has been made; the exactness follows from the quadratic nature of the Lagrangian. The second term is the fluctuation action. Integrating $\dot{y}^2$ by parts (the boundary term again vanishes because $y(0)=y(t)=0$) gives the Jacobi-operator form:
+\begin{linenomath}
+\begin{equation}
+\frac{m}{2}\int_0^t dt'\,y(t')\!\left[-\frac{d^2}{dt'^2} - \omega^2\right]\!y(t').
+\end{equation}
+\end{linenomath}
+The operator $-\partial_t^2 - \omega^2$ on the interval $[0,t]$ with Dirichlet boundary conditions is the Jacobi operator \eqref{eq:fluctuation-operator} specialized to $V''(x_c) = m\omega^2$, which is constant because the potential is quadratic.
+
+The path integral therefore factorizes exactly:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = e^{iS_c/\hbar}\,
+\int_{y(0)=0}^{y(t)=0} \mathcal{D}y\;
+\exp\!\left[\frac{im}{2\hbar}\int_0^t dt'\,y(t')\!\left(-\frac{d^2}{dt'^2} - \omega^2\right)\!y(t')\right].
+\end{equation}
+\end{linenomath}
+The measure $\mathcal{D}y$ carries the same formal meaning as in Section~\ref{sec:feynman-construction}: it is the $N\to\infty$ limit of the discretized product measure. The fluctuation integral is a Gaussian functional integral whose value is the reciprocal square root of the functional determinant of the Jacobi operator, normalized by the free-particle ($\omega = 0$) determinant.
+
+\begin{note}
+The functional determinant $\det(-\partial_t^2 - \omega^2)$ on $[0,t]$ with Dirichlet boundary conditions is evaluated by the Gelfand-Yaglom theorem, which states that the ratio of this determinant to the free-particle determinant $\det(-\partial_t^2)$ is given by the value at $t$ of the solution $f(t')$ to the homogeneous Jacobi equation $(-\partial_t^2 - \omega^2)f = 0$ with initial conditions $f(0) = 0$, $f'(0) = 1$, divided by the free-particle solution $f_0(t') = t'$:
+\begin{linenomath}
+\begin{equation}
+\frac{\det(-\partial_t^2 - \omega^2)}{\det(-\partial_t^2)} = \frac{f(t)}{f_0(t)} = \frac{\sin\omega t}{\omega t}.
+\end{equation}
+\end{linenomath}
+The theorem was proved by Gelfand and Yaglom (1960); the proof is deferred to Appendix~A. The free-particle normalization is fixed by the known free propagator \eqref{eq:free-propagator}, which was verified from the path-integral construction in Section~\ref{sec:feynman-construction}. An alternative route --- discretizing the fluctuation integral on $N$ time slices, evaluating the tridiagonal determinant in closed form, and taking the $N\to\infty$ limit --- is the content of ch9, Exercise~5.
+\end{note}
+
+Assembling the factors: the free-particle normalization contributes $\sqrt{m/(2\pi i\hbar t)}$. Multiplying by the reciprocal square root of the Gelfand-Yaglom ratio gives the fluctuation prefactor:
+\begin{linenomath}
+\begin{equation}
+\sqrt{\frac{m}{2\pi i\hbar t}}\;\sqrt{\frac{\omega t}{\sin\omega t}}
+= \sqrt{\frac{m\omega}{2\pi i\hbar\sin\omega t}}.
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{The Mehler kernel.}
+Combining the classical action \eqref{eq:oscillator-classical-action} with the fluctuation prefactor yields the exact Feynman propagator for the harmonic oscillator:
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \sqrt{\frac{m\omega}{2\pi i\hbar\sin\omega t}}\;
+\exp\!\left[\frac{im\omega}{2\hbar\sin\omega t}\Bigl((x^2 + x'^2)\cos\omega t - 2xx'\Bigr)\right].
+\label{eq:mehler-kernel}
+\end{equation}
+\end{linenomath}
+This is the Mehler kernel, named after F.\thinspace G.\thinspace Mehler who first derived the associated bilinear generating function for Hermite polynomials in 1866. The form is exact for all $t$ and all $x, x'$. As a consistency check, the $\omega \to 0$ limit recovers the free propagator \eqref{eq:free-propagator}: the prefactor becomes $\sqrt{m/(2\pi i\hbar t)}$, and the exponent reduces to $im(x-x')^2/(2\hbar t)$.
+
+\medskip\noindent\textbf{Maslov index and caustics.}
+The prefactor $\sqrt{1/\sin\omega t}$ has square-root branch points at the zeros of $\sin\omega t$, which occur at $t_k = k\pi/\omega$ for integer $k$. These are the times at which all classical paths emanating from $x'$ reconverge --- the focal points, or caustics, of the classical flow. To determine the phase of the prefactor across each caustic, the square root must be analytically continued. The Feynman propagator is defined with the causal $m - i\epsilon$ prescription, equivalent to replacing $\sin\omega t \to \sin\omega t - i\epsilon$. With this prescription, the argument of $\sin\omega t$ acquires a small negative imaginary part; as $t$ increases through each simple zero, the phase of $\sin\omega t$ jumps by $-\pi$, and the square root acquires a factor of $e^{-i\pi/2}$ per half-period. Explicitly, at $t = k\pi/\omega$ ($k = 1, 2, 3, \dots$):
+\begin{linenomath}
+\begin{equation}
+\sqrt{\frac{1}{\sin\omega t}} \;\longrightarrow\; e^{-i k\pi/2}\,
+\sqrt{\frac{1}{|\sin\omega t|}}.
+\label{eq:maslov-index}
+\end{equation}
+\end{linenomath}
+The phase $-\pi/2$ per half-period is the Morse--Maslov index of the harmonic oscillator. Each half-period, the Jacobi operator acquires one additional negative eigenvalue (a conjugate point along the classical path), and the Maslov index counts these sign changes in the quadratic form of the fluctuation action. The result is a topological phase that the simple stationary-phase formula \eqref{eq:van-vleck-propagator} would miss: the Van Vleck prefactor diverges at caustics because $\partial^2 S_c/\partial x \partial x' = -m\omega/(\sin^2\omega t) \to \infty$ as $\sin\omega t \to 0$, and the Maslov correction supplies the finite, physically correct phase.
+
+Two particular cases are instructive. At the half-period $t = \pi/\omega$, $\sin\omega t = 0$ and $\cos\omega t = -1$. Taking the limit carefully (the exponent becomes singular; the kernel reduces to a delta function), the Mehler kernel gives
+\begin{linenomath}
+\begin{equation}
+K(x,\pi/\omega;x',0) = e^{-i\pi/2}\,\delta(x + x'),
+\end{equation}
+\end{linenomath}
+up to a normalization constant. The state is spatially inverted: every position eigenstate $\ket{x'}$ evolves in half a period to the state at the opposite point $-x'$, multiplied by the Maslov phase $e^{-i\pi/2}$. At the full period $t = 2\pi/\omega$, $\sin\omega t = 0$ and $\cos\omega t = 1$, producing
+\begin{linenomath}
+\begin{equation}
+K(x,2\pi/\omega;x',0) = e^{-i\pi}\,\delta(x - x') = -\delta(x - x').
+\end{equation}
+\end{linenomath}
+The state returns to itself after one classical period but with a minus sign. After two periods ($t = 4\pi/\omega$), the accumulated phase is $e^{-2\pi i} = 1$, and the state returns to $+1$ times itself. This is the harmonic oscillator's counterpart of the spinor sign \eqref{eq:spinor-sign}: the $4\pi$ periodicity of the quantum evolution, versus the $2\pi$ periodicity of the classical motion, is the oscillator's version of the double cover of the rotation group (ch6, Section~\ref{sec:rotation-group}).
+
+\begin{note}
+The classical harmonic oscillator is a perfect lens in phase space: every point $(q,p)$ rotates at frequency $\omega$ around the origin in phase space. After one half-period, every point is mapped to its antipode $(q,p) \to (-q,-p)$. After one full period, every point returns to itself. The quantum kernel reproduces this mapping, with the Maslov phase $e^{-i\pi/2}$ at each half-period playing the role of the Guoy phase accumulated by a focused wave.
+\end{note}
+
+\medskip\noindent\textbf{Energy spectrum from spectral expansion.}
+The propagator can be expanded in the basis of energy eigenstates. From the evolution axiom \eqref{eq:evolution-operator}, the kernel has the spectral resolution
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \sum_{n=0}^{\infty} \psi_n(x)\psi_n^*(x')\,e^{-iE_n t/\hbar},
+\label{eq:mehler-spectral}
+\end{equation}
+\end{linenomath}
+where $\psi_n(x)$ are the normalized energy eigenfunctions and $E_n$ are the energy eigenvalues. The Mehler kernel \eqref{eq:mehler-kernel} must therefore be expandable as a series in $e^{-i\omega t}$. Extract the time dependence by writing the trigonometric functions as exponentials: $\sin\omega t = (e^{i\omega t} - e^{-i\omega t})/(2i)$ and $\cos\omega t = (e^{i\omega t} + e^{-i\omega t})/2$. Define the dimensionless variables $\xi = \sqrt{m\omega/\hbar}\,x$ and $\xi' = \sqrt{m\omega/\hbar}\,x'$. The Mehler kernel becomes
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \sqrt{\frac{m\omega}{\pi\hbar}}\,
+\frac{e^{-i\omega t/2}}{\sqrt{1 - e^{-2i\omega t}}}\,
+\exp\!\left[-\frac{1}{2}(\xi^2 + \xi'^2)\,\frac{1 + e^{-2i\omega t}}{1 - e^{-2i\omega t}}
++ \frac{2\xi\xi'\,e^{-i\omega t}}{1 - e^{-2i\omega t}}\right].
+\end{equation}
+\end{linenomath}
+This is precisely the Mehler generating function for Hermite polynomials. Expanding the right-hand side as a power series in $e^{-i\omega t}$,
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \sum_{n=0}^{\infty} \psi_n(x)\psi_n(x')\,
+e^{-i\omega (n + 1/2)t},
+\end{equation}
+\end{linenomath}
+where the eigenfunctions are
+\begin{linenomath}
+\begin{equation}
+\psi_n(x) = \left(\frac{m\omega}{\pi\hbar}\right)^{1/4}
+\frac{1}{\sqrt{2^n n!}}\,
+H_n\!\left(\sqrt{\frac{m\omega}{\hbar}}\,x\right)\,
+\exp\!\left[-\frac{m\omega x^2}{2\hbar}\right].
+\end{equation}
+\end{linenomath}
+The $H_n$ are the Hermite polynomials. The time dependence of each term is $e^{-i\omega(n+1/2)t}$, from which the energy eigenvalues are read off immediately:
+\begin{linenomath}
+\begin{equation}
+E_n = \hbar\omega\left(n + \frac{1}{2}\right), \qquad n = 0, 1, 2, \dots
+\end{equation}
+\end{linenomath}
+This is the harmonic oscillator spectrum, identical to \eqref{eq:number-spectrum} obtained from the ladder-operator method in ch5. The path-integral derivation is independent: it uses the classical action and the functional determinant, with no creation or annihilation operators. The two derivations cross-validate each other, and the path-integral route makes the connection between the classical action and the quantum spectrum explicit: the $\sin\omega t$ in the prefactor, which originates from the fluctuation determinant, is responsible for both the zero-point energy $\hbar\omega/2$ (the factor $e^{-i\omega t/2}$ extracted from $1/\sqrt{\sin\omega t}$) and the Maslov index.
+
+The ground state is extracted as the $n=0$ term. Its wave function is
+\begin{linenomath}
+\begin{equation}
+\psi_0(x) = \left(\frac{m\omega}{\pi\hbar}\right)^{1/4}\,
+\exp\!\left[-\frac{m\omega x^2}{2\hbar}\right],
+\end{equation}
+\end{linenomath}
+matching \eqref{eq:oscillator-ground} from the operator method. The excited states follow from the higher-order terms in the Mehler expansion; the recursion relation among the Hermite polynomials encodes the ladder structure \eqref{eq:ladder-action} of ch5 in the position representation.
+
+\medskip\noindent\textbf{Advantage and limitation.}
+The advantage of the path-integral evaluation of the harmonic oscillator is twofold. First, it exhibits the exact quantum propagator as a single compact formula --- the Mehler kernel \eqref{eq:mehler-kernel} --- whose phase is the classical action divided by $\hbar$ and whose prefactor encodes the full quantum fluctuation spectrum. No operator algebra, no basis choice, and no differential equation is required beyond the classical equation of motion and the evaluation of a Gaussian functional integral. Second, it makes the connection between the classical and quantum worlds transparent: the classical action generates the phase, the fluctuation determinant generates the energy spectrum, and the Maslov index emerges from the analytic structure of the prefactor.
+
+Its limitation is that the method does not reveal the algebraic structure that the operator method made manifest. The creation and annihilation operators \eqref{eq:ladder-action}, the number operator, the coherent states, and the forced-oscillator solution --- all of which flow naturally from the ladder algebra in ch5 --- are opaque in the path-integral register. The Mehler kernel gives the propagator, but constructing the Fock space of states and computing matrix elements of observables between excited states requires additional post-processing (the Hermite expansion) that is essentially the operator method in disguise. The two formulations are complementary: the operator method reveals the algebraic structure, and the path integral reveals the classical-quantum correspondence. Their agreement on the central example of non-relativistic quantum mechanics is a deep consistency check on the entire framework.
+
+The path integral's real power, however, is not in reproducing what the canonical formalism can do. It is in revealing physics that the canonical formalism obscures --- global properties of the configuration space, topological phases, and the role of gauge potentials that are invisible to the local Schrodinger equation. The Aharonov--Bohm effect is the paradigm, and it is the subject of the next section.
+
+
+\section{The Aharonov-Bohm Effect: Path Topology and a Measurable Phase}
+\label{sec:aharonov-bohm}
+
+The path integral has been constructed in Section~\ref{sec:feynman-construction}, verified on the free particle, and solved exactly for the harmonic oscillator in Section~\ref{sec:harmonic-oscillator-path-integral}. In each of those applications the space on which the particle moves is simply connected; the path integral reduces to a Gaussian fluctuation problem, and its power is organizational --- it reformulates operator-evolution problems as integrals and makes the semiclassical limit transparent. This section turns to an application whose physics the canonical formalism cannot capture at all without first constructing a path sum: the Aharonov-Bohm (AB) effect, in which electrons that never enter a magnetic field nonetheless register its flux as an interference phase. The effect is not a curious addendum to quantum mechanics; it is the observation that established the vector potential as the physical agent of electromagnetism in the quantum domain and that demonstrated the fundamental role of configuration-space topology in determining the state space. The path integral is the natural language for both facts, because the phase a charged particle collects along each path from the vector potential sits in the path sum as an independent factor, and the sum over paths naturally sorts itself into homotopy classes distinguished by their winding number about the flux tube.
+
+\begin{note}
+The symbol $\int\mathcal{D}\bm x$ in this section is formal notation for the limiting discretized product defined in Section~\ref{sec:feynman-construction}, Equation~\eqref{eq:path-integral-discrete}. Its sole rigorous content is the limit of the $N$-slice Lebesgue integrals on $\mathbb{R}^2$; it is not a measure in the sense of Lebesgue. The Wiener measure (imaginary time) would supply a genuine measure, but the real-time Feynman sum is defined by the discretized limit alone.
+\end{note}
+
+\subsection{Setup: Solenoid, Flux, and Multiply Connected Space}
+
+An infinite impenetrable solenoid of radius $a$ carries a magnetic flux $\Phi$ confined entirely to its interior. The electrons are excluded from the solenoid and propagate in the region outside it. Outside the solenoid the magnetic field vanishes:
+\begin{linenomath}
+\begin{equation*}
+\nabla\times\bm A = \bm B = \bm 0 \qquad (r > a),
+\end{equation*}
+\end{linenomath}
+yet the vector potential $\bm A$ itself does not vanish --- it is a pure-gauge configuration, but the gauge function is multiple-valued on the punctured plane. In cylindrical coordinates $(r,\phi)$, with the solenoid along the $z$-axis, the vector potential in the Coulomb gauge ($\nabla\cdot\bm A = 0$) takes the form
+\begin{linenomath}
+\begin{equation*}
+\bm A(\bm r) = \frac{\Phi}{2\pi r}\,\hat{\bm\phi}, \qquad r > a,
+\end{equation*}
+\end{linenomath}
+where $\Phi = \int_{\text{solenoid}} \bm B\cdot d\bm S$ is the total flux. The line integral of $\bm A$ around any closed loop encircling the solenoid once in the counterclockwise direction gives
+\begin{linenomath}
+\begin{equation}
+\oint \bm A\cdot d\bm l = \int_0^{2\pi} \frac{\Phi}{2\pi r}\,r\,d\phi = \Phi,
+\end{equation}
+\end{linenomath}
+by Stokes's theorem applied to the punctured plane. The configuration space is $\mathbb{R}^2$ with the solenoid excised --- a plane with a hole. This space is multiply connected: its fundamental group is
+\begin{linenomath}
+\begin{equation}
+\pi_1(\mathbb{R}^2\setminus\{\text{solenoid}\}) \cong \mathbb{Z},
+\end{equation}
+\end{linenomath}
+and paths from a source $\bm x'$ to a detection point $\bm x$ are classified by the integer $n$ counting how many times they wind around the solenoid (with sign for orientation). Paths with different winding numbers cannot be continuously deformed into one another: they belong to distinct homotopy classes. The AB effect is the physical consequence of this classification: different homotopy classes contribute different phases to the propagator, and the relative phase is the magnetic flux in quantum units.
+
+\subsection{Path Integral with a Magnetic Field}
+
+A nonrelativistic charged particle in an electromagnetic field is described by the Lagrangian (in Gaussian units, with the scalar potential set to zero by gauge choice)
+\begin{linenomath}
+\begin{equation*}
+L = \frac{m}{2}\,\dot{\bm x}^2 + \frac{e}{c}\,\dot{\bm x}\cdot\bm A(\bm x),
+\end{equation*}
+\end{linenomath}
+where the interaction term is the velocity dotted into the vector potential. The action is
+\begin{linenomath}
+\begin{equation*}
+S[\bm x] = S_0[\bm x] + \frac{e}{c}\int_{\bm x'}^{\bm x} \bm A(\bm x)\cdot d\bm l,
+\end{equation*}
+\end{linenomath}
+with $S_0[\bm x] = \int_0^t dt'\,(m/2)\dot{\bm x}^2$ the free-particle action. The key observation is that the $\bm A$-term couples linearly to the velocity, so its contribution to the action is the line integral of $\bm A$ along the path --- a geometric quantity depending only on the path's shape, not on the speed at which it is traversed.
+
+The $N$-slice construction of Section~\ref{sec:feynman-construction} proceeds identically for the kinetic term, while the $\bm A$-coupling contributes a factor $\exp[(ie/\hbar c)\bm A(\bm x_k)\cdot(\bm x_{k+1}-\bm x_k)]$ at each slice. Each factor exponentiates to the line integral along the piecewise-linear path. In the continuum limit, the propagator factorizes:
+\begin{linenomath}
+\begin{equation}
+K(\bm x,t;\bm x',0) = \int_{\bm x(0)=\bm x'}^{\bm x(t)=\bm x} \mathcal{D}\bm x\; \exp\left[\frac{i}{\hbar}S_0[\bm x]\right]\;\exp\left[\frac{ie}{\hbar c}\int_{\bm x'}^{\bm x}\bm A\cdot d\bm l\right].
+\label{eq:ab-propagator-path}
+\end{equation}
+\end{linenomath}
+To derive this factorization explicitly, start from the Hamiltonian (phase-space) path integral of Section~\ref{sec:feynman-construction}. The Hamiltonian for a particle in a magnetic field is
+\begin{linenomath}
+\begin{equation}
+H = \frac{1}{2m}\left(\bm p - \frac{e}{c}\bm A\right)^2.
+\end{equation}
+\end{linenomath}
+The phase-space path integral reads
+\begin{linenomath}
+\begin{equation}
+K = \int \mathcal{D}\bm x\,\mathcal{D}\bm p\; \exp\left[\frac{i}{\hbar}\int_0^t dt'\,\left(\bm p\cdot\dot{\bm x} - \frac{1}{2m}\left(\bm p - \frac{e}{c}\bm A\right)^2\right)\right].
+\end{equation}
+\end{linenomath}
+Shift the momentum integration variable: $\tilde{\bm p} = \bm p - (e/c)\bm A$. Then $\bm p\cdot\dot{\bm x} - (1/2m)(\bm p - (e/c)\bm A)^2 = \tilde{\bm p}\cdot\dot{\bm x} + (e/c)\bm A\cdot\dot{\bm x} - \tilde{\bm p}^2/2m$. The $\tilde{\bm p}$ Gaussian integral is identical to the free-particle case and produces the kinetic prefactor and $S_0$ phase. The $\bm A$-term does not involve $\tilde{\bm p}$ and factors out of the momentum integration:
+\begin{linenomath}
+\begin{equation}
+K = \int \mathcal{D}\bm x\; \exp\left[\frac{i}{\hbar}S_0[\bm x]\right]\;\exp\left[\frac{ie}{\hbar c}\int_{\bm x'}^{\bm x}\bm A\cdot d\bm l\right],
+\end{equation}
+\end{linenomath}
+which is Equation~\eqref{eq:ab-propagator-path}. The factorization is exact: the $\bm A$-coupling is linear in velocity, so it commutes with itself at different times in the path sum, and the phase factor is a functional of the path that does not participate in the Gaussian fluctuation integral. Each path contributes the free-particle amplitude multiplied by the Aharonov-Bohm phase factor $\exp[(ie/\hbar c)\int\bm A\cdot d\bm l]$.
+
+\subsection{Two-Path Interference and the AB Phase Shift}
+
+Consider the double-slit arrangement that is the operational definition of the AB effect. A coherent electron source at $\bm x'$ emits electrons toward a barrier with two slits; beyond the barrier sits a detection screen. A thin solenoid (or a toroidal magnet, which confines the return flux) is placed between the slits, so that electrons passing above the solenoid traverse one homotopy class, and electrons passing below traverse the other. The total amplitude at the detection point $\bm x$ is the sum of contributions from the two path classes:
+\begin{linenomath}
+\begin{equation}
+K \approx e^{i\phi_1}\,K_0^{(1)} + e^{i\phi_2}\,K_0^{(2)},
+\end{equation}
+\end{linenomath}
+where $K_0^{(1,2)}$ are the free-particle amplitudes for the two path classes in the absence of flux, and
+\begin{linenomath}
+\begin{equation}
+\phi_1 = \frac{e}{\hbar c}\int_{\text{above}}\!\!\!\!\bm A\cdot d\bm l,\qquad
+\phi_2 = \frac{e}{\hbar c}\int_{\text{below}}\!\!\!\!\bm A\cdot d\bm l.
+\end{equation}
+\end{linenomath}
+The interference pattern depends on the relative phase:
+\begin{linenomath}
+\begin{equation*}
+\Delta\phi = \phi_1 - \phi_2 = \frac{e}{\hbar c}\left(\int_{\text{above}} - \int_{\text{below}}\right)\bm A\cdot d\bm l = \frac{e}{\hbar c}\oint \bm A\cdot d\bm l.
+\end{equation*}
+\end{linenomath}
+The closed loop is the composite path: from source to screen above the solenoid, then back from screen to source below the solenoid. By Stokes's theorem (applied on the punctured plane, where the solenoid interior is excluded), the line integral equals the enclosed flux:
+\begin{linenomath}
+\begin{equation*}
+\Delta\phi = \frac{e}{\hbar c}\,\Phi.
+\end{equation*}
+\end{linenomath}
+Define the flux quantum:
+\begin{linenomath}
+\begin{equation}
+\Phi_0 := \frac{2\pi\hbar c}{e},
+\label{eq:flux-quantum}
+\end{equation}
+\end{linenomath}
+in Gaussian units.\footnote{In SI units, $\Phi_0^{\text{SI}} = h/e = 2\pi\hbar/e$. The factor of $c$ in the Gaussian expression arises from the different convention for the coupling of charge to the electromagnetic field: the Lagrangian term is $(e/c)\dot{\bm x}\cdot\bm A$ in Gaussian units versus $e\dot{\bm x}\cdot\bm A$ in SI. The measurable flux quantum is $h/e$ in SI and $2\pi\hbar c/e$ in Gaussian; the numerical value $\Phi_0 \approx 4.1357\times 10^{-7}\,\text{G}\,\text{cm}^2$ (Gaussian) or $2.0678\times 10^{-15}\,\text{Wb}$ (SI) is the same physical quantity.} Then the relative phase takes the compact form
+\begin{linenomath}
+\begin{equation}
+\Delta\phi = 2\pi\frac{\Phi}{\Phi_0}.
+\label{eq:ab-phase-shift}
+\end{equation}
+\end{linenomath}
+
+The interference intensity on the screen is
+\begin{linenomath}
+\begin{equation}
+I(\bm x) \propto |K|^2 \propto 1 + \cos(\Delta\phi_0 + \Delta\phi),
+\end{equation}
+\end{linenomath}
+where $\Delta\phi_0$ is the geometric phase difference between the two slits in the absence of flux (the ordinary double-slit pattern). As the flux $\Phi$ inside the solenoid is varied, the entire interference pattern shifts. The shift is periodic: when $\Phi$ increases by one flux quantum $\Phi_0$, the phase $\Delta\phi$ advances by $2\pi$, and the pattern returns to its original position.
+
+\subsection{Gauge Invariance}
+
+Under a gauge transformation
+\begin{linenomath}
+\begin{equation}
+\bm A \to \bm A + \nabla\chi(\bm x),
+\end{equation}
+\end{linenomath}
+with $\chi$ a single-valued function on the punctured plane, the phase accumulated on each path changes:
+\begin{linenomath}
+\begin{equation}
+\phi[\bm x] \to \phi[\bm x] + \frac{e}{\hbar c}\int_{\bm x'}^{\bm x} \nabla\chi\cdot d\bm l = \phi[\bm x] + \frac{e}{\hbar c}\bigl[\chi(\bm x) - \chi(\bm x')\bigr].
+\end{equation}
+\end{linenomath}
+The added term depends only on the endpoints, not on the path. It therefore factors out of the sum over all paths as an overall phase $e^{(ie/\hbar c)[\chi(\bm x)-\chi(\bm x')]}$, which does not affect any probability --- and indeed the wave function transforms as $\psi(\bm x) \to e^{(ie/\hbar c)\chi(\bm x)}\psi(\bm x)$, precisely the gauge-covariant transformation of the Schrodinger wave function. The relative phase between two paths connecting the same endpoints,
+\begin{linenomath}
+\begin{equation}
+\Delta\phi = \frac{e}{\hbar c}\oint \bm A\cdot d\bm l,
+\end{equation}
+\end{linenomath}
+is unchanged: $\oint \nabla\chi\cdot d\bm l = 0$ because $\chi$ is single-valued on the punctured plane. The AB phase shift is gauge-invariant and therefore physically measurable, even though it is expressed as a line integral of the gauge-dependent vector potential.
+
+\subsection{Topological Character: Sum over Winding Numbers}
+
+The factorization~\eqref{eq:ab-propagator-path} can be reorganized as a sum over homotopy classes. Every path from $\bm x'$ to $\bm x$ has a well-defined winding number $n \in \mathbb{Z}$ around the solenoid (the integer that classifies the homotopy class in $\pi_1$). The line integral of $\bm A$ along a path of winding number $n$ satisfies
+\begin{linenomath}
+\begin{equation}
+\int_{\bm x'}^{\bm x} \bm A\cdot d\bm l = \int_{\text{reference}} \bm A\cdot d\bm l + n\Phi,
+\end{equation}
+\end{linenomath}
+where the reference path has winding number zero (it does not enclose the solenoid). The propagator therefore decomposes as
+\begin{linenomath}
+\begin{equation*}
+K(\bm x,t;\bm x',0) = \sum_{n=-\infty}^{\infty} e^{i n e\Phi/\hbar c}\,K_n(\bm x,t;\bm x',0),
+\end{equation*}
+\end{linenomath}
+where $K_n$ sums all paths of winding number $n$ with the free-particle action and the reference-path phase. The phase factor $e^{i n e\Phi/\hbar c}$ is the one-dimensional unitary representation of the fundamental group $\pi_1 \cong \mathbb{Z}$; it is the simplest instance of a Wilson loop --- the gauge-invariant observable $\exp[(ie/\hbar c)\oint \bm A\cdot d\bm l]$ evaluated on the closed curve that encloses the flux once.\footnote{The non-abelian generalization --- the trace of the path-ordered exponential of the gauge connection around a closed loop in Yang-Mills theory --- is the Wilson loop of quantum field theory. It is cited here as a forward debt; its development belongs to gauge field theory.}
+
+\subsection{Experimental Status}
+
+The AB effect was predicted by Aharonov and Bohm in 1959 and was controversial because it appeared to ascribe physical reality to the vector potential, which in classical electrodynamics is a mathematical auxiliary. Chambers (1960) observed the predicted fringe shift in an electron interference experiment with a magnetic whisker. The definitive experiment by Tonomura et al.\ (1986) used a toroidal magnet completely covered by a superconducting shield, confirming that the phase shift occurs when the electron wave function has zero overlap with the magnetic field --- the electrons propagate entirely in a region where $\bm B = \bm 0$, yet the flux enclosed by their paths determines the interference pattern. The flux periodicity was verified to high precision: the pattern shifts by exactly one fringe when the enclosed flux changes by $\Phi_0$. The AB effect is among the most direct confirmations of the gauge principle in quantum mechanics and of the physical status of the vector potential in the quantum domain.
+
+\subsection{Example: Two-Slit Interference Pattern}
+
+Consider the standard two-slit geometry with slit separation $d$, screen distance $L \gg d$, and electron de Broglie wavelength $\lambda$. The solenoid is placed midway between the slits, carrying flux $\Phi$. For a detection point at lateral coordinate $x$ on the screen (measured from the central maximum), the geometric path difference is $\Delta s \approx d x/L$, and the geometric phase difference is $\Delta\phi_0 = 2\pi d x/(\lambda L)$. The total intensity, including the AB phase, is
+\begin{linenomath}
+\begin{equation}
+I(x) = I_0(x)\left[1 + \cos\left(\frac{2\pi d x}{\lambda L} + \frac{e\Phi}{\hbar c}\right)\right].
+\label{eq:ab-two-slit}
+\end{equation}
+\end{linenomath}
+The cosine argument contains two terms: the geometric (ordinary double-slit) phase and the topological AB phase. The entire interference pattern shifts laterally by
+\begin{linenomath}
+\begin{equation}
+\Delta x = \frac{\lambda L}{2\pi d}\,\frac{e\Phi}{\hbar c}
+\end{equation}
+\end{linenomath}
+as the flux is varied. When $\Phi$ increases by $\Phi_0$, the AB phase advances by $2\pi$, the cosine returns to its original argument, and the pattern shifts by exactly one full fringe spacing $\lambda L/d$ --- the flux periodicity observed by Tonomura et al.
+
+\subsection{Advantage and Limitation}
+
+The advantage of the path-integral treatment of the AB effect is that the phase factor from $\bm A$ enters the path sum transparently: it is the line integral along each path, and the sum over paths automatically organizes itself by winding number. No operator-valued gauge connection appears; the configuration-space topology does the work. The limitation is that the calculation of $K_n$, the free propagator on the universal cover, is nontrivial (it is the heat kernel on the covering space), and the sum over $n$ converges only conditionally. The AB effect is placed here as a worked application of the path integral's capacity to register global topology; its generalization to non-abelian gauge theories is a forward debt named here and discharged in field theory.
+
+The AB effect exploited the fact that paths of different topology contribute different phases, and the interference is the experimental signature. But even on a simply connected space, the stationary-phase approximation applied to the path integral produces a systematic semiclassical expansion that connects the path integral to the Schrodinger equation's short-wavelength limit. That expansion --- the WKB method --- is the subject of the next section, and it repays the oldest quantization debt of the book.
+
+
+\section{Semiclassical Approximation and WKB: Bohr-Sommerfeld Repaid}
+\label{sec:wkb}
+
+The Aharonov-Bohm effect of Section~\ref{sec:aharonov-bohm} demonstrated that the path integral registers the global topology of configuration space: different homotopy classes contribute phases distinguished by the winding number. Even on a simply connected space, the path integral sponsors a systematic expansion in powers of $\hbar$ whose leading term recovers classical mechanics and whose first correction produces the semiclassical wave function. That expansion is the WKB method (Wentzel, Kramers, Brillouin, 1926), and it repays the book's oldest quantization debt: the Bohr-Sommerfeld condition $\oint p_i\,dq_i = n_i h$ of Chapter~1, row~1.9, which the old quantum theory postulated, is derived here from the single-valuedness of the WKB wave function, corrected by the Maslov index $1/2$ that supplies the zero-point energy the old quantum theory lacked.
+
+\begin{note}
+The symbol $\int\mathcal{D}x$ appearing in the motivational paragraphs below is formal notation for the limiting discretized product defined in Section~\ref{sec:feynman-construction}, Equation~\eqref{eq:path-integral-discrete}. The WKB method itself operates on the Schrodinger equation and does not require the path-integral measure; the path integral provides the ansatz and the conceptual bridge.
+\end{note}
+
+\subsection{Motivation from the Path Integral}
+
+For a stationary state of energy $E$, the time-dependent wave function is $\Psi(x,t) = \psi(x)\,e^{-iEt/\hbar}$. The fixed-energy propagator (the retarded Green's function) has the path-integral representation
+\begin{linenomath}
+\begin{equation}
+G(x,x';E) = \frac{1}{i\hbar}\int_0^\infty dt\,e^{iEt/\hbar}\,K(x,t;x',0),
+\end{equation}
+\end{linenomath}
+and its stationary-phase evaluation in the classically allowed region selects paths whose action satisfies $\partial S/\partial t = -E$ --- the time-independent Hamilton-Jacobi equation. The resulting wave function takes the form $\psi(x) \sim e^{iS(x)/\hbar}$, where $S(x)$ is Hamilton's characteristic function. This observation, due to Dirac and elaborated by Feynman, motivates the WKB ansatz directly: the wave function in the semiclassical regime is an exponential whose phase is an expansion in powers of $\hbar$.
+
+\subsection{The WKB Ansatz and the $\hbar$-Expansion}
+
+Write the wave function as an exponential series:
+\begin{linenomath}
+\begin{equation*}
+\psi(x) = \exp\left[\frac{i}{\hbar}\bigl(S_0(x) + \hbar S_1(x) + \hbar^2 S_2(x) + \cdots\bigr)\right].
+\end{equation*}
+\end{linenomath}
+Substitute this ansatz into the time-independent Schrodinger equation
+\begin{linenomath}
+\begin{equation*}
+-\frac{\hbar^2}{2m}\psi''(x) + V(x)\psi(x) = E\psi(x),
+\end{equation*}
+\end{linenomath}
+and collect terms order by order in $\hbar$. Computing derivatives:
+\begin{linenomath}
+\begin{equation}
+\begin{aligned}
+\psi'(x) &= \frac{i}{\hbar}\bigl(S_0' + \hbar S_1' + \hbar^2 S_2' + \cdots\bigr)\,\psi(x),\\[4pt]
+\psi''(x) &= \left[\frac{i}{\hbar}\bigl(S_0'' + \hbar S_1'' + \cdots\bigr) + \left(\frac{i}{\hbar}\right)^2\bigl(S_0' + \hbar S_1' + \cdots\bigr)^2\right]\psi(x).
+\end{aligned}
+\end{equation}
+\end{linenomath}
+Insert $\psi''$ into the time-independent Schrodinger equation and multiply through by $-2m/\hbar^2$:
+\begin{linenomath}
+\begin{equation}
+\left[\frac{i}{\hbar}\bigl(S_0'' + \hbar S_1'' + \cdots\bigr) - \frac{1}{\hbar^2}\bigl(S_0' + \hbar S_1' + \cdots\bigr)^2 + \frac{2m}{\hbar^2}(E - V)\right]\psi = 0.
+\end{equation}
+\end{linenomath}
+Multiply by $-\hbar^2$:
+\begin{linenomath}
+\begin{equation}
+\bigl(S_0' + \hbar S_1' + \cdots\bigr)^2 - i\hbar\bigl(S_0'' + \hbar S_1'' + \cdots\bigr) - 2m(E-V) = 0.
+\end{equation}
+\end{linenomath}
+
+Now collect powers of $\hbar$. At order $\hbar^0$:
+\begin{linenomath}
+\begin{equation*}
+(S_0')^2 - 2m\bigl(E - V(x)\bigr) = 0.
+\end{equation*}
+\end{linenomath}
+Define the local classical momentum
+\begin{linenomath}
+\begin{equation*}
+p(x) := \sqrt{2m\bigl(E - V(x)\bigr)}.
+\end{equation*}
+\end{linenomath}
+Then the leading-order equation is
+\begin{linenomath}
+\begin{equation}
+(S_0')^2 = p(x)^2.
+\label{eq:wkb-leading}
+\end{equation}
+\end{linenomath}
+This is the time-independent Hamilton-Jacobi equation for the characteristic function $S_0$; its solution is
+\begin{linenomath}
+\begin{equation*}
+S_0(x) = \pm\int^x dx'\,p(x'),
+\end{equation*}
+\end{linenomath}
+where the sign corresponds to right-moving ($+$) or left-moving ($-$) waves, and the lower limit is an arbitrary reference point.
+
+At order $\hbar^1$:
+\begin{linenomath}
+\begin{equation}
+2S_0' S_1' - i S_0'' = 0.
+\label{eq:wkb-next-order}
+\end{equation}
+\end{linenomath}
+Solve for $S_1'$:
+\begin{linenomath}
+\begin{equation*}
+S_1' = i\,\frac{S_0''}{2S_0'} = \frac{i}{2}\frac{d}{dx}\ln S_0'.
+\end{equation*}
+\end{linenomath}
+Since $S_0' = \pm p(x)$, the logarithmic derivative gives $\ln p(x)$ (the sign drops out of the ratio $S_0''/S_0' = p'/p$). Integrating:
+\begin{linenomath}
+\begin{equation*}
+S_1(x) = \frac{i}{2}\ln p(x) + \text{const}.
+\end{equation*}
+\end{linenomath}
+Exponentiating, $e^{iS_1} = p^{-1/2}$, so the $O(\hbar)$ correction supplies the amplitude prefactor $1/\sqrt{p(x)}$ that encodes the classical dwell time: the particle lingers where it moves slowly. This is the one-dimensional transport equation: it determines the amplitude from the leading-order phase.
+
+Higher orders in $\hbar$ produce corrections to both the phase and amplitude. The series is asymptotic in general: for anharmonic potentials it does not converge, but its first few terms provide excellent approximations in the short-wavelength regime $p(x) \gg \hbar/\ell$ where $\ell$ is the characteristic length scale of the potential.
+
+\subsection{The WKB Wave Function}
+
+Assembling the leading and next-to-leading terms, the WKB wave function in the classically allowed region ($E > V(x)$, $p(x)$ real) is
+\begin{linenomath}
+\begin{equation*}
+\psi(x) \approx \frac{C_+}{\sqrt{p(x)}}\exp\left[\frac{i}{\hbar}\int^x dx'\,p(x')\right] + \frac{C_-}{\sqrt{p(x)}}\exp\left[-\frac{i}{\hbar}\int^x dx'\,p(x')\right],
+\end{equation*}
+\end{linenomath}
+where $C_\pm$ are constants determined by boundary conditions. The factor $1/\sqrt{p(x)} = e^{iS_1}$ is the amplitude: the probability density $|\psi|^2 \propto 1/p(x) = 1/(m v(x))$, which is the classical result --- the particle spends more time where it moves slowly.
+
+In the classically forbidden region ($E < V(x)$), $p(x)$ is pure imaginary. Write $p(x) = i|p(x)|$ with $|p(x)| = \sqrt{2m(V(x)-E)}$. The exponentials become real:
+\begin{linenomath}
+\begin{equation*}
+\psi(x) \approx \frac{D_+}{\sqrt{|p(x)|}}\exp\left[+\frac{1}{\hbar}\int^x dx'\,|p(x')|\right] + \frac{D_-}{\sqrt{|p(x)|}}\exp\left[-\frac{1}{\hbar}\int^x dx'\,|p(x')|\right].
+\end{equation*}
+\end{linenomath}
+Both allowed and forbidden forms are displayed together as
+\begin{linenomath}
+\begin{equation}
+\boxed{\begin{aligned}
+\text{Allowed }(E>V):\quad &\psi(x) \approx \frac{C_+}{\sqrt{p(x)}}\,e^{\frac{i}{\hbar}\int^x p\,dx'} + \frac{C_-}{\sqrt{p(x)}}\,e^{-\frac{i}{\hbar}\int^x p\,dx'},\\[6pt]
+\text{Forbidden }(E<V):\quad &\psi(x) \approx \frac{D}{\sqrt{|p(x)|}}\,e^{-\frac{1}{\hbar}\int^x |p|\,dx'} + \frac{D'}{\sqrt{|p(x)|}}\,e^{+\frac{1}{\hbar}\int^x |p|\,dx'}.
+\end{aligned}}
+\label{eq:wkb-wavefunction}
+\end{equation}
+\end{linenomath}
+In a classically inaccessible region that extends to infinity, the exponentially growing term $D'$ must be discarded --- it would violate normalizability. In barrier regions of finite width, both exponentials appear in general.
+
+\subsection{Breakdown at Turning Points and Connection Formulas}
+
+At a classical turning point $x_0$ where $E = V(x_0)$, the local momentum vanishes: $p(x_0) = 0$. The WKB wave function diverges because $1/\sqrt{p(x)}$ blows up, and the approximation that $p(x)$ varies slowly compared to the de Broglie wavelength $\hbar/p(x)$ fails --- the wavelength diverges at the turning point. The Schrodinger equation must be solved exactly in the neighborhood of $x_0$.
+
+Linearize the potential near the turning point:
+\begin{linenomath}
+\begin{equation}
+V(x) \approx V(x_0) + V'(x_0)(x-x_0) = E + V'(x_0)(x-x_0),
+\end{equation}
+\end{linenomath}
+where $V'(x_0) \neq 0$ for a simple (soft) turning point. Define the scaled variable
+\begin{linenomath}
+\begin{equation}
+z := \left(\frac{2mV'(x_0)}{\hbar^2}\right)^{1/3}(x - x_0),
+\end{equation}
+\end{linenomath}
+so that the Schrodinger equation $-\hbar^2\psi''/2m + V\psi = E\psi$ becomes the Airy equation:
+\begin{linenomath}
+\begin{equation*}
+\frac{d^2\psi}{dz^2} - z\,\psi(z) = 0.
+\end{equation*}
+\end{linenomath}
+The solution that decays in the classically forbidden region ($z>0$, corresponding to $E<V$) is the Airy function $\operatorname{Ai}(z)$. Its asymptotic expansions are known:
+\begin{linenomath}
+\begin{equation}
+\operatorname{Ai}(z) \sim
+\begin{cases}
+\displaystyle \frac{1}{2\sqrt{\pi}\,z^{1/4}}\,e^{-\frac{2}{3}z^{3/2}}, & z \to +\infty,\\[10pt]
+\displaystyle \frac{1}{\sqrt{\pi}\,|z|^{1/4}}\,\sin\left(\frac{2}{3}|z|^{3/2} + \frac{\pi}{4}\right), & z \to -\infty.
+\end{cases}
+\end{equation}
+\end{linenomath}
+Translating back to the physical variables, the decaying exponential in the forbidden region ($x < x_0$ when $V'(x_0) > 0$) matches onto the oscillatory cosine form in the allowed region ($x > x_0$). The matching calculation is standard; the result is stated without reproducing the algebra.\footnote{The full Airy-function asymptotic matching is carried out in Landau and Lifshitz, \emph{Quantum Mechanics (Non-Relativistic Theory)}, \S\S 46--52, and in Bender and Orszag, \emph{Advanced Mathematical Methods for Scientists and Engineers}, Ch.~10. This chapter states the connection formulas and applies them; the derivation is cited, not reproduced.}
+
+For a soft turning point at $x_0$, with the classically forbidden region to the left ($x < x_0$) and the allowed region to the right ($x > x_0$), the connection formula is
+\begin{linenomath}
+\begin{equation}
+\frac{2}{\sqrt{p(x)}}\cos\left[\frac{1}{\hbar}\int_{x_0}^x dx'\,p(x') - \frac{\pi}{4}\right]
+\;\longleftrightarrow\;
+\frac{1}{\sqrt{|p(x)|}}\exp\left[-\frac{1}{\hbar}\int_x^{x_0} dx'\,|p(x')|\right],
+\label{eq:connection-formulas}
+\end{equation}
+\end{linenomath}
+where the arrow means: the decaying WKB solution in the forbidden region connects to the cosine standing wave (the sum of right- and left-moving waves with equal amplitude) in the allowed region. The phase $-\pi/4$ is the one-dimensional Maslov index --- the phase loss incurred when the wave reflects from a soft classical turning point. For a soft turning point with the forbidden region to the right, the same formula applies with appropriate sign changes.
+
+Each soft turning point contributes a phase loss of $-\pi/4$ to the reflected wave. In Section~\ref{sec:harmonic-oscillator-path-integral}, a half-period of the harmonic oscillator (from one turning point to the other and back) involved four turning-point encounters per full period, or two per half-period, producing a Maslov phase of $-\pi/2$ per half-period --- the caustic phase of Equation~\eqref{eq:maslov-index}. The $-\pi/4$ per turning point in one dimension is the same Maslov index, counted per encounter rather than per half-period. The arithmetic is: one full oscillation traverses two soft turning points twice each (outbound and inbound), giving $4 \times (-\pi/4) = -\pi$, or $-\pi/2$ per half-period.
+
+\subsection{Bohr-Sommerfeld Quantization: The Central Repayment}
+
+Consider a particle bound in a one-dimensional potential well with two soft turning points $x_1 < x_2$, so that $E = V(x_1) = V(x_2)$ and $E > V(x)$ for $x_1 < x < x_2$. In the classically forbidden regions $x < x_1$ and $x > x_2$, the wave function must decay (the growing exponential is discarded by normalizability). The WKB wave function in the allowed region is a superposition of right- and left-moving waves:
+\begin{linenomath}
+\begin{equation}
+\psi(x) = \frac{C}{\sqrt{p(x)}}\exp\left[\frac{i}{\hbar}\int_{x_1}^x dx'\,p(x')\right] + \frac{C'}{\sqrt{p(x)}}\exp\left[-\frac{i}{\hbar}\int_{x_1}^x dx'\,p(x')\right].
+\end{equation}
+\end{linenomath}
+Apply the connection formula~\eqref{eq:connection-formulas} at the right turning point $x_2$. The wave incident from the left reflects at $x_2$ and returns. Tracing the wave through a full round trip --- from $x_1$ to $x_2$, reflection at $x_2$ (phase shift $-\pi/4$), propagation back to $x_1$, and reflection at $x_1$ (another $-\pi/4$) --- the total phase accumulated must be an integer multiple of $2\pi$ for the wave function to be single-valued:
+\begin{linenomath}
+\begin{equation*}
+\frac{2}{\hbar}\int_{x_1}^{x_2} dx\,p(x) - \frac{\pi}{2} = 2\pi n, \qquad n = 0,1,2,\ldots
+\end{equation*}
+\end{linenomath}
+The factor of $2$ comes from the round trip (out and back); the $-\pi/2$ is the sum of two $-\pi/4$ Maslov phases, one from each turning point. Rearranging:
+\begin{linenomath}
+\begin{equation}
+\frac{1}{\hbar}\int_{x_1}^{x_2} dx\,p(x) = \pi\left(n + \frac{1}{2}\right).
+\end{equation}
+\end{linenomath}
+Multiplying by $2$ and recognizing the closed integral:
+\begin{linenomath}
+\begin{equation}
+\oint p(x)\,dx := 2\int_{x_1}^{x_2} p(x)\,dx = 2\pi\hbar\left(n + \frac{1}{2}\right).
+\label{eq:bohr-sommerfeld-corrected}
+\end{equation}
+\end{linenomath}
+This is the corrected Bohr-Sommerfeld quantization condition. It repays Chapter~1, row~1.9 --- $\oint p_i\,dq_i = n_i h$ --- with three essential additions the old quantum theory lacked: (i) the $1/2$ is the Maslov-index correction, which is the semiclassical face of the zero-point energy; (ii) the condition is the leading order of a systematic $\hbar$-expansion, not an exact rule; and (iii) it follows from the single-valuedness of the wave function, a concept the old quantum theory did not possess. For a potential with one hard wall (infinite barrier) and one soft turning point, the round trip involves only one $-\pi/4$ phase, giving the modified condition $\oint p\,dx = 2\pi\hbar(n + 3/4)$ or equivalently $2\pi\hbar(n - 1/4)$ depending on convention; the quantum bouncer of Exercise~10 provides the worked case.
+
+\subsection{Verification: The Harmonic Oscillator}
+
+Apply the Bohr-Sommerfeld condition to the harmonic oscillator $V(x) = \frac{1}{2}m\omega^2 x^2$. The turning points are $\pm x_0$ where $E = \frac{1}{2}m\omega^2 x_0^2$, so $x_0 = \sqrt{2E/m\omega^2}$. The action integral is
+\begin{linenomath}
+\begin{equation}
+\begin{aligned}
+\oint p(x)\,dx &= 2\int_{-x_0}^{x_0} dx\,\sqrt{2m\left(E - \frac{1}{2}m\omega^2 x^2\right)}\\[4pt]
+&= 2\sqrt{2mE}\int_{-x_0}^{x_0} dx\,\sqrt{1 - \frac{x^2}{x_0^2}}.
+\end{aligned}
+\end{equation}
+\end{linenomath}
+Change variables: $x = x_0\sin\theta$, $dx = x_0\cos\theta\,d\theta$, with $\theta$ from $-\pi/2$ to $\pi/2$. The integral becomes
+\begin{linenomath}
+\begin{equation}
+\begin{aligned}
+\oint p(x)\,dx &= 2\sqrt{2mE}\;x_0\int_{-\pi/2}^{\pi/2} d\theta\,\cos^2\theta \\[4pt]
+&= 2\sqrt{2mE}\;\sqrt{\frac{2E}{m\omega^2}}\;\frac{\pi}{2} \\[4pt]
+&= 2\sqrt{2mE}\;\sqrt{\frac{2E}{m\omega^2}}\;\frac{\pi}{2}
+ = \frac{2\pi E}{\omega}.
+\end{aligned}
+\end{equation}
+\end{linenomath}
+To verify the algebra: $\sqrt{2mE} \cdot \sqrt{2E/(m\omega^2)} = 2E/\omega$, times $\pi/2$ (from $\int_{-\pi/2}^{\pi/2}\cos^2\theta\,d\theta = \pi/2$), times the factor of $2$ from the closed integral, gives $2\pi E/\omega$. Insert into the quantization condition~\eqref{eq:bohr-sommerfeld-corrected}:
+\begin{linenomath}
+\begin{equation}
+\frac{2\pi E}{\omega} = 2\pi\hbar\left(n + \frac{1}{2}\right) \quad\Longrightarrow\quad E_n = \hbar\omega\left(n + \frac{1}{2}\right).
+\label{eq:wkb-harmonic-oscillator}
+\end{equation}
+\end{linenomath}
+The WKB result is exact for the harmonic oscillator. The reason is that the action is quadratic in $x$ and $\dot{x}$; the $\hbar^2$ and all higher WKB corrections vanish identically. This matches the operator spectrum of Chapter~5, Equation~\eqref{eq:number-spectrum}, and the Mehler-kernel extraction of Section~\ref{sec:harmonic-oscillator-path-integral}, Equation~\eqref{eq:mehler-spectral} --- three independent derivations converging on the same result.
+
+\subsection{Tunneling: The Gamow Formula}
+
+When a particle of energy $E$ encounters a potential barrier $V(x) > E$ between two turning points $x_1$ and $x_2$, the WKB wave function in the barrier region is exponentially decaying. The transmission amplitude is obtained by matching the WKB solutions at both turning points using the connection formulas~\eqref{eq:connection-formulas}. The derivation proceeds in five steps.
+
+\medskip\noindent\textbf{(i) Incident wave.} In the left allowed region ($x < x_1$, $E > V$), the WKB wave function is a superposition of right- and left-moving waves. Take the right-moving (incident) wave with unit amplitude:
+\begin{linenomath}
+\begin{equation*}
+\psi_{\text{inc}}(x) = \frac{1}{\sqrt{p(x)}}\,
+\exp\!\Bigl[\frac{i}{\hbar}\int_{x_1}^x dx'\,p(x')\Bigr], \qquad x < x_1 .
+\end{equation*}
+\end{linenomath}
+At the left turning point $x_1$, the incoming right-moving wave and the reflected left-moving wave combine into a cosine standing wave of amplitude $2$. The connection formula~\eqref{eq:connection-formulas} (read left-to-right, from the forbidden side to the allowed side, with the coefficient $2$ from the cosine combination) gives the amplitude penetrating into the barrier:
+\begin{linenomath}
+\begin{equation*}
+\psi_{\text{inc}}(x) + \psi_{\text{refl}}(x)
+\;\xrightarrow{\text{connection at }x_1}\;
+\frac{2}{\sqrt{|p(x)|}}\,
+\exp\!\Bigl[-\frac{1}{\hbar}\int_{x_1}^x dx'\,|p(x')|\Bigr], \qquad x_1 < x < x_2 .
+\end{equation*}
+\end{linenomath}
+
+\medskip\noindent\textbf{(ii) Propagation through the barrier.} The decaying exponential propagates from $x_1$ to $x_2$. At the right turning point $x_2$, the amplitude is suppressed by the barrier action:
+\begin{linenomath}
+\begin{equation*}
+\psi_{\text{barrier}}(x_2^-) = \frac{2}{\sqrt{|p(x_2)|}}\,
+\exp\!\Bigl[-\frac{1}{\hbar}\int_{x_1}^{x_2} dx'\,|p(x')|\Bigr].
+\end{equation*}
+\end{linenomath}
+
+\medskip\noindent\textbf{(iii) Connection at the right turning point.} At $x_2$, the connection formula~\eqref{eq:connection-formulas} is applied in reverse (from the forbidden side to the allowed side). The decaying exponential of amplitude $D$ in the forbidden region connects to a right-moving (transmitted) wave in the right allowed region ($x > x_2$) with amplitude $D/2$:
+\begin{linenomath}
+\begin{equation*}
+\frac{D}{\sqrt{|p(x)|}}\,e^{-\frac{1}{\hbar}\int_x^{x_2}|p|dx'}
+\;\longleftrightarrow\;
+\frac{D/2}{\sqrt{p(x)}}\,
+\exp\!\Bigl[\frac{i}{\hbar}\int_{x_2}^x dx'\,p(x') - \frac{i\pi}{4}\Bigr], \qquad x > x_2 .
+\end{equation*}
+\end{linenomath}
+With $D = 2\exp[-(1/\hbar)\int_{x_1}^{x_2}|p|dx']$, the transmitted amplitude is
+\begin{linenomath}
+\begin{equation*}
+\psi_{\text{trans}}(x) = \frac{1}{\sqrt{p(x)}}\,
+\exp\!\Bigl[-\frac{1}{\hbar}\int_{x_1}^{x_2} dx'\,|p(x')|\Bigr]\,
+\exp\!\Bigl[\frac{i}{\hbar}\int_{x_2}^x dx'\,p(x') - \frac{i\pi}{4}\Bigr], \qquad x > x_2 .
+\end{equation*}
+\end{linenomath}
+
+\medskip\noindent\textbf{(iv) Transmission probability.} The incident wave had unit amplitude (coefficient $1/\sqrt{p}$ with modulus $1/\sqrt{p}$). The transmitted wave has amplitude $e^{-\int |p|dx/\hbar}/\sqrt{p}$. The ratio of transmitted to incident probability currents (which, for WKB waves, is the square of the amplitude ratio, since the $1/\sqrt{p}$ factors and the oscillatory phases drop out of $|\psi|^2$) gives the transmission probability:
+\begin{linenomath}
+\begin{equation}
+T = \frac{|\psi_{\text{trans}}|^2\,p(x)}{|\psi_{\text{inc}}|^2\,p(x)}
+= \exp\!\Bigl[-\frac{2}{\hbar}\int_{x_1}^{x_2} dx'\,|p(x')|\Bigr] .
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{(v) Result.} Writing $|p(x)| = \sqrt{2m(V(x)-E)}$, the WKB transmission probability to leading exponential order is
+\begin{linenomath}
+\begin{equation}
+\boxed{T \approx \exp\left[-\frac{2}{\hbar}\int_{x_1}^{x_2} dx\,\sqrt{2m\bigl(V(x)-E\bigr)}\right]} .
+\label{eq:wkb-tunneling}
+\end{equation}
+\end{linenomath}
+The factor of $2$ in the exponent reflects two independent contributions: the amplitude is suppressed by one factor of $e^{-\int|p|dx/\hbar}$ for the barrier penetration, and the probability---the squared modulus---doubles the exponent. A pre-exponential factor of order unity, arising from the precise matching of the $1/\sqrt{p}$ factors at both turning points and from the reflected wave in the left allowed region, is not captured at this order; it is the subject of the uniform WKB approximation beyond the leading exponential.\footnote{The pre-exponential factor for a parabolic barrier (the Kemble correction) gives the exact transmission coefficient $T = 1/(1 + e^{2S_0/\hbar})$ with $S_0 = \int dx\,|p(x)|$, which interpolates between the WKB regime ($T \sim e^{-2S_0/\hbar}$ for $S_0 \gg \hbar$) and the above-barrier regime ($T \to 1$ for $E \gg V_{\text{max}}$). See Kemble, \emph{Phys.\ Rev.}\ \textbf{48}, 549 (1935).}
+
+The first triumph of quantum tunneling was Gamow's 1928 theory of $\alpha$-decay. An $\alpha$-particle of energy $E$ (typically a few MeV) is confined inside a heavy nucleus of charge $Z$ (for the daughter nucleus after $\alpha$-emission) by the nuclear potential. Outside the nuclear radius $R$, the potential is the Coulomb repulsion $V(r) = 2Ze^2/r$ (in Gaussian units; the factor $2$ is the charge of the $\alpha$-particle). The $\alpha$-particle escapes by tunneling through the Coulomb barrier from $r = R$ to the outer turning point $r_2 = 2Ze^2/E$ where the Coulomb potential equals the kinetic energy. The transmission probability is
+\begin{linenomath}
+\begin{equation}
+T \approx \exp\left[-\frac{2}{\hbar}\int_R^{r_2} dr\,\sqrt{2m\left(\frac{2Ze^2}{r} - E\right)}\right] \equiv e^{-G},
+\label{eq:gamow-alpha}
+\end{equation}
+\end{linenomath}
+where $m$ is the reduced mass of the $\alpha$-nucleus system and $G$ is the Gamow factor. The integral evaluates to
+\begin{linenomath}
+\begin{equation}
+G = \frac{4Ze^2}{\hbar}\sqrt{\frac{2m}{E}}\left[\arccos\sqrt{\frac{E}{B}} - \sqrt{\frac{E}{B}\left(1-\frac{E}{B}\right)}\right],
+\end{equation}
+\end{linenomath}
+with $B = 2Ze^2/R$ the barrier height. For $\alpha$-decay, typically $E \ll B$, and the leading behavior is $G \propto Z/\sqrt{E}$. The decay constant is $\lambda \approx f \cdot T$, where $f \sim v/R$ is the assault frequency (the rate at which the $\alpha$-particle strikes the barrier). The dominant $E$-dependence is in $T$, giving the Geiger-Nuttall law:
+\begin{linenomath}
+\begin{equation}
+\log\lambda \approx \text{const} - \frac{\text{const}}{\sqrt{E}},
+\end{equation}
+\end{linenomath}
+an empirical relation known since 1911 that Gamow's calculation explained quantitatively. The detailed integration and the extraction of the Geiger-Nuttall scaling are Exercise~9.
+
+\subsection{The Langer Correction}
+
+The radial Schrodinger equation in three dimensions with angular momentum $\ell$ reduces to a one-dimensional problem on the half-line $r \in [0,\infty)$ with the effective potential
+\begin{linenomath}
+\begin{equation}
+V_{\text{eff}}(r) = V(r) + \frac{\hbar^2\ell(\ell+1)}{2mr^2}.
+\end{equation}
+\end{linenomath}
+Direct application of the WKB method to this effective potential fails near $r=0$, where the centrifugal term diverges. The Langer correction is the replacement
+\begin{linenomath}
+\begin{equation}
+\ell(\ell+1) \to \left(\ell + \frac{1}{2}\right)^2,
+\label{eq:wkb-langer}
+\end{equation}
+\end{linenomath}
+which restores the correct behavior of the WKB wave function near the origin. The origin of the correction is the change of variable $r = e^x$, which maps the half-line to the full line and transforms the radial equation into a form to which WKB applies without the $r=0$ singularity; the substitution $\ell(\ell+1) \to (\ell+1/2)^2$ emerges from this mapping. The prescription is stated as a known result; its full derivation belongs to the literature.\footnote{R.\ E.\ Langer, \emph{Phys.\ Rev.}\ \textbf{51}, 669 (1937). The correction is essential for the WKB quantization of the hydrogen atom and for the semiclassical treatment of scattering phase shifts.}
+
+\subsection{De Broglie Packet Dispersion Revisited}
+
+The free-particle WKB phase $S_0(x) = \pm\int^x dx'\,\sqrt{2mE}$ is the characteristic function of the free particle. A Gaussian superposition of WKB stationary states,
+\begin{linenomath}
+\begin{equation}
+\psi(x,t) = \int \frac{dp}{2\pi\hbar}\,\tilde{\varphi}(p)\,\exp\left[\frac{i}{\hbar}\left(px - \frac{p^2}{2m}t\right)\right],
+\end{equation}
+\end{linenomath}
+has its stationary-phase point determined by
+\begin{linenomath}
+\begin{equation}
+\frac{\partial}{\partial p}\left(px - \frac{p^2}{2m}t\right)\bigg|_{p=p_0} = 0 \;\Longrightarrow\; x - \frac{p_0}{m}t = 0,
+\end{equation}
+\end{linenomath}
+which is the classical trajectory $x = p_0 t/m$. The quadratic fluctuations around the stationary point reproduce the ballistic spreading law:
+\begin{linenomath}
+\begin{equation}
+\Delta x(t)^2 = \sigma^2 + \left(\frac{\Delta p}{m}\right)^2 t^2,
+\end{equation}
+\end{linenomath}
+matching Equation~\eqref{eq:packet-spreading} of Chapter~5. The WKB stationary-phase logic reproduces the exact result of the free-particle propagator because the action is exactly quadratic; the dispersion the semiclassical theory must reproduce is reproduced.
+
+\subsection{Advantage and Limitation of WKB}
+
+The WKB method bridges classical and quantum mechanics: the classical action supplies the phase, the classical momentum determines the amplitude, and the single-valuedness condition produces the quantized spectrum. It produces binding energies, tunneling rates, and scattering phase shifts directly from the classical action integral, without solving the Schrodinger equation. For the harmonic oscillator, it is exact; for any potential, it is the leading term of a systematic $\hbar$-expansion.
+
+The limitations are threefold. First, the approximation breaks down at turning points, where connection formulas (derived from the Airy function) are required; these formulas are global --- they patch the solution across the turning point but rely on the linear approximation to the potential. Second, near the top of a barrier where $p(x)$ has a double zero (the potential is locally quadratic with negative curvature), the WKB approximation fails and requires parabolic cylinder functions for the matching.\footnote{Near a barrier top, the Schrodinger equation reduces to the Weber (parabolic cylinder) equation; the transmission coefficient involves the Kemble correction $T = 1/(1+e^{2S_0/\hbar})$ with $S_0 = \int dx\,|p(x)|$, which interpolates between the WKB regime (large $S_0/\hbar$, $T \sim e^{-2S_0/\hbar}$) and the above-barrier regime.} Third, the WKB method captures only the leading exponential in tunneling; the pre-exponential factor (the fluctuation determinant around the tunneling path) requires the instanton calculus --- the evaluation of the path integral in imaginary time around the classical solution in the inverted potential.\footnote{Instantons are finite-action solutions of the classical equations of motion in imaginary time $\tau = it$. For the double-well potential, the instanton is the trajectory that interpolates between the two degenerate minima; its action $S_0$ determines the leading exponential splitting $\Delta E \sim \hbar\omega\,e^{-S_0/\hbar}$ between the symmetric and antisymmetric ground states. The instanton calculus, including the fluctuation determinant and the dilute-gas sum, belongs to advanced quantum mechanics and is named here as a forward debt.}
+
+\subsection{Example: Double-Well Tunneling Splitting}
+
+For a symmetric double-well potential $V(x) = \lambda(x^2 - a^2)^2$ with minima at $x = \pm a$, the two lowest energy eigenstates are the symmetric and antisymmetric combinations of states localized in each well. The energy splitting is
+\begin{linenomath}
+\begin{equation}
+\Delta E \approx \frac{\hbar\omega}{\pi}\,\exp\left[-\frac{1}{\hbar}\int_{-a}^{a} dx\,\sqrt{2m\bigl(V(x)-E_0\bigr)}\right],
+\end{equation}
+\end{linenomath}
+where $\omega$ is the small-oscillation frequency in each well and $E_0 \approx \hbar\omega/2$ is the zero-point energy. The exponential factor is the WKB tunneling amplitude through the central barrier. The pre-factor $\hbar\omega/\pi$ comes from the instanton fluctuation determinant; the full instanton calculation is not developed here, but the WKB exponent is the leading contribution and is computed explicitly in advanced texts.
+
+The WKB method closes the circle that Chapter~1 opened. The quantization rules the old quantum theory postulated --- $\oint p_i\,dq_i = n_i h$ --- are derived as the leading order of a systematic semiclassical expansion. The Maslov index $1/2$ is the quantum correction they lacked, and it is the zero-point energy's semiclassical face. The chapter's debts are now repaid; the ledger is balanced in the summary that follows.
+
+
+\section{The Path Integral Formulation: Summary and Open Debts}
+\label{sec:ch9summary}
+
+Chapter~9 constructed Feynman's path integral from the propagator composition property planted in Chapter~5, time-sliced the evolution operator, and identified the classical action as the phase of the short-time kernel. The classical limit emerged from the stationary-phase approximation, the harmonic oscillator was solved exactly via the quadratic fluctuation determinant, the Aharonov-Bohm effect revealed the role of configuration-space topology, and the WKB method derived the corrected Bohr-Sommerfeld quantization condition --- repaying the book's oldest debts. This section consolidates the chapter into principles, balances the ledger, exhibits the experiment--formalism dictionary, and poses the exit question that launches Chapter~10.
+
+\subsection{Five Principles}
+
+The chapter's content compresses into five principles that characterize the path-integral formulation of quantum mechanics.
+
+\begin{itemize}
+\item \textbf{(P1) Construction.} The Feynman path integral is constructed from the composition property of the propagator (Equation~\eqref{eq:propagator-composition}) by time-slicing. The short-time kernel is the Trotter-product of kinetic and potential factors (Section~\ref{sec:propagator-review}). The $N \to \infty$ limit of the $N$-slice product defines the sum over all paths, each contributing the amplitude $e^{iS[x]/\hbar}$ where $S[x]$ is the classical action functional (Equations~\eqref{eq:path-integral-discrete} and~\eqref{eq:path-integral-symbolic}). The measure $\int\mathcal{D}x$ is formal notation for this limiting procedure; its sole rigorous content is the discretized Lebesgue product.
+
+\item \textbf{(P2) Classical limit.} When $S \gg \hbar$, the stationary-phase approximation selects paths near the classical trajectory satisfying $\delta S = 0$. Hamilton's principle (a postulate in classical mechanics) emerges from quantum superposition: the classical path is the one whose neighboring paths interfere constructively. The semiclassical (Van Vleck) propagator carries the classical action as its phase and the Van Vleck determinant as its prefactor (Equation~\eqref{eq:van-vleck-propagator}). The Hamilton-Jacobi equation for the classical action is recovered as the $\hbar \to 0$ limit of the Schrodinger propagator's phase (Equation~\eqref{eq:hj-recovery}), repaying Chapter~1's Hamilton-Jacobi debt.
+
+\item \textbf{(P3) Quadratic actions.} For Lagrangians at most quadratic in coordinates and velocities, the stationary-phase approximation is exact: the fluctuation integral is Gaussian, and the prefactor is the reciprocal square root of the functional determinant of the Jacobi operator. The harmonic oscillator's exact propagator --- the Mehler kernel (Equation~\eqref{eq:mehler-kernel}) --- is computed from the classical action and the fluctuation determinant. Its spectral (Fourier) expansion recovers the energy spectrum $E_n = \hbar\omega(n+1/2)$ independently of the operator ladder method (Equation~\eqref{eq:mehler-spectral}). The Maslov index $-\pi/2$ acquired at each half-period (Equation~\eqref{eq:maslov-index}) counts the caustics where the Van Vleck determinant diverges.
+
+\item \textbf{(P4) Path topology.} The Aharonov-Bohm effect demonstrates that the path integral registers global properties of the configuration space inaccessible to the canonical formalism. Electrons passing around an impenetrable flux tube acquire a gauge-invariant topological phase shift $\Delta\phi = 2\pi\Phi/\Phi_0$ (Equation~\eqref{eq:ab-phase-shift}), periodic in the flux quantum $\Phi_0 = 2\pi\hbar c/e$ (Equation~\eqref{eq:flux-quantum}). The effect is measured even though $\bm B = \bm 0$ everywhere the electrons travel. The propagator decomposes as a sum over homotopy classes weighted by the unitary representations of the fundamental group: $K = \sum_n e^{in e\Phi/\hbar c} K_n$. The phase factor is the abelian Wilson loop.
+
+\item \textbf{(P5) Semiclassical expansion.} The WKB method is the systematic $\hbar$-expansion of the Schrodinger equation. The leading order reproduces the Hamilton-Jacobi equation for the characteristic function (Equation~\eqref{eq:wkb-leading}); the next order gives the transport equation and the $1/\sqrt{p(x)}$ amplitude prefactor (Equation~\eqref{eq:wkb-next-order}); the wave function in the classically allowed and forbidden regions is given by Equation~\eqref{eq:wkb-wavefunction}. At turning points, connection formulas (Equation~\eqref{eq:connection-formulas}) supply the $-\pi/4$ Maslov phase per soft turning point. The single-valuedness condition produces the corrected Bohr-Sommerfeld quantization rule $\oint p\,dx = 2\pi\hbar(n+1/2)$ (Equation~\eqref{eq:bohr-sommerfeld-corrected}) --- repaying Chapter~1, row~1.9 and supplying the zero-point energy the old quantum theory lacked. Tunneling through a barrier is exponentially suppressed, with the Gamow transmission factor $T \sim \exp[-(2/\hbar)\int dx\,\sqrt{2m(V-E)}]$ (Equation~\eqref{eq:wkb-tunneling}).
+\end{itemize}
+
+\subsection{Ledger Balanced}
+
+The debts inherited from earlier chapters and the debts planted forward are now accounted.
+
+\medskip\noindent\textbf{Debts repaid in this chapter:}
+\begin{itemize}
+\item Hamilton-Jacobi theory / action principle (Chapter~1): derived as the $\hbar \to 0$ limit of the propagator phase (Section~\ref{sec:classical-limit}, Equation~\eqref{eq:hj-recovery}) and as the leading WKB order (Section~\ref{sec:wkb}, Equation~\eqref{eq:wkb-leading}).
+\item Bohr-Sommerfeld quantization $\oint p_i\,dq_i = n_i h$ (Chapter~1, row~1.9): derived from the single-valuedness of the WKB wave function, corrected by the Maslov index $1/2$ (Section~\ref{sec:wkb}, Equation~\eqref{eq:bohr-sommerfeld-corrected}).
+\item Propagator composition $\to$ path integral construction (Chapter~5, Equation~\eqref{eq:propagator-composition}): time-slicing construction of Sections~\ref{sec:propagator-review}--\ref{sec:feynman-construction} turns the composition property into the path sum.
+\item Free kernel's action phase (Chapter~5, Equation~\eqref{eq:free-propagator}): verified by the $N$-slice construction in Section~\ref{sec:feynman-construction}; the phase $m(x-x')^2/2t$ is the classical action of the straight constant-velocity path.
+\item De Broglie packet dispersion (Chapter~5, Equation~\eqref{eq:packet-spreading}): reproduced from stationary phase (Section~\ref{sec:classical-limit}) and WKB (Section~\ref{sec:wkb}).
+\item Harmonic oscillator spectrum $E_n = \hbar\omega(n+1/2)$ (Chapter~5, Equation~\eqref{eq:number-spectrum}): independently recovered from the Mehler kernel's spectral expansion (Section~\ref{sec:harmonic-oscillator-path-integral}, Equation~\eqref{eq:mehler-spectral}) and from WKB quantization (Section~\ref{sec:wkb}, Equation~\eqref{eq:wkb-harmonic-oscillator}).
+\item Planck's material oscillator / zero-point energy (Chapter~1, rows~1.3/1.5): the $1/2$ is the Maslov-index correction to the old Bohr-Sommerfeld rule, derived in Section~\ref{sec:wkb}.
+\end{itemize}
+
+\medskip\noindent\textbf{Debts planted forward by this chapter:}
+\begin{itemize}
+\item Functional integral over fields: the path integral over $x(t)$ is the mechanical template for the field-theoretic functional integral $\int\mathcal{D}\phi\,e^{iS[\phi]/\hbar}$ of Chapter~10.
+\item Euclidean (imaginary-time) path integral: the Wick rotation $t \to -i\tau$ converts the oscillatory Feynman measure to the well-defined Wiener measure; named in Section~\ref{sec:feynman-construction}, owed by Chapter~10.
+\item Coherent-state path integral: the oscillator's phase-space path integral is the bridge to the holomorphic (Bargmann) path integral for bosonic fields; named in Section~\ref{sec:harmonic-oscillator-path-integral}, owed by Chapter~10.
+\item Loop expansion / saddle-point methods: the stationary-phase plus fluctuation-determinant logic of Sections~\ref{sec:classical-limit}--\ref{sec:harmonic-oscillator-path-integral} is the $\hbar$-expansion (loop expansion) of field theory; $\hbar$ counts loops.
+\item Instanton methods: the imaginary-time classical solutions that govern tunneling between degenerate minima, named in Section~\ref{sec:wkb}; owed by advanced quantum mechanics.
+\item Wilson loops: the AB phase factor $\exp[(ie/\hbar c)\oint \bm A\cdot d\bm l]$ is the abelian prototype of the gauge-invariant observables of Yang-Mills theory; named in Section~\ref{sec:aharonov-bohm}.
+\end{itemize}
+
+\subsection{Experiment--Formalism Dictionary}
+
+Table~\ref{tab:ch9-dictionary} extends the dictionaries of Chapters~2--6. Each row pairs an experimental fact or classical concept with the path-integral object that represents it. The dictionary makes explicit what the path-integral formulation adds: a direct correspondence between classical mechanical quantities (the action, the path, the enclosed flux) and quantum amplitudes.
+
+\begin{table}[htbp]
+\centering
+\caption{The experiment--formalism dictionary v6. The rows added by the path-integral formulation connect classical concepts directly to quantum amplitudes. This table extends the dictionaries of Chapters~2--6.}
+\label{tab:ch9-dictionary}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{0.4\textwidth} p{0.5\textwidth}}
+\toprule
+\textbf{Physical Concept} & \textbf{Path-Integral Register} \\
+\midrule
+Short waiting time & Trotter-factorized short-time kernel \\
+Classical path $\delta S = 0$ & Stationary-phase condition \\
+Classical action $S_c$ & Propagator phase $S_c/\hbar$ \\
+All conceivable histories & Feynman sum $\int\mathcal{D}x\,e^{iS/\hbar}$ \\
+Caustic (focal point) & Maslov-index phase $e^{-i\pi/2}$ \\
+Enclosed magnetic flux $\Phi$ & Topological phase $2\pi\Phi/\Phi_0$ \\
+Quantized energy spectrum & Single-valued WKB wave function \\
+Tunnel barrier & Exponential suppression $e^{-\int|p|dx/\hbar}$ \\
+Hamilton-Jacobi equation & $\hbar\to 0$ limit of Schrodinger propagator \\
+Bohr-Sommerfeld rule $\oint p\,dq = nh$ & Corrected rule $\oint p\,dx = 2\pi\hbar(n+1/2)$ \\
+Free-particle dispersion & Quadratic fluctuations around stationary phase \\
+Harmonic-oscillator period & Mehler-kernel caustics at $t = k\pi/\omega$ \\
+Gauge transformation $\bm A\to\bm A+\nabla\chi$ & Overall phase of propagator (no observable effect) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Exit Question}
+
+The path integral sums over every conceivable history of a mechanical system --- every continuous path $x(t)$ from the initial to the final configuration, weighted by the amplitude $e^{iS[x]/\hbar}$. The sum is over a one-dimensional trajectory: a single function of time.
+
+Chapter~10 extends the formalism to systems whose configuration space is infinite-dimensional from the start: a field $\phi(\bm x, t)$ is a dynamical variable at every point in space, and its state at one instant of time is a function $\phi(\bm x)$, not a finite collection of numbers. The construction of Section~\ref{sec:feynman-construction} is the template: the time-slicing procedure that turned the composition property of the mechanical propagator into the path integral over $x(t)$ generalizes to a procedure that turns the composition property of the field-theoretic evolution operator into a functional integral over field configurations $\phi(\bm x, t)$. The measure $\int\mathcal{D}\phi$ is defined by discretizing space as well as time; the classical action $S[\phi]$ is the spacetime integral of the Lagrangian density; and the stationary-phase approximation selects the classical field equation.
+
+The question the chapter leaves open is the one its construction was designed to raise: what replaces the sum over mechanical paths when the system to be quantized is already a continuum from the beginning? The answer is the subject of the next chapter. The path integral over field configurations is the language in which quantum electrodynamics, the Standard Model, and every relativistic quantum field theory are formulated. Chapter~9 has built the scaffolding; Chapter~10 erects the structure.
+
+
+\section{Exercises for Chapter~9}
+
+\begin{problemset}
+
+\item[1.] \textbf{Free-particle path integral by induction.}\quad($\star$, Section~\ref{sec:feynman-construction})
+
+Consider the $N$-slice discretized path integral for a free particle ($V=0$):
+\begin{linenomath}
+\begin{equation}
+K_0^{(N)}(x,t;x',0) = \left(\frac{m}{2\pi i\hbar\varepsilon}\right)^{N/2}
+\int_{-\infty}^{\infty} dx_1\cdots dx_{N-1}\,
+\exp\left[\frac{im}{2\hbar\varepsilon}\sum_{k=0}^{N-1}(x_{k+1}-x_k)^2\right],
+\end{equation}
+\end{linenomath}
+with $x_0 = x'$, $x_N = x$, and $\varepsilon = t/N$.
+
+\begin{enumerate}
+\item[(a)] For $N=2$, evaluate the single Gaussian integral over $x_1$ explicitly and show that
+\begin{linenomath}
+\begin{equation}
+K_0^{(2)}(x,t;x',0) = \sqrt{\frac{m}{2\pi i\hbar t}}\,
+\exp\left[\frac{im}{2\hbar t}(x-x')^2\right].
+\end{equation}
+\end{linenomath}
+Verify that the prefactor contracts from $(m/2\pi i\hbar\varepsilon)$ to $(m/2\pi i\hbar t)^{1/2}$ after one integration.
+
+\item[(b)] Prove by induction on $N$ that
+\begin{linenomath}
+\begin{equation}
+K_0^{(N)}(x,t;x',0) = \sqrt{\frac{m}{2\pi i\hbar t}}\,
+\exp\left[\frac{im}{2\hbar t}(x-x')^2\right]
+\end{equation}
+\end{linenomath}
+for every $N \ge 2$. The result is independent of the number of slices; the limit $N\to\infty$ is trivial.
+
+\item[(c)] Explain why this independence on $N$ verifies that the Trotter error vanishes identically for $V=0$: the short-time free-particle kernel is exact at finite $\varepsilon$. Contrast this with the case $V \neq 0$, where the $N$-slice product at finite $N$ differs from the true propagator by $O(\varepsilon)$ corrections.
+\end{enumerate}
+
+\item[2.] \textbf{Trotter expansion to $O(\varepsilon^2)$.}\quad($\star$, Section~\ref{sec:propagator-review})
+
+For the Hamiltonian $H = P^2/2m + V(Q)$ with $[Q,P] = i\hbar I$, expand both sides of
+\begin{linenomath}
+\begin{equation}
+e^{-i\varepsilon H/\hbar} \quad\text{and}\quad e^{-i\varepsilon P^2/2m\hbar}\,e^{-i\varepsilon V(Q)/\hbar}
+\end{equation}
+\end{linenomath}
+to order $\varepsilon^2$ using the Baker-Campbell-Hausdorff (BCH) formula.
+
+\begin{enumerate}
+\item[(a)] Show that
+\begin{linenomath}
+\begin{equation}
+e^{-i\varepsilon(P^2/2m + V)/\hbar} = I - \frac{i\varepsilon}{\hbar}\left(\frac{P^2}{2m}+V\right) - \frac{\varepsilon^2}{2\hbar^2}\left(\frac{P^2}{2m}+V\right)^2 + O(\varepsilon^3).
+\end{equation}
+\end{linenomath}
+\item[(b)] Show that
+\begin{linenomath}
+\begin{equation}
+e^{-i\varepsilon P^2/2m\hbar}\,e^{-i\varepsilon V/\hbar} = I - \frac{i\varepsilon}{\hbar}\left(\frac{P^2}{2m}+V\right) - \frac{\varepsilon^2}{2\hbar^2}\left(\frac{P^2}{2m}+V\right)^2 + \frac{\varepsilon^2}{2\hbar^2}\left[\frac{P^2}{2m},V\right] + O(\varepsilon^3).
+\end{equation}
+\end{linenomath}
+\item[(c)] The difference between the two is $\frac{\varepsilon^2}{2\hbar^2}[P^2/2m, V] + O(\varepsilon^3)$. Compute the commutator $[P^2/2m, V]$ using the canonical commutator $[Q,P] = i\hbar I$ (Equation~\eqref{eq:canonical-commutator-built}). Show that it is of order $\hbar$, so that the Trotter error term is $O(\varepsilon^2)$ inside the exponent. Confirm that the Lie bracket formula (Equation~\eqref{eq:lie-bracket}) is the finite-dimensional special case of this result.
+\end{enumerate}
+
+\item[3.] \textbf{Stationary phase on the free propagator with a Gaussian initial state.}\quad($\star\star$, Section~\ref{sec:classical-limit})
+
+An initial Gaussian wave packet at $t=0$ is
+\begin{linenomath}
+\begin{equation}
+\psi(x',0) = \frac{1}{(2\pi\sigma^2)^{1/4}}\,
+\exp\left[-\frac{x'^2}{4\sigma^2} + \frac{i}{\hbar}p_0 x'\right].
+\end{equation}
+\end{linenomath}
+The time-evolved wave function is obtained by convolving with the free-particle propagator (Equation~\eqref{eq:free-propagator}):
+\begin{linenomath}
+\begin{equation}
+\psi(x,t) = \sqrt{\frac{m}{2\pi i\hbar t}}\int_{-\infty}^{\infty} dx'\,
+\exp\left[\frac{im}{2\hbar t}(x-x')^2\right]\,\psi(x',0).
+\end{equation}
+\end{linenomath}
+
+\begin{enumerate}
+\item[(a)] Write the exponent as $(i/\hbar)f(x')$ and find the stationary-phase point $x'_c$ satisfying $f'(x'_c) = 0$. Show that $x = x'_c + p_0 t/m$, i.e., the stationary-phase point follows the classical trajectory.
+\item[(b)] Expand $f(x')$ to quadratic order around $x'_c$ and evaluate the resulting Gaussian integral exactly. Verify that the result at $O(\hbar^0)$ in the phase reproduces the classical motion, and that the $O(\hbar)$ terms reproduce the spreading law (Equation~\eqref{eq:packet-spreading}).
+\item[(c)] Compare your result with the exact propagation of the Gaussian packet derived in Chapter~5, Section~5.9. Confirm that the stationary-phase approximation is exact for this case and explain why.
+\end{enumerate}
+
+\item[4.] \textbf{Linear potential: classical path and propagator.}\quad($\star\star$, Section~\ref{sec:classical-limit})
+
+A particle of mass $m$ in a uniform gravitational field has the potential $V(x) = mgx$. The Lagrangian is $L = \frac{m}{2}\dot{x}^2 - mgx$.
+
+\begin{enumerate}
+\item[(a)] Solve the Euler-Lagrange equation with boundary conditions $x(0)=x'$, $x(t)=x$. Show that the classical path is
+\begin{linenomath}
+\begin{equation}
+x_c(t') = x' + \left(\frac{x-x'}{t} + \frac{gt}{2}\right)t' - \frac{g}{2}t'^2,
+\end{equation}
+\end{linenomath}
+and that the classical action evaluated on this path is
+\begin{linenomath}
+\begin{equation}
+S_c(x,t;x',0) = \frac{m}{2t}(x-x')^2 - \frac{mgt}{2}(x+x') - \frac{mg^2 t^3}{24}.
+\end{equation}
+\end{linenomath}
+
+\item[(b)] Show that the second functional derivative (Jacobi operator) of the action for this potential is identical to that of the free particle: $\delta^2 S/\delta x(t')\delta x(t'') = -m\,d^2/dt'^2$. Conclude that the fluctuation determinant is the same as the free particle's, so that the exact propagator is
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \sqrt{\frac{m}{2\pi i\hbar t}}\,
+\exp\left[\frac{i}{\hbar}S_c(x,t;x',0)\right].
+\end{equation}
+\end{linenomath}
+
+\item[(c)] Verify that this propagator satisfies the Schrodinger equation. (Hint: the action $S_c$ is a quadratic polynomial in $x$ and $x'$; compute its derivatives and check that the prefactor and phase together satisfy $i\hbar\,\partial_t K = -(\hbar^2/2m)\partial_x^2 K + mgx\,K$.)
+\item[(d)] Explain why the stationary-phase (Van Vleck) form is exact for any potential that is at most linear in $x$.
+\end{enumerate}
+
+\item[5.] \textbf{Harmonic oscillator fluctuation determinant by discretization.}\quad($\star\star\star$, Section~\ref{sec:harmonic-oscillator-path-integral})
+
+For the harmonic oscillator $V(x) = \frac{1}{2}m\omega^2 x^2$, the $N$-slice discretized path integral after expanding around the classical path $x_c(t_k)$ and changing variables to the fluctuation $y_k = x_k - x_c(t_k)$ (with $y_0 = y_N = 0$) takes the form
+\begin{linenomath}
+\begin{equation}
+\int dy_1\cdots dy_{N-1}\,
+\exp\left[\frac{im}{2\hbar\varepsilon}\sum_{k=0}^{N-1}(y_{k+1}-y_k)^2 - \frac{i\varepsilon m\omega^2}{2\hbar}\sum_{k=1}^{N-1} y_k^2\right].
+\end{equation}
+\end{linenomath}
+
+\begin{enumerate}
+\item[(a)] Rewrite the sum $\sum_{k=0}^{N-1}(y_{k+1}-y_k)^2 = \sum_{i,j=1}^{N-1} y_i M_{ij} y_j$ where $M$ is the $(N-1)\times(N-1)$ tridiagonal matrix
+\begin{linenomath}
+\begin{equation}
+M_{ij} = 2\delta_{ij} - \delta_{i,j+1} - \delta_{i+1,j}.
+\end{equation}
+\end{linenomath}
+Show that the full quadratic form in the exponent is $(im/2\hbar\varepsilon)\sum_{i,j} y_i [M - (\varepsilon\omega)^2 I]_{ij} y_j$.
+
+\item[(b)] The eigenvalues of $M$ are $\lambda_k = 4\sin^2(k\pi/2N)$ for $k = 1,2,\ldots,N-1$. Using this fact (derived by diagonalizing $M$ with the discrete sine transform), show that the Gaussian integral over $y_1,\ldots,y_{N-1}$ evaluates to
+\begin{linenomath}
+\begin{equation}
+\left(\frac{m}{2\pi i\hbar\varepsilon}\right)^{(N-1)/2}
+\prod_{k=1}^{N-1}\left[\lambda_k - (\varepsilon\omega)^2\right]^{-1/2}.
+\end{equation}
+\end{linenomath}
+
+\item[(c)] Multiply by the classical-action phase and the $N$ short-time prefactors. Show that the total prefactor is
+\begin{linenomath}
+\begin{equation}
+\left(\frac{m}{2\pi i\hbar\varepsilon}\right)^{1/2}
+\prod_{k=1}^{N-1}\left[1 - \frac{(\varepsilon\omega)^2}{\lambda_k}\right]^{-1/2}.
+\end{equation}
+\end{linenomath}
+
+\item[(d)] Take the limit $N\to\infty$ with $\varepsilon = t/N$ fixed. Use the product formula
+\begin{linenomath}
+\begin{equation}
+\prod_{k=1}^{N-1}\left[1 - \frac{(\varepsilon\omega)^2}{4\sin^2(k\pi/2N)}\right] \longrightarrow \frac{\sin\omega t}{\omega t}\quad\text{as}\quad N\to\infty,
+\end{equation}
+\end{linenomath}
+to recover the Mehler-kernel prefactor $\sqrt{m\omega/2\pi i\hbar\sin\omega t}$ of Equation~\eqref{eq:mehler-kernel}. Verify the normalization by checking the free-particle limit $\omega \to 0$.
+
+\item[(e)] This is the discretized route to the functional determinant. The Gelfand-Yaglom theorem (stated in Section~\ref{sec:harmonic-oscillator-path-integral}) provides the continuum shortcut. Comment on the relationship between the two approaches.
+\end{enumerate}
+
+\item[6.] \textbf{Mehler kernel spectral expansion.}\quad($\star\star$, Section~\ref{sec:harmonic-oscillator-path-integral})
+
+The Mehler kernel (Equation~\eqref{eq:mehler-kernel}) has two complementary representations: the closed-form position-space propagator and the spectral sum (Equation~\eqref{eq:mehler-spectral}):
+\begin{linenomath}
+\begin{equation}
+K(x,t;x',0) = \sum_{n=0}^{\infty} \psi_n(x)\psi_n^*(x')\,e^{-iE_n t/\hbar}.
+\end{equation}
+\end{linenomath}
+
+\begin{enumerate}
+\item[(a)] Consider the equal-point ($x = x'$) limit of the Mehler kernel. Write $K(x,t;x,0)$ explicitly in terms of $\sin\omega t$ and $\cos\omega t$. Take the limit $t \to -i\infty$ (formally: analytic continuation to imaginary time). Show that the leading term as $t \to -i\infty$ is
+\begin{linenomath}
+\begin{equation}
+K(x,-i\tau;x,0) \sim \sqrt{\frac{m\omega}{\pi\hbar}}\,e^{-m\omega x^2/\hbar}\,e^{-\omega\tau/2}\quad(\tau\to\infty).
+\end{equation}
+\end{linenomath}
+
+\item[(b)] Identify the coefficient of $e^{-E_0\tau/\hbar}$ (with $\tau = -it$) as $|\psi_0(x)|^2$. Extract the ground-state energy $E_0 = \hbar\omega/2$ and the ground-state wave function $\psi_0(x) = (m\omega/\pi\hbar)^{1/4}e^{-m\omega x^2/2\hbar}$. Compare with Chapter~5, Equation~\eqref{eq:oscillator-ground}.
+
+\item[(c)] Expand the Mehler kernel as a power series in $e^{-i\omega t}$ (using the generating function of Hermite polynomials, or Mehler's formula). Identify the coefficient of $e^{-iE_n t/\hbar}$ and verify that $E_n = \hbar\omega(n+1/2)$. Extract the first excited-state wave function $\psi_1(x) \propto x\,e^{-m\omega x^2/2\hbar}$ and confirm its normalization.
+\end{enumerate}
+
+\item[7.] \textbf{Aharonov-Bohm two-slit intensity.}\quad($\star\star$, Section~\ref{sec:aharonov-bohm})
+
+Consider the double-slit geometry of Section~\ref{sec:aharonov-bohm}: slit separation $d$, screen distance $L \gg d$, electron de Broglie wavelength $\lambda = 2\pi\hbar/\sqrt{2mE}$, and a solenoid carrying flux $\Phi$ placed midway between the slits.
+
+\begin{enumerate}
+\item[(a)] Write the total amplitude at a point $x$ on the screen as the sum of two contributions, each of the free-particle form $\sim e^{ikr}/r$ multiplied by the AB phase factor $e^{ie\phi_{1,2}/\hbar c}$, with $r_{1,2} \approx L + (x \mp d/2)^2/2L$ the path lengths. The geometric phase from the path-length difference is $k(r_1 - r_2) \approx k d x/L$.
+
+\item[(b)] Derive the intensity formula (Equation~\eqref{eq:ab-two-slit}):
+\begin{linenomath}
+\begin{equation}
+I(x) = I_0(x)\left[1 + \cos\left(\frac{2\pi d x}{\lambda L} + \frac{e\Phi}{\hbar c}\right)\right],
+\end{equation}
+\end{linenomath}
+where $I_0(x)$ is the single-slit diffraction envelope (which may be taken as constant over a few fringes near the center).
+
+\item[(c)] Show that when $\Phi$ increases by one flux quantum $\Phi_0 = 2\pi\hbar c/e$, the AB phase term $e\Phi/\hbar c$ advances by $2\pi$, and the interference pattern shifts by exactly one fringe spacing $\Delta x = \lambda L/d$.
+
+\item[(d)] If the flux is $\Phi = \Phi_0/2$, the AB phase is $\pi$. Describe the resulting interference pattern. At what values of $\Phi$ does the pattern coincide with the $\Phi = 0$ pattern?
+\end{enumerate}
+
+\item[8.] \textbf{WKB harmonic oscillator.}\quad($\star\star\star$, Section~\ref{sec:wkb})
+
+Complete the WKB quantization of the harmonic oscillator $V(x) = \frac{1}{2}m\omega^2 x^2$ in full detail.
+
+\begin{enumerate}
+\item[(a)] For a given energy $E$, the turning points are $x_\pm = \pm\sqrt{2E/m\omega^2}$. Write the action integral as
+\begin{linenomath}
+\begin{equation}
+\oint p(x)\,dx = 2\int_{-x_+}^{x_+} dx\,\sqrt{2m\left(E - \frac{1}{2}m\omega^2 x^2\right)}.
+\end{equation}
+\end{linenomath}
+Evaluate the integral by the substitution $x = \sqrt{2E/m\omega^2}\,\sin\theta$. Show step by step that $\oint p\,dx = 2\pi E/\omega$.
+
+\item[(b)] Apply the corrected Bohr-Sommerfeld condition (Equation~\eqref{eq:bohr-sommerfeld-corrected}) to obtain $E_n = \hbar\omega(n+1/2)$.
+
+\item[(c)] The higher-order WKB terms ($S_2$, $S_3$, \ldots) involve integrals of derivatives of $p(x)$. For the harmonic oscillator, show that $S_2(x)$ is a constant (independent of $x$), and that all higher $S_k$ for $k \ge 3$ vanish identically. Conclude that the WKB series terminates at $O(\hbar)$ and is therefore exact. (Hint: $p(x) = \sqrt{2mE - m^2\omega^2 x^2}$, so $p'(x) \propto x/p$, $p''(x) \propto E/p^3$, and all required integrals reduce to elementary forms.)
+
+\item[(d)] The exactness of WKB for the harmonic oscillator is a special case of a general theorem: WKB is exact for any potential whose higher functional derivatives of the action vanish (i.e., for quadratic actions). Identify the connection with the path-integral result of Section~\ref{sec:harmonic-oscillator-path-integral}: both the stationary-phase approximation and the WKB expansion are exact when the action is at most quadratic.
+\end{enumerate}
+
+\item[9.] \textbf{Gamow $\alpha$-decay: Gamow factor and Geiger-Nuttall law.}\quad($\star\star\star$, Section~\ref{sec:wkb})
+
+Consider an $\alpha$-particle of mass $m$ and kinetic energy $E$ tunneling through the Coulomb barrier of a daughter nucleus of charge $Z$. The potential for $r > R$ is $V(r) = 2Ze^2/r$ (Gaussian units).
+
+\begin{enumerate}
+\item[(a)] The outer turning point $r_2$ is defined by $V(r_2) = E$. Show that $r_2 = 2Ze^2/E$. The inner turning point is the nuclear radius $R \approx r_0 A^{1/3}$ with $r_0 \approx 1.2\,\text{fm}$; for $\alpha$-decay of heavy nuclei, $R \ll r_2$.
+
+\item[(b)] The WKB transmission probability (Equation~\eqref{eq:wkb-tunneling}) gives the Gamow factor:
+\begin{linenomath}
+\begin{equation}
+G = \frac{2}{\hbar}\int_R^{r_2} dr\,\sqrt{2m\left(\frac{2Ze^2}{r} - E\right)}.
+\end{equation}
+\end{linenomath}
+Change variables to $u = \sqrt{r/r_2}$ (or more conveniently, $r = r_2\cos^2\theta$) and evaluate the integral. Show that
+\begin{linenomath}
+\begin{equation}
+G = \frac{4Ze^2}{\hbar}\sqrt{\frac{2m}{E}}\left[\arccos\sqrt{\frac{E}{B}} - \sqrt{\frac{E}{B}\left(1-\frac{E}{B}\right)}\right],
+\end{equation}
+\end{linenomath}
+with $B = 2Ze^2/R$ the Coulomb barrier height at the nuclear surface.
+
+\item[(c)] For typical $\alpha$-decay energies ($E \sim 4\text{--}9\,\text{MeV}$) and heavy nuclei ($Z \sim 80\text{--}100$, $B \sim 25\text{--}35\,\text{MeV}$), we have $E \ll B$. Expand the Gamow factor for $E/B \ll 1$ to leading order:
+\begin{linenomath}
+\begin{equation}
+G \approx \frac{2\pi Ze^2}{\hbar}\sqrt{\frac{2m}{E}} - \frac{8Ze^2}{\hbar}\sqrt{\frac{2m}{B}}.
+\end{equation}
+\end{linenomath}
+The first term dominates the $E$-dependence.
+
+\item[(d)] The $\alpha$-decay constant is $\lambda = f \cdot T$ where $f \sim v/R$ is the frequency with which the $\alpha$-particle strikes the barrier. Taking $\log\lambda \approx \log f - G$ and using the leading $E$-dependence of $G$, derive the Geiger-Nuttall law:
+\begin{linenomath}
+\begin{equation}
+\log\lambda \approx a - \frac{b}{\sqrt{E}},
+\end{equation}
+\end{linenomath}
+where $a$ and $b$ are constants (with $b \propto Z$). This relation, discovered empirically in 1911, was the first quantitative success of quantum tunneling and Gamow's 1928 calculation of it.
+\end{enumerate}
+
+\item[10.] \textbf{WKB for the quantum bouncer.}\quad($\star\star\star$, Section~\ref{sec:wkb})
+
+A particle of mass $m$ bounces on an impenetrable floor at $x=0$ under the influence of a uniform gravitational field $V(x) = mgx$ for $x > 0$. The wave function obeys $\psi(0) = 0$ (hard wall) and decays as $x \to \infty$.
+
+\begin{enumerate}
+\item[(a)] The turning points are $x_1 = 0$ (hard wall) and $x_2 = E/mg$ (soft turning point where $V(x_2) = E$). The hard wall at $x=0$ is not a soft turning point --- it is an infinite barrier where the wave function vanishes, not a zero of $p(x)$. At a hard wall, the WKB phase shift is $-\pi/2$ (the wave reflects with a sign change $\psi \to -\psi$, equivalent to a $\pi$ phase shift in the amplitude, or $-\pi/2$ in the round-trip phase counting). Alternatively, treat the hard wall as a boundary condition directly: the wave function is $\psi(x) \propto \sin[(1/\hbar)\int_0^x p\,dx']$, which vanishes at $x=0$.
+
+\item[(b)] Starting from $\psi(x) = (C/\sqrt{p(x)})\sin[(1/\hbar)\int_0^x p(x')\,dx']$ in the allowed region and applying the soft-turning-point connection formula at $x_2$, derive the quantization condition for a potential with one hard wall and one soft turning point:
+\begin{linenomath}
+\begin{equation}
+\frac{1}{\hbar}\int_0^{x_2} p(x)\,dx = \pi\left(n - \frac{1}{4}\right), \qquad n = 1,2,3,\ldots
+\end{equation}
+\end{linenomath}
+The $-\pi/4$ comes from the single soft turning point; the $-\pi/2$ from the hard wall combines with the $2\pi n$ round-trip phase to produce the $n-1/4$ form.
+
+\item[(c)] For the linear potential $V = mgx$, the local momentum is $p(x) = \sqrt{2m(E - mgx)}$. Evaluate the integral:
+\begin{linenomath}
+\begin{equation}
+\int_0^{E/mg} dx\,\sqrt{2m(E - mgx)} = \frac{2}{3}\frac{\sqrt{2mE^{3/2}}}{mg}.
+\end{equation}
+\end{linenomath}
+Apply the quantization condition to obtain the WKB energy levels:
+\begin{linenomath}
+\begin{equation}
+E_n \approx \left[\frac{3\pi}{2}\left(n - \frac{1}{4}\right)\right]^{2/3}
+\left(\frac{mg^2\hbar^2}{2}\right)^{1/3}.
+\end{equation}
+\end{linenomath}
+
+\item[(d)] The exact Schrodinger equation for this problem reduces to the Airy equation. The exact energies are $E_n = -a_n (mg^2\hbar^2/2)^{1/3}$ where $a_n$ are the zeros of the Airy function $\operatorname{Ai}(-a_n) = 0$ ($a_1 \approx 2.338$, $a_2 \approx 4.088$, $a_3 \approx 5.521$). Compare the WKB prediction for $n=1,2,3$ with the exact Airy zeros. Compute the relative error and comment on the accuracy of WKB even for the ground state ($n=1$), where one might expect the semiclassical approximation to be poor.
+
+\item[(e)] Explain why the quantum bouncer (one hard, one soft turning point) has the quantization condition $n-1/4$ rather than the $n+1/2$ of a potential with two soft turning points (Equation~\eqref{eq:bohr-sommerfeld-corrected}). Relate the difference to the counting of Maslov indices.
+\end{enumerate}
+
+\end{problemset}
+
+

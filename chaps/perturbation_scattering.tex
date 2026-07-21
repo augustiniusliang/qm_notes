@@ -1,0 +1,1395 @@
+\chapter{Perturbative Methods and the Theory of Scattering}
+
+The old quantum theory died on three numbers it could not produce: the helium ground-state energy, the Einstein coefficients, and the Rutherford cross-section. All three are computed in this chapter.
+
+The debts are explicit. Chapter~1 recorded four failures of the classical atom that the old quantum theory (Bohr--Sommerfeld) could not repair: the helium atom's binding energy, the Einstein $A$ and $B$ coefficients for radiative transitions (Section~\ref{subsec:einsteinAB}), and the Rutherford cross-section for Coulomb scattering -- each discussed in Chapter~1. The states, measurement, evolution, and symmetry chapters (Chapters~2--4) built the Hilbert-space arena; the operator-method and angular-momentum chapters (Chapters~5--6) armed it with the computation machinery -- the interaction picture, the harmonic-oscillator ladder algebra, the Wigner--Eckart theorem, the hydrogen radial wavefunctions, and the central-potential radial equation. The chapter before this one, Chapter~7, added the tensor-product structure for composite systems. This chapter collects those tools and repays the debts, one by one.
+
+The forward debts from Chapters~4--6 are equally specific. Chapter~4's Dyson series \eqref{eq:time-ordered-exp} stands untruncated; truncated after its first nontrivial term it becomes time-dependent perturbation theory, the seed of Fermi's golden rule. Chapter~5's exact forced-oscillator solution \eqref{eq:displacement-solution} is the benchmark against which that truncation is checked. Chapter~6's Wigner--Eckart theorem \eqref{eq:wigner-eckart} and hydrogen wavefunctions \eqref{eq:hydrogen-radial-functions} supply the matrix-element engine. Chapter~6's central-potential radial equation \eqref{eq:radial-equation} provides the scattering skeleton.
+
+The chapter's thesis: perturbation theory and scattering theory are the bridge from the Hilbert-space structure of Chapters~1--6 to the numbers the spectroscopist and the accelerator read. The chapter adds zero new axioms -- everything is derived from the ch2--ch5 axioms and the ch6 theorems.
+
+The chapter proceeds in seven sections. Sections~8.1--8.2 treat time-independent perturbation theory: first the non-degenerate Rayleigh--Schrodinger series, with the Stark effect in hydrogen as its primary example, then the degenerate case, with the Zeeman effect, fine structure, and the linear Stark effect. Section~8.3 presents the variational method and computes the helium ground-state energy, the oldest quantitative failure of the old quantum theory. Section~8.4 derives time-dependent perturbation theory from the Dyson series, obtains Fermi's golden rule, and recovers the Einstein $A$ and $B$ coefficients -- the chapter's keystone. Sections~8.5--8.6 build scattering theory: the Lippmann--Schwinger formalism, the S-matrix, the optical theorem, the Born approximation (recovering Rutherford), and the partial-wave expansion through the Breit--Wigner resonance. Section~8.7 consolidates the debt ledger and the method dictionary.
+
+Three honesty declarations travel with the chapter. The electromagnetic field is treated classically throughout; the field's quanta are Chapter~10's. The Einstein $A$ coefficient is obtained by detailed balance with a classical vector potential; the semi-classical limitation is stated explicitly. The resonance discussion is a one-subsection note; full resonance theory is beyond scope. Non-perturbative methods (strong coupling, lattice) are named only in the exit question that concludes the chapter: ``These methods are perturbative -- what do we do when the coupling is strong?'' -- a question for Chapters~9 (path integrals, WKB) and~10 (field theory).
+
+\section{Time-Independent Perturbation: the Non-Degenerate Case}
+\label{sec:tipt-nondegenerate}
+
+The simplest perturbative question is this: given a Hamiltonian whose exact eigenstates are known, and a small additional term --- a perturbation --- what are the approximate eigenstates and eigenvalues of the full Hamiltonian? The answer is the Rayleigh--Schrodinger series.
+
+\medskip\noindent\textbf{Setup.}
+Let the full Hamiltonian be
+\begin{linenomath}
+\begin{equation}
+H = H_{0} + \lambda V,
+\label{eq:rs-ansatz}
+\end{equation}
+\end{linenomath}
+where the unperturbed Hamiltonian $H_{0}$ is solved exactly:
+\begin{linenomath}
+\begin{equation*}
+H_{0}\ket{n^{(0)}} = E_{n}^{(0)}\ket{n^{(0)}},
+\end{equation*}
+\end{linenomath}
+with $\{\ket{n^{(0)}}\}$ a complete orthonormal set of eigenstates. The parameter $\lambda$ is a bookkeeping device; at the end of the calculation it is set to unity, and the smallness of the perturbation is carried by the ratios $|V_{nm}|/|E_n^{(0)}-E_m^{(0)}|$. The target is the $n$-th eigenstate of $H$, assumed non-degenerate and well-separated from its neighbours:
+\begin{linenomath}
+\begin{equation*}
+H\ket{n} = E_{n}\ket{n}.
+\end{equation*}
+\end{linenomath}
+
+The operative assumption is that $|V_{nm}| \ll |E_n^{(0)}-E_m^{(0)}|$ for all $m \neq n$. An honesty clause is due at the outset: the Rayleigh--Schrodinger series is asymptotic in typical atomic problems -- it may diverge -- and the operative question is whether the first few terms approximate the eigenvalue. Kato's rigorous theory is a matter for Appendix~A.
+
+\medskip\noindent\textbf{The Rayleigh--Schrodinger recursion.}
+Expand both the state and the energy as power series in $\lambda$:
+\begin{linenomath}
+\begin{align}
+\ket{n} &= \ket{n^{(0)}} + \lambda\ket{n^{(1)}} + \lambda^{2}\ket{n^{(2)}} + \cdots, \\
+E_{n} &= E_{n}^{(0)} + \lambda E_{n}^{(1)} + \lambda^{2}E_{n}^{(2)} + \cdots .
+\end{align}
+\end{linenomath}
+Insert into the eigenvalue equation $(H_{0}+\lambda V)\ket{n}=E_{n}\ket{n}$ and collect powers of $\lambda$.
+
+Order $\lambda^{0}$ reproduces the unperturbed problem:
+\begin{linenomath}
+\begin{equation*}
+H_{0}\ket{n^{(0)}} = E_{n}^{(0)}\ket{n^{(0)}}.
+\end{equation*}
+\end{linenomath}
+
+Order $\lambda^{1}$:
+\begin{linenomath}
+\begin{equation*}
+H_{0}\ket{n^{(1)}} + V\ket{n^{(0)}} = E_{n}^{(0)}\ket{n^{(1)}} + E_{n}^{(1)}\ket{n^{(0)}}.
+\end{equation*}
+\end{linenomath}
+
+Order $\lambda^{2}$:
+\begin{linenomath}
+\begin{equation*}
+H_{0}\ket{n^{(2)}} + V\ket{n^{(1)}} = E_{n}^{(0)}\ket{n^{(2)}} + E_{n}^{(1)}\ket{n^{(1)}} + E_{n}^{(2)}\ket{n^{(0)}}.
+\end{equation*}
+\end{linenomath}
+
+\medskip\noindent\textbf{First-order energy.}
+Project the order-$\lambda$ equation onto $\bra{n^{(0)}}$:
+\begin{linenomath}
+\begin{equation*}
+\braket{n^{(0)}|H_{0}|n^{(1)}} + \braket{n^{(0)}|V|n^{(0)}} = E_{n}^{(0)}\braket{n^{(0)}|n^{(1)}} + E_{n}^{(1)}\braket{n^{(0)}|n^{(0)}}.
+\end{equation*}
+\end{linenomath}
+The leftmost term simplifies via the self-adjointness of $H_{0}$: $\braket{n^{(0)}|H_{0}|n^{(1)}} = E_{n}^{(0)}\braket{n^{(0)}|n^{(1)}}$, cancelling the first term on the right. With $\braket{n^{(0)}|n^{(0)}}=1$,
+\begin{linenomath}
+\begin{equation}
+E_{n}^{(1)} = \braket{n^{(0)}|V|n^{(0)}}.
+\label{eq:rs-first-order-energy}
+\end{equation}
+\end{linenomath}
+The first-order energy shift is the expectation value of the perturbation in the unperturbed state -- its mean.
+
+\medskip\noindent\textbf{First-order state correction.}
+Project the order-$\lambda$ equation onto $\bra{m^{(0)}}$ with $m \neq n$:
+\begin{linenomath}
+\begin{equation*}
+E_{m}^{(0)}\braket{m^{(0)}|n^{(1)}} + \braket{m^{(0)}|V|n^{(0)}} = E_{n}^{(0)}\braket{m^{(0)}|n^{(1)}} + 0,
+\end{equation*}
+\end{linenomath}
+where the last term vanishes because $\braket{m^{(0)}|n^{(0)}}=\delta_{mn}=0$ for $m\neq n$. Solving for the overlap:
+\begin{linenomath}
+\begin{equation*}
+\braket{m^{(0)}|n^{(1)}} = \frac{\braket{m^{(0)}|V|n^{(0)}}}{E_{n}^{(0)}-E_{m}^{(0)}} \qquad (m \neq n).
+\end{equation*}
+\end{linenomath}
+The component $\braket{n^{(0)}|n^{(1)}}$ along the unperturbed state is not determined by the order-$\lambda$ equation. The intermediate normalisation convention fixes it: demand $\braket{n^{(0)}|n}=1$, which at order $\lambda$ gives $\braket{n^{(0)}|n^{(1)}}=0$. Then the first-order state is
+\begin{linenomath}
+\begin{equation}
+\ket{n^{(1)}} = \sum_{m \neq n} \frac{\braket{m^{(0)}|V|n^{(0)}}}{E_{n}^{(0)}-E_{m}^{(0)}}\,\ket{m^{(0)}}.
+\label{eq:rs-first-order-state}
+\end{equation}
+\end{linenomath}
+The perturbation mixes the unperturbed state with all others, the admixture of state $m$ weighted by the matrix element divided by the energy gap.
+
+\medskip\noindent\textbf{Second-order energy.}
+Project the order-$\lambda^{2}$ equation onto $\bra{n^{(0)}}$:
+\begin{linenomath}
+\begin{equation*}
+\braket{n^{(0)}|H_{0}|n^{(2)}} + \braket{n^{(0)}|V|n^{(1)}} = E_{n}^{(0)}\braket{n^{(0)}|n^{(2)}} + E_{n}^{(1)}\braket{n^{(0)}|n^{(1)}} + E_{n}^{(2)}.
+\end{equation*}
+\end{linenomath}
+The first terms cancel as before; intermediate normalisation sets $\braket{n^{(0)}|n^{(1)}}=0$. Hence
+\begin{linenomath}
+\begin{equation}
+E_{n}^{(2)} = \braket{n^{(0)}|V|n^{(1)}} = \sum_{m \neq n}\frac{|\braket{m^{(0)}|V|n^{(0)}}|^{2}}{E_{n}^{(0)}-E_{m}^{(0)}}.
+\label{eq:rs-second-order-energy}
+\end{equation}
+\end{linenomath}
+For the ground state ($n=0$), every denominator $E_{0}^{(0)}-E_{m}^{(0)}$ is negative, so $E_{0}^{(2)}$ is always negative: the second-order correction always lowers the ground-state energy.
+
+\medskip\noindent\textbf{Wigner--Eckart short-circuit.}
+Before computing any matrix element, the selection rules of Chapter~6 determine which $\braket{m^{(0)}|V|n^{(0)}}$ vanish on symmetry grounds alone. The Wigner--Eckart theorem \eqref{eq:wigner-eckart} factorises the matrix element of a spherical tensor operator $T^{(k)}_{q}$:
+\begin{linenomath}
+\begin{equation*}
+\braket{\alpha',j',m'|T^{(k)}_{q}|\alpha,j,m}
+= \braket{j,m;k,q|j',m'}\,\frac{\braket{\alpha',j'||T^{(k)}||\alpha,j}}{\sqrt{2j'+1}}.
+\end{equation*}
+\end{linenomath}
+The Clebsch--Gordan coefficient vanishes unless the selection rules \eqref{eq:wigner-eckart-selection} are satisfied:
+\begin{linenomath}
+\begin{equation*}
+m' = m + q,\qquad |j-k| \le j' \le j+k.
+\end{equation*}
+\end{linenomath}
+For a scalar perturbation ($k=0$): $\Delta j = 0$, $\Delta m = 0$ -- only diagonal matrix elements survive. For a vector perturbation ($k=1$, e.g.\ the Stark Hamiltonian $V = e\mathcal{E}z$): $\Delta m = 0$, $\Delta j = 0,\pm1$ with the $j=0 \to j'=0$ transition forbidden. These rules are not extra postulates -- they are the $k=0,1$ instances of the Wigner--Eckart theorem. The parity selection rule of Chapter~4, $\Pi V \Pi = \pm V$ yielding Laporte's rule \eqref{eq:parity-selection}, provides a second short-circuit: a perturbation of definite parity connects only states of opposite parity when it is odd, and only states of the same parity when it is even.
+
+\medskip\noindent\textbf{Convergence remark.}
+The Rayleigh--Schrodinger series is asymptotic in typical atomic problems. The condition $|V_{nm}| \ll |E_n^{(0)}-E_m^{(0)}|$ is necessary but not sufficient for convergence; the operative question is whether the first few terms give a good approximation, and in practice they often do. The series may diverge while its first few partial sums approach the true eigenvalue to high precision -- the hallmark of an asymptotic series.
+
+\medskip\noindent\textbf{Example 1: Anharmonic oscillator.}
+Consider a one-dimensional harmonic oscillator perturbed by a quartic term,
+\begin{linenomath}
+\begin{equation*}
+H = \hbar\omega\Bigl(N + \frac{1}{2}\Bigr) + \lambda x^{4},
+\end{equation*}
+\end{linenomath}
+with $x = \sqrt{\hbar/2m\omega}\,(a + a^{\dagger})$. The unperturbed eigenstates are the number states $\ket{n}$ with energies $E_{n}^{(0)} = \hbar\omega(n + \tfrac12)$. The first-order shift is
+\begin{linenomath}
+\begin{equation*}
+E_{n}^{(1)} = \lambda\braket{n|x^{4}|n}.
+\end{equation*}
+\end{linenomath}
+Expand $x^{4}$ in terms of $a$ and $a^{\dagger}$:
+\begin{linenomath}
+\begin{equation*}
+x^{4} = \Bigl(\frac{\hbar}{2m\omega}\Bigr)^{2}(a + a^{\dagger})^{4}.
+\end{equation*}
+\end{linenomath}
+Of the sixteen terms in the expansion of $(a+a^{\dagger})^{4}$, only the six with equal numbers of $a$ and $a^{\dagger}$ survive the diagonal matrix element $\braket{n|\cdots|n}$:
+\begin{linenomath}
+\begin{align*}
+(a+a^{\dagger})^{4} &\to
+a^{2}(a^{\dagger})^{2} + a a^{\dagger} a a^{\dagger} + a a^{\dagger} a^{\dagger} a
++ a^{\dagger}a a a^{\dagger} + a^{\dagger}a a^{\dagger}a + (a^{\dagger})^{2}a^{2},
+\end{align*}
+\end{linenomath}
+where we have dropped the ten terms with unequal numbers (they connect $\ket{n}$ to $\ket{n\pm\Delta n}$ with $\Delta n\neq 0$). Normal-order each of the six by moving all $a^{\dagger}$ left of all $a$, repeatedly applying $[a,a^{\dagger}]=1$:
+\begin{linenomath}
+\begin{align*}
+a^{2}(a^{\dagger})^{2} &= (a^{\dagger})^{2}a^{2} + 4a^{\dagger}a + 2, \\
+a a^{\dagger} a a^{\dagger} &= (a^{\dagger})^{2}a^{2} + 3a^{\dagger}a + 1, \\
+a a^{\dagger} a^{\dagger} a &= (a^{\dagger})^{2}a^{2} + 2a^{\dagger}a, \\
+a^{\dagger}a a a^{\dagger} &= (a^{\dagger})^{2}a^{2} + 2a^{\dagger}a, \\
+a^{\dagger}a a^{\dagger}a &= (a^{\dagger})^{2}a^{2} + a^{\dagger}a, \\
+(a^{\dagger})^{2}a^{2} &= (a^{\dagger})^{2}a^{2}.
+\end{align*}
+\end{linenomath}
+Summing the six contributions:
+\begin{linenomath}
+\begin{equation*}
+(a+a^{\dagger})^{4} \to 6(a^{\dagger})^{2}a^{2} + 12a^{\dagger}a + 3.
+\end{equation*}
+\end{linenomath}
+Taking the expectation value in $\ket{n}$ with $(a^{\dagger})^{2}a^{2}\ket{n} = \sqrt{n(n-1)}\sqrt{n(n-1)}\ket{n} = n(n-1)\ket{n}$ and $a^{\dagger}a\ket{n}=n\ket{n}$:
+\begin{linenomath}
+\begin{equation*}
+\braket{n|(a+a^{\dagger})^{4}|n} = 6n(n-1) + 12n + 3 = 3(2n^{2}+2n+1).
+\end{equation*}
+\end{linenomath}
+Multiplying by $(\hbar/2m\omega)^{2}\lambda$, we obtain
+\begin{linenomath}
+\begin{equation}
+E_{n}^{(1)} = \lambda\frac{3\hbar^{2}}{4m^{2}\omega^{2}}\,(2n^{2}+2n+1).
+\label{eq:anharmonic-first-order}
+\end{equation}
+\end{linenomath}
+The correction grows quadratically with $n$, reflecting the increasing amplitude of the classical motion. Only states differing by $\Delta n = 0,\pm2,\pm4$ are connected, as parity selection requires (each $x$ factor changes parity, so $x^{4}$ is even -- parity-conserving).
+
+\medskip\noindent\textbf{Example 2: Hydrogen ground-state Stark effect (quadratic).}
+A hydrogen atom in a uniform static electric field $\mathcal{E}\hat{z}$ experiences the perturbation
+\begin{linenomath}
+\begin{equation*}
+V = e\mathcal{E}z.
+\end{equation*}
+\end{linenomath}
+The ground state $\ket{100}$ is non-degenerate. The first-order Stark shift vanishes by parity: $\braket{100|z|100}=0$, because the ground state is even under $z \to -z$ while $z$ is odd -- Laporte's rule \eqref{eq:parity-selection}. The leading nonzero shift is second-order:
+\begin{linenomath}
+\begin{equation}
+E_{1s}^{(2)} = e^{2}\mathcal{E}^{2}\sum_{n\neq 1,\ell,m}\frac{|\braket{n\ell m|z|100}|^{2}}{E_{1}-E_{n}}.
+\label{eq:stark-quadratic-polarizability}
+\end{equation}
+\end{linenomath}
+The dipole selection rules ($k=1$, so $\Delta\ell = \pm1$, $\Delta m = 0$) restrict the sum to $p$-states with $m=0$: only $\ket{np0}$ ($n \ge 2$) contribute. The sum defines the static electric polarisability $\alpha_{\text{pol}}$ via $\Delta E = -\tfrac12\alpha_{\text{pol}}\mathcal{E}^{2}$. Evaluating the sum (which requires the full Coulomb Green's function -- a named, not derived, object) gives
+\begin{linenomath}
+\begin{equation*}
+\alpha_{\text{pol}} = \frac{9}{2}\,a_{0}^{3},
+\end{equation*}
+\end{linenomath}
+where $a_{0} = \hbar^{2}/me^{2}$ is the Bohr radius. The quadratic Stark shift is
+\begin{linenomath}
+\begin{equation*}
+\Delta E_{1s}^{(2)} = -\frac{9}{4}\,a_{0}^{3}\,\mathcal{E}^{2},
+\end{equation*}
+\end{linenomath}
+a measurable quantity: atomic-beam deflection experiments detect the force $-\partial(\Delta E)/\partial\mathcal{E}$ on ground-state atoms passing through an inhomogeneous electric field.
+
+\medskip\noindent\textbf{Example 3: Hydrogen $n=2$ Stark effect (bridge to \S 8.2).}
+The $n=2$ manifold of hydrogen is four-fold degenerate: the states are $\ket{200}$ ($2s$), $\ket{210}$ ($2p$, $m=0$), $\ket{211}$ ($2p$, $m=1$), and $\ket{21-1}$ ($2p$, $m=-1$). The Stark perturbation $V = e\mathcal{E}z$ is a $k=1$, $q=0$ spherical tensor. Its matrix elements within the $n=2$ manifold vanish except for $\braket{200|z|210}$, which is nonzero because the $2s$ and $2p$ states share the same $n$ (opposite parity, same energy -- the accidental Coulomb degeneracy). Using the hydrogen wavefunctions from Table~\ref{tab:hydrogen-wavefunctions},
+\begin{linenomath}
+\begin{equation*}
+\braket{200|z|210} = 3a_{0}.
+\end{equation*}
+\end{linenomath}
+First-order perturbation theory within this degenerate subspace requires the machinery of the next section: the four-by-four matrix of $V$ must be diagonalised -- a secular equation. The result, previewed here and completed in Section~\ref{sec:degenerate-perturbation}, is the linear Stark effect: three levels at $+3ea_{0}\mathcal{E}$, $-3ea_{0}\mathcal{E}$, and zero (doubly degenerate). The splitting is linear in the applied field, a hallmark of degenerate opposite-parity states sharing the same unperturbed energy -- a permanent electric dipole moment of the $n=2$ states.
+
+The advantage of Rayleigh--Schrodinger perturbation theory is its systematic structure: each order is computed from the previous one by a fixed recursion, and the Wigner--Eckart theorem prunes the matrix-element tree before a single integral is evaluated. Its limitation is the non-degeneracy assumption: when $E_{n}^{(0)}$ is degenerate, the denominators $E_{n}^{(0)}-E_{m}^{(0)}$ vanish for states within the degenerate manifold, and the series breaks down. The remedy -- diagonalising $V$ within the degenerate subspace -- is the subject of the next section.
+
+\section{Degenerate Perturbation Theory: Zeeman, Fine Structure, and Stark}
+\label{sec:degenerate-perturbation}
+
+When the unperturbed level $E_{n}^{(0)}$ is $d$-fold degenerate, the Rayleigh--Schrodinger denominators $E_{n}^{(0)}-E_{m}^{(0)}$ vanish for every state $m$ within the degenerate manifold, and the series of Section~\ref{sec:tipt-nondegenerate} fails. The physics is clear: the perturbation must decide which linear combinations of the degenerate unperturbed states are the ``correct'' zeroth-order states -- the ones that evolve continuously as $\lambda \to 0$.
+
+\medskip\noindent\textbf{The secular equation.}
+Let the $d$ degenerate eigenstates of $H_{0}$ with energy $E_{n}^{(0)}$ be $\ket{n\alpha^{(0)}}$, $\alpha = 1,\ldots,d$. Write the perturbed state as a linear combination within this subspace plus corrections from outside:
+\begin{linenomath}
+\begin{equation*}
+\ket{n} = \sum_{\alpha=1}^{d} c_{\alpha}\ket{n\alpha^{(0)}} + \lambda\ket{n^{(1)}} + \cdots,
+\end{equation*}
+\end{linenomath}
+with $\ket{n^{(1)}}$ orthogonal to the degenerate subspace. Insert into $(H_{0}+\lambda V)\ket{n}=E_{n}\ket{n}$ with $E_{n}=E_{n}^{(0)}+\lambda E^{(1)}+\cdots$. At order $\lambda^{0}$, the unperturbed equation is satisfied. At order $\lambda^{1}$, project onto $\bra{n\beta^{(0)}}$:
+\begin{linenomath}
+\begin{equation*}
+\braket{n\beta^{(0)}|H_{0}|n^{(1)}} + \sum_{\alpha} c_{\alpha}\braket{n\beta^{(0)}|V|n\alpha^{(0)}} = E_{n}^{(0)}\braket{n\beta^{(0)}|n^{(1)}} + E^{(1)}c_{\beta}.
+\end{equation*}
+\end{linenomath}
+The $H_{0}$ term gives $E_{n}^{(0)}\braket{n\beta^{(0)}|n^{(1)}}$, cancelling the first term on the right. The result is a $d\times d$ matrix eigenvalue problem:
+\begin{linenomath}
+\begin{equation*}
+\sum_{\alpha=1}^{d} V_{\beta\alpha}\,c_{\alpha} = E^{(1)}c_{\beta},
+\qquad
+V_{\beta\alpha} := \braket{n\beta^{(0)}|V|n\alpha^{(0)}}.
+\end{equation*}
+\end{linenomath}
+Equivalently, the first-order energy shifts $E^{(1)}$ are the eigenvalues of the perturbation matrix $V$ restricted to the degenerate subspace, and the correct zeroth-order states are its eigenvectors. The condition for a nontrivial solution is the secular equation:
+\begin{linenomath}
+\begin{equation}
+\det\!\bigl(V_{\alpha\beta} - E^{(1)}\delta_{\alpha\beta}\bigr) = 0.
+\label{eq:secular-equation}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Good basis from symmetry.}
+If a conserved operator $G$ commutes with both $H_{0}$ and $V$ ($[G,H_{0}]=[G,V]=0$), then the eigenbasis of $G$ simultaneously diagonalises $V$ within each $G$-eigenspace, provided $G$ is non-degenerate on that subspace. This is the perturbation-theoretic application of Chapter~4's conservation theorem \eqref{eq:conservation-theorem}: conserved quantum numbers remain good quantum numbers. Choosing the symmetry-adapted basis before computing matrix elements often diagonalises the secular problem before it is written.
+
+\medskip\noindent\textbf{Application 1: Normal Zeeman effect.}
+A hydrogen atom in a uniform magnetic field $\bm B = B\hat{z}$ acquires the orbital Zeeman Hamiltonian of Chapter~6 \eqref{eq:zeeman-splitting}:
+\begin{linenomath}
+\begin{equation*}
+H_{Z} = \frac{e}{2mc}\,B\,L_{z} = \mu_{B} B\,\frac{L_{z}}{\hbar},
+\qquad \mu_{B} = \frac{e\hbar}{2mc}.
+\end{equation*}
+\end{linenomath}
+Within an $\ell$-multiplet of fixed $n$ and $\ell$, the states are $\ket{n\ell m}$ with $m = -\ell,\ldots,\ell$. The perturbation matrix is already diagonal in this basis because $L_{z}\ket{n\ell m} = \hbar m\ket{n\ell m}$:
+\begin{linenomath}
+\begin{equation*}
+\braket{n\ell m'|H_{Z}|n\ell m} = \mu_{B}B\,m\,\delta_{m'm}.
+\end{equation*}
+\end{linenomath}
+No secular equation is needed -- the symmetry-adapted basis $\ket{n\ell m}$ diagonalises the perturbation automatically. The first-order energy shifts are
+\begin{linenomath}
+\begin{equation*}
+\Delta E_{n\ell m} = \mu_{B}B\,m,
+\end{equation*}
+\end{linenomath}
+splitting the $(2\ell+1)$-fold degenerate level into $2\ell+1$ equally spaced sublevels. For the Lyman-$\alpha$ transition ($2p \to 1s$), the upper level ($\ell=1$) splits into three sublevels ($m=-1,0,1$), the lower ($\ell=0$) is unsplit, and the dipole selection rules ($\Delta m = 0,\pm1$) produce three lines: $\omega_{0}$ ($m=0 \to 0$) and $\omega_{0} \pm \mu_{B}B/\hbar$ ($m=\pm1 \to 0$) -- the normal Zeeman triplet.
+
+\medskip\noindent\textbf{Application 2: Anomalous Zeeman effect.}
+When electron spin is included, the Zeeman Hamiltonian becomes
+\begin{linenomath}
+\begin{equation*}
+H_{Z} = \mu_{B}B\,\frac{L_{z} + g_{s}S_{z}}{\hbar},
+\qquad g_{s} \approx 2.
+\end{equation*}
+\end{linenomath}
+In LS coupling, the good basis is $\ket{nLSJM_{J}}$, where $\bm J = \bm L + \bm S$ is the total angular momentum. The operator $\bm L + g_{s}\bm S$ is not proportional to $\bm J$, but its matrix elements within a fixed-$(L,S,J)$ manifold are diagonal in $M_{J}$ and proportional to those of $J_{z}$, by the Wigner--Eckart theorem applied to the vector operators $\bm L$ and $\bm S$ within the $J$-multiplet. The proportionality constant is the Land\'e $g$-factor. To derive it, write the expectation value of $\bm L + g_{s}\bm S$ in a state $\ket{LSJM_{J}}$ using the projection theorem: for any vector operator $\bm V$, its matrix elements within a $J$-multiplet are proportional to those of $\bm J$:
+\begin{linenomath}
+\begin{equation*}
+\braket{LSJM_{J}'|\bm V|LSJM_{J}} = \frac{\braket{LSJ|\bm V\cdot\bm J|LSJ}}{\hbar^{2}J(J+1)}\,
+\braket{LSJM_{J}'|\bm J|LSJM_{J}}.
+\end{equation*}
+\end{linenomath}
+Apply this to $\bm V = \bm L$ and $\bm V = \bm S$ separately. The dot products are evaluated using $\bm J = \bm L + \bm S$:
+\begin{linenomath}
+\begin{align*}
+\bm L\cdot\bm J &= \bm L\cdot(\bm L + \bm S) = \bm L^{2} + \bm L\cdot\bm S, \\
+\bm S\cdot\bm J &= \bm S\cdot(\bm L + \bm S) = \bm S^{2} + \bm L\cdot\bm S.
+\end{align*}
+\end{linenomath}
+The spin-orbit operator $\bm L\cdot\bm S$ is diagonal in the coupled basis with the value
+\begin{linenomath}
+\begin{equation*}
+\bm L\cdot\bm S = \frac{1}{2}\bigl(\bm J^{2} - \bm L^{2} - \bm S^{2}\bigr)
+= \frac{\hbar^{2}}{2}\bigl[J(J+1) - L(L+1) - S(S+1)\bigr].
+\end{equation*}
+\end{linenomath}
+Hence
+\begin{linenomath}
+\begin{align*}
+\braket{\bm L\cdot\bm J} &= \hbar^{2}L(L+1) + \frac{\hbar^{2}}{2}\bigl[J(J+1)-L(L+1)-S(S+1)\bigr] \\
+&= \frac{\hbar^{2}}{2}\bigl[J(J+1) + L(L+1) - S(S+1)\bigr], \\[4pt]
+\braket{\bm S\cdot\bm J} &= \frac{\hbar^{2}}{2}\bigl[J(J+1) + S(S+1) - L(L+1)\bigr].
+\end{align*}
+\end{linenomath}
+The effective magnetic moment operator is $\bm\mu = -\mu_{B}(\bm L + g_{s}\bm S)/\hbar$. Its matrix elements within the $J$-multiplet are proportional to $-\mu_{B}g_{J}\bm J/\hbar$, with
+\begin{linenomath}
+\begin{equation*}
+g_{J} = \frac{1}{J(J+1)}\Bigl[
+\frac{J(J+1)+L(L+1)-S(S+1)}{2}
++ g_{s}\frac{J(J+1)+S(S+1)-L(L+1)}{2}
+\Bigr].
+\end{equation*}
+\end{linenomath}
+With $g_{s} \approx 2$, this simplifies to the Land\'e $g$-factor:
+\begin{linenomath}
+\begin{equation}
+g_{J} = 1 + \frac{J(J+1) + S(S+1) - L(L+1)}{2J(J+1)}.
+\label{eq:lande-g-factor}
+\end{equation}
+\end{linenomath}
+The anomalous Zeeman splitting is then
+\begin{linenomath}
+\begin{equation*}
+\Delta E = \mu_{B}B\,g_{J}M_{J},
+\qquad M_{J} = -J,\ldots,J.
+\end{equation*}
+\end{linenomath}
+For the sodium D-lines: the $^{2}S_{1/2}$ ground term has $L=0$, $S=1/2$, $J=1/2$, giving $g_{J}=2$; the $^{2}P_{3/2}$ excited term has $L=1$, $S=1/2$, $J=3/2$, giving $g_{J}=4/3$; the $^{2}P_{1/2}$ term has $J=1/2$, giving $g_{J}=2/3$. The $^{2}P_{3/2} \to\, ^{2}S_{1/2}$ transition (D$_{2}$ line) produces four lines; the $^{2}P_{1/2} \to\, ^{2}S_{1/2}$ transition (D$_{1}$ line) produces two -- six lines total, not three: the anomalous Zeeman pattern.
+
+\begin{note}
+The relationship between the Zeeman Hamiltonian and Kramers degeneracy \eqref{eq:kramers}. A magnetic field is odd under time reversal ($T$-odd): $\Theta H_{Z}\Theta^{-1} = -H_{Z}$. It therefore splits Kramers doublets. An electric field is $T$-even and does not. This distinction is the experimental signature of time-reversal symmetry in atomic spectra.
+\end{note}
+
+\medskip\noindent\textbf{Application 3: Fine structure of hydrogen.}
+The first relativistic correction to the hydrogen Hamiltonian comprises three terms:
+\begin{linenomath}
+\begin{equation}
+H_{\text{fs}} = -\frac{p^{4}}{8m^{3}c^{2}} + \frac{e^{2}}{2m^{2}c^{2}r^{3}}\,\bm L\!\cdot\!\bm S + \frac{\hbar^{2}e^{2}}{8m^{2}c^{2}}\,4\pi\delta^{(3)}(\bm r).
+\label{eq:fine-structure-hamiltonian}
+\end{equation}
+\end{linenomath}
+The first term is the relativistic kinetic-energy correction (the next term in the expansion $E = \sqrt{p^{2}c^{2}+m^{2}c^{4}} - mc^{2} = p^{2}/2m - p^{4}/8m^{3}c^{2} + \cdots$). The second is the spin-orbit coupling -- the magnetic field seen by the electron's spin in its rest frame, as it moves through the nuclear electric field. The third, the Darwin term, is a relativistic correction localised at the origin, affecting only $s$-states ($\ell=0$).
+
+Treating $H_{\text{fs}}$ as a perturbation on the non-relativistic hydrogen states, the first-order shifts are computed in the coupled basis $\ket{n\ell s JM_{J}}$ (with $s=1/2$). The kinetic term is diagonal in the uncoupled basis; its expectation value depends only on $n$ and $\ell$. The spin-orbit term is diagonal in the coupled basis and proportional to $\braket{1/r^{3}}_{n\ell}$. The Darwin term contributes only for $\ell=0$ and is proportional to $|\psi_{n00}(0)|^{2}$. The summed result, for each $n$ and $j = \ell \pm 1/2$ (with the convention that $j=1/2$ for $\ell=0$), is the fine-structure formula:
+\begin{linenomath}
+\begin{equation*}
+\Delta E_{\text{fs}} = -\frac{(Z\alpha)^{4}\mu c^{2}}{2n^{3}}\Bigl(\frac{1}{j+1/2} - \frac{3}{4n}\Bigr),
+\end{equation*}
+\end{linenomath}
+where $\alpha = e^{2}/\hbar c \approx 1/137$ is the fine-structure constant. The formula is stated; the full derivation (requiring the expectation values $\braket{1/r}$, $\braket{1/r^{2}}$, $\braket{1/r^{3}}$ and the Darwin contact term) is an instructive but lengthy exercise. The key physical result: the $\ell$-degeneracy at fixed $n$ is partially lifted -- states with the same $j$ remain degenerate (the Dirac result; the accidental SO(4) symmetry of the Coulomb potential is broken by the spin-orbit and Darwin terms, but a residual degeneracy in $j$ survives in the non-relativistic Pauli approximation -- the full Dirac equation restores only the $j$-degeneracy, while states of the same $n$ but different $j$ split).
+
+\medskip\noindent\textbf{Application 4: Linear Stark effect in hydrogen $n=2$.}
+Returning to the $n=2$ Stark problem of Section~\ref{sec:tipt-nondegenerate} (Example~3). The four degenerate states are $\{\ket{200},\ket{210},\ket{211},\ket{21-1}\}$. The perturbation $V = e\mathcal{E}z$ is a $k=1$, $q=0$ spherical tensor. The selection rules $\Delta m = 0$, $\Delta\ell = \pm1$ leave only one nonzero matrix element within the $n=2$ manifold:
+\begin{linenomath}
+\begin{equation*}
+\braket{200|z|210} = \braket{210|z|200} = 3a_{0},
+\end{equation*}
+\end{linenomath}
+computed from the hydrogen wavefunctions \eqref{eq:hydrogen-radial-functions}:
+\begin{linenomath}
+\begin{align*}
+\psi_{200}(\bm r) &= \frac{1}{\sqrt{8\pi a_{0}^{3}}}\Bigl(1-\frac{r}{2a_{0}}\Bigr)e^{-r/2a_{0}}, \\
+\psi_{210}(\bm r) &= \frac{1}{\sqrt{32\pi a_{0}^{3}}}\,\frac{r}{a_{0}}\,e^{-r/2a_{0}}\cos\theta.
+\end{align*}
+\end{linenomath}
+The integral is evaluated using $d^{3}r = r^{2}dr\,d(\cos\theta)\,d\phi$:
+\begin{linenomath}
+\begin{align*}
+\braket{200|z|210}
+&= \int d^{3}r\;\psi_{200}^{*}(\bm r)\,(r\cos\theta)\,\psi_{210}(\bm r) \\
+&= \frac{1}{\sqrt{8\pi a_{0}^{3}}}\frac{1}{\sqrt{32\pi a_{0}^{3}}}
+   \int_{0}^{\infty}dr\,r^{2}\Bigl(1-\frac{r}{2a_{0}}\Bigr)e^{-r/2a_{0}}
+   \cdot \frac{r}{a_{0}}e^{-r/2a_{0}} \cdot r
+   \int_{-1}^{1}d(\cos\theta)\,\cos^{2}\theta\int_{0}^{2\pi}d\phi \\
+&= \frac{1}{16\pi a_{0}^{3}}\,
+   \frac{1}{a_{0}}\int_{0}^{\infty}dr\,r^{4}\Bigl(1-\frac{r}{2a_{0}}\Bigr)e^{-r/a_{0}}
+   \cdot \frac{2}{3}\cdot 2\pi \\
+&= \frac{1}{12a_{0}^{4}}\Bigl[
+   \int_{0}^{\infty}dr\,r^{4}e^{-r/a_{0}}
+   - \frac{1}{2a_{0}}\int_{0}^{\infty}dr\,r^{5}e^{-r/a_{0}}
+   \Bigr] \\
+&= \frac{1}{12a_{0}^{4}}\Bigl[4!\,a_{0}^{5} - \frac{1}{2a_{0}}5!\,a_{0}^{6}\Bigr]
+   = \frac{1}{12a_{0}^{4}}\bigl[24a_{0}^{5} - 60a_{0}^{5}\bigr]
+   = \frac{-36a_{0}^{5}}{12a_{0}^{4}} = -3a_{0},
+\end{align*}
+\end{linenomath}
+where we used $\int_{0}^{\infty}dr\,r^{n}e^{-r/a_{0}} = n!\,a_{0}^{n+1}$. The overall sign is a phase convention; the magnitude $|\braket{200|z|210}| = 3a_{0}$ is the quantity entering the secular matrix (the eigenvalues depend only on $|\braket{200|z|210}|^{2}$, so the sign does not affect the physics). All other matrix elements within the $n=2$ manifold vanish by the $m$ and $\ell$ selection rules. The $4\times4$ secular matrix in the ordered basis $\{\ket{200},\ket{210},\ket{211},\ket{21-1}\}$ is
+\begin{linenomath}
+\begin{equation*}
+V = e\mathcal{E}
+\begin{pmatrix}
+0 & 3a_{0} & 0 & 0 \\
+3a_{0} & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix}.
+\end{equation*}
+\end{linenomath}
+The matrix block-diagonalises: the upper-left $2\times2$ block yields eigenvalues $\pm 3ea_{0}\mathcal{E}$ with eigenvectors $(\ket{200}\pm\ket{210})/\sqrt{2}$; the lower-right $2\times2$ block is identically zero, leaving $\ket{211}$ and $\ket{21-1}$ unshifted at first order.
+\begin{linenomath}
+\begin{equation}
+E^{(1)} = +3ea_{0}\mathcal{E},\; -3ea_{0}\mathcal{E},\; 0,\; 0.
+\label{eq:linear-stark-n2}
+\end{equation}
+\end{linenomath}
+The linear Stark effect: the splitting is proportional to $\mathcal{E}$, not $\mathcal{E}^{2}$, because the $n=2$ manifold contains opposite-parity states that mix at first order. The permanent electric dipole moment of the mixed $2s$--$2p_{0}$ states is $\pm 3ea_{0}$ -- an atom in one of these states possesses a nonzero mean dipole moment, a property impossible for any non-degenerate stationary state of a parity-conserving Hamiltonian.
+
+\begin{note}
+The second-order effective Hamiltonian for the degenerate case -- L\"owdin partitioning -- is a systematic method for including the influence of states outside the degenerate manifold. The effective Hamiltonian in the $d$-dimensional model space is
+\begin{linenomath}
+\begin{equation*}
+H_{\text{eff}} = E_{n}^{(0)}I + \lambda P V P + \lambda^{2} P V Q\frac{1}{E_{n}^{(0)}-QH_{0}Q}Q V P + O(\lambda^{3}),
+\end{equation*}
+\end{linenomath}
+where $P = \sum_{\alpha}\ket{n\alpha^{(0)}}\bra{n\alpha^{(0)}}$ is the projector onto the degenerate subspace and $Q = I-P$. The derivation and application are left to Exercise~5.
+\end{note}
+
+The advantage of degenerate perturbation theory is that it handles the generic case: most atomic levels are degenerate by rotation symmetry, and the secular equation is the systematic tool for lifting that degeneracy. The limitation is that it is still perturbation theory -- the shifts must be small compared to the spacing between distinct unperturbed levels: $|E^{(1)}| \ll |E_{n}^{(0)}-E_{m}^{(0)}|$ for $m$ outside the degenerate manifold. TIPT assumes we know the exact eigenstates of $H_{0}$, and computes corrections. The variational method asks a different question: given a trial state that is not an eigenstate of anything, what is the best bound we can place on the ground-state energy? The answer -- the Rayleigh--Ritz principle -- is the engine that finally computes the binding energy of helium.
+
+\section{The Variational Method: the Ground State of Helium}
+\label{sec:variational-method}
+
+The old quantum theory failed on helium. Bohr--Sommerfeld quantisation, which had triumphed for hydrogen, gave a ground-state energy roughly twice the experimental value. The failure was generic: helium has two electrons, and the $1/r_{12}$ electron--electron repulsion breaks the separability that the old quantum theory required. The helium atom was the simplest system for which the method was inadequate -- and the simplest test for the new quantum mechanics. The variational method passes that test.
+
+\medskip\noindent\textbf{The Rayleigh--Ritz principle.}
+Let $H$ be a Hamiltonian bounded below, with normalised ground state $\ket{0}$ and ground-state energy $E_{0}$. For any normalised trial state $\ket{\tilde\psi}$,
+\begin{linenomath}
+\begin{equation}
+\braket{\tilde\psi|H|\tilde\psi} \ge E_{0},
+\label{eq:rayleigh-ritz}
+\end{equation}
+\end{linenomath}
+with equality if and only if $\ket{\tilde\psi} = \ket{0}$ (up to a phase). The proof is elementary. Expand $\ket{\tilde\psi}$ in the eigenbasis of $H$: $\ket{\tilde\psi} = \sum_{n} c_{n}\ket{n}$ with $H\ket{n}=E_{n}\ket{n}$, $\sum_{n}|c_{n}|^{2}=1$. Then
+\begin{linenomath}
+\begin{align*}
+\braket{\tilde\psi|H|\tilde\psi} &= \sum_{m,n} c_{m}^{*}c_{n}\braket{m|H|n}
+= \sum_{n}|c_{n}|^{2}E_{n} \\
+&= |c_{0}|^{2}E_{0} + \sum_{n\geq 1}|c_{n}|^{2}E_{n}
+= E_{0} + \sum_{n\geq 1}|c_{n}|^{2}(E_{n}-E_{0}) \ge E_{0},
+\end{align*}
+\end{linenomath}
+since every $E_{n}-E_{0} \ge 0$. Equality forces $|c_{n}|^{2}=0$ for all $n\geq 1$, hence $|c_{0}|^{2}=1$ and $\ket{\tilde\psi}=\ket{0}$. The principle is a rigorous upper bound, and the bound is the engine: choose a family of trial states $\ket{\psi_{\text{trial}}(\alpha_{1},\ldots,\alpha_{k})}$ parameterised by variational parameters $\{\alpha_{i}\}$, compute the energy functional
+\begin{linenomath}
+\begin{equation*}
+E(\alpha_{1},\ldots,\alpha_{k}) = \frac{\braket{\psi_{\text{trial}}|H|\psi_{\text{trial}}}}{\braket{\psi_{\text{trial}}|\psi_{\text{trial}}}},
+\end{equation*}
+\end{linenomath}
+and minimise: $\partial E/\partial\alpha_{i}=0$ for each $i$. The minimum is an upper bound on $E_{0}$, and the bound improves monotonically with more variational parameters.
+
+\medskip\noindent\textbf{The helium Hamiltonian.}
+In the clamped-nucleus approximation (the nucleus at the origin, infinitely massive), the helium atom's electronic Hamiltonian is
+\begin{linenomath}
+\begin{equation}
+H = \Bigl(-\frac{\hbar^{2}}{2m}\nabla_{1}^{2} - \frac{2e^{2}}{r_{1}}\Bigr)
++ \Bigl(-\frac{\hbar^{2}}{2m}\nabla_{2}^{2} - \frac{2e^{2}}{r_{2}}\Bigr)
++ \frac{e^{2}}{r_{12}}.
+\label{eq:helium-hamiltonian}
+\end{equation}
+\end{linenomath}
+The first two parentheses are independent hydrogenic Hamiltonians for nuclear charge $Z=2$. The last term, the electron--electron Coulomb repulsion with $r_{12} = |\bm r_{1} - \bm r_{2}|$, is the term the old quantum theory could not handle -- it couples the two electrons and breaks the separability on which Bohr--Sommerfeld quantisation depended.
+
+\medskip\noindent\textbf{The trial function.}
+The physical idea is screening: each electron partially shields the nuclear charge from the other. A product of hydrogenic $1s$ orbitals with an effective nuclear charge $Z_{\text{eff}}$ captures this in one variational parameter:
+\begin{linenomath}
+\begin{equation}
+\psi_{\text{trial}}(\bm r_{1},\bm r_{2}) = \frac{Z_{\text{eff}}^{3}}{\pi a_{0}^{3}}\,
+e^{-Z_{\text{eff}}(r_{1}+r_{2})/a_{0}}.
+\label{eq:helium-trial}
+\end{equation}
+\end{linenomath}
+Each factor is the hydrogenic $1s$ wavefunction $\psi_{100}(\bm r) = (Z_{\text{eff}}^{3}/\pi a_{0}^{3})^{1/2}\,e^{-Z_{\text{eff}}r/a_{0}}$, and the trial function is their (properly normalised) product. The spin part is the singlet $\ket{0,0}=(\ket{\uparrow\downarrow}-\ket{\downarrow\uparrow})/\sqrt{2}$; it factors out of the spatial expectation values because $H$ contains no spin operators.
+
+\medskip\noindent\textbf{The energy functional.}
+Compute $\braket{H} = \braket{\psi_{\text{trial}}|H|\psi_{\text{trial}}}$ term by term.
+For a hydrogenic $1s$ orbital with effective charge $Z_{\text{eff}}$, the kinetic energy expectation is $\braket{p^{2}/2m} = Z_{\text{eff}}^{2}e^{2}/2a_{0}$ and the electron--nucleus potential energy for charge $Z_{\text{eff}}$ is $\braket{-Z_{\text{eff}}e^{2}/r} = -Z_{\text{eff}}^{2}e^{2}/a_{0}$ (both follow from the virial theorem for Coulomb potentials, or directly from the hydrogenic wavefunctions of Table~\ref{tab:hydrogen-wavefunctions}). The true nuclear charge is $Z=2$, so the nuclear-attraction term for each electron is $-2e^{2}/r$, whose expectation in the $Z_{\text{eff}}$-hydrogenic orbital is $\braket{-2e^{2}/r} = 2\braket{-e^{2}/r} = 2(-Z_{\text{eff}}e^{2}/a_{0}) = -2Z_{\text{eff}}e^{2}/a_{0}$. Hence, for one electron:
+\begin{linenomath}
+\begin{align*}
+\braket{-\frac{\hbar^{2}}{2m}\nabla_{1}^{2} - \frac{2e^{2}}{r_{1}}}
+&= \frac{Z_{\text{eff}}^{2}e^{2}}{2a_{0}} - \frac{2Z_{\text{eff}}e^{2}}{a_{0}}
+   = \Bigl(\frac{Z_{\text{eff}}^{2}}{2} - 2Z_{\text{eff}}\Bigr)E_{h},
+\end{align*}
+\end{linenomath}
+where $E_{h} = e^{2}/a_{0} = me^{4}/\hbar^{2} \approx 27.21\;\text{eV}$ is the Hartree energy. The same for electron~2, giving a factor of $2$.
+
+The electron--electron repulsion integral is
+\begin{linenomath}
+\begin{equation*}
+\braket{\frac{e^{2}}{r_{12}}} = e^{2}\int d^{3}r_{1}\!\int d^{3}r_{2}\,
+\frac{|\psi_{\text{trial}}(\bm r_{1},\bm r_{2})|^{2}}{|\bm r_{1}-\bm r_{2}|}.
+\end{equation*}
+\end{linenomath}
+Expand $1/r_{12}$ in Legendre polynomials:
+\begin{linenomath}
+\begin{equation*}
+\frac{1}{|\bm r_{1}-\bm r_{2}|} = \sum_{\ell=0}^{\infty}\frac{r_{<}^{\ell}}{r_{>}^{\ell+1}}\,P_{\ell}(\cos\theta_{12}),
+\end{equation*}
+\end{linenomath}
+where $r_{<} = \min(r_{1},r_{2})$ and $r_{>} = \max(r_{1},r_{2})$. When integrated against the spherically symmetric $1s$ charge distributions, only the $\ell=0$ term survives (all $P_{\ell}$ with $\ell>0$ integrate to zero over angles). The integral reduces to a double radial integral:
+\begin{linenomath}
+\begin{align*}
+\braket{\frac{e^{2}}{r_{12}}} &= e^{2}\Bigl(\frac{Z_{\text{eff}}^{3}}{a_{0}^{3}}\Bigr)^{2}
+\iint d^{3}r_{1}d^{3}r_{2}\,
+\frac{e^{-2Z_{\text{eff}}(r_{1}+r_{2})/a_{0}}}{|\bm r_{1}-\bm r_{2}|} \\
+&= e^{2}\,(4\pi)^{2}\Bigl(\frac{Z_{\text{eff}}^{3}}{a_{0}^{3}}\Bigr)^{2}
+\int_{0}^{\infty}dr_{1}\,r_{1}^{2}\,e^{-2Z_{\text{eff}}r_{1}/a_{0}}
+\int_{0}^{\infty}dr_{2}\,r_{2}^{2}\,e^{-2Z_{\text{eff}}r_{2}/a_{0}}
+\frac{1}{\max(r_{1},r_{2})} \\
+&= \frac{5}{8}\,Z_{\text{eff}}\,E_{h}.
+\end{align*}
+\end{linenomath}
+The factor $5/8$ is the result of the radial integration (the integrals are elementary -- Exercise~5). Assembling the three contributions:
+\begin{linenomath}
+\begin{equation}
+\braket{H}(Z_{\text{eff}}) = \Bigl(2Z_{\text{eff}}^{2} - 4Z_{\text{eff}} + \frac{5}{8}Z_{\text{eff}}\Bigr)E_{h}
+= \Bigl(2Z_{\text{eff}}^{2} - \frac{27}{8}Z_{\text{eff}}\Bigr)E_{h}.
+\label{eq:helium-energy-functional}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Minimisation.}
+Set $d\braket{H}/dZ_{\text{eff}} = 0$:
+\begin{linenomath}
+\begin{equation*}
+\frac{d}{dZ_{\text{eff}}}\Bigl(2Z_{\text{eff}}^{2} - \frac{27}{8}Z_{\text{eff}}\Bigr) = 4Z_{\text{eff}} - \frac{27}{8} = 0
+\;\Longrightarrow\; Z_{\text{eff}} = \frac{27}{16} \approx 1.6875.
+\end{equation*}
+\end{linenomath}
+The effective nuclear charge is less than $2$: each electron screens roughly $0.31$ units of nuclear charge from the other. Substituting back:
+\begin{linenomath}
+\begin{align}
+E_{\text{var}} &= \Bigl[2\Bigl(\frac{27}{16}\Bigr)^{2} - \frac{27}{8}\cdot\frac{27}{16}\Bigr]E_{h}
+= \Bigl(\frac{2\cdot 729}{256} - \frac{729}{128}\Bigr)E_{h} \nonumber \\
+&= \Bigl(\frac{729}{128} - \frac{729}{128}\Bigr)E_{h}
+= -\frac{729}{256}\,E_{h} \approx -2.8477\,E_{h} \approx -77.5\;\text{eV}.
+\label{eq:helium-result}
+\end{align}
+\end{linenomath}
+
+\medskip\noindent\textbf{Comparison with experiment.}
+The experimental helium ground-state energy -- the sum of the first and second ionisation energies -- is approximately $-79.0\;\text{eV}$ ($-2.903\,E_{h}$). The single-parameter variational estimate differs from experiment by roughly $1.9\%$. The old quantum theory's best estimate (Bohr--Sommerfeld quantisation applied to a two-electron orbit) was off by roughly a factor of two. The variational method, with one physically motivated parameter, already resolves the oldest quantitative failure of the old quantum theory.
+
+\begin{note}
+Better trial functions reduce the remaining error dramatically. Hylleraas (1929) introduced trial functions with explicit dependence on $r_{12} = |\bm r_{1}-\bm r_{2}|$, capturing the electron--electron correlation directly; with three parameters he obtained $-2.902\,E_{h}$, within $0.03\%$ of experiment. Modern variational calculations with hundreds of parameters reach the sub-microhartree level. The variational method is systematically improvable: more parameters yield a monotonically non-increasing upper bound on $E_{0}$.
+\end{note}
+
+The advantage of the variational method is that it gives a rigorous upper bound on the ground-state energy, and the bound improves monotonically with the number of variational parameters. Its limitation is that it provides no information about excited states (the Hylleraas--Undheim theorem -- stating that the $k$-th variational eigenvalue is an upper bound to the $k$-th exact eigenvalue -- is named, not proved; see Exercise~5). Moreover, the quality of the bound depends entirely on the physical insight embedded in the trial function: a poor ansatz gives a poor bound, and the method offers no internal diagnostic.
+
+The variational method is time-independent and non-perturbative -- it bounds the eigenvalue without expanding in a small parameter. The methods of the next section are time-dependent and perturbative: they ask not ``what is the energy?'' but ``at what rate does the system jump from one eigenstate to another?'' The Dyson series of Chapter~4, truncated at its first nontrivial term, supplies the answer.
+
+\section{Time-Dependent Perturbation: Transition Amplitudes and Fermi's Golden Rule}
+\label{sec:tdpt}
+
+The Rayleigh--Schrodinger series answers the stationary question: what are the approximate eigenenergies of a perturbed Hamiltonian? The time-dependent question is different: given a system initially in an eigenstate of $H_{0}$, and a time-dependent perturbation $V(t)$ turned on, what is the probability that a later measurement finds the system in a different eigenstate? The answer is the transition amplitude, and its long-time limit is Fermi's golden rule -- the chapter's keystone.
+
+\medskip\noindent\textbf{Setup in the interaction picture.}
+Let $H(t) = H_{0} + V(t)$, with the eigenstates of $H_{0}$ known: $H_{0}\ket{n} = E_{n}\ket{n}$. In the interaction picture of Section~\ref{sec:interaction-picture}, the state is
+\begin{linenomath}
+\begin{equation*}
+\ket{\psi_{I}(t)} = U_{0}^{\dagger}(t)\ket{\psi(t)},
+\qquad U_{0}(t) = e^{-iH_{0}t/\hbar},
+\end{equation*}
+\end{linenomath}
+and obeys the interaction-picture equation of motion \eqref{eq:interaction-eom}:
+\begin{linenomath}
+\begin{equation*}
+i\hbar\frac{d}{dt}\ket{\psi_{I}(t)} = V_{I}(t)\ket{\psi_{I}(t)},
+\qquad V_{I}(t) = e^{iH_{0}t/\hbar}\,V(t)\,e^{-iH_{0}t/\hbar}.
+\end{equation*}
+\end{linenomath}
+Expand the interaction state in the eigenbasis of $H_{0}$:
+\begin{linenomath}
+\begin{equation*}
+\ket{\psi_{I}(t)} = \sum_{n} c_{n}(t)\ket{n},
+\end{equation*}
+\end{linenomath}
+with $c_{n}(0) = \braket{n|\psi(0)}$. The expansion coefficients satisfy
+\begin{linenomath}
+\begin{equation*}
+i\hbar\frac{d c_{f}}{dt} = \sum_{n} e^{i\omega_{fn}t}\,V_{fn}(t)\,c_{n}(t),
+\end{equation*}
+\end{linenomath}
+where $\omega_{fn} = (E_{f}-E_{n})/\hbar$ and $V_{fn}(t) = \braket{f|V(t)|n}$. This is exact -- a system of coupled first-order differential equations for the amplitudes.
+
+\medskip\noindent\textbf{The Dyson series truncated.}
+The evolution operator in the interaction picture is the time-ordered exponential \eqref{eq:time-ordered-exp} of $V_{I}$. Truncating after the first term (the $n=1$ term in the Dyson series) gives the first-order approximation:
+\begin{linenomath}
+\begin{equation*}
+c_{f}(t) \approx c_{f}(0) - \frac{i}{\hbar}\int_{t_{0}}^{t} dt'\,\braket{f|V_{I}(t')|\psi_{I}(t_{0})}.
+\end{equation*}
+\end{linenomath}
+For a system initially in the state $\ket{i}$ at $t_{0}=0$, with $c_{n}(0) = \delta_{ni}$, the first-order amplitude for a transition $i \to f$ ($f \neq i$) is
+\begin{linenomath}
+\begin{equation}
+c_{f}^{(1)}(t) = -\frac{i}{\hbar}\int_{0}^{t} dt'\,e^{i\omega_{fi}t'}\,\braket{f|V(t')|i},
+\label{eq:first-order-amplitude}
+\end{equation}
+\end{linenomath}
+with $\omega_{fi} = (E_{f}-E_{i})/\hbar$. This is the first-order time-dependent transition amplitude. It is the seed of every rate and cross-section in the chapter.
+
+\begin{note}
+The truncation is honest. The full Dyson series \eqref{eq:time-ordered-exp} is an infinite sum; keeping only the first term is an approximation whose validity requires $|c_{f}(t)| \ll 1$ -- the probability of finding the system in any state other than the initial one must remain small. This is the perturbative regime. The exact solution for the forced oscillator (Chapter~5, \eqref{eq:displacement-solution}) provides the benchmark: first-order perturbation theory captures only the single-quantum transition $\ket{0}\to\ket{1}$; the multi-quantum Poisson tail is a higher-order effect.
+\end{note}
+
+\medskip\noindent\textbf{Constant perturbation.}
+For a time-independent perturbation turned on at $t=0$, $V(t) = V\,\theta(t)$. The integral in \eqref{eq:first-order-amplitude} is elementary:
+\begin{linenomath}
+\begin{align}
+c_{f}^{(1)}(t) &= -\frac{i}{\hbar}\,V_{fi}\int_{0}^{t} dt'\,e^{i\omega_{fi}t'}
+= -\frac{i}{\hbar}\,V_{fi}\,\frac{e^{i\omega_{fi}t}-1}{i\omega_{fi}} \nonumber \\
+&= -\frac{V_{fi}}{\hbar\omega_{fi}}\,(e^{i\omega_{fi}t}-1).
+\end{align}
+\end{linenomath}
+The transition probability is
+\begin{linenomath}
+\begin{align}
+P_{i\to f}(t) &= |c_{f}^{(1)}(t)|^{2}
+= \frac{|V_{fi}|^{2}}{\hbar^{2}\omega_{fi}^{2}}\,
+|e^{i\omega_{fi}t}-1|^{2} \nonumber \\
+&= \frac{|V_{fi}|^{2}}{\hbar^{2}}\,
+\frac{\sin^{2}(\omega_{fi}t/2)}{(\omega_{fi}/2)^{2}}.
+\label{eq:constant-perturbation-probability}
+\end{align}
+\end{linenomath}
+The function $f(\omega,t) = \sin^{2}(\omega t/2)/(\omega/2)^{2}$ is a diffraction peak in frequency space: its central height is $t^{2}$ at $\omega=0$, its first zeros are at $\omega = \pm 2\pi/t$, and its width scales as $\sim 2\pi/t$. For short times the probability grows as $t^{2}$; for times long compared to $1/\omega_{fi}$ it oscillates -- transitions to a discrete final state under a constant perturbation are not monotonic.
+
+\medskip\noindent\textbf{Harmonic perturbation.}
+A perturbation oscillating at a single frequency,
+\begin{linenomath}
+\begin{equation*}
+V(t) = V e^{-i\omega t} + V^{\dagger} e^{i\omega t},
+\end{equation*}
+\end{linenomath}
+models the coupling to a monochromatic classical field. Near resonance ($\omega \approx \omega_{fi}$), the rotating-wave approximation retains only the term whose exponential nearly cancels the $e^{i\omega_{fi}t}$ from the free evolution. For absorption ($E_{f} > E_{i}$), the $e^{-i\omega t}$ term is resonant:
+\begin{linenomath}
+\begin{align}
+c_{f}^{(1)}(t) &= -\frac{i}{\hbar}\,V_{fi}\int_{0}^{t} dt'\,e^{i(\omega_{fi}-\omega)t'}
+= -\frac{i}{\hbar}\,V_{fi}\,\frac{e^{i(\omega_{fi}-\omega)t}-1}{i(\omega_{fi}-\omega)}.
+\label{eq:harmonic-perturbation-amplitude}
+\end{align}
+\end{linenomath}
+The transition probability is
+\begin{linenomath}
+\begin{equation*}
+P_{i\to f}(t) = \frac{|V_{fi}|^{2}}{\hbar^{2}}\,
+\frac{\sin^{2}[(\omega_{fi}-\omega)t/2]}{[(\omega_{fi}-\omega)/2]^{2}}.
+\end{equation*}
+\end{linenomath}
+On exact resonance ($\omega = \omega_{fi}$):
+\begin{linenomath}
+\begin{equation*}
+P_{i\to f}(t) = \frac{|V_{fi}|^{2}}{\hbar^{2}}\,t^{2}.
+\end{equation*}
+\end{linenomath}
+The quadratic growth on resonance is the first-order content of the Rabi formula \eqref{eq:rabi-formula}, which oscillates at the Rabi frequency $\Omega_{R} = \sqrt{\omega_{1}^{2}+\delta^{2}}$ -- first-order perturbation theory is the small-$t$ expansion of the exact resonant solution, valid only when $|V_{fi}|t/\hbar \ll 1$.
+
+\medskip\noindent\textbf{Benchmark check: the forced oscillator.}
+The exact forced-oscillator solution of Chapter~5 \eqref{eq:displacement-solution} provides the test. For a harmonic drive $f(t) = f_{0}\cos\omega t$ on resonance ($\omega = \omega_{0}$), the exact transition probability from the ground state to the $n$-th excited state is Poisson: $P_{n} = e^{-|\beta|^{2}}|\beta|^{2n}/n!$ with $|\beta| \simeq f_{0}t/2$ for large $t$. The single-quantum probability is $P_{1} = |\beta|^{2}e^{-|\beta|^{2}} \approx |\beta|^{2}$ for small $|\beta|$ -- reproducing the $t^{2}$ growth of first-order perturbation theory. The Poisson tail ($n \ge 2$) is a multi-photon effect beyond first order; it requires the $n$-th term in the Dyson series. The benchmark is satisfied: first-order TDPT captures the initial linear growth of the single-quantum channel correctly, and the exact solution confirms that the truncation is precisely ``one interaction vertex.''
+
+\medskip\noindent\textbf{Fermi's golden rule.}
+For transitions into a continuum (or quasi-continuum) of final states, the probability oscillates for a single state but accumulates secularly when summed over a dense set. The key identity, valid as $t \to \infty$, is
+\begin{linenomath}
+\begin{equation*}
+\lim_{t\to\infty}\frac{\sin^{2}(\omega t/2)}{(\omega/2)^{2}} = 2\pi t\,\delta(\omega).
+\end{equation*}
+\end{linenomath}
+This is a representation of the Dirac delta: $\int_{-\infty}^{\infty} d\omega\,\sin^{2}(\omega t/2)/(\omega/2)^{2} = 2\pi t$. Applying it to the harmonic-perturbation probability gives the transition rate $dP/dt$:
+\begin{linenomath}
+\begin{equation*}
+\Gamma_{i\to f} = \frac{2\pi}{\hbar}\,|\braket{f|V|i}|^{2}\,\delta(E_{f} - E_{i} \mp \hbar\omega),
+\end{equation*}
+\end{linenomath}
+with $-$ for absorption, $+$ for stimulated emission. This is Fermi's golden rule for a single final state. For a continuum of final states, sum over a dense set labelled by a continuous parameter (or by the energy itself). The sum is converted to an integral with the density of states $\rho(E_{f})$:
+\begin{linenomath}
+\begin{equation*}
+\sum_{f} \;\longrightarrow\; \int dE_{f}\,\rho(E_{f}),
+\end{equation*}
+\end{linenomath}
+where $\rho(E_{f})dE_{f}$ is the number of final states with energy between $E_{f}$ and $E_{f}+dE_{f}$. Then
+\begin{linenomath}
+\begin{equation}
+\Gamma_{i\to f} = \frac{2\pi}{\hbar}\,|\braket{f|V|i}|^{2}\,\rho(E_{f}).
+\label{eq:fermi-golden-rule}
+\end{equation}
+\end{linenomath}
+This is the chapter's keystone. Every measurable rate in atomic, molecular, nuclear, and condensed-matter physics descends from it. The operative regime: times long compared to $1/\Delta E$ (the inverse level spacing in the continuum -- so that the delta-function limit applies) but short compared to $1/\Gamma$ (so that first-order perturbation theory remains valid). The exponential decay law $P(t) = e^{-\Gamma t}$ follows from the golden rule only in the Markovian limit -- stated honestly.
+
+\medskip\noindent\textbf{Density of states.}
+For a free particle in a large box of volume $V = L^{3}$ with periodic boundary conditions, the allowed wave vectors are $\bm k = (2\pi/L)(n_{x},n_{y},n_{z})$. The number of states with wave-vector magnitude between $k$ and $k+dk$ and solid angle $d\Omega$ is
+\begin{linenomath}
+\begin{equation*}
+\frac{V}{(2\pi)^{3}}\,k^{2}dk\,d\Omega.
+\end{equation*}
+\end{linenomath}
+With $E = \hbar^{2}k^{2}/2m$, so $dE = \hbar^{2}k\,dk/m$, the density of states per unit energy and solid angle is
+\begin{linenomath}
+\begin{equation}
+\rho(E) = \frac{V}{(2\pi)^{3}}\,\frac{mk}{\hbar^{2}}\,d\Omega.
+\label{eq:density-of-states-free}
+\end{equation}
+\end{linenomath}
+For photons in a cavity, the number of electromagnetic modes per unit volume with frequency between $\omega$ and $\omega+d\omega$ is the Rayleigh--Jeans mode density of Chapter~1, now deployed quantum-mechanically:
+\begin{linenomath}
+\begin{equation*}
+\rho(\omega) = \frac{V\omega^{2}}{\pi^{2}c^{3}}.
+\end{equation*}
+\end{linenomath}
+
+\medskip\noindent\textbf{The Einstein $A$ and $B$ coefficients.}
+Couple an atomic electron to a classical electromagnetic wave. In the radiation gauge, the vector potential for a plane wave of frequency $\omega$, wave vector $\bm k$, and polarisation $\bm\epsilon$ ($\bm\epsilon\perp\bm k$) is
+\begin{linenomath}
+\begin{equation*}
+\bm A(\bm r,t) = \bm A_{0}\,e^{i(\bm k\cdot\bm r - \omega t)} + \text{c.c.}
+\end{equation*}
+\end{linenomath}
+The interaction Hamiltonian, to leading order in the field, is
+\begin{linenomath}
+\begin{equation*}
+V(t) = -\frac{e}{mc}\,\bm A(\bm r,t)\!\cdot\!\bm p,
+\end{equation*}
+\end{linenomath}
+(the $\bm A^{2}$ term is second-order in the field amplitude and is neglected in the first-order rate). The matrix element is
+\begin{linenomath}
+\begin{equation*}
+\braket{f|V(t)|i} = -\frac{e}{mc}\,\bm A_{0}\!\cdot\!\braket{f|e^{i\bm k\cdot\bm r}\,\bm p|i}\,e^{-i\omega t} + \text{non-resonant term}.
+\end{equation*}
+\end{linenomath}
+In the dipole approximation, valid when the wavelength is much larger than atomic dimensions ($ka_{0} \ll 1$), the exponential is replaced by unity: $e^{i\bm k\cdot\bm r} \approx 1$. The momentum matrix element is converted to a dipole matrix element via the commutator identity of Chapter~5 \eqref{eq:qp-commutator-rules}:
+\begin{linenomath}
+\begin{equation}
+[H_{0},\bm r] = -\frac{i\hbar}{m}\,\bm p
+\;\Longrightarrow\;
+\braket{f|\bm p|i} = \frac{im}{\hbar}(E_{f}-E_{i})\braket{f|\bm r|i} = im\omega_{fi}\braket{f|\bm r|i}.
+\label{eq:dipole-matrix-element}
+\end{equation}
+\end{linenomath}
+Thus $\braket{f|\bm\epsilon\!\cdot\!\bm p|i} = im\omega_{fi}\braket{f|\bm\epsilon\!\cdot\!\bm r|i}$.
+
+The transition rate for absorption follows from the golden rule \eqref{eq:fermi-golden-rule}. Substituting the matrix element and the photon density of final states per unit energy, $\rho(\hbar\omega) = V\omega^{2}/(\pi^{2}c^{3}\hbar)$, from the cavity mode count:
+\begin{linenomath}
+\begin{align*}
+\Gamma_{i\to f}^{\text{abs}}
+&= \frac{2\pi}{\hbar}\bigl|\braket{f|V|i}\bigr|^{2}\,\rho(\hbar\omega_{fi}) \\
+&= \frac{2\pi}{\hbar}\Bigl(\frac{e}{mc}\Bigr)^{2}
+   \bigl|\bm A_{0}\!\cdot\!\braket{f|\bm p|i}\bigr|^{2}\,
+   \frac{V\omega_{fi}^{2}}{\pi^{2}c^{3}\hbar} \\
+&= \frac{2\pi}{\hbar}\frac{e^{2}}{c^{2}}\,
+   \omega_{fi}^{2}\,\bigl|\bm A_{0}\!\cdot\!\braket{f|\bm r|i}\bigr|^{2}\,
+   \frac{V\omega_{fi}^{2}}{\pi^{2}c^{3}\hbar},
+\end{align*}
+\end{linenomath}
+where \eqref{eq:dipole-matrix-element} was used in the last step.
+The time-averaged energy density of a monochromatic classical plane wave is
+\begin{linenomath}
+\begin{equation}
+u(\omega) = \frac{\omega^{2}}{2\pi c^{2}}|A_{0}|^{2},
+\label{eq:classical-energy-density}
+\end{equation}
+\end{linenomath}
+so $|A_{0}|^{2} = (2\pi c^{2}/\omega^{2})\,u(\omega)$. Isotropically averaging over the relative orientation of the field polarisation and the atomic dipole yields $|\bm A_{0}\!\cdot\!\braket{f|\bm r|i}|^{2} = \frac13|A_{0}|^{2}|\braket{f|\bm r|i}|^{2}$. The normalisation volume $V$ cancels between the field amplitude and the density of states (the classical energy density $u$ is already a volume-normalised quantity). Assembling and cancelling factors:
+\begin{linenomath}
+\begin{align*}
+\Gamma_{i\to f}^{\text{abs}}
+&= \frac{4\pi^{2}e^{2}}{3\hbar^{2}}\,|\braket{f|\bm r|i}|^{2}\,u(\omega_{fi})
+   = B_{i\to f}\,u(\omega_{fi}),
+\end{align*}
+\end{linenomath}
+with the Einstein $B$ coefficient
+\begin{linenomath}
+\begin{equation}
+B_{i\to f} = \frac{4\pi^{2}e^{2}}{3\hbar^{2}}\,|\braket{f|\bm r|i}|^{2}.
+\label{eq:einstein-B}
+\end{equation}
+\end{linenomath}
+The Einstein relation $g_{i}B_{i\to f} = g_{f}B_{f\to i}$ (with $g_{i},g_{f}$ the degeneracies of the initial and final levels) follows from $|\braket{f|\bm r|i}|^{2} = |\braket{i|\bm r|f}|^{2}$ -- the dipole matrix element is symmetric.
+
+For spontaneous emission, the semi-classical treatment fails: the golden rule with a classical field gives zero transition rate when the field amplitude is zero -- no photon, no transition. The Einstein $A$ coefficient is obtained via the detailed-balance argument of Chapter~1 Section~\ref{subsec:einsteinAB}: in thermal equilibrium, the rates of absorption, stimulated emission, and spontaneous emission must balance to reproduce the Planck spectrum. This yields the Einstein relation
+\begin{linenomath}
+\begin{equation*}
+\frac{A_{f\to i}}{B_{f\to i}} = \frac{8\pi h\nu^{3}}{c^{3}},
+\end{equation*}
+\end{linenomath}
+and therefore
+\begin{linenomath}
+\begin{equation}
+A_{f\to i} = \frac{4e^{2}\omega_{fi}^{3}}{3\hbar c^{3}}\,|\braket{i|\bm r|f}|^{2}.
+\label{eq:einstein-A}
+\end{equation}
+\end{linenomath}
+
+\begin{note}
+The derivation of the $A$ coefficient above uses a classical electromagnetic field coupled to quantum-mechanical charges, and supplements it with the Einstein thermodynamic detailed-balance argument. This is the semi-classical radiation theory -- honest about its boundary. Spontaneous emission, strictly, requires quantisation of the radiation field; the quantised derivation, in which the $A$ coefficient emerges as the golden rule applied to the atom--field interaction with the vacuum state of the photon field, is Chapter~10's business. The result \eqref{eq:einstein-A} is identical in both derivations, and every experimentally measured lifetime agrees with it.
+\end{note}
+
+\medskip\noindent\textbf{Wigner--Eckart in rates.}
+The dipole matrix element $\braket{f|\bm r|i}$ that prices every Einstein coefficient factorises via the Wigner--Eckart theorem \eqref{eq:wigner-eckart}. The vector operator $\bm r$ has spherical components $r^{(1)}_{q}$ ($q = -1,0,1$), defined in Chapter~6 \eqref{eq:spherical-vector-components}. Its matrix element is
+\begin{linenomath}
+\begin{equation*}
+\braket{\alpha',j',m'|r^{(1)}_{q}|\alpha,j,m}
+= \braket{j,m;1,q|j',m'}\,\frac{\braket{\alpha',j'||\bm r||\alpha,j}}{\sqrt{2j'+1}}.
+\end{equation*}
+\end{linenomath}
+The selection rules $\Delta j = 0,\pm1$ ($j=0 \not\to j'=0$) and $\Delta m = 0,\pm1$ are the spectroscopic selection rules of Chapter~6 \eqref{eq:wigner-eckart-selection}. The rates for all Zeeman sublevels within a multiplet are proportional to the same reduced matrix element, differing only by the squares of Clebsch--Gordan coefficients -- the intensity ratios of the Zeeman triplet (Section~\ref{sec:degenerate-perturbation}) are priced by the golden rule and the Wigner--Eckart theorem together.
+
+\medskip\noindent\textbf{Example: Photoionisation of hydrogen.}
+A photon of energy $\hbar\omega$ above the ionisation threshold ($\hbar\omega > 13.6\;\text{eV}$) can eject the electron from the ground state into a continuum Coulomb wave. The final state is a free particle of momentum $\hbar\bm k$ and energy $E = \hbar^{2}k^{2}/2m = \hbar\omega - |E_{1}|$. The density of final states is the free-particle expression \eqref{eq:density-of-states-free}. The full derivation (dipole matrix element with the hydrogen $1s$ wavefunction, angular integration, and the flux factor converting rate to cross-section) is carried out in Exercise~6. Near threshold, the cross-section scales as
+\begin{linenomath}
+\begin{equation}
+\sigma_{\text{photo}}(\omega) = \frac{16\pi e^{2}}{3\hbar c}\,\frac{\omega_{0}^{\,3/2}}{\omega^{\,7/2}},
+\label{eq:photoionization-cross-section}
+\end{equation}
+\end{linenomath}
+where $\omega_{0} = |E_{1}|/\hbar$ is the threshold frequency. The scaling $\propto \omega^{-7/2}$ above threshold is the Kramers--Gaunt form; the Gaunt factor (a dimensionless correction near unity, from the Coulomb-wave normalisation) is named, not computed.
+
+\medskip\noindent\textbf{Example: Lifetime of the hydrogen $2p$ state.}
+The $2p \to 1s$ transition in hydrogen is electric-dipole-allowed ($\Delta\ell = \pm1$, satisfied; $\Delta j = 1$). The $A$ coefficient \eqref{eq:einstein-A}, evaluated with the hydrogen dipole matrix element $|\braket{100|\bm r|210}|^{2} = (2^{15}/3^{10})a_{0}^{2}$ (computed from the wavefunctions of Table~\ref{tab:hydrogen-wavefunctions}; the integration is Exercise~7), gives
+\begin{linenomath}
+\begin{equation*}
+A_{2p\to 1s} \approx 6.25 \times 10^{8}\;\text{s}^{-1},
+\qquad \tau_{2p} = 1/A \approx 1.6\;\text{ns}.
+\end{equation*}
+\end{linenomath}
+This is the physical content of the energy-time uncertainty remarked in Chapter~4 \eqref{eq:no-time-operator}: the natural linewidth $\Gamma = \hbar/\tau$ is the Mandelstam--Tamm kinetic reading of $\Delta E\,\Delta t$. The $2s$ state, by contrast, is metastable: the $2s \to 1s$ transition is dipole-forbidden ($\Delta\ell=0$ violates the $\Delta\ell=\pm1$ selection rule), and its decay proceeds by two-photon emission -- a process named, not computed here.
+
+The advantage of time-dependent perturbation theory is its direct contact with experiment: every rate, cross-section, and lifetime calculated from \eqref{eq:fermi-golden-rule} is a measurable quantity. Its limitation is that it is first-order in the perturbation -- when the transition probability approaches unity, the approximation fails, and the system enters the non-perturbative regime (Rabi oscillations, strong-field ionisation -- the subjects of specialised treatises, beyond this book's scope).
+
+The golden rule computes rates when the perturbation is weak. Scattering theory asks a different question: what is the probability that a particle, incident from infinity, emerges in a particular direction? The two questions are kin: both involve continuum states, both connect to measurable cross-sections. But scattering theory requires a formalism that treats the asymptotic states on an equal footing -- the subject of the next section.
+
+\section{Formal Scattering Theory: States, S-Matrix, and Cross-Sections}
+\label{sec:scattering-formalism}
+
+Scattering is the experimental regime in which a particle, prepared in the distant past as a momentum eigenstate, encounters a target, and is registered in the distant future in a definite direction. The formalism that describes this regime is the time-independent scattering theory: the Lippmann--Schwinger equation, the M\o{}ller operators, the S-matrix, and the optical theorem.
+
+\medskip\noindent\textbf{Scattering kinematics.}
+A beam of particles of mass $m$ and momentum $\hbar\bm k$ is incident on a fixed target described by a potential $V(\bm r)$. The scattering geometry: the incident direction is $\hat{\bm k}$, the outgoing direction is $\hat{\bm k}' = \hat{\bm r}$ (the direction of the detector). At large distances from the target, the scattered wavefunction is a superposition of the incident plane wave and an outgoing spherical wave:
+\begin{linenomath}
+\begin{equation}
+\psi_{\bm k}(\bm r) \xrightarrow{r\to\infty} e^{i\bm k\cdot\bm r} + f(\theta,\phi)\,\frac{e^{ikr}}{r}.
+\label{eq:scattering-amplitude-def}
+\end{equation}
+\end{linenomath}
+The scattering amplitude $f(\theta,\phi)$ carries all the physics; it depends on the incident direction $\hat{\bm k}$ and the outgoing direction $\hat{\bm r}$, but for a spherically symmetric potential it depends only on the angle $\theta$ between them. The measurable quantity is the differential cross-section:
+\begin{linenomath}
+\begin{equation*}
+\frac{d\sigma}{d\Omega} = |f(\theta,\phi)|^{2}.
+\end{equation*}
+\end{linenomath}
+Its integral over all solid angles is the total cross-section $\sigma_{\text{tot}}$. The incident flux in the plane wave $e^{i\bm k\cdot\bm r}$ is $v = \hbar k/m$ particles per unit area per unit time; the scattered flux into solid angle $d\Omega$ at distance $r$ is $|f|^{2}v\,d\Omega/r^{2}$; their ratio, times $r^{2}$, is $|f|^{2}\,d\Omega$ -- the differential cross-section.
+
+\medskip\noindent\textbf{The Lippmann--Schwinger equation.}
+The time-independent Schr\"odinger equation for scattering, $(E-H_{0})|\psi\rangle = V|\psi\rangle$ with $E = \hbar^{2}k^{2}/2m > 0$, is an inhomogeneous equation. The formal solution, incorporating the appropriate boundary conditions, is
+\begin{linenomath}
+\begin{equation}
+|\psi^{(\pm)}\rangle = |\phi\rangle + \frac{1}{E - H_{0} \pm i\epsilon}\,V\,|\psi^{(\pm)}\rangle.
+\label{eq:lippmann-schwinger}
+\end{equation}
+\end{linenomath}
+The free state $|\phi\rangle = |\bm k\rangle$ is the incident plane wave, $\braket{\bm r|\bm k} = e^{i\bm k\cdot\bm r}/(2\pi)^{3/2}$. The operator $(E-H_{0}\pm i\epsilon)^{-1}$ is the free-particle Green's function (resolvent), and the $\pm i\epsilon$ prescription -- the limit $\epsilon \to 0^{+}$ taken after the integral -- selects outgoing ($+$) or incoming ($-$) boundary conditions. The $+$ solution is the physical scattering state: an incident plane wave plus an outgoing scattered wave.
+
+The Green's function in the position representation is
+\begin{linenomath}
+\begin{align}
+G_{0}^{(\pm)}(\bm r,\bm r';E) &= \braket{\bm r|\frac{1}{E-H_{0}\pm i\epsilon}|\bm r'}
+= \int \frac{d^{3}k'}{(2\pi)^{3}}\,
+\frac{e^{i\bm k'\cdot(\bm r-\bm r')}}{E - \hbar^{2}k'^{2}/2m \pm i\epsilon} \nonumber \\
+&= -\frac{2m}{\hbar^{2}}\,\frac{e^{\pm ik|\bm r-\bm r'|}}{4\pi|\bm r-\bm r'|}.
+\end{align}
+\end{linenomath}
+The integral is evaluated by contour integration; the $\pm i\epsilon$ dictates which pole is enclosed, and the result is an outgoing ($+$) or incoming ($-$) spherical wave.
+
+For large $r = |\bm r|$, with $r \gg r'$ (the detector far from the target), expand the exponent:
+\begin{linenomath}
+\begin{equation*}
+k|\bm r - \bm r'| \approx kr - k\hat{\bm r}\!\cdot\!\bm r' + O(1/r).
+\end{equation*}
+\end{linenomath}
+The Green's function takes the asymptotic form
+\begin{linenomath}
+\begin{equation*}
+G_{0}^{(+)}(\bm r,\bm r';E) \xrightarrow{r\to\infty}
+-\frac{2m}{\hbar^{2}}\,\frac{e^{ikr}}{4\pi r}\,e^{-i\bm k'\cdot\bm r'},
+\qquad \bm k' = k\hat{\bm r}.
+\end{equation*}
+\end{linenomath}
+Insert this into the position representation of the LS equation \eqref{eq:lippmann-schwinger} (with the $+$ sign):
+\begin{linenomath}
+\begin{equation*}
+\psi_{\bm k}^{(+)}(\bm r) = \braket{\bm r|\bm k} + \int d^{3}r'\,G_{0}^{(+)}(\bm r,\bm r';E)\braket{\bm r'|V|\psi_{\bm k}^{(+)}}.
+\end{equation*}
+\end{linenomath}
+The asymptotic form is, with $\braket{\bm r|\bm k} = e^{i\bm k\cdot\bm r}/(2\pi)^{3/2}$,
+\begin{linenomath}
+\begin{align}
+\psi_{\bm k}^{(+)}(\bm r) &\xrightarrow{r\to\infty}
+\frac{1}{(2\pi)^{3/2}}\Bigl[\,e^{i\bm k\cdot\bm r}
+- \frac{2m}{\hbar^{2}}\,\frac{e^{ikr}}{4\pi r}
+\int d^{3}r'\,e^{-i\bm k'\cdot\bm r'}\braket{\bm r'|V|\psi_{\bm k}^{(+)}}\Bigr] \nonumber \\
+&= \frac{1}{(2\pi)^{3/2}}\Bigl[\,e^{i\bm k\cdot\bm r}
++ f(\bm k',\bm k)\,\frac{e^{ikr}}{r}\Bigr],
+\end{align}
+\end{linenomath}
+with the scattering amplitude
+\begin{linenomath}
+\begin{equation}
+f(\bm k',\bm k) = -\frac{2m}{\hbar^{2}}\,\frac{1}{4\pi}\,(2\pi)^{3}\braket{\bm k'|V|\psi_{\bm k}^{(+)}}.
+\label{eq:scattering-amplitude-ls}
+\end{equation}
+\end{linenomath}
+The factor $(2\pi)^{3}$ arises from the normalisation convention $\braket{\bm k'|\bm k} = \delta^{(3)}(\bm k'-\bm k)$.
+
+\medskip\noindent\textbf{M\o{}ller operators and the S-matrix.}
+The scattering state $|\psi^{(+)}\rangle$ is the time evolution, from the distant past, of the incident plane-wave state. Define the M\o{}ller wave operators
+\begin{linenomath}
+\begin{equation}
+\Omega^{(\pm)} = \lim_{t\to\mp\infty} e^{iHt/\hbar}\,e^{-iH_{0}t/\hbar}.
+\label{eq:moller-operators}
+\end{equation}
+\end{linenomath}
+Their action is $|\psi^{(\pm)}\rangle = \Omega^{(\pm)}|\phi\rangle$: the M\o{}ller operator maps a free asymptotic state to the full scattering state with the corresponding boundary condition. The scattering operator (S-matrix) is the overlap of the outgoing and incoming scattering states:
+\begin{linenomath}
+\begin{equation}
+S_{fi} = \braket{\psi_{f}^{(-)}|\psi_{i}^{(+)}} = \braket{\phi_{f}|\Omega^{(-)\dagger}\Omega^{(+)}|\phi_{i}} = \braket{\phi_{f}|S|\phi_{i}},
+\label{eq:S-matrix-def}
+\end{equation}
+\end{linenomath}
+with $S = \Omega^{(-)\dagger}\Omega^{(+)}$. The S-matrix is unitary, $S^{\dagger}S = SS^{\dagger} = I$, expressing the conservation of probability in scattering: every incident particle either emerges scattered or is absorbed (inelastic channels); the sum of probabilities over all final states is unity.
+
+The S-matrix separates into a no-scattering part (the incident particle passes through unaffected) and a scattering part, conventionally parametrised by the transition matrix $T$:
+\begin{linenomath}
+\begin{equation*}
+S_{fi} = \delta_{fi} - 2\pi i\,\delta(E_{f}-E_{i})\,T_{fi}.
+\end{equation*}
+\end{linenomath}
+The delta function enforces energy conservation -- scattering connects states of the same energy. The on-shell T-matrix element ($E_{f}=E_{i}=E$) is related to the scattering amplitude by
+\begin{linenomath}
+\begin{equation*}
+f(\bm k',\bm k) = -\frac{2m}{\hbar^{2}}\,\frac{1}{4\pi}\,(2\pi)^{3}\,T_{\bm k'\bm k}.
+\end{equation*}
+\end{linenomath}
+The LS equation \eqref{eq:lippmann-schwinger}, iterated once, gives the Born series:
+\begin{linenomath}
+\begin{equation*}
+T = V + V\frac{1}{E-H_{0}+i\epsilon}V + V\frac{1}{E-H_{0}+i\epsilon}V\frac{1}{E-H_{0}+i\epsilon}V + \cdots .
+\end{equation*}
+\end{linenomath}
+The first term is the first Born approximation -- the subject of Section~\ref{sec:born-partial-waves}.
+
+\medskip\noindent\textbf{The optical theorem.}
+Unitarity of the S-matrix, $S^{\dagger}S = I$ or $\sum_{n}S_{nf}^{*}S_{ni} = \delta_{fi}$, imposes a relation on the T-matrix. Substituting $S_{ni} = \delta_{ni} - 2\pi i\,\delta(E_{n}-E_{i})\,T_{ni}$:
+\begin{linenomath}
+\begin{align*}
+\sum_{n}\bigl[\delta_{nf} + 2\pi i\,\delta(E_{n}-E_{f})\,T_{nf}^{*}\bigr]
+      \bigl[\delta_{ni} - 2\pi i\,\delta(E_{n}-E_{i})\,T_{ni}\bigr] = \delta_{fi}.
+\end{align*}
+\end{linenomath}
+Expanding and keeping terms up to linear order in $T$, the zeroth-order term $\sum_{n}\delta_{nf}\delta_{ni} = \delta_{fi}$ cancels the right-hand side. The cross terms give
+\begin{linenomath}
+\begin{equation*}
+-2\pi i\,\delta(E_{f}-E_{i})\,T_{fi}
++ 2\pi i\,\delta(E_{f}-E_{i})\,T_{if}^{*}
++ 4\pi^{2}\delta(E_{f}-E_{i})\sum_{n}\delta(E_{n}-E_{i})\,T_{nf}^{*}T_{ni} = 0.
+\end{equation*}
+\end{linenomath}
+The quadratic term (from $T^{\dagger}T$) is retained because it is of the same order as the linear terms when multiplied by the density of intermediate states. Cancelling the common factor $\delta(E_{f}-E_{i})$ and rearranging yields the on-shell unitarity condition for the T-matrix:
+\begin{linenomath}
+\begin{equation*}
+T_{fi} - T_{if}^{*} = -2\pi i\sum_{n}\delta(E_{n}-E_{i})\,T_{nf}^{*}T_{ni}.
+\end{equation*}
+\end{linenomath}
+For forward scattering ($f = i$), this becomes
+\begin{linenomath}
+\begin{equation*}
+2i\,\Im T_{ii} = -2\pi i\sum_{n}\delta(E_{n}-E_{i})\,|T_{ni}|^{2}.
+\end{equation*}
+\end{linenomath}
+Dividing by $-2i$ and translating to the scattering amplitude gives the optical theorem:
+\begin{linenomath}
+\begin{equation}
+\Im f(\theta=0) = \frac{k}{4\pi}\,\sigma_{\text{tot}}.
+\label{eq:optical-theorem}
+\end{equation}
+\end{linenomath}
+The physical content: the total cross-section (elastic plus inelastic, summed over all open channels) is proportional to the imaginary part of the forward elastic scattering amplitude. Destructive interference in the forward direction removes precisely the flux from the incident beam that reappears as scattering into all other directions. The theorem is exact -- a consequence of probability conservation alone -- and is testable in any scattering experiment.
+
+\medskip\noindent\textbf{Cross-sections from the S-matrix.}
+For scattering from an initial momentum $\bm k$ to a final momentum $\bm k'$ (elastic), the differential cross-section is $d\sigma/d\Omega = |f(\bm k',\bm k)|^{2}$. For inelastic scattering $i \to f$ in which the target changes internal state, the same formula applies with the appropriate T-matrix element connecting the initial and final channels, and the appropriate density of final states. The total cross-section for a given initial channel is the sum (integral) over all open final channels.
+
+The operational content of this formal section is the optical theorem and the connection between the scattering amplitude and the measurable cross-section. The LS equation is exact but exact only as an integral equation -- it is not a solution. The first Born approximation, which replaces the full scattering state $|\psi^{(+)}\rangle$ inside the integral by the incident plane wave $|\bm k\rangle$, yields a closed-form expression for the scattering amplitude -- and with it, the Rutherford cross-section.
+
+\section{The Born Approximation and Partial Waves}
+\label{sec:born-partial-waves}
+
+The Lippmann--Schwinger equation is exact but implicit: the unknown $|\psi^{(+)}\rangle$ appears on both sides. The first Born approximation replaces it by the incident plane wave inside the integral, yielding an explicit formula for the scattering amplitude. The partial-wave expansion, by contrast, exploits rotational symmetry to reduce the scattering problem to a set of one-dimensional radial equations labelled by angular momentum -- exact, and complementary to the Born approximation.
+
+\medskip\noindent\textbf{The first Born approximation.}
+Set $|\psi^{(+)}\rangle \approx |\bm k\rangle$ in the LS result \eqref{eq:scattering-amplitude-ls}. The scattering amplitude becomes the Fourier transform of the potential, evaluated at the momentum transfer:
+\begin{linenomath}
+\begin{equation}
+f_{\text{Born}}(\bm k',\bm k) = -\frac{2m}{\hbar^{2}}\,\frac{1}{4\pi}\int d^{3}r\;e^{-i\bm q\cdot\bm r}\,V(\bm r),
+\qquad \bm q = \bm k' - \bm k.
+\label{eq:born-amplitude}
+\end{equation}
+\end{linenomath}
+The momentum transfer $q = |\bm q| = 2k\sin(\theta/2)$ measures how hard the scattering is: forward scattering ($\theta=0$) corresponds to $q=0$; back-scattering ($\theta=\pi$) to $q=2k$.
+
+For a spherically symmetric potential $V(r)$, the angular integration is immediate:
+\begin{linenomath}
+\begin{equation}
+f_{\text{Born}}(\theta) = -\frac{2m}{\hbar^{2}q}\int_{0}^{\infty} dr\;r\,V(r)\,\sin(qr).
+\label{eq:born-spherical}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Rutherford scattering: the ch1 debt repaid.}
+For the Coulomb potential $V(r) = Ze^{2}/r$, the Fourier transform of $1/r$ is $4\pi/q^{2}$. The integral $\int_{0}^{\infty} dr\,\sin(qr) = \lim_{\mu\to0} q/(q^{2}+\mu^{2}) = 1/q$ (regulated by a screening factor $e^{-\mu r}$, $\mu\to 0$). Then
+\begin{linenomath}
+\begin{align}
+f_{\text{Born}}(\theta) &= -\frac{2mZe^{2}}{\hbar^{2}}\,\frac{1}{q^{2}}
+= -\frac{2mZe^{2}}{\hbar^{2}}\,\frac{1}{4k^{2}\sin^{2}(\theta/2)} \nonumber \\
+&= -\frac{Ze^{2}}{2mv^{2}}\,\frac{1}{\sin^{2}(\theta/2)}.
+\end{align}
+\end{linenomath}
+With $E = \tfrac12 mv^{2} = \hbar^{2}k^{2}/2m$, the differential cross-section is
+\begin{linenomath}
+\begin{equation}
+\frac{d\sigma}{d\Omega} = \left(\frac{Ze^{2}}{4E}\right)^{2}\frac{1}{\sin^{4}(\theta/2)}.
+\label{eq:rutherford-cross-section}
+\end{equation}
+\end{linenomath}
+This is exactly the classical Rutherford formula derived in Chapter~1. The debt is repaid in full.
+
+\begin{note}
+The Born approximation and the classical calculation happen to give the same result for the Coulomb potential. This is a coincidence: the Born amplitude is the Fourier transform $1/q^{2}$, and the classical scattering integral for $1/r$ also produces $1/\sin^{2}(\theta/2)$, which is proportional to $1/q^{4}$ in the cross-section. For a general potential the two differ. Moreover, the exact Coulomb scattering amplitude -- the Gordon formula -- differs from the Born result by a phase factor $e^{-i\eta\ln(\sin^{2}\theta/2)}$, where $\eta = Ze^{2}/\hbar v$, which drops out of $|f|^{2}$ -- named, not derived.
+\end{note}
+
+\medskip\noindent\textbf{Validity of the Born approximation.}
+The replacement $|\psi^{(+)}\rangle \approx |\bm k\rangle$ requires the scattered wave to be small compared to the incident wave in the interaction region. This is satisfied when either (a) the incident energy is high, $ka \gg 1$ for a potential of range $a$, or (b) the potential is weak: $|V_{0}| \ll \hbar^{2}/ma^{2}$ for a potential of depth $V_{0}$ and range $a$. For the Coulomb potential, the condition is $Ze^{2}/\hbar v \ll 1$ -- high velocity, low nuclear charge.
+
+\medskip\noindent\textbf{Form factor.}
+When the target is not a point particle but a composite object with a charge distribution $\rho(\bm r)$, the potential is the convolution $V(\bm r) = \int d^{3}r'\,\rho(\bm r')/|\bm r-\bm r'|$. In the Born approximation, the scattering amplitude factorises:
+\begin{linenomath}
+\begin{equation}
+f_{\text{Born}}(\bm q) = f_{\text{point}}(\bm q)\,F(\bm q),
+\qquad
+F(\bm q) = \int d^{3}r\;e^{-i\bm q\cdot\bm r}\,\rho(\bm r).
+\label{eq:form-factor}
+\end{equation}
+\end{linenomath}
+$F(\bm q)$ is the elastic form factor -- the Fourier transform of the target's charge distribution. The differential cross-section measures $|F(q)|^{2}$: scattering is diffraction, and the diffraction pattern reveals the target's structure. This is how Hofstadter measured nuclear charge radii, how X-ray crystallography determines electron densities, and how deep inelastic scattering maps the proton's parton distributions.
+
+\medskip\noindent\textbf{Partial-wave expansion.}
+Rotational symmetry diagonalises the scattering problem. The scattering amplitude for a spherically symmetric potential depends only on the angle $\theta$, and can be expanded in Legendre polynomials:
+\begin{linenomath}
+\begin{equation}
+f(\theta) = \frac{1}{k}\sum_{\ell=0}^{\infty} (2\ell+1)\,e^{i\delta_{\ell}}\sin\delta_{\ell}\,P_{\ell}(\cos\theta).
+\label{eq:partial-wave-expansion}
+\end{equation}
+\end{linenomath}
+The phase shifts $\delta_{\ell}$ are real numbers, one for each angular-momentum channel $\ell$. They encode all the physics of the potential for that channel.
+
+\medskip\noindent\textbf{Origin of the phase shifts.}
+Outside the range of the potential, the radial wavefunction for channel $\ell$ satisfies the free radial equation from Chapter~6 \eqref{eq:radial-equation}:
+\begin{linenomath}
+\begin{equation*}
+\frac{d^{2}u_{\ell}}{dr^{2}} + \Bigl[k^{2} - \frac{\ell(\ell+1)}{r^{2}}\Bigr]u_{\ell} = 0,
+\qquad u_{\ell}(r) = rR_{\ell}(r).
+\end{equation*}
+\end{linenomath}
+The regular solution, normalised to unit amplitude at infinity for a free particle, is $u_{\ell}(r) = kr\,j_{\ell}(kr)$, with the spherical Bessel function $j_{\ell}$. Its asymptotic form is
+\begin{linenomath}
+\begin{equation*}
+kr\,j_{\ell}(kr) \xrightarrow{r\to\infty} \sin\!\Bigl(kr - \frac{\ell\pi}{2}\Bigr).
+\end{equation*}
+\end{linenomath}
+In the presence of a short-range potential, the wavefunction in the asymptotic region (where $V(r)$ is negligible) is still a linear combination of the two independent solutions, but its phase is shifted:
+\begin{linenomath}
+\begin{equation*}
+u_{\ell}(r) \xrightarrow{r\to\infty} A_{\ell}\,\sin\!\Bigl(kr - \frac{\ell\pi}{2} + \delta_{\ell}\Bigr).
+\end{equation*}
+\end{linenomath}
+The phase shift $\delta_{\ell}$ is the sole imprint of the potential on the asymptotic wave: the potential, whatever its detailed shape, can only displace the nodes of the radial wavefunction -- it cannot change the $1/r$ fall-off or the wave number.
+To extract the scattering amplitude, expand the incident plane wave in spherical waves (Rayleigh expansion):
+\begin{linenomath}
+\begin{equation*}
+e^{i\bm k\cdot\bm r} = \sum_{\ell=0}^{\infty}(2\ell+1)\,i^{\ell}\,j_{\ell}(kr)\,P_{\ell}(\cos\theta)
+\xrightarrow{r\to\infty}
+\sum_{\ell=0}^{\infty}(2\ell+1)\,i^{\ell}\,
+\frac{\sin(kr - \ell\pi/2)}{kr}\,P_{\ell}(\cos\theta).
+\end{equation*}
+\end{linenomath}
+The full scattering wavefunction admits a partial-wave decomposition
+\begin{linenomath}
+\begin{equation*}
+\psi_{\bm k}^{(+)}(\bm r) \xrightarrow{r\to\infty}
+\frac{1}{(2\pi)^{3/2}}\sum_{\ell=0}^{\infty}
+c_{\ell}\,\frac{\sin(kr - \ell\pi/2 + \delta_{\ell})}{kr}\,P_{\ell}(\cos\theta),
+\end{equation*}
+\end{linenomath}
+where each partial wave acquires the phase shift $\delta_{\ell}$ but the coefficients $c_{\ell}$ must be those of the incident plane wave, because the unscattered component of the wavefunction is the plane wave itself; hence $c_{\ell} = (2\ell+1)i^{\ell}$.
+Writing each sine as a sum of incoming and outgoing spherical waves,
+$\sin(kr - \ell\pi/2 + \delta_{\ell}) = \frac{1}{2i}[e^{i\delta_{\ell}}e^{i(kr-\ell\pi/2)} - e^{-i\delta_{\ell}}e^{-i(kr-\ell\pi/2)}]$,
+and subtracting the plane-wave contribution isolates the outgoing scattered wave. This matching procedure yields the partial-wave expansion
+\begin{linenomath}
+\begin{equation}
+f(\theta) = \frac{1}{k}\sum_{\ell=0}^{\infty} (2\ell+1)\,e^{i\delta_{\ell}}\sin\delta_{\ell}\,P_{\ell}(\cos\theta).
+\label{eq:partial-wave-expansion}
+\end{equation}
+\end{linenomath}
+
+The partial cross-section in channel $\ell$ -- the contribution of that angular momentum to the total cross-section -- is obtained by integrating $|f(\theta)|^{2}$ over solid angles, using the orthogonality of the Legendre polynomials $\int_{-1}^{1}P_{\ell}(x)P_{\ell'}(x)dx = 2\delta_{\ell\ell'}/(2\ell+1)$:
+\begin{linenomath}
+\begin{equation}
+\sigma_{\ell} = \frac{4\pi}{k^{2}}\,(2\ell+1)\,\sin^{2}\delta_{\ell}.
+\label{eq:partial-cross-section}
+\end{equation}
+\end{linenomath}
+The total cross-section is the sum $\sigma_{\text{tot}} = \sum_{\ell}\sigma_{\ell}$. The optical theorem \eqref{eq:optical-theorem} in partial-wave language reads
+\begin{linenomath}
+\begin{equation*}
+\Im f(0) = \frac{1}{k}\sum_{\ell}(2\ell+1)\sin^{2}\delta_{\ell} = \frac{k}{4\pi}\,\sigma_{\text{tot}},
+\end{equation*}
+\end{linenomath}
+a consistency check: the forward amplitude constructed from phase shifts satisfies the optical theorem automatically.
+
+\medskip\noindent\textbf{Unitarity bound.}
+Since $\sin^{2}\delta_{\ell} \le 1$, each partial cross-section is bounded:
+\begin{linenomath}
+\begin{equation*}
+\sigma_{\ell} \le \frac{4\pi}{k^{2}}\,(2\ell+1).
+\end{equation*}
+\end{linenomath}
+Saturation of this bound ($\delta_{\ell} = \pi/2$, $\sin^{2}\delta_{\ell}=1$) corresponds to a resonance in the $\ell$-th partial wave: the scattering amplitude in that channel reaches its maximum possible value, and the phase shift passes rapidly through $\pi/2$.
+
+\medskip\noindent\textbf{Low-energy scattering.}
+As $k \to 0$, the centrifugal barrier $\hbar^{2}\ell(\ell+1)/2mr^{2}$ suppresses all waves with $\ell > 0$: the barrier height diverges as $1/r^{2}$ while the incident kinetic energy vanishes as $k^{2}$. Only s-wave ($\ell=0$) scattering survives. For a short-range potential, the s-wave phase shift at low energy is proportional to $k$:
+\begin{linenomath}
+\begin{equation}
+\delta_{0}(k) \approx -a_{s}k \qquad (k \to 0),
+\label{eq:scattering-length}
+\end{equation}
+\end{linenomath}
+defining the scattering length $a_{s}$. The low-energy total cross-section is then
+\begin{linenomath}
+\begin{equation*}
+\sigma \xrightarrow{k\to 0} \frac{4\pi}{k^{2}}\sin^{2}\delta_{0} \approx 4\pi a_{s}^{2}.
+\end{equation*}
+\end{linenomath}
+The sign of $a_{s}$ carries physical information: positive for a repulsive potential (or a shallow bound state near threshold -- effective-range theory), negative for an attractive potential without a bound state. For neutron--proton scattering, the singlet scattering length is $a_{s} \approx -23.7\;\text{fm}$ (nearly bound, a virtual state) and the triplet is $a_{t} \approx 5.4\;\text{fm}$ (shallow bound state -- the deuteron).
+
+\medskip\noindent\textbf{Resonance: the Breit--Wigner formula.}
+When the potential supports a quasi-bound state -- a resonance -- at energy $E_{R}$ in channel $\ell$, the phase shift rises rapidly through $\pi/2$. Near the resonance, the energy dependence is parametrised by
+\begin{linenomath}
+\begin{equation*}
+\delta_{\ell}(E) \approx \delta_{\text{bg}} + \arctan\!\Bigl(\frac{\Gamma/2}{E_{R}-E}\Bigr),
+\end{equation*}
+\end{linenomath}
+where $\delta_{\text{bg}}$ is a slowly varying background phase and $\Gamma$ is the resonance width. The partial cross-section takes the Breit--Wigner form:
+\begin{linenomath}
+\begin{equation}
+\sigma_{\ell} \approx \frac{4\pi}{k^{2}}\,(2\ell+1)\,
+\frac{\Gamma^{2}/4}{(E-E_{R})^{2} + \Gamma^{2}/4}.
+\label{eq:breit-wigner}
+\end{equation}
+\end{linenomath}
+At $E = E_{R}$, the cross-section peaks at the unitarity bound. The full width at half maximum is $\Gamma$. The width is the decay rate of the quasi-bound state: $\Gamma = \hbar/\tau$, the same $\Gamma$ that appears in the golden rule \eqref{eq:fermi-golden-rule} and in the energy-time uncertainty of Chapter~4 \eqref{eq:no-time-operator}. The connection -- the resonance decay rate equals the golden-rule rate into all open channels -- is stated; the multi-channel sum is named only (beyond scope).
+
+\medskip\noindent\textbf{Connection to bound states.}
+A bound state at energy $E = -\hbar^{2}\kappa^{2}/2m < 0$ corresponds to a pole of the S-matrix on the positive imaginary $k$-axis: $k = i\kappa$ with $\kappa > 0$. The bound-state wavefunction behaves as $e^{-\kappa r}/r$ for large $r$, and the S-matrix at the pole has the form $S_{\ell}(k) = e^{2i\delta_{\ell}(k)} \sim 1/(k-i\kappa)$. Levinson's theorem relates the phase shift at threshold to the number of bound states in that channel:
+\begin{linenomath}
+\begin{equation*}
+\delta_{\ell}(0) - \delta_{\ell}(\infty) = n_{\ell}\pi,
+\end{equation*}
+\end{linenomath}
+where $n_{\ell}$ is the number of bound states with angular momentum $\ell$. The theorem is stated without proof (an Appendix~A pointer); its content is that each bound state contributes $\pi$ to the accumulated phase shift as the energy sweeps from infinity down to threshold.
+
+\medskip\noindent\textbf{Example: Yukawa potential.}
+The Yukawa potential $V(r) = (g^{2}/r)\,e^{-r/\lambda}$ describes massive-particle exchange (range $\lambda = \hbar/mc$, coupling $g$). The Born amplitude from \eqref{eq:born-spherical} is
+\begin{linenomath}
+\begin{equation}
+f_{\text{Born}}(\theta) = -\frac{2mg^{2}}{\hbar^{2}}\,\frac{1}{q^{2} + 1/\lambda^{2}}.
+\label{eq:born-yukawa}
+\end{equation}
+\end{linenomath}
+The differential cross-section:
+\begin{linenomath}
+\begin{equation*}
+\frac{d\sigma}{d\Omega} = \frac{4m^{2}g^{4}}{\hbar^{4}}\,\frac{1}{(q^{2} + 1/\lambda^{2})^{2}}.
+\end{equation*}
+\end{linenomath}
+In the limit $\lambda \to \infty$ (massless exchange, $1/\lambda^{2} \to 0$), the potential becomes the Coulomb potential and the cross-section recovers the Rutherford formula \eqref{eq:rutherford-cross-section}. Yukawa's original 1935 application to nuclear forces identified the range $\lambda = \hbar/m_{\pi}c$ with the pion mass, predicting $m_{\pi} \approx 100$--$200\;\text{MeV}/c^{2}$; the pion was discovered in 1947 with $m_{\pi} \approx 140\;\text{MeV}/c^{2}$.
+
+The Born approximation and partial-wave expansion are the two standard tools for computing cross-sections from a given potential -- the Born approximation convenient at high energy or weak coupling, the partial-wave expansion natural at low energy, where only a few phase shifts matter. Together with the golden rule for transition rates and the Rayleigh--Schrodinger/variational methods for bound states, they constitute the perturbative toolbox -- the bridge from the Hilbert space to the laboratory.
+
+\section{Perturbative Methods and the Theory of Scattering: Summary and Open Debts}
+\label{sec:ch8summary}
+
+The chapter's content compresses into no new axioms -- every display in the chapter is derived from the ch2--ch5 axioms and the ch6 theorems -- and the following method inventory.
+
+\medskip\noindent\textbf{Consolidated debt ledger.}
+\begin{enumerate}
+\item[\S 8.1--8.2] \textbf{Time-independent perturbation theory.} Rayleigh--Schrodinger series for non-degenerate levels (\eqref{eq:rs-first-order-energy}, \eqref{eq:rs-first-order-state}, \eqref{eq:rs-second-order-energy}); secular equation for degenerate levels (\eqref{eq:secular-equation}). Applied to the Stark effect (quadratic in the ground state, linear in $n=2$), the normal and anomalous Zeeman effects (\eqref{eq:lande-g-factor}), and hydrogen fine structure (\eqref{eq:fine-structure-hamiltonian}). Repaid: ch6 debts \#34 (Wigner--Eckart selection rules for Stark perturbation), \#38 (Zeeman splitting as degenerate perturbation theory); ch1's Stark/Zeeman promissory notes.
+
+\item[\S 8.3] \textbf{The variational method.} Rayleigh--Ritz principle (\eqref{eq:rayleigh-ritz}) -- a rigorous upper bound on the ground-state energy. Applied to the helium atom (\eqref{eq:helium-hamiltonian}) with a one-parameter hydrogenic trial function (\eqref{eq:helium-trial}), yielding $E_{\text{var}} \approx -77.5\;\text{eV}$ -- within $1.9\%$ of experiment (\eqref{eq:helium-result}). Repaid: ch1's old-quantum-theory helium failure; ch6 debt \#36 (hydrogen radial wavefunctions as trial-function ingredients).
+
+\item[\S 8.4] \textbf{Time-dependent perturbation theory.} First-order transition amplitude from the truncated Dyson series (\eqref{eq:first-order-amplitude}). Fermi's golden rule (\eqref{eq:fermi-golden-rule}) -- the chapter's keystone -- gives the transition rate as $2\pi/\hbar$ times the squared matrix element times the density of states. Einstein $A$ and $B$ coefficients derived (\eqref{eq:einstein-B}, \eqref{eq:einstein-A}) via the semi-classical radiation theory plus detailed balance. Benchmark check against the exact forced-oscillator solution: first-order TDPT correctly captures the single-quantum channel. Repaid: ch4 debt \#25 (Dyson truncation to TDPT); ch5 debt \#28 (interaction-picture truncation, forced-oscillator benchmark); ch6 debts \#34, \#35 (Wigner--Eckart selection rules for rates, dipole matrix elements); ch1's Einstein A/B debt.
+
+\item[\S 8.5] \textbf{Formal scattering theory.} Lippmann--Schwinger equation (\eqref{eq:lippmann-schwinger}), M\o{}ller operators (\eqref{eq:moller-operators}), S-matrix (\eqref{eq:S-matrix-def}), optical theorem (\eqref{eq:optical-theorem}) -- the exact identity $\Im f(0) = k\sigma_{\text{tot}}/4\pi$ from probability conservation. Repaid: ch6 debt \#37 (central-potential scattering boundary conditions from the radial equation).
+
+\item[\S 8.6] \textbf{Born approximation and partial waves.} First Born amplitude as the Fourier transform of the potential (\eqref{eq:born-amplitude}); Rutherford cross-section recovered identically (\eqref{eq:rutherford-cross-section}) -- the ch1 debt repaid. Form factor $F(\bm q)$ (\eqref{eq:form-factor}) connects scattering to structure. Partial-wave expansion (\eqref{eq:partial-wave-expansion}) with phase shifts $\delta_{\ell}$; Breit--Wigner resonance formula (\eqref{eq:breit-wigner}); scattering length (\eqref{eq:scattering-length}). Repaid: ch1's Rutherford debt; ch6 debt \#37 (partial waves from the central-potential reduction); ch4 debt \#25 (linewidth/resonance rate theory).
+\end{enumerate}
+
+\medskip\noindent\textbf{Method dictionary.}
+Table~\ref{tab:ch8-dictionary} extends the experiment--formalism dictionary of Chapters~2--6. The method rows added here are the perturbative and scattering entries.
+
+\begin{table}[htbp]
+\centering
+\caption{The experiment--formalism dictionary v6. Ten method rows added in this chapter, extending Tables~\ref{tab:ch2-dictionary}--\ref{tab:ch6-dictionary}.}
+\label{tab:ch8-dictionary}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Method concept & Formal object \\
+\midrule
+Perturbation series & $\lambda$-expansion of the spectral problem \\
+Variational bound & rigorous upper bound on $E_{0}$ \\
+Dyson truncation & first-order transition amplitude \\
+Golden rule & $\Gamma = \frac{2\pi}{\hbar}|V_{fi}|^{2}\rho(E_{f})$ \\
+Einstein coefficients & $A,B$ from dipole rates \\
+Scattering amplitude & asymptotic form of the wavefunction \\
+S-matrix & probability-conserving in/out map \\
+Optical theorem & $\Im f(0) \propto \sigma_{\text{tot}}$ \\
+Born approximation & Fourier transform of the potential \\
+Phase shift & imprint of the potential per channel \\
+Resonance & quasi-bound state, Breit--Wigner, $\Gamma = \hbar/\tau$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\medskip\noindent\textbf{Remaining debts.}
+The chapter leaves four debts open, planted for the chapters to come:
+\begin{enumerate}
+\item \textbf{Strong coupling and non-perturbative methods.} Perturbation theory fails when the expansion parameter is of order unity. The path integral and WKB approximation -- the subjects of Chapter~9 -- are the standard non-perturbative tools.
+\item \textbf{Field quantisation and spontaneous emission.} The Einstein $A$ coefficient was obtained semi-classically. The full QED derivation requires quantisation of the radiation field -- Chapter~10's business.
+\item \textbf{Relativistic corrections beyond fine structure.} The fine-structure perturbation treated the leading relativistic corrections; the Dirac equation -- the complete relativistic theory of the electron -- is named only, beyond the non-relativistic scope of this book.
+\item \textbf{Multi-channel and full resonance theory.} The Breit--Wigner formula treats one resonance in one channel. Multi-channel scattering, coupled-channels methods, and the full resonance theory (complex scaling, Siegert states) are beyond scope, named with a literature pointer.
+\end{enumerate}
+
+\medskip\noindent\textbf{Exit question.}
+These perturbative methods work when the coupling is weak. The atomic and molecular spectroscopist lives inside their domain of validity. But when the coupling is strong -- when the expansion parameter is of order unity -- the series diverges and the approximation fails. What replaces perturbation theory then? The answer occupies the book's two closing chapters: Chapter~9 (path integrals and the semi-classical limit) and Chapter~10 (field-theoretic methods and second quantisation).
+
+\begin{problemset}
+
+\item ($\star$) (Section~\ref{sec:tipt-nondegenerate}) First-order anharmonic oscillator. For the quartic perturbation $V = \lambda x^{4}$ on the one-dimensional harmonic oscillator, with $x = \sqrt{\hbar/2m\omega}\,(a+a^{\dagger})$:
+\begin{enumerate}
+\item[(a)] Compute $\braket{n|(a+a^{\dagger})^{4}|n}$ by normal-ordering the sixteen terms and collecting the nonzero diagonal contributions. Confirm the result \eqref{eq:anharmonic-first-order}:
+\begin{linenomath}
+\begin{equation*}
+E_{n}^{(1)} = \lambda\frac{3\hbar^{2}}{4m^{2}\omega^{2}}\,(2n^{2}+2n+1).
+\end{equation*}
+\end{linenomath}
+\item[(b)] Show that the first-order state correction $\ket{n^{(1)}}$ involves only states with $\Delta n = \pm 2, \pm 4$, and explain why $\Delta n = \pm 1, \pm 3$ are forbidden by parity.
+\end{enumerate}
+
+\item ($\star$) (Section~\ref{sec:tipt-nondegenerate}) Hydrogen ground-state Stark polarisability: verify the $2p$ contribution. Using the hydrogen wavefunctions from Table~\ref{tab:hydrogen-wavefunctions}:
+\begin{enumerate}
+\item[(a)] Compute $\braket{210|z|100}$ directly from $\psi_{100}$ and $\psi_{210}$. Confirm that only the $2p$ ($n=2,\ell=1,m=0$) state contributes to the sum \eqref{eq:stark-quadratic-polarizability} at leading order, and evaluate its contribution to the polarisability.
+\item[(b)] Estimate the quadratic Stark shift $\Delta E_{1s}^{(2)}$ for a laboratory field $\mathcal{E} = 10^{4}\;\text{V/cm}$ (in Gaussian units: $1\;\text{V/cm} \approx 3.33 \times 10^{-3}\;\text{statV/cm}$). Is the shift measurable by optical spectroscopy?
+\end{enumerate}
+
+\item ($\star$) (Section~\ref{sec:degenerate-perturbation}) Normal Zeeman triplet. For a hydrogen atom in a magnetic field $B\hat{z}$, consider the $2p \to 1s$ (Lyman-$\alpha$) transition:
+\begin{enumerate}
+\item[(a)] Write the energies $E_{2,1,m}$ and $E_{1,0,0}$ as functions of $B$ using the orbital Zeeman Hamiltonian \eqref{eq:zeeman-splitting}.
+\item[(b)] Determine the three transition frequencies $\omega_{m} = (E_{2,1,m}-E_{1,0,0})/\hbar$ and the corresponding wavelengths for $B = 1\;\text{T}$ (in Gaussian units: $1\;\text{T} = 10^{4}\;\text{G}$). Use $\mu_{B} = 9.27 \times 10^{-21}\;\text{erg/G}$.
+\item[(c)] Using the dipole selection rules $\Delta m = 0,\pm 1$, identify the polarisation of each line ($\pi$ for $\Delta m=0$, $\sigma^{\pm}$ for $\Delta m=\pm 1$).
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:degenerate-perturbation}) Anomalous Zeeman effect: the Land\'e $g$-factor.
+\begin{enumerate}
+\item[(a)] Derive the projection-theorem result for the matrix elements of a vector operator $\bm V$ within a $J$-multiplet:
+\begin{linenomath}
+\begin{equation*}
+\braket{LSJM_{J}'|\bm V|LSJM_{J}} = \frac{\braket{LSJ|\bm V\!\cdot\!\bm J|LSJ}}{\hbar^{2}J(J+1)}\,
+\braket{LSJM_{J}'|\bm J|LSJM_{J}}.
+\end{equation*}
+\end{linenomath}
+\item[(b)] Apply this to $\bm L$ and $\bm S$ and derive the Land\'e $g$-factor \eqref{eq:lande-g-factor}. Verify the $g$-factors for the sodium D-line terms: $g(^{2}S_{1/2})=2$, $g(^{2}P_{3/2})=4/3$, $g(^{2}P_{1/2})=2/3$.
+\item[(c)] Draw the level scheme for the sodium D-lines in a weak magnetic field, showing all Zeeman sublevels and the allowed electric-dipole transitions. Count the total number of lines and predict their relative intensities from the Clebsch--Gordan coefficients.
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:variational-method}) Helium with a two-parameter trial function. Generalise the trial function \eqref{eq:helium-trial} to allow different effective charges for the two electrons:
+\begin{linenomath}
+\begin{equation*}
+\psi_{\text{trial}}(\bm r_{1},\bm r_{2}) = \frac{Z_{1}^{3/2}Z_{2}^{3/2}}{\pi a_{0}^{3}}\,
+e^{-Z_{1}r_{1}/a_{0}}e^{-Z_{2}r_{2}/a_{0}}.
+\end{equation*}
+\end{linenomath}
+(Note: this function is not properly symmetrised; treat it as a spatial ansatz for the purpose of energy minimisation.)
+\begin{enumerate}
+\item[(a)] Compute the energy functional $\braket{H}(Z_{1},Z_{2})$. The electron--electron repulsion integral with two different screening constants is
+\begin{linenomath}
+\begin{equation*}
+\braket{\frac{e^{2}}{r_{12}}} = Z_{1}Z_{2}\,E_{h}\,
+\frac{Z_{1}^{2}+Z_{2}^{2}+Z_{1}Z_{2}}{(Z_{1}+Z_{2})^{3}}.
+\end{equation*}
+\end{linenomath}
+\item[(b)] Minimise with respect to $Z_{1}$ and $Z_{2}$. Compare the resulting ground-state energy with the one-parameter result \eqref{eq:helium-result} and with experiment. Does the additional parameter improve the bound?
+\item[(c)] Explain why $Z_{1} \neq Z_{2}$ might be expected physically (inner vs outer electron screening), and why the variational minimum nevertheless yields $Z_{1}=Z_{2}$ for this particular unsymmetrised trial function.
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:tdpt}) Photoionisation cross-section from the golden rule.
+\begin{enumerate}
+\item[(a)] Write the final state for photoionisation of hydrogen from the ground state as a plane wave $\braket{\bm r|\bm k} = e^{i\bm k\cdot\bm r}/\sqrt{V}$ (neglecting the Coulomb distortion of the outgoing electron -- the Born approximation for the final state). Compute the dipole matrix element $\braket{\bm k|\bm\epsilon\!\cdot\!\bm r|100}$.
+\item[(b)] Using the golden rule \eqref{eq:fermi-golden-rule} and the density of states \eqref{eq:density-of-states-free}, derive the differential cross-section $d\sigma/d\Omega$. Integrate over angles to obtain the total photoionisation cross-section $\sigma_{\text{photo}}(\omega)$.
+\item[(c)] Show that near threshold ($\hbar\omega \gtrsim |E_{1}|$), the cross-section scales as $(\omega-\omega_{0})^{3/2}/\omega^{7/2}$, where $\hbar\omega_{0} = |E_{1}|$. Compare with the Kramers--Gaunt form \eqref{eq:photoionization-cross-section}.
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:tdpt}) Spontaneous emission lifetime of hydrogen $2p$.
+\begin{enumerate}
+\item[(a)] Using the hydrogen wavefunctions from Table~\ref{tab:hydrogen-wavefunctions}, compute the dipole matrix element $\braket{100|\bm r|210}$ and its squared magnitude.
+\item[(b)] Evaluate the Einstein $A$ coefficient \eqref{eq:einstein-A} for the $2p\to 1s$ transition in hydrogen. Use $a_{0} = 0.529\;\text{\AA}$, $E_{2}-E_{1} = 10.2\;\text{eV}$, and $\alpha = e^{2}/\hbar c = 1/137$.
+\item[(c)] Compare your result with the quoted value $A \approx 6.25 \times 10^{8}\;\text{s}^{-1}$ ($\tau \approx 1.6\;\text{ns}$). The measured lifetime is $\tau_{\text{exp}} \approx 1.60\;\text{ns}$ -- what does this agreement imply about the dipole approximation and the semi-classical radiation theory?
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:born-partial-waves}) Born approximation for a Gaussian potential. Consider $V(r) = V_{0}\,e^{-r^{2}/a^{2}}$:
+\begin{enumerate}
+\item[(a)] Evaluate the Born amplitude \eqref{eq:born-spherical}. The integral $\int_{0}^{\infty} dr\,r\,e^{-r^{2}/a^{2}}\sin(qr)$ can be expressed in terms of the error function or evaluated by parametric differentiation.
+\item[(b)] Compute the differential cross-section $d\sigma/d\Omega$ and the total cross-section $\sigma_{\text{tot}}$ as functions of $k$ and $a$. Discuss the high-energy limit ($ka \gg 1$) and the low-energy limit ($ka \ll 1$).
+\item[(c)] Under what condition on $V_{0}$, $a$, and $k$ is the Born approximation valid for this potential? Express the condition in terms of the dimensionless parameters $|V_{0}|ma^{2}/\hbar^{2}$ and $ka$.
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:born-partial-waves}) Phase shift from a square well. For the attractive spherical square well,
+\begin{linenomath}
+\begin{equation*}
+V(r) = \begin{cases}
+-V_{0}, & r < a, \\
+0, & r > a,
+\end{cases}
+\qquad V_{0} > 0,
+\end{equation*}
+\end{linenomath}
+consider s-wave ($\ell=0$) scattering:
+\begin{enumerate}
+\item[(a)] Write the radial Schr\"odinger equation for $u_{0}(r)=rR_{0}(r)$ inside and outside the well. Impose the boundary conditions $u_{0}(0)=0$ and continuity of $u_{0}$ and $u_{0}'$ at $r=a$.
+\item[(b)] Solve for the phase shift $\delta_{0}(k)$. Show that
+\begin{linenomath}
+\begin{equation*}
+\tan\delta_{0}(k) = \frac{k\tan(\kappa a) - \kappa\tan(ka)}{\kappa + k\tan(ka)\tan(\kappa a)},
+\end{equation*}
+\end{linenomath}
+where $\kappa = \sqrt{k^{2} + 2mV_{0}/\hbar^{2}}$.
+\item[(c)] Show that at low energy ($ka \ll 1$), the s-wave scattering length is $a_{s} = a[1 - \tan(\kappa_{0}a)/(\kappa_{0}a)]$ with $\kappa_{0} = \sqrt{2mV_{0}}/\hbar$. Discuss how the sign of $a_{s}$ changes as the well depth increases and the first bound state appears.
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:born-partial-waves}) Optical theorem verification for the square well. Using the s-wave phase shift $\delta_{0}(k)$ from Exercise~9:
+\begin{enumerate}
+\item[(a)] Compute the forward scattering amplitude $\Im f(0)$ from the partial-wave expansion \eqref{eq:partial-wave-expansion} (s-wave only at low energy).
+\item[(b)] Compute the total cross-section $\sigma_{\text{tot}}$ from \eqref{eq:partial-cross-section}.
+\item[(c)] Verify that $\Im f(0) = k\sigma_{\text{tot}}/4\pi$ -- the optical theorem \eqref{eq:optical-theorem} -- holds for this phase shift, confirming that the partial-wave expansion is consistent with unitarity.
+\end{enumerate}
+
+\end{problemset}

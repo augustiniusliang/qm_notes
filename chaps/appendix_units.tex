@@ -1,0 +1,135 @@
+\chapter{Gaussian Units and Constants}
+
+\begin{note}
+This book employs Gaussian (CGS) units throughout. The choice is deliberate: in Gaussian units the Coulomb force between two charges is $e^2/r$, the fine-structure constant is $\alpha = e^2/\hbar c$, and the electric and magnetic fields enter the Lorentz force symmetrically as $\bm E$ and $\bm B$. No factors of $4\pi\varepsilon_0$ or $\mu_0/4\pi$ appear in the fundamental equations. This appendix collects the conversion rules between Gaussian and SI units and tabulates the fundamental constants used in the text.
+\end{note}
+
+\section{The Gaussian System}
+\label{sec:gaussian-system}
+
+In Gaussian units, the Coulomb force between two charges $e_1$ and $e_2$ separated by a distance $r$ is
+\begin{linenomath}
+    \begin{equation}
+        F = \frac{e_1 e_2}{r^2},
+        \label{eq:coulomb-gaussian}
+    \end{equation}
+\end{linenomath}
+and the electrostatic potential of a point charge is $\phi = e/r$. The electric field $\bm E$ and magnetic field $\bm B$ have the same dimensions, and the Lorentz force on a charge $e$ moving with velocity $\bm v$ is
+\begin{linenomath}
+    \begin{equation}
+        \bm F = e\Bigl(\bm E + \frac{\bm v}{c} \times \bm B\Bigr).
+        \label{eq:lorentz-gaussian}
+    \end{equation}
+\end{linenomath}
+Maxwell's equations in vacuum take the form
+\begin{linenomath}
+    \begin{align}
+        \nabla \cdot \bm E &= 4\pi\rho, \qquad &
+        \nabla \cdot \bm B &= 0, \nonumber\\
+        \nabla \times \bm E &= -\frac{1}{c}\frac{\partial\bm B}{\partial t}, \qquad &
+        \nabla \times \bm B &= \frac{4\pi}{c}\bm J + \frac{1}{c}\frac{\partial\bm E}{\partial t}.
+        \label{eq:maxwell-gaussian}
+    \end{align}
+\end{linenomath}
+
+The fine-structure constant --- the dimensionless measure of the electromagnetic coupling --- is
+\begin{linenomath}
+    \begin{equation}
+        \alpha = \frac{e^2}{\hbar c} \approx \frac{1}{137.036},
+        \label{eq:alpha-gaussian}
+    \end{equation}
+\end{linenomath}
+a pure number in Gaussian units. In SI units the same constant is $\alpha = e^2/4\pi\varepsilon_0\hbar c$, with the $4\pi\varepsilon_0$ carrying the burden of the unit conversion.
+
+The hydrogen atom Hamiltonian in Gaussian units is
+\begin{linenomath}
+    \begin{equation}
+        H = \frac{\bm p^2}{2m} - \frac{e^2}{r},
+        \label{eq:hydrogen-gaussian}
+    \end{equation}
+\end{linenomath}
+and the Bohr radius is
+\begin{linenomath}
+    \begin{equation}
+        a_0 = \frac{\hbar^2}{m_e e^2} \approx 0.529\,\text{\AA}.
+        \label{eq:bohr-gaussian}
+    \end{equation}
+\end{linenomath}
+The Rydberg energy is
+\begin{linenomath}
+    \begin{equation}
+        \mathrm{Ry} = \frac{m_e e^4}{2\hbar^2} = \frac{e^2}{2a_0} \approx 13.606\;\mathrm{eV}.
+        \label{eq:rydberg-gaussian}
+    \end{equation}
+\end{linenomath}
+
+\section{Conversion Table: Gaussian to SI}
+\label{sec:conversion-table}
+
+The conversion of electromagnetic quantities between Gaussian and SI units is not a simple multiplicative factor for every quantity, because the two systems differ in their dimensional assignments. The table below gives the replacement rule: to convert a formula written in Gaussian units to its SI equivalent, make the substitutions indicated. The reverse conversion (SI to Gaussian) follows from the same table read backwards.
+
+\begin{table}[h]
+    \centering
+    \caption{Conversion of electromagnetic quantities from Gaussian to SI units. The symbol $\sqrt{4\pi\varepsilon_0}$ is abbreviated as $\kappa$.}
+    \label{tab:unit-conversion}
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{l c l}
+        \hline
+        Quantity & Gaussian & SI replacement \\
+        \hline
+        Charge & $e$ & $e/\sqrt{4\pi\varepsilon_0}$ \\
+        Electric field & $\bm E$ & $\sqrt{4\pi\varepsilon_0}\,\bm E$ \\
+        Magnetic field & $\bm B$ & $\bm B/\sqrt{4\pi\varepsilon_0\mu_0} = c\sqrt{4\pi\varepsilon_0}\,\bm B$ \\
+        Scalar potential & $\phi$ & $\sqrt{4\pi\varepsilon_0}\,\phi$ \\
+        Vector potential & $\bm A$ & $\bm A/\sqrt{4\pi\varepsilon_0\mu_0}$ \\
+        Coulomb force & $e_1 e_2/r^2$ & $e_1 e_2/4\pi\varepsilon_0 r^2$ \\
+        Fine-structure constant & $e^2/\hbar c$ & $e^2/4\pi\varepsilon_0\hbar c$ \\
+        Bohr radius & $\hbar^2/m_e e^2$ & $4\pi\varepsilon_0\hbar^2/m_e e^2$ \\
+        Rydberg energy & $m_e e^4/2\hbar^2$ & $m_e e^4/2(4\pi\varepsilon_0)^2\hbar^2$ \\
+        Bohr magneton & $e\hbar/2m_e c$ & $e\hbar/2m_e$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+The conversion is systematic. Electric quantities ($e$, $\bm E$, $\phi$) acquire a factor of $\sqrt{4\pi\varepsilon_0}$ or its inverse; magnetic quantities ($\bm B$, $\bm A$) acquire an additional factor of $c$ or $1/c$ because in Gaussian units $\bm E$ and $\bm B$ share the same dimensions. The Bohr magneton illustrates the pattern: $\mu_B = e\hbar/2m_e c$ in Gaussian units becomes $\mu_B = e\hbar/2m_e$ in SI, the $c$ disappearing because the SI definition absorbs the $4\pi\varepsilon_0$ and the speed of light into the unit conventions.
+
+For macroscopic quantities not used in this book (current, resistance, capacitance), the conversion is more involved and the reader is referred to J.~D.~Jackson, \emph{Classical Electrodynamics}, 3rd ed. (Wiley, 1999), Appendix~A.
+
+\section{Fundamental Constants}
+\label{sec:constants}
+
+The following table collects the fundamental constants used in the text, with their 2022 CODATA recommended values. The values are given in Gaussian units where applicable and in SI where the constant is system-independent. The number of significant figures shown exceeds what any calculation in this book needs; the extra digits are supplied so that the reader need not consult an external source for routine numerical work.
+
+\begin{table}[h]
+    \centering
+    \caption{Fundamental constants (2022 CODATA).}
+    \label{tab:constants}
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{l l l}
+        \hline
+        Symbol & Name & Value \\
+        \hline
+        $\hbar$ & Reduced Planck constant & $1.054\,571\,817 \times 10^{-27}\;\mathrm{erg{\cdot}s}$ \\
+        && $= 6.582\,119\,569 \times 10^{-16}\;\mathrm{eV{\cdot}s}$ \\
+        $e$ & Elementary charge (esu) & $4.803\,204\,713 \times 10^{-10}\;\mathrm{esu}$ \\
+        $m_e$ & Electron mass & $9.109\,383\,713 \times 10^{-28}\;\mathrm{g}$ \\
+        && $= 0.510\,998\,950\;\mathrm{MeV}/c^2$ \\
+        $m_p$ & Proton mass & $1.672\,621\,926 \times 10^{-24}\;\mathrm{g}$ \\
+        && $= 938.272\,089\;\mathrm{MeV}/c^2$ \\
+        $k_B$ & Boltzmann constant & $1.380\,649 \times 10^{-16}\;\mathrm{erg/K}$ \\
+        $c$ & Speed of light & $2.997\,924\,58 \times 10^{10}\;\mathrm{cm/s}$ (exact) \\
+        $\alpha$ & Fine-structure constant & $1/137.035\,999\,177$ \\
+        $a_0$ & Bohr radius & $5.291\,772\,105 \times 10^{-9}\;\mathrm{cm}$ \\
+        $R_\infty$ & Rydberg constant & $109\,737.315\,681\;\mathrm{cm}^{-1}$ \\
+        && $= 3.289\,841\,960 \times 10^{15}\;\mathrm{Hz}$ \\
+        $\mu_B$ & Bohr magneton & $9.274\,009\,994 \times 10^{-21}\;\mathrm{erg/G}$ \\
+        $\mu_N$ & Nuclear magneton & $5.050\,783\,739 \times 10^{-24}\;\mathrm{erg/G}$ \\
+        $g_e/2$ & Electron $g$-factor (half) & $1.001\,159\,652\,180$ \\
+        $N_A$ & Avogadro constant & $6.022\,140\,76 \times 10^{23}\;\mathrm{mol}^{-1}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+A note on the Gaussian magnetic constants. The Bohr magneton in Gaussian units is $\mu_B = e\hbar/2m_e c$, with the $c$ in the denominator; its energy in a magnetic field $B$ is $-\bm\mu \cdot \bm B$. Thus the Zeeman Hamiltonian of Chapter~6~\eqref{eq:zeeman-splitting} is $H_Z = (e/2m_e c)B L_z = \mu_B B L_z/\hbar$, giving the linear splitting $\Delta E = \mu_B B m$.
+
+The conversion factor $\hbar c \approx 197.327\;\mathrm{MeV{\cdot}fm}$ (where $1\;\mathrm{fm} = 10^{-13}\;\mathrm{cm}$) is useful for nuclear and particle-physics estimates, though those domains lie beyond the main text. For atomic-scale estimates, the combination $e^2 = \alpha\hbar c \approx 14.40\;\mathrm{eV{\cdot}\text{\AA}}$ converts the Coulomb energy $e^2/r$ into convenient units.

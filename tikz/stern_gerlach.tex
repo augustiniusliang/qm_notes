@@ -1,0 +1,28 @@
+\begin{tikzpicture}[scale=0.95, every node/.style={font=\small}]
+    \draw[fill=gray!15] (-0.2,-0.25) rectangle (0.55,0.25);
+    \node at (0.18,0) {oven};
+    \draw[->, thick] (0.55,0) -- (1.55,0);
+    \node[below] at (1.2,-0.32) {collimator};
+
+    \draw[fill=gray!12] (1.65,-0.55) rectangle (2.1,0.55);
+    \draw[fill=white] (1.75,-0.38) rectangle (2.0,0.38);
+    \draw[->, thick] (2.1,0) -- (3.2,0);
+    \node[above] at (2.85,0.42) {beam};
+
+    \draw[fill=gray!20] (3.35,0.35) rectangle (4.65,0.95);
+    \draw[fill=gray!20] (3.35,-0.95) rectangle (4.65,-0.35);
+    \node at (4.0,0.65) {$N$};
+    \node at (4.0,-0.65) {$S$};
+    \node[align=center] at (4.0,1.45) {inhomogeneous\\magnet};
+
+    \draw[->, thick] (3.2,0) .. controls (4.2,0.2) and (5.0,0.85) .. (6.2,1.25);
+    \draw[->, thick] (3.2,0) .. controls (4.2,-0.2) and (5.0,-0.85) .. (6.2,-1.25);
+    \node[above] at (5.55,1.32) {$\ket{+z}$};
+    \node[below] at (5.55,-1.32) {$\ket{-z}$};
+
+    \draw[fill=gray!10] (6.35,-1.65) rectangle (6.55,1.65);
+    \node[right] at (6.62,1.25) {upper spot};
+    \node[right] at (6.62,-1.25) {lower spot};
+    \fill (6.45,1.25) circle (0.08);
+    \fill (6.45,-1.25) circle (0.08);
+\end{tikzpicture}

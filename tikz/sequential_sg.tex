@@ -1,0 +1,25 @@
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\small}]
+    \draw[->, thick] (-0.3,0) -- (0.8,0);
+    \draw[fill=gray!15] (0.8,-0.65) rectangle (1.75,0.65);
+    \node at (1.28,0) {$SG_z$};
+    \draw[->, thick] (1.75,0) .. controls (2.15,0.35) and (2.45,0.6) .. (2.9,0.8);
+    \draw[dashed, thick] (1.75,0) .. controls (2.15,-0.35) and (2.45,-0.6) .. (2.9,-0.8);
+    \node[above right] at (2.88,0.86) {keep $\ket{+z}$};
+    \node[below right] at (2.88,-0.86) {block $\ket{-z}$};
+
+    \draw[->, thick] (4.25,0.8) -- (5.15,0.8);
+    \draw[fill=gray!15] (5.15,0.15) rectangle (6.1,1.45);
+    \node at (5.63,0.8) {$SG_x$};
+    \draw[->, thick] (6.1,0.8) .. controls (6.55,1.05) and (6.85,1.2) .. (7.35,1.35);
+    \draw[->, thick] (6.1,0.8) .. controls (6.55,0.55) and (6.85,0.4) .. (7.35,0.25);
+    \node[right] at (7.35,1.35) {$\ket{+x}$};
+    \node[right] at (7.35,0.25) {$\ket{-x}$};
+
+    \draw[->, thick] (8.4,1.35) -- (9.15,1.35);
+    \draw[fill=gray!15] (9.15,0.7) rectangle (10.1,2.0);
+    \node at (9.63,1.35) {$SG_z$};
+    \draw[->, thick] (10.1,1.35) .. controls (10.55,1.6) and (10.85,1.75) .. (11.35,1.9);
+    \draw[->, thick] (10.1,1.35) .. controls (10.55,1.1) and (10.85,0.95) .. (11.35,0.8);
+    \node[right] at (11.35,1.9) {$\ket{+z}$};
+    \node[right] at (11.35,0.8) {$\ket{-z}$};
+\end{tikzpicture}

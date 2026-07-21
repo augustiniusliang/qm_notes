@@ -1,0 +1,2103 @@
+﻿\chapter{The Theory of Rotations and Angular Momenta}
+
+The preceding chapter closed with a question it deliberately left for the algebra to answer (Section~\ref{sec:ch5summary}): the rotation family's spectrum. The evolution chapter derived the brackets $[J_i,J_j]=i\hbar\epsilon_{ijk}J_k$ among the generators of rotation---the complete angular momentum algebra, a structural fact about space itself read off the unitary ray representatives of the Galilei group (\eqref{eq:galilei-algebra})---and then stopped. It named the ladder problem, identified the operator-method template that the representations chapter had just proved for the harmonic oscillator, and handed the whole rotation family to the present chapter as its central debt (\eqref{eq:number-ladder-commutators}, \eqref{eq:number-spectrum}, \eqref{eq:ladder-action}). The question this chapter must answer is: given that single commutator, what are the possible values of angular momentum, and what does rotation symmetry force about the spectra of physical systems?
+
+The answer repays the book's oldest unpaid structural debt, and it repays it in a theorem. The Balmer formula and the Rydberg constant, measured in the hydrogen spectrum since the 1880s and written into the first chapter as the theory's founding promissory note, are derived here as the fruit of rotational symmetry. The Stern--Gerlach two-state system, the book's paradigm of quantum incompatibility since Chapter~2, is reconstructed from the smallest nontrivial representation of the rotation group, and the half-angle law that Chapter~2 took as an experimental fact becomes a theorem of SU(2). The spinor sign that the evolution chapter computed for Larmor precession (\eqref{eq:spinor-sign}) acquires its group-theoretic meaning: a $2\pi$ rotation multiplies a spin-$1/2$ state by $-1$ because SU(2) covers SO(3) twice. And the ladder template of Chapter~5---define a ladder pair from one commutator, let positivity force the descent to terminate, compute the norms to fix the actions---is re-run on the rotation commutator, yielding the complete $J^2,J_z$ spectrum by algebraic positivity alone.
+
+The arc is deductive, and every section lands on a measurable quantity. Section~\ref{sec:rotation-group} re-reads the rotation piece of ch4's Galilei algebra as a self-contained Lie group, introduces SO(3) as the rotation group and SU(2) as its universal cover, develops the Euler-angle parametrization of finite rotations and the Wigner D-matrices as the irreducible unitary representations, and establishes the 2:1 covering as the group-theoretic origin of the half-integer spin sign. Section~\ref{sec:angular-momentum-algebra} derives the full $J^2,J_z$ spectrum by the ladder method: $j=0,1/2,1,\ldots$, $m=-j,\ldots,j$, with the $(2j+1)$-fold degeneracy of every multiplet forced by rotation invariance. Section~\ref{sec:spin-half} constructs the $j=1/2$ representation, recovers the Pauli matrices and the Bloch sphere, derives the half-angle law and the spin-$\bm n$ ONB from SU(2) rotations, and proves $\Theta^2=-I$ for half-integer spin---repaying four of the book's oldest debts in one section. Section~\ref{sec:orbital-angular-momentum} builds the orbital angular momentum operator $\bm L=\bm r\times\bm p$ in the position representation, solves its eigenvalue problem in spherical coordinates, obtains the spherical harmonics, and reduces the central-potential problem to a one-dimensional radial equation. Section~\ref{sec:schwinger-model} presents Schwinger's oscillator model---an alternative construction that re-derives the entire angular momentum theory from two boson modes, unifying the ladder method with the harmonic oscillator algebra and providing the natural language for angular momentum coupling. Section~\ref{sec:angular-momentum-coupling} formalizes the addition of two angular momenta on the tensor product space, defines the Clebsch--Gordan coefficients as the change of basis between coupled and uncoupled bases, presents the Racah closed form and the 3-$j$ symbols as the more symmetric notation, and exhibits the two-spin-$1/2$ system---singlet and triplet---as the paradigmatic example that bridges to the composite-systems chapter. Section~\ref{sec:irreducible-tensor-operators} introduces irreducible tensor operators, proves the Wigner--Eckart theorem, and extracts its spectroscopic content: the $m$-selection rule, the triangle inequality, and the factorization of every matrix element into a geometric part and a physical part. Section~\ref{sec:hydrogen-atom} solves the Coulomb problem, derives the Balmer/Rydberg formula from the Schr\"odinger equation with rotational symmetry, exhibits the wave functions, and closes with the Zeeman splitting---the chapter's final measurable landing. Section~\ref{sec:ch6summary} balances the ledger and hands the tensor-product machinery to the composite-systems chapter.
+
+The chapter adds zero new axioms. Every display below is proved from the axioms of Chapters~2--5: the rotation algebra (\eqref{eq:galilei-algebra}), the ladder template (\eqref{eq:ladder-algebra}, \eqref{eq:ladder-action}), the position-representation machinery (\eqref{eq:x-multiplication}, \eqref{eq:momentum-generator}, \eqref{eq:canonical-commutator-built}), and the measurement theory (\eqref{eq:common-eigenbasis}, \eqref{eq:csco-joint}). The SO(3)/SU(2) topology is stated with an Appendix~B pointer; the Clebsch--Gordan series is proved by dimension counting; the Wigner--Eckart theorem is proved from rotation-operator conjugation and CG orthogonality. This is a theorem chapter, and its harvest is the hydrogen atom.
+
+\section{The Rotation Group, Euler Angles, and Finite Rotations}
+\label{sec:rotation-group}
+
+The rotation algebra \eqref{eq:galilei-algebra}---the complete algebraic content of rotational symmetry, derived in the evolution chapter among the Galilean brackets (Section~\ref{sec:galilean-group})---and the generator correspondence \eqref{eq:generator-correspondence}, which gives the finite rotation $R_{\bm n}(\theta)=e^{-i\theta J_n/\hbar}$ with $J_n:=\bm n\cdot\bm J$, are the chapter's entry. The algebra is the infinitesimal shadow of the finite composition law; the spectrum of the $J_i$---the possible eigenvalues of angular momentum---is a question about the algebra alone, and it is the subject of Section~\ref{sec:angular-momentum-algebra}. But the algebra is the algebra of a group, and the group's topology decides what the algebra alone cannot: the distinction between integer and half-integer angular momentum. This section earns the group facts needed for that distinction, develops the Euler-angle parametrization of finite rotations, and defines the Wigner D-matrices as the irreducible unitary representations of the rotation group.
+
+\medskip\noindent\textbf{SO(3): the rotation group.} The group of rotations in three-dimensional Euclidean space is the set of real $3\times3$ orthogonal matrices with determinant $+1$:
+\begin{linenomath}
+    \begin{equation}
+        \mathrm{SO}(3) := \{\,R\in\mathbb{R}^{3\times3}\mid R^{\mathsf{T}}R = I,\;\det R = +1\,\}.
+    \end{equation}
+\end{linenomath}
+Every $R\in\mathrm{SO}(3)$ can be written as a rotation by some angle $\theta\in[0,\pi]$ about some unit axis $\bm n\in S^2$:
+\begin{linenomath}
+    \begin{equation}
+        R_{\bm n}(\theta) = e^{\theta N},\qquad N_{jk} = -\epsilon_{ijk}\,n_i,
+        \label{eq:so3-param}
+    \end{equation}
+\end{linenomath}
+where $N$ is the $3\times3$ antisymmetric matrix whose action on a vector $\bm v$ is $N\bm v = \bm n\times\bm v$. The exponential is the matrix exponential; the parametrization is unique except at $\theta=\pi$, where $R_{\bm n}(\pi)=R_{-\bm n}(\pi)$. The angle parametrizes a one-parameter subgroup for each fixed axis, exactly as the evolution chapter's general construction demands (\eqref{eq:one-parameter-subgroup}).
+
+The Lie algebra of SO(3) is obtained by differentiating the one-parameter subgroups at the identity. Let $T_i := \dd R_{\bm e_i}(\theta)/\dd\theta\big|_{\theta=0}$; then $(T_i)_{jk} = -\epsilon_{ijk}$, and direct computation of the matrix commutator gives
+\begin{linenomath}
+    \begin{equation}
+        [T_i,T_j] = \epsilon_{ijk}\,T_k.
+    \end{equation}
+\end{linenomath}
+Identifying the quantum generator $J_i$ with $i\hbar\,T_i$ reproduces \eqref{eq:galilei-algebra}: $[i\hbar T_i,\, i\hbar T_j] = -\hbar^2\epsilon_{ijk}T_k = i\hbar\,\epsilon_{ijk}\,(i\hbar T_k)$, so $[J_i,J_j]=i\hbar\epsilon_{ijk}J_k$. The algebra of rotations is the algebra of SO(3); the factor $i\hbar$ is the physicist's convention for self-adjoint generators, and the structure constants $f_{ijk}=\epsilon_{ijk}$ are the signature of three-dimensional rotation. This is the defining representation: the three-dimensional vector representation on $\mathbb{R}^3$, with generators $(T_i)_{jk}=-\epsilon_{ijk}$.
+
+\medskip\noindent\textbf{The topology of SO(3).} The parametrization \eqref{eq:so3-param} shows that SO(3) is a three-dimensional compact manifold. It is not simply connected: a closed curve in SO(3) representing a continuous family of rotations that starts and ends at the identity cannot always be continuously shrunk to a point. The fundamental group is $\pi_1(\mathrm{SO}(3)) = \mathbb{Z}_2$: there are exactly two homotopy classes. Physically, a $2\pi$ rotation about any axis is a closed loop in SO(3) that is \emph{not} contractible to the identity, while a $4\pi$ rotation is contractible. The group that covers SO(3) without this topological obstruction---the simply connected universal cover---is SU(2).
+
+\medskip\noindent\textbf{SU(2): the universal cover.} The group SU(2) is the set of $2\times2$ unitary matrices with determinant $+1$:
+\begin{linenomath}
+    \begin{equation}
+        \mathrm{SU}(2) := \{\,U\in\mathbb{C}^{2\times2}\mid U^\dagger U = I,\;\det U = +1\,\}.
+    \end{equation}
+\end{linenomath}
+Every $U\in\mathrm{SU}(2)$ can be parametrized by an axis $\bm n$ and an angle $\theta$:
+\begin{linenomath}
+    \begin{equation}
+        U_{\bm n}(\theta) = e^{-i(\theta/2)\,\bm n\cdot\bm\sigma}
+        = \cos\frac{\theta}{2}\,I - i\sin\frac{\theta}{2}\,(\bm n\cdot\bm\sigma),
+        \label{eq:su2-param}
+    \end{equation}
+\end{linenomath}
+where $\bm\sigma = (\sigma_x,\sigma_y,\sigma_z)$ are the Pauli matrices of the measurement chapter (\eqref{eq:sigma-commutator}). The second equality follows from $(\bm n\cdot\bm\sigma)^2 = I$, which gives $e^{-i\alpha\,\bm n\cdot\bm\sigma} = \cos\alpha\,I - i\sin\alpha\,(\bm n\cdot\bm\sigma)$ for any real $\alpha$, with $\alpha = \theta/2$. The parameter $\theta$ runs from $0$ to $2\pi$ for a full cycle: $U_{\bm n}(2\pi)=-I$, $U_{\bm n}(4\pi)=I$.
+
+The Lie algebra of SU(2) is read off the generators at the identity. Differentiating $U_{\bm e_i}(\theta)$ at $\theta=0$ gives $S_i := i(\hbar/2)\sigma_i$, and these satisfy exactly the same bracket as the $J_i$:
+\begin{linenomath}
+    \begin{equation}
+        [S_i,S_j] = i\hbar\,\epsilon_{ijk}S_k,
+    \end{equation}
+\end{linenomath}
+by the Pauli commutator $[\sigma_i,\sigma_j]=2i\epsilon_{ijk}\sigma_k$ (\eqref{eq:sigma-commutator}). The algebras of SO(3) and SU(2) are isomorphic, as they must be: a group and its covering group share the same Lie algebra, because the covering map is a local diffeomorphism near the identity.
+
+\medskip\noindent\textbf{The 2:1 homomorphism.} The covering map $\Pi:\mathrm{SU}(2)\to\mathrm{SO}(3)$ sends a unitary $U$ to a rotation $R(U)$ defined by its action on a vector $\bm v = v_i\sigma_i$ (any Hermitian traceless $2\times2$ matrix, representing a vector in $\mathbb{R}^3$):
+\begin{linenomath}
+    \begin{equation}
+        U\,(\bm v\cdot\bm\sigma)\,U^\dagger = (R(U)\,\bm v)\cdot\bm\sigma,
+        \qquad
+        R_{ij}(U) = \frac{1}{2}\,\tr\!\bigl(\sigma_i\,U\,\sigma_j\,U^\dagger\bigr).
+        \label{eq:su2-so3-homomorphism}
+    \end{equation}
+\end{linenomath}
+The map $\Pi$ is a group homomorphism: $\Pi(U_1U_2)=\Pi(U_1)\Pi(U_2)$. It is surjective---every rotation comes from some SU(2) matrix---but not injective: both $U$ and $-U$ produce the same $R$, since $(-U)(\bm v\cdot\bm\sigma)(-U)^\dagger = U(\bm v\cdot\bm\sigma)U^\dagger$. The kernel of $\Pi$ is $\{I,-I\}$, so $\mathrm{SO}(3) \cong \mathrm{SU}(2)/\{\pm I\}$. The covering is 2:1.
+
+The physical consequence is the chapter's organizing fact: a spatial rotation by $2\pi$---the identity in SO(3)---lifts to $-I$ in SU(2). A state that transforms under the defining representation of SU(2) therefore changes sign under a $2\pi$ rotation. States that transform under representations of SO(3)---the identity's lift is $+I$---are periodic under $2\pi$. The two classes are the integer-spin and half-integer-spin representations, and the algebra alone does not distinguish them; the group topology does. The full representation theory is collected in Appendix~B; the physics that flows from this distinction occupies the rest of the chapter.
+
+\begin{note}
+    The homomorphism \eqref{eq:su2-so3-homomorphism} is the explicit form of the textbook statement that SU(2) is the double cover of SO(3). The map is constructed by observing that any traceless Hermitian $2\times2$ matrix can be written as $\bm v\cdot\bm\sigma$, and that conjugation by a unitary preserves the trace and Hermiticity, hence maps the space of such matrices to itself linearly. The linear map is orthogonal because $\det(\bm v\cdot\bm\sigma) = -|\bm v|^2$ and $\det(U(\bm v\cdot\bm\sigma)U^\dagger)=\det(\bm v\cdot\bm\sigma)$; it has determinant $+1$ because SU(2) is connected. The trace formula for the matrix elements follows from $\tr(\sigma_i\sigma_j)=2\delta_{ij}$.
+\end{note}
+
+\medskip\noindent\textbf{Euler angles.} The axis-angle parametrizations \eqref{eq:so3-param} and \eqref{eq:su2-param} describe rotations by a single angle about a fixed axis. For composing arbitrary rotations, a three-angle parametrization is required. The standard choice, due to Euler, factors any rotation into three successive rotations about coordinate axes:
+\begin{linenomath}
+    \begin{equation}
+        U(\alpha,\beta,\gamma) = e^{-i\alpha J_z/\hbar}\,e^{-i\beta J_y/\hbar}\,e^{-i\gamma J_z/\hbar},
+        \label{eq:euler-angles}
+    \end{equation}
+\end{linenomath}
+with the angle ranges
+\begin{linenomath}
+    \begin{equation}
+        \alpha \in [0,2\pi),\qquad \beta \in [0,\pi],\qquad \gamma \in [0,2\pi)
+    \end{equation}
+\end{linenomath}
+for SO(3). For SU(2), the third Euler angle runs to $4\pi$: $\gamma \in [0,4\pi)$, reflecting the double cover. The three angles have a transparent geometric meaning in the active convention: $\alpha$ is a first rotation about the space-fixed $z$-axis, $\beta$ is a rotation about the (new) $y$-axis, and $\gamma$ is a second rotation about the (new) $z$-axis. Equivalently, in the passive picture, $(\beta,\alpha)$ are the spherical coordinates of the body-fixed $z$-axis on the unit sphere, and $\gamma$ is the twist about that axis.
+
+The Euler-angle form makes the 2:1 covering visible in the parameter ranges. The identity rotation in SO(3) is represented by $(\alpha,\beta,\gamma)=(0,0,0)$ and also by $(\alpha,\beta,\gamma)=(0,0,2\pi)$, since a $2\pi$ rotation about any axis is the identity in SO(3). But in SU(2), $U(0,0,2\pi)=e^{-i2\pi J_z/\hbar}$, which on a state of definite $m$ gives the factor $e^{-i2\pi m}=(-1)^{2j}$. For integer $j$ this is $+I$; for half-integer $j$ it is $-I$, and the identity is reached only at $\gamma=4\pi$. The Euler-angle picture thus encodes the single topological fact---SU(2) covers SO(3) twice---in the range of one angle.
+
+\medskip\noindent\textbf{Wigner D-matrices.} The Euler-angle parametrization leads directly to the matrix elements of finite rotations in the angular momentum basis. Define the Wigner D-matrix:
+\begin{linenomath}
+    \begin{equation}
+        D^{(j)}_{m'm}(\alpha,\beta,\gamma) := \braket{j,m'|U(\alpha,\beta,\gamma)|j,m}
+        = e^{-i\alpha m'}\,d^{(j)}_{m'm}(\beta)\,e^{-i\gamma m},
+        \label{eq:D-matrix-def}
+    \end{equation}
+\end{linenomath}
+where
+\begin{linenomath}
+    \begin{equation}
+        d^{(j)}_{m'm}(\beta) := \braket{j,m'|e^{-i\beta J_y/\hbar}|j,m}
+    \end{equation}
+\end{linenomath}
+is the reduced (Wigner small) d-matrix. The factorization follows because $J_z$ is diagonal in the $\ket{j,m}$ basis---the first and third Euler factors contribute only the phases $e^{-i\alpha m'}$ and $e^{-i\gamma m}$---while the middle factor, the rotation about the $y$-axis, mixes $m$ values and carries the nontrivial $\beta$-dependence.
+
+The physical meaning of the D-matrices is that they are the $(2j+1)$-dimensional irreducible unitary representations of SU(2). Under a rotation $R$, an angular momentum basis state transforms as
+\begin{linenomath}
+    \begin{equation}
+        U(R)\ket{j,m} = \sum_{m'=-j}^{j} D^{(j)}_{m'm}(R)\,\ket{j,m'}.
+    \end{equation}
+\end{linenomath}
+Every member of a $j$-multiplet is carried into a linear combination of all members, with the D-matrix supplying the coefficients. The D-matrices are the finite-rotation counterpart of the ladder coefficients of Section~\ref{sec:angular-momentum-algebra}: the ladders step by one unit of $m$, the D-matrices rotate the entire multiplet by an arbitrary angle.
+
+The D-matrices obey a set of fundamental properties that the remainder of the chapter spends.
+
+\medskip\noindent\textbf{Composition.} From $U(R_1R_2)=U(R_1)U(R_2)$, the matrix elements satisfy
+\begin{linenomath}
+    \begin{equation}
+        \sum_{m''=-j}^{j} D^{(j)}_{m'm''}(R_1)\,D^{(j)}_{m''m}(R_2)
+        = D^{(j)}_{m'm}(R_1R_2),
+    \end{equation}
+\end{linenomath}
+which is the statement that the $D^{(j)}$ are group representations: the matrix of the product is the product of the matrices.
+
+\medskip\noindent\textbf{Orthogonality.} The D-matrices for inequivalent representations are orthogonal under integration over the group manifold. With the invariant integration measure $dR = d\alpha\,d\cos\beta\,d\gamma$ over the Euler-angle domain,
+\begin{linenomath}
+    \begin{equation}
+        \int dR\; D^{(j)*}_{m'm}(R)\,D^{(j')}_{\mu'\mu}(R)
+        = \frac{8\pi^2}{2j+1}\,\delta_{jj'}\,\delta_{m\mu}\,\delta_{m'\mu'}.
+    \end{equation}
+\end{linenomath}
+This is the great orthogonality theorem for SU(2). The proof---which rests on Schur's lemma and the invariance of the Haar measure---is deferred to Appendix~B; the physics consequences (the orthogonality of states transforming under inequivalent representations and the completeness of the D-matrices as a basis for square-integrable functions on the group, the Peter--Weyl theorem) are developed here.
+
+\medskip\noindent\textbf{Complex conjugation.} From the unitarity of $U(R)$ and the Condon--Shortley phase convention for the $d$-matrix elements,
+\begin{linenomath}
+    \begin{equation}
+        D^{(j)*}_{m'm}(\alpha,\beta,\gamma)
+        = (-1)^{m-m'}\,D^{(j)}_{-m',-m}(\alpha,\beta,\gamma).
+    \end{equation}
+\end{linenomath}
+The relation is proved by explicit conjugation of \eqref{eq:D-matrix-def}:
+\begin{linenomath}
+\begin{align*}
+D^{(j)*}_{m'm}(\alpha,\beta,\gamma)
+&= \bigl(e^{-i\alpha m'} d^{(j)}_{m'm}(\beta) e^{-i\gamma m}\bigr)^*
+ = e^{i\alpha m'} d^{(j)*}_{m'm}(\beta) e^{i\gamma m}.
+\end{align*}
+\end{linenomath}
+The Condon--Shortley convention fixes the $d$-matrix elements to be real and endows them with the symmetry $d^{(j)*}_{m'm}(\beta) = (-1)^{m-m'} d^{(j)}_{-m',-m}(\beta)$ (a consequence of the real, positive ladder matrix elements in \eqref{eq:ladder-action-j}). Substituting,
+\begin{linenomath}
+\begin{align*}
+D^{(j)*}_{m'm}(\alpha,\beta,\gamma)
+&= (-1)^{m-m'} e^{i\alpha m'} d^{(j)}_{-m',-m}(\beta) e^{i\gamma m}
+ = (-1)^{m-m'} D^{(j)}_{-m',-m}(\alpha,\beta,\gamma),
+\end{align*}
+\end{linenomath}
+since $D^{(j)}_{-m',-m}(\alpha,\beta,\gamma)=e^{-i\alpha(-m')}d^{(j)}_{-m',-m}(\beta)e^{-i\gamma(-m)}=e^{i\alpha m'}d^{(j)}_{-m',-m}(\beta)e^{i\gamma m}$, matching the conjugated expression.
+
+\medskip\noindent\textbf{Connection to spherical harmonics.} For integer $\ell$, the $D$-matrices reduce to spherical harmonics. The column $m'=0$ of $D^{(\ell)}$, evaluated at $\gamma=0$, gives
+\begin{linenomath}
+    \begin{equation}
+        D^{(\ell)}_{m0}(\alpha,\beta,0)
+        = \sqrt{\frac{4\pi}{2\ell+1}}\,Y_\ell^{m*}(\beta,\alpha).
+        \label{eq:D-Y-relation}
+    \end{equation}
+\end{linenomath}
+In particular, $D^{(\ell)}_{00}(\alpha,\beta,\gamma) = P_\ell(\cos\beta)$, the Legendre polynomial, independent of $\alpha$ and $\gamma$ as required for a scalar under rotations about the $z$-axis. The spherical harmonics are therefore a special case of the rotation matrices: the functions on the sphere $S^2 \cong \mathrm{SO}(3)/\mathrm{SO}(2)$ that transform under the $\ell$-representation are precisely the $m'=0$ column of the D-matrix. This connection is developed fully in Section~\ref{sec:orbital-angular-momentum}; here it is stated to exhibit the unity of the finite-rotation formalism: the D-matrices contain the spherical harmonics as a special case, just as they contain the spin-$1/2$ amplitudes as the $j=1/2$ instance.
+
+\medskip\noindent\textbf{Explicit form for $j=1/2$.} The fundamental representation is read off directly from the Euler decomposition. For $j=1/2$, $J_i = (\hbar/2)\sigma_i$, and
+\begin{linenomath}
+    \begin{equation}
+        U(\alpha,\beta,\gamma) = e^{-i\alpha\sigma_z/2}\,e^{-i\beta\sigma_y/2}\,e^{-i\gamma\sigma_z/2}.
+    \end{equation}
+\end{linenomath}
+The reduced d-matrix in the $\{\ket{+z},\ket{-z}\}$ basis is the middle factor:
+\begin{linenomath}
+    \begin{equation}
+        d^{(1/2)}(\beta) = e^{-i\beta\sigma_y/2}
+        = \begin{pmatrix}
+            \cos(\beta/2) & -\sin(\beta/2) \\[2pt]
+            \sin(\beta/2) &  \cos(\beta/2)
+        \end{pmatrix}.
+    \end{equation}
+\end{linenomath}
+The full D-matrix follows by sandwiching with the diagonal $z$-rotation factors:
+\begin{linenomath}
+    \begin{equation}
+        D^{(1/2)}(\alpha,\beta,\gamma)
+        = \begin{pmatrix}
+            e^{-i(\alpha+\gamma)/2}\cos(\beta/2) & -e^{-i(\alpha-\gamma)/2}\sin(\beta/2) \\[2pt]
+            e^{i(\alpha-\gamma)/2}\sin(\beta/2)  &  e^{i(\alpha+\gamma)/2}\cos(\beta/2)
+        \end{pmatrix}.
+    \end{equation}
+\end{linenomath}
+The half-angle $\beta/2$ is the signature of the double cover: the matrix entries are $4\pi$-periodic in $\alpha$ and $\gamma$, and $D^{(1/2)}(\alpha,\beta,\gamma+2\pi) = -D^{(1/2)}(\alpha,\beta,\gamma)$. The first column, evaluated at $\gamma=0$, is exactly the spin-$\bm n$ state $\ket{+\bm n}$ that Section~\ref{sec:spin-half} will construct from the reference state $\ket{+z}$ by the Euler rotation $U(\alpha,\beta,0)$.
+
+\medskip\noindent\textbf{Example: spin precession re-read through Euler angles.} The Larmor precession of the evolution chapter (Section~\ref{sec:spin-precession}) acquires its Euler-angle reading here. The evolution operator for a spin in a uniform magnetic field $\bm B = B\hat{z}$ is
+\begin{linenomath}
+    \begin{equation}
+        U(t) = e^{-i\omega t\,\sigma_z/2},
+    \end{equation}
+\end{linenomath}
+with $\omega = -\gamma B$ (\eqref{eq:larmor-evolution}). In the Euler-angle language of \eqref{eq:euler-angles}, this is the special case $\alpha = \omega t$, $\beta = 0$, $\gamma = 0$: a one-parameter subgroup generated by $J_z$ alone. The D-matrix element \eqref{eq:D-matrix-def} gives the amplitude for the state to remain in the initial $m$-state:
+\begin{linenomath}
+    \begin{equation}
+        D^{(1/2)}_{++}(\omega t,0,0) = e^{-i\omega t/2},
+        \qquad
+        D^{(1/2)}_{--}(\omega t,0,0) = e^{i\omega t/2}.
+    \end{equation}
+\end{linenomath}
+At $t = 2\pi/\omega$ the D-matrix is $D^{(1/2)}(2\pi,0,0) = -I$, exactly the spinor sign that the evolution chapter computed (\eqref{eq:spinor-sign}): the state has traversed a full cycle in SU(2) while the spatial rotation in SO(3) is the identity. The expectation vector $\langle\bm\sigma\rangle(t)$ of \eqref{eq:precession} rotates at the frequency $\omega$ in $\mathbb{R}^3$:
+\begin{linenomath}
+    \begin{equation}
+        \langle\sigma_x\rangle(t) = \langle\sigma_x\rangle(0)\cos\omega t - \langle\sigma_y\rangle(0)\sin\omega t,
+        \qquad
+        \langle\sigma_y\rangle(t) = \langle\sigma_x\rangle(0)\sin\omega t + \langle\sigma_y\rangle(0)\cos\omega t.
+    \end{equation}
+\end{linenomath}
+The D-matrix element $D^{(1/2)}_{++}(t) = e^{-i\omega t/2}$ gives the state evolution directly: the state rotates at half the SO(3) rate because $J_z = (\hbar/2)\sigma_z$ has eigenvalue $+\hbar/2$, and the Euler angle $\alpha = \omega t$ is the spatial rotation angle. The factor $1/2$ in the exponent is the $m=1/2$ eigenvalue in the phase $e^{-i\alpha m}$ of \eqref{eq:D-matrix-def}. The 2:1 covering is made quantitative: the expectation vector (SO(3)) completes one cycle at $\omega t = 2\pi$, while the state (SU(2)) completes one cycle at $\omega t = 4\pi$.
+
+The advantage of the Euler-angle and D-matrix reading is that it generalizes immediately to arbitrary rotations: the D-matrix \eqref{eq:D-matrix-def} gives the amplitude for any initial state $\ket{j,m}$ to be found in any final state $\ket{j,m'}$ after any rotation parametrized by $(\alpha,\beta,\gamma)$, and the composition property converts sequences of rotations into matrix multiplication. The D-matrices are the finite-rotation machinery the remainder of the chapter spends. Its limitation is that the D-matrices are defined on the angular momentum basis, which Section~\ref{sec:angular-momentum-algebra} must still construct; the group-theoretic properties stated here (the great orthogonality theorem and the Peter--Weyl completeness) are named with Appendix~B pointers---their proof requires Schur's lemma and the invariance of the Haar measure, which belong to representation theory, not to physics. The sections that follow need only the algebra and the explicit D-matrix forms, not the general theory.
+
+The finite-rotation formalism---the group structure, the 2:1 covering, the Euler-angle parametrization, and the Wigner D-matrices---is now complete. The next question is algebraic: what eigenvalues can the generators $J^2$ and $J_z$ possess? The answer is independent of the group topology and follows from the single commutator \eqref{eq:galilei-algebra} alone, by the ladder method of Chapter~5.
+
+\section{Angular Momentum Algebra: the Spectrum of $J^2$ and $J_z$}
+\label{sec:angular-momentum-algebra}
+
+The rotation algebra \eqref{eq:galilei-algebra} is the chapter's sole input. This section derives its complete spectral content---the eigenvalues of $J^2$ and $J_z$ and the ladder actions that connect them---by the method of Chapter~5, Section~\ref{sec:harmonic-oscillator}: form a complex pair from two noncommuting generators, let positivity force the descent to terminate, and compute the norms to fix the actions. The method is identical; the algebra is different, and the resulting spectrum is the quadratic $j(j+1)$ in place of the oscillator's linear $n$.
+
+\medskip\noindent\textbf{The ladder operators.} The three Hermitian generators $J_x,J_y,J_z$ satisfy \eqref{eq:galilei-algebra}. Define the complex pair
+\begin{linenomath}
+    \begin{equation}
+        J_+ := J_x + iJ_y,\qquad
+        J_- := J_x - iJ_y,
+        \qquad
+        J_\pm^\dagger = J_\mp.
+        \label{eq:Jpm-def}
+    \end{equation}
+\end{linenomath}
+The adjoint relation follows from $J_x^\dagger=J_x$, $J_y^\dagger=J_y$. Their commutators with $J_z$ are immediate from \eqref{eq:galilei-algebra} and the commutator algebra \eqref{eq:commutator-algebra}:
+\begin{linenomath}
+    \begin{align}
+        [J_z,J_\pm] &= [J_z,J_x] \pm i[J_z,J_y]
+        = i\hbar\,\epsilon_{zxy}J_y \pm i(i\hbar\,\epsilon_{zyx}J_x) \notag\\
+        &= i\hbar J_y \pm i(-i\hbar J_x) = i\hbar J_y \pm \hbar J_x
+        = \pm\hbar\,(J_x \pm iJ_y)
+        = \pm\hbar\,J_\pm.
+        \label{eq:Jz-Jpm}
+    \end{align}
+\end{linenomath}
+The sign says exactly what a ladder operator must: $J_+$ raises the $J_z$ eigenvalue by one unit of $\hbar$, and $J_-$ lowers it. The mutual commutator of the pair is
+\begin{linenomath}
+    \begin{align}
+        [J_+,J_-] &= [J_x+iJ_y,\,J_x-iJ_y]
+        = -i[J_x,J_y] + i[J_y,J_x] \notag\\
+        &= -i(i\hbar J_z) + i(-i\hbar J_z)
+        = 2\hbar J_z.
+        \label{eq:Jp-Jm}
+    \end{align}
+\end{linenomath}
+Equations \eqref{eq:Jz-Jpm} and \eqref{eq:Jp-Jm} are the angular-momentum ladder algebra, the rotation-family analog of the oscillator's $[N,a]=-a$, $[N,a^\dagger]=+a^\dagger$, $[a,a^\dagger]=I$ (\eqref{eq:number-ladder-commutators}, \eqref{eq:ladder-algebra}).
+
+\medskip\noindent\textbf{The Casimir invariant.} A rotation is specified by its axis and its angle, but the square of the total angular momentum is independent of axis---it commutes with every generator. Define
+\begin{linenomath}
+    \begin{equation}
+        J^2 := J_x^2 + J_y^2 + J_z^2.
+        \label{eq:Jsq-def}
+    \end{equation}
+\end{linenomath}
+The operator can be rewritten in terms of the ladder pair. From the definitions,
+\begin{linenomath}
+    \begin{equation*}
+        J_-J_+ = (J_x-iJ_y)(J_x+iJ_y) = J_x^2 + J_y^2 + i[J_x,J_y] = J_x^2 + J_y^2 - \hbar J_z,
+    \end{equation*}
+\end{linenomath}
+so that $J_x^2+J_y^2 = J_-J_+ + \hbar J_z$, and substituting into \eqref{eq:Jsq-def} gives
+\begin{linenomath}
+    \begin{equation}
+        J^2 = J_-J_+ + J_z^2 + \hbar J_z
+        = J_+J_- + J_z^2 - \hbar J_z.
+    \end{equation}
+\end{linenomath}
+The two forms are equivalent; both will be used. The commutation of $J^2$ with every $J_i$ follows from a single computation using \eqref{eq:Jz-Jpm} and \eqref{eq:Jp-Jm}:
+\begin{linenomath}
+    \begin{align*}
+        [J^2,J_z] &= [J_-J_+ + J_z^2 + \hbar J_z,\,J_z]
+        = [J_-J_+,J_z] \\
+        &= J_-[J_+,J_z] + [J_-,J_z]J_+
+        = J_-(-\hbar J_+) + (-\hbar J_-)J_+ = 0,
+    \end{align*}
+\end{linenomath}
+where the last equality uses $[J_+,J_z] = -\hbar J_+$ and $[J_-,J_z] = +\hbar J_-$, which is \eqref{eq:Jz-Jpm} with the sign reversed. The same argument with $J_x$ and $J_y$ (or the cyclic symmetry of the algebra) gives $[J^2,J_i]=0$ for all $i$. $J^2$ is the quadratic Casimir of the rotation algebra: it labels the irreducible representations.
+
+\medskip\noindent\textbf{Simultaneous diagonalization.} Because $[J^2,J_z]=0$, the compatibility theorem of the measurement chapter (\eqref{eq:common-eigenbasis}) delivers a basis of simultaneous eigenstates. Let these be denoted $\ket{j,m}$ with eigenvalues written in units of $\hbar$:
+\begin{linenomath}
+    \begin{equation}
+        J^2\ket{j,m} = \hbar^2\lambda_j\ket{j,m},\qquad
+        J_z\ket{j,m} = \hbar\,m\ket{j,m},
+    \end{equation}
+\end{linenomath}
+where $\lambda_j$ and $m$ are dimensionless real numbers to be determined ($J^2$ and $J_z$ are self-adjoint, \eqref{eq:selfadjoint-reality}). The label $j$ is a placeholder for whatever quantum number distinguishes different eigenvalues of $J^2$; the notation anticipates the result $j(j+1)=\lambda_j$. Within a fixed $j$, the states are distinguished by $m$; the set $\{J^2,J_z\}$ forms a CSCO for a single angular momentum, the joint eigenvalues $(j,m)$ addressing a unique ray within each $j$-multiplet (\eqref{eq:csco-joint}).
+
+\medskip\noindent\textbf{The ladder actions.} From \eqref{eq:Jz-Jpm}, $J_z(J_\pm\ket{j,m}) = (J_\pm J_z \pm \hbar J_\pm)\ket{j,m} = \hbar(m\pm1)\,(J_\pm\ket{j,m})$. Whenever $J_\pm\ket{j,m} \neq 0$, it is an eigenstate of $J_z$ with eigenvalue $\hbar(m\pm1)$, and it remains an eigenstate of $J^2$ since $[J^2,J_\pm]=0$. Hence $J_\pm\ket{j,m}$ is proportional to $\ket{j,m\pm1}$ within the same $j$-multiplet. The squared norm is computed from \eqref{eq:Jsq-def} via $J_\mp J_\pm = J^2 - J_z^2 \mp \hbar J_z$:
+\begin{linenomath}
+    \begin{align}
+        \|J_\pm\ket{j,m}\|^2
+        &= \braket{j,m|J_\mp J_\pm|j,m}
+        = \braket{j,m|\bigl(J^2 - J_z^2 \mp \hbar J_z\bigr)|j,m} \notag\\
+        &= \hbar^2\bigl(\lambda_j - m^2 \mp m\bigr)
+        = \hbar^2\bigl(\lambda_j - m(m\pm1)\bigr).
+        \label{eq:Jpm-norm}
+    \end{align}
+\end{linenomath}
+
+\medskip\noindent\textbf{Positivity forces termination.} The squared norm \eqref{eq:Jpm-norm} cannot be negative. Since $J_\pm$ acting on any state must either produce another state (positive norm) or annihilate it (zero norm), the quantity $\lambda_j - m(m\pm1)$ must be nonnegative for every value of $m$ that occurs in the multiplet. The ladder operators change $m$ by $\pm1$, so starting from any $m$ and applying $J_+$ repeatedly yields a strictly increasing sequence of $m$-values; the norm condition $\lambda_j \ge m(m+1)$ restricts how high the sequence can climb before the norm would become negative. The ascent must therefore terminate: there exists a maximum value $m_{\max}$ with
+\begin{linenomath}
+    \begin{equation}
+        J_+\ket{j,m_{\max}} = 0,
+        \qquad
+        \lambda_j = m_{\max}(m_{\max}+1),
+    \end{equation}
+\end{linenomath}
+the second equality following from setting \eqref{eq:Jpm-norm} to zero at $m=m_{\max}$. Similarly, repeated application of $J_-$ must terminate at a minimum $m_{\min}$ with
+\begin{linenomath}
+    \begin{equation}
+        J_-\ket{j,m_{\min}} = 0,
+        \qquad
+        \lambda_j = m_{\min}(m_{\min}-1).
+    \end{equation}
+\end{linenomath}
+Equating the two expressions for $\lambda_j$ gives $m_{\max}(m_{\max}+1) = m_{\min}(m_{\min}-1)$, whose nonnegative solution is $m_{\max} = -m_{\min}$. The difference $m_{\max} - m_{\min} = 2m_{\max}$ must be an integer, because each application of $J_-$ or $J_+$ changes $m$ by exactly one unit and the two extrema are connected by a finite number of such steps. Hence
+\begin{linenomath}
+    \begin{equation}
+        m_{\max} = -m_{\min} =: j,
+        \qquad
+        j = 0,\;\frac{1}{2},\;1,\;\frac{3}{2},\;2,\;\ldots,
+        \qquad
+        \lambda_j = j(j+1).
+    \end{equation}
+\end{linenomath}
+The conclusion is the spectrum theorem.
+
+\medskip\noindent\textbf{Theorem (angular momentum spectrum).} \emph{From the single commutator $[J_i,J_j]=i\hbar\epsilon_{ijk}J_k$, the eigenvalues of $J^2$ and $J_z$ on their simultaneous eigenstates are}
+\begin{linenomath}
+    \begin{equation}
+        J^2\ket{j,m} = \hbar^2 j(j+1)\ket{j,m},\qquad
+        J_z\ket{j,m} = \hbar\,m\ket{j,m},
+        \label{eq:angular-momentum-spectrum}
+    \end{equation}
+\end{linenomath}
+\emph{with $j = 0,\frac12,1,\frac32,\ldots$ and, for each $j$, $m = -j,-j+1,\ldots,j-1,j$.}
+
+The spectrum is the chapter's first harvest. The ladder argument permits both integer and half-integer $j$; the algebra alone does not distinguish them. The distinction is the group-topological one of Section~\ref{sec:rotation-group}: representations of SO(3) carry integer $j$, while representations of SU(2) permit both, with the half-integer representations being the double-valued ones that change sign under a $2\pi$ rotation.
+
+\medskip\noindent\textbf{The normalized ladder actions.} The norm computation \eqref{eq:Jpm-norm} with $\lambda_j=j(j+1)$ gives the magnitude of the ladder coefficients. The phase is fixed by the standard convention, which this book adopts throughout:
+\begin{linenomath}
+    \begin{equation}
+        J_\pm\ket{j,m} = \hbar\sqrt{j(j+1)-m(m\pm1)}\;\ket{j,m\pm1},
+        \label{eq:ladder-action-j}
+    \end{equation}
+\end{linenomath}
+with the square root taken real and nonnegative. This is the \textbf{Condon--Shortley phase convention}: all matrix elements of $J_x$ and $J_z$ are real, and those of $J_y$ are purely imaginary. It is the structural analog of the oscillator's \eqref{eq:ladder-action}, with the quadratic argument $j(j+1)-m(m\pm1)$ replacing the linear $n$ and $n+1$.
+
+\medskip\noindent\textbf{The $(2j+1)$-fold degeneracy.} Each $j$ carries a $(2j+1)$-dimensional irreducible representation of the rotation algebra. For a system whose Hamiltonian is rotation-invariant, $[H,J_i]=0$ for all $i$, the evolution chapter's conservation theorem (\eqref{eq:conservation-theorem}) makes every $J_i$ a conserved quantity, and its level-local degeneracy corollary (\eqref{eq:degeneracy-invariance}) forces the following structure: the restriction of the $J_i$ to each energy eigenspace carries a representation of the rotation algebra, and the noncommutation of these restrictions---when the level is not a singlet---forces the $(2j+1)$-fold degeneracy of every level whose total angular momentum quantum number is $j>0$. The $m$-degeneracy is rotation symmetry's doing; the possibility of additional degeneracy beyond the $(2j+1)$-fold one (as in the hydrogen atom) is the sign of a higher symmetry.
+
+\medskip\noindent\textbf{Integer versus half-integer: the superselection rule.} The operator $e^{-i2\pi J_z/\hbar}$ is the finite rotation by $2\pi$ about the $z$-axis. On a state $\ket{j,m}$, it produces the phase $e^{-i2\pi m}$:
+\begin{linenomath}
+    \begin{equation}
+        e^{-i2\pi J_z/\hbar}\ket{j,m} = e^{-i2\pi m}\ket{j,m} = (-1)^{2j}\ket{j,m},
+    \end{equation}
+\end{linenomath}
+since $m$ and $j$ have the same integer or half-integer character. Integer-$j$ states are periodic under $2\pi$ rotations; half-integer states change sign. No experiment has ever observed a coherent superposition of an integer-spin and a half-integer-spin state---the relative phase of the two sectors would be shifted by $-1$ under a $2\pi$ rotation of the apparatus, rendering it unobservable. The two sectors are superselected: the Hilbert space decomposes into the direct sum of the integer-spin and half-integer-spin subspaces, and every physical observable respects the decomposition. This is the angular-momentum share of the superselection remark of the states chapter, and its group-theoretic origin is the 2:1 covering of Section~\ref{sec:rotation-group}.
+
+\begin{note}
+    The superselection rule between integer and half-integer angular momentum sectors is experimentally warranted by the $4\pi$ periodicity of spinor states under rotation (the neutron-interferometer measurement cited in Sections~\ref{sec:spin-half} and~\ref{sec:spin-precession}) and has its formal statement in the Wick--Wightman--Wigner analysis of 1952, cited in the states chapter. The physical content is that no observable connects the two sectors; the formal content is that the ray representative of the rotation group is a true representation on each sector separately.
+\end{note}
+
+\medskip\noindent\textbf{Example: the $j=1$ representation.} The three states $\ket{1,1},\ket{1,0},\ket{1,-1}$ carry the $j=1$ multiplet. From \eqref{eq:ladder-action-j}:
+\begin{linenomath}
+    \begin{align*}
+        J_+\ket{1,1} &= 0, &
+        J_+\ket{1,0} &= \hbar\sqrt{2}\,\ket{1,1}, &
+        J_+\ket{1,-1} &= \hbar\sqrt{2}\,\ket{1,0},\\
+        J_-\ket{1,1} &= \hbar\sqrt{2}\,\ket{1,0}, &
+        J_-\ket{1,0} &= \hbar\sqrt{2}\,\ket{1,-1}, &
+        J_-\ket{1,-1} &= 0.
+    \end{align*}
+\end{linenomath}
+Reading off the matrix elements in the ordered basis $\{\ket{1,1},\ket{1,0},\ket{1,-1}\}$,
+\begin{linenomath}
+    \begin{align*}
+        J_x &= \frac{J_++J_-}{2} = \frac{\hbar}{\sqrt{2}}
+        \begin{pmatrix}
+            0 & 1 & 0 \\
+            1 & 0 & 1 \\
+            0 & 1 & 0
+        \end{pmatrix},\\
+        J_y &= \frac{J_+-J_-}{2i} = \frac{\hbar}{\sqrt{2}}
+        \begin{pmatrix}
+            0 & -i & 0 \\
+            i & 0 & -i \\
+            0 & i & 0
+        \end{pmatrix},\\
+        J_z &= \hbar
+        \begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & 0 & 0 \\
+            0 & 0 & -1
+        \end{pmatrix}.
+    \end{align*}
+\end{linenomath}
+These are exactly (up to unitary equivalence) the SO(3) generators $i\hbar\,T_i$ of Section~\ref{sec:rotation-group}: the $j=1$ representation is the defining vector representation of SO(3). The Casimir is $J^2 = 2\hbar^2\,I_{3\times3}$. In a central potential, the three $m$ values share the same energy, forming the $p$-orbital triplet---the simplest instance of the multiplet structure that rotation invariance forces.
+
+The advantage of the algebraic derivation is its purity: from one commutator, positivity, and norm computation, the complete spectrum follows, with no differential equation and no coordinate system. Its limitation is the same as the oscillator's in Chapter~5: it earns the eigenvalues and the ladder actions but not the wave functions; those require a representation, and the position representation for orbital angular momentum is the subject of Section~\ref{sec:orbital-angular-momentum}. The structure it does earn is universal: every system with rotational symmetry, from a single spin to a rotating molecule to a nucleus to a baryon, organizes its states into $(2j+1)$-fold multiplets labeled by the single quantum number $j$, and the ladder actions \eqref{eq:ladder-action-j} are the exact algebraic engine of every transition amplitude among them.
+
+The algebra has delivered the full spectrum. The simplest nontrivial case is $j=1/2$---the representation behind the Stern--Gerlach experiment and the states chapter's two-state grammar. Its construction repays three of the book's oldest debts.
+
+\section{Spin 1/2 and Pauli Matrices}
+\label{sec:spin-half}
+
+The preceding section extracted the full angular momentum spectrum from the single commutator \eqref{eq:galilei-algebra}: the ladder template of the oscillator chapter re-run on the rotation algebra delivered $j = 0,\frac12,1,\frac32,\ldots$ and $m = -j,\ldots,j$, forced by positivity alone. The smallest nontrivial representation is $j = 1/2$, and it is the representation behind the Stern--Gerlach experiment of Chapter~1, the two-state grammar of Chapter~2, and the $\sigma$-commutator incompatibility of Chapter~3. This section constructs it explicitly. With it, three of the book's oldest structural debts -- the half-angle law, the spin-$\bm n$ ONB, and the spinor $4\pi$ sign -- are repaid from first principles, and the $\Theta^2 = (-1)^{2j}$ formula outstanding from the discrete symmetries section of Chapter~4 is proved for the first time.
+
+\medskip\noindent\textbf{The $j=1/2$ representation.} Insert $j = 1/2$ into the spectrum theorem \eqref{eq:angular-momentum-spectrum}. Two states, $m = +1/2$ and $m = -1/2$, span the space:
+\begin{linenomath}
+  \begin{equation}
+    J^2\ket{\tfrac12,\pm\tfrac12} = \hbar^2\,\tfrac34\,\ket{\tfrac12,\pm\tfrac12},
+    \qquad
+    J_z\ket{\tfrac12,\pm\tfrac12} = \pm\frac{\hbar}{2}\,\ket{\tfrac12,\pm\tfrac12}.
+  \end{equation}
+\end{linenomath}
+Abbreviate the two basis vectors as $\ket{+z} := \ket{\tfrac12,+\tfrac12}$ and $\ket{-z} := \ket{\tfrac12,-\tfrac12}$, with the $z$-axis taken as the quantization direction. From the normalized ladder actions \eqref{eq:ladder-action-j} with $j = 1/2$,
+\begin{linenomath}
+  \begin{equation}
+    J_+\ket{-z} = \hbar\,\ket{+z}, \qquad
+    J_-\ket{+z} = \hbar\,\ket{-z}, \qquad
+    J_+\ket{+z} = J_-\ket{-z} = 0.
+  \end{equation}
+\end{linenomath}
+The entire two-dimensional representation is fixed by these four actions plus the diagonal $J_z$ eigenvalues.
+
+\medskip\noindent\textbf{The Pauli matrices.} Define the spin operator $\bm S$ as the $j = 1/2$ instance of $\bm J$. In the ordered basis $\{\ket{+z},\ket{-z}\}$, the matrix elements $\braket{\pm z|S_i|\pm z}$ follow directly from the ladder actions. The result is the compact expression
+\begin{linenomath}
+  \begin{equation}
+    S_i = \frac{\hbar}{2}\,\sigma_i, \qquad i = x,y,z,
+    \label{eq:pauli-matrices}
+  \end{equation}
+\end{linenomath}
+with the Pauli matrices
+\begin{linenomath}
+  \begin{equation}
+    \sigma_x = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \qquad
+    \sigma_y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \qquad
+    \sigma_z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}.
+  \end{equation}
+\end{linenomath}
+The matrices are constructed by reading off $S_x = (S_+ + S_-)/2$ and $S_y = (S_+ - S_-)/2i$ from the ladder pair \eqref{eq:Jpm-def}: $S_+\ket{-z} = \hbar\ket{+z}$ gives $S_x = (\hbar/2)\sigma_x$ and $S_y = (\hbar/2)\sigma_y$, and the diagonal of $S_z$ yields $\sigma_z$.
+
+\medskip\noindent\textbf{Theorem (Pauli algebra).} \emph{The Pauli matrices satisfy}
+\begin{linenomath}
+  \begin{equation}
+    [\sigma_i,\sigma_j] = 2i\,\epsilon_{ijk}\,\sigma_k,
+    \qquad
+    \{\sigma_i,\sigma_j\} = 2\,\delta_{ij}\,I,
+    \label{eq:pauli-algebra}
+  \end{equation}
+\end{linenomath}
+\emph{where $\{\,,\}$ denotes the anticommutator. Every $2\times2$ matrix can be expanded as $A = a_0 I + \bm a\cdot\bm\sigma$ with $a_0 = \frac12\tr A$ and $a_i = \frac12\tr(A\sigma_i)$.}
+
+The proof of the commutator is one computation: inserting $S_i = (\hbar/2)\sigma_i$ into the rotation algebra \eqref{eq:galilei-algebra} gives $[(\hbar/2)\sigma_i, (\hbar/2)\sigma_j] = i\hbar\epsilon_{ijk}(\hbar/2)\sigma_k$, and cancelling $\hbar^2/4$ on both sides yields $[\sigma_i,\sigma_j] = 2i\epsilon_{ijk}\sigma_k$. The anticommutator is verified by direct multiplication: $\sigma_x\sigma_y = i\sigma_z$ and $\sigma_y\sigma_x = -i\sigma_z$ give the anticommutator zero; $\sigma_x^2 = I$ and the cyclic permutations give the diagonal $\delta_{ij}$ term. The trace identity follows from $\tr\sigma_i = 0$ and the orthogonality $\tr(\sigma_i\sigma_j) = 2\delta_{ij}$. With this theorem, the $\sigma$-commutator \eqref{eq:sigma-commutator} of the measurement chapter -- displayed there as a computational fact of $2\times2$ matrices and flagged as a debt to be repaid -- is now read as the $j = 1/2$ instance of the rotation algebra \eqref{eq:galilei-algebra}: the noncommutation of spin components, which the two-state experiments of Chapters~2 and~3 forced as a bench fact, acquires its group-theoretic meaning as the infinitesimal shadow of the noncommutation of finite rotations in SU(2). The two-state incompatibility structure of the measurement chapter's Section~\ref{sec:commutators} is the $j=1/2$ representation of the rotation group.
+
+\medskip\noindent\textbf{Spinors.} Every state in $\mathbb{C}^2$ is a \textbf{spinor}:
+\begin{linenomath}
+  \begin{equation}
+    \ket{\psi} = \alpha\,\ket{+z} + \beta\,\ket{-z},
+    \qquad
+    |\alpha|^2 + |\beta|^2 = 1,
+  \end{equation}
+\end{linenomath}
+with $\alpha,\beta\in\mathbb{C}$. The two-component column $\begin{pmatrix}\alpha\\\beta\end{pmatrix}$ is the spinor's representation in the $\sigma_z$ eigenbasis. A finite rotation about an axis $\bm n$ (a unit vector) by angle $\theta$ acts on spinors through the SU(2) parametrization \eqref{eq:su2-param}:
+\begin{linenomath}
+  \begin{equation}
+    R_{\bm n}(\theta) = e^{-i(\theta/2)\,\bm n\cdot\bm\sigma}
+    = \cos\frac{\theta}{2}\,I - i\,\sin\frac{\theta}{2}\,(\bm n\cdot\bm\sigma),
+  \end{equation}
+\end{linenomath}
+where the second equality follows from expanding the exponential and using $(\bm n\cdot\bm\sigma)^2 = I$ from the anticommutator half of \eqref{eq:pauli-algebra}, which collapses the series to two terms. The parameter is $\theta/2$, not $\theta$: the state rotates by half the spatial angle, because SU(2) covers SO(3) twice -- the topological fact of the preceding section \eqref{eq:su2-so3-homomorphism} is here a concrete formula.
+
+\medskip\noindent\textbf{Derivation of the spin-$\bm n$ orthonormal basis (repaying Chapter~2 debt \#11).}
+The spin-$\bm n$ states of Chapter~2 -- displayed there as \eqref{eq:spin-n} and consumed as experimental input by the measurement chapter -- are now derived. Take the reference state $\ket{+z}$ and construct $\bm n = (\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$ by a rotation from the $z$-axis: first rotate by $\theta$ about the $y$-axis, then by $\phi$ about the $z$-axis. The corresponding SU(2) operator is $e^{-i(\phi/2)\sigma_z}e^{-i(\theta/2)\sigma_y}$. The inner rotation is evaluated using the Euler identity \eqref{eq:su2-param}:
+\begin{linenomath}
+  \begin{equation*}
+    e^{-i(\theta/2)\sigma_y}
+    = \cos\frac{\theta}{2}\,I - i\sin\frac{\theta}{2}\,\sigma_y
+    = \begin{pmatrix}
+        \cos(\theta/2) & -\sin(\theta/2) \\[2pt]
+        \sin(\theta/2) &  \cos(\theta/2)
+      \end{pmatrix}.
+  \end{equation*}
+\end{linenomath}
+Acting on $\ket{+z} = \binom{1}{0}$:
+\begin{linenomath}
+  \begin{equation*}
+    e^{-i(\theta/2)\sigma_y}\!\ket{+z}
+    = \begin{pmatrix} \cos(\theta/2) \\ \sin(\theta/2) \end{pmatrix}
+    = \cos\frac{\theta}{2}\ket{+z} + \sin\frac{\theta}{2}\ket{-z}.
+  \end{equation*}
+\end{linenomath}
+The outer $z$-rotation $e^{-i(\phi/2)\sigma_z} = \operatorname{diag}(e^{-i\phi/2}, e^{i\phi/2})$ multiplies the upper component by $e^{-i\phi/2}$ and the lower by $e^{i\phi/2}$. Discarding the overall phase $e^{-i\phi/2}$ (rays are physical, Section~\ref{sec:rays}) gives
+\begin{linenomath}
+  \begin{equation}
+    \ket{+\bm n} = \cos\frac{\theta}{2}\,\ket{+z} + e^{i\phi}\,\sin\frac{\theta}{2}\,\ket{-z},
+    \label{eq:spin-n-derived}
+  \end{equation}
+\end{linenomath}
+and the orthogonal companion follows by the same rotation applied to $\ket{-z}=\binom{0}{1}$:
+\begin{linenomath}
+  \begin{equation}
+    \ket{-\bm n} = e^{-i(\phi/2)\sigma_z}\,e^{-i(\theta/2)\sigma_y}\,\ket{-z}
+    = -e^{-i\phi}\,\sin\frac{\theta}{2}\,\ket{+z} + \cos\frac{\theta}{2}\,\ket{-z}.
+  \end{equation}
+\end{linenomath}
+These are exactly Chapter~2's \eqref{eq:spin-n}, with the phase conventions matching those of the states chapter. What was previously given as experimental input -- the two-component parametrization of the most general orthonormal basis for a two-state system -- is now a theorem: it is the orbit of the reference basis under the SU(2) rotation group.
+
+\medskip\noindent\textbf{The half-angle law (repaying Chapter~2 debt \#9).}
+The probability that a system prepared in $\ket{+z}$ passes an SG magnet oriented along $\bm n$ is the squared overlap:
+\begin{linenomath}
+  \begin{equation}
+    |\braket{+z|+\bm n}|^2 = \cos^2\frac{\theta}{2},
+    \qquad
+    |\braket{-z|+\bm n}|^2 = \sin^2\frac{\theta}{2},
+    \label{eq:half-angle-law}
+  \end{equation}
+\end{linenomath}
+read off directly from \eqref{eq:spin-n-derived}. Chapter~2 recorded these formulas as \eqref{eq:half-angle} and called them an experimental fact of rotated Stern--Gerlach magnets, owed to the angular-momentum chapter. That debt is now discharged: the $\theta/2$ in the argument is the signature of the SU(2) covering -- the state rotates by half the spatial angle. The operative constraint is the group-theoretic fact that the parameter in the spinor representation's exponential is $\theta/2$, not $\theta$, because SU(2) covers SO(3) twice.
+
+\medskip\noindent\textbf{The spinor $4\pi$ sign (repaying Chapter~2 debt \#10).}
+Set $\theta = 2\pi$ in the finite rotation formula:
+\begin{linenomath}
+  \begin{equation}
+    R_{\bm n}(2\pi) = \cos\pi\,I - i\,\sin\pi\,(\bm n\cdot\bm\sigma) = -I.
+    \label{eq:spinor-sign-interpretation}
+  \end{equation}
+\end{linenomath}
+A $2\pi$ spatial rotation multiplies every spin-$1/2$ state by $-1$. Chapter~4 computed this fact as \eqref{eq:spinor-sign} for the Larmor precession operator: $U(2\pi/\omega) = -I$ on the spin-$1/2$ space, and noted that its rotational interpretation was owed to this chapter. The interpretation is now supplied: the sign is the defining signature of the spinor representation, the group-theoretic fact that the identity in SO(3) lifts to both $+I$ and $-I$ in SU(2). In SO(3) a $2\pi$ rotation is the identity; its SU(2) pre-image \eqref{eq:su2-so3-homomorphism} is $-I$ for the $j=1/2$ representation. The neutron-interferometer experiment cited in Chapter~2 (Rauch and Werner, 1975) -- a $4\pi$ precession returning the original interference pattern while $2\pi$ flips it -- is the direct physical confirmation.
+
+\medskip\noindent\textbf{Bloch sphere parametrization.}
+A pure spin-$1/2$ state $\ket{\psi}$ can be mapped to a point on the unit sphere $S^2$, the \textbf{Bloch sphere}. Write $\ket{\psi} = \alpha\ket{+z} + \beta\ket{-z}$ with $|\alpha|^2+|\beta|^2=1$. The density operator (the projector onto the ray, named in the measurement chapter's Section~\ref{sec:pvm} and to be developed fully in the composite-systems chapter) is
+\begin{linenomath}
+\begin{equation*}
+\rho = \ket{\psi}\bra{\psi}
+= \begin{pmatrix}
+    |\alpha|^2 & \alpha\beta^* \\
+    \alpha^*\beta & |\beta|^2
+  \end{pmatrix}.
+\end{equation*}
+\end{linenomath}
+Every $2\times2$ Hermitian matrix can be expanded in the basis $\{I,\sigma_x,\sigma_y,\sigma_z\}$ with real coefficients. Writing $\rho = \frac12(a_0 I + \bm a\cdot\bm\sigma)$ and matching the four entries gives
+\begin{linenomath}
+\begin{equation*}
+\frac12\begin{pmatrix} a_0 + a_z & a_x - i a_y \\ a_x + i a_y & a_0 - a_z \end{pmatrix}
+= \begin{pmatrix} |\alpha|^2 & \alpha\beta^* \\ \alpha^*\beta & |\beta|^2 \end{pmatrix}.
+\end{equation*}
+\end{linenomath}
+Hence $a_0 = |\alpha|^2+|\beta|^2 = 1$ (from $\tr\rho=1$), $a_x = 2\Re(\alpha\beta^*)$, $a_y = -2\Im(\alpha\beta^*)$, $a_z = |\alpha|^2-|\beta|^2$. Purity $\tr(\rho^2)=1$ gives $a_0^2 + |\bm a|^2 = 2$, so $|\bm a|=1$. Define $\bm r := \bm a$, the \textbf{Bloch vector}:
+\begin{linenomath}
+  \begin{equation}
+    \rho = \ket{\psi}\bra{\psi} = \frac12\bigl(I + \bm r\cdot\bm\sigma\bigr),
+    \qquad
+    \bm r = \braket{\psi|\bm\sigma|\psi},
+    \qquad
+    |\bm r| = 1,
+    \label{eq:bloch-vector}
+  \end{equation}
+\end{linenomath}
+where $\bm r$ is the expectation vector of the Pauli operators. The parametrization is proved by expanding $\ket{\psi}$ in the basis $\{\ket{+z},\ket{-z}\}$ and computing the four matrix entries of $\rho$ against $I$ and $\bm\sigma$; the trace condition $\tr\rho=1$ fixes $a_0=1$, and purity $\tr(\rho^2)=1$ gives $|\bm a|=1$, so $\bm r = \bm a$ is a unit vector. The ray space of a two-state system is $\mathbb{CP}^1 \cong S^2$: each physical state -- each ray -- is a point on the sphere, and the sphere's north and south poles are the $\ket{+z}$ and $\ket{-z}$ rays respectively. The half-angle law \eqref{eq:half-angle-law} has a geometric reading on the Bloch sphere: the squared overlap $|\braket{\psi|\phi}|^2$ is $\cos^2(\Theta/2)$ where $\Theta$ is the angle between the two state vectors $\bm r_\psi$ and $\bm r_\phi$ on the sphere.
+
+The Bloch sphere re-reads the Stern--Gerlach statistics of the measurement chapter (\eqref{eq:spin-expectation}): the expectation $\braket{+z|\sigma_{\bm n}|+z} = \cos\theta$ is the projection of the north-pole vector onto the $\bm n$-direction. The sequential-SG probabilities of the measurement chapter's treatment of sequential filters (Section~\ref{sec:filters}) reduce to spherical geometry: a filter along $\bm n$ followed by a filter along $\bm n'$ transmits a fraction $|\braket{+\bm n|+\bm n'}|^2 = \cos^2(\Theta/2)$ where $\Theta$ is the angle between $\bm n$ and $\bm n'$ on the sphere.
+
+\medskip\noindent\textbf{Time reversal for spin-$1/2$ (repaying the $\Theta^2$ share of Chapter~4 debt \#24).}
+The time-reversal operator $\Theta$, defined in the discrete-symmetries section of Chapter~4 as the antiunitary operator reversing spin, satisfies $\Theta \bm J \Theta^{-1} = -\bm J$. For a general angular momentum representation, this condition is solved by a rotation by $\pi$ about the $y$-axis followed by complex conjugation in the standard $J_z$ eigenbasis:
+\begin{linenomath}
+  \begin{equation}
+    \Theta = e^{-i\pi J_y/\hbar}\,K_0,
+    \qquad
+    \Theta^2 = e^{-i2\pi J_y/\hbar} = (-1)^{2j}\,I,
+    \label{eq:theta-j}
+  \end{equation}
+\end{linenomath}
+where $K_0$ is the antiunitary prototype \eqref{eq:antiunitary-def}: complex conjugation in the $J_z$ eigenbasis. In the standard $J_z$ eigenbasis, $J_z$ and $J_x$ have real matrix elements while $J_y$ is purely imaginary, hence
+\begin{linenomath}
+\begin{equation*}
+K_0 J_z K_0^{-1} = J_z,\qquad
+K_0 J_x K_0^{-1} = J_x,\qquad
+K_0 J_y K_0^{-1} = -J_y.
+\end{equation*}
+\end{linenomath}
+The conjugation of the generators by a $\pi$-rotation about the $y$-axis uses the adjoint action derived from the rotation algebra: $e^{-i\theta J_y/\hbar}J_z e^{i\theta J_y/\hbar} = J_z\cos\theta + J_x\sin\theta$, and $e^{-i\theta J_y/\hbar}J_x e^{i\theta J_y/\hbar} = J_x\cos\theta - J_z\sin\theta$, both following from the commutators $[J_y,J_z]=i\hbar J_x$ and $[J_y,J_x]=-i\hbar J_z$ by the Baker-Campbell-Hausdorff expansion of $e^{A}Be^{-A}$ applied to the rotation algebra. At $\theta=\pi$:
+\begin{linenomath}
+\begin{equation*}
+e^{-i\pi J_y/\hbar}J_z e^{i\pi J_y/\hbar} = -J_z,\qquad
+e^{-i\pi J_y/\hbar}J_x e^{i\pi J_y/\hbar} = -J_x,\qquad
+e^{-i\pi J_y/\hbar}J_y e^{i\pi J_y/\hbar} = J_y.
+\end{equation*}
+\end{linenomath}
+Now verify $\Theta \bm J \Theta^{-1} = -\bm J$ component by component:
+\begin{linenomath}
+\begin{align*}
+\Theta J_z \Theta^{-1} &= e^{-i\pi J_y/\hbar}K_0 J_z K_0^{-1} e^{i\pi J_y/\hbar}
+= e^{-i\pi J_y/\hbar} J_z e^{i\pi J_y/\hbar} = -J_z,\\
+\Theta J_x \Theta^{-1} &= e^{-i\pi J_y/\hbar}K_0 J_x K_0^{-1} e^{i\pi J_y/\hbar}
+= e^{-i\pi J_y/\hbar} J_x e^{i\pi J_y/\hbar} = -J_x,\\
+\Theta J_y \Theta^{-1} &= e^{-i\pi J_y/\hbar}K_0 J_y K_0^{-1} e^{i\pi J_y/\hbar}
+= e^{-i\pi J_y/\hbar}(-J_y) e^{i\pi J_y/\hbar} = -J_y.
+\end{align*}
+\end{linenomath}
+For $\Theta^2$, use antiunitarity: $K_0 i K_0^{-1} = -i$ and $K_0 J_y K_0^{-1} = -J_y$, giving $K_0 J_y^n K_0^{-1} = (-J_y)^n$ and consequently
+\begin{linenomath}
+\begin{equation*}
+K_0 e^{-i\pi J_y/\hbar}K_0^{-1}
+= \sum_{n=0}^{\infty}\frac{1}{n!}K_0\Bigl(-\frac{i\pi}{\hbar}\Bigr)^{\!n}J_y^{\,n}K_0^{-1}
+= \sum_{n=0}^{\infty}\frac{1}{n!}\Bigl(\frac{i\pi}{\hbar}\Bigr)^{\!n}(-J_y)^{n}
+= e^{-i\pi J_y/\hbar}.
+\end{equation*}
+\end{linenomath}
+Hence $\Theta^2 = e^{-i\pi J_y/\hbar}K_0\,e^{-i\pi J_y/\hbar}K_0 = e^{-i\pi J_y/\hbar}(K_0 e^{-i\pi J_y/\hbar}K_0^{-1})K_0^2 = e^{-i\pi J_y/\hbar}e^{-i\pi J_y/\hbar} = e^{-i2\pi J_y/\hbar}$. Since the $2\pi$ rotation acts on any state in the $j$-multiplet as $e^{-i2\pi J_y/\hbar}\ket{j,m} = (-1)^{2j}\ket{j,m}$ (the $4\pi$ periodicity of the representation), the operator identity $\Theta^2 = (-1)^{2j}I$ follows.
+
+For $j = 1/2$,
+\begin{linenomath}
+  \begin{equation}
+    \Theta^2 = (-1)^{2\cdot\frac12}\,I = -I.
+  \end{equation}
+\end{linenomath}
+This is the formula Chapter~4 stated without proof as \eqref{eq:theta-squared}, owed to this chapter. The action on the $j=1/2$ basis follows from \eqref{eq:theta-j} with $e^{-i\pi S_y/\hbar} = e^{-i(\pi/2)\sigma_y} = -i\sigma_y$ (the Condon--Shortley phase convention, which makes all ladder matrix elements real and positive in \eqref{eq:ladder-action-j}):
+\begin{linenomath}
+  \begin{equation}
+    \Theta\ket{+z} = +\ket{-z}, \qquad
+    \Theta\ket{-z} = -\ket{+z}.
+  \end{equation}
+\end{linenomath}
+The Kramers degeneracy theorem \eqref{eq:kramers} -- every energy eigenstate of a time-reversal-invariant Hamiltonian is at least twofold degenerate when $\Theta^2 = -I$ -- now has its rotation-theoretic foundation: every spin-$1/2$ doublet is a Kramers pair. The generic argument of Chapter~4's Section~\ref{sec:discrete-symmetries} is here made concrete in the simplest representation.
+
+\medskip\noindent\textbf{Non-selective measurement and the density operator.}
+A Stern--Gerlach measurement whose output ports are not sorted -- the non-selective case of the measurement chapter's Section~\ref{sec:filters} -- mixes the spinor's information. A system prepared in $\ket{\psi}$ and measured non-selectively along $\bm n$ emerges in the ensemble described by
+\begin{linenomath}
+  \begin{equation}
+    \rho_{\text{after}}
+    = P_{+\bm n}\,\rho_{\text{before}}\,P_{+\bm n}
+    + P_{-\bm n}\,\rho_{\text{before}}\,P_{-\bm n},
+    \qquad
+    \rho_{\text{before}} = \ket{\psi}\bra{\psi},
+  \end{equation}
+\end{linenomath}
+where $P_{\pm\bm n} = \ket{\pm\bm n}\bra{\pm\bm n}$ are the projectors onto the spin-$\bm n$ eigenstates \eqref{eq:spin-n-derived}. This is a mixed state: the off-diagonal coherence of the pure spinor is erased by the projective sum. The density operator $\rho$, named in the measurement chapter via the Gleason signpost \eqref{eq:gleason}, is the natural language for this bookkeeping; its full theory -- partial traces, entanglement measures, mixed-state geometry inside the Bloch ball -- belongs to the composite-systems chapter. Here it suffices to note that the non-selective measurement maps the Bloch vector $\bm r$ to its projection along $\bm n$: $\bm r \mapsto (\bm r\cdot\bm n)\,\bm n$, shrinking the sphere's surface to a chord.
+
+\begin{note}
+  The Bloch sphere is a pure-state representation: $|\bm r| = 1$ for every ray. Mixed states -- convex combinations of projectors -- inhabit the interior $|\bm r| < 1$, the Bloch ball. The density operator's extension from pure to mixed states, and the partial-trace operation that generates reduced density operators from entangled composites, is the composite-systems chapter's business. The Bloch vector \eqref{eq:bloch-vector} is the $j=1/2$ instance of a coherent-state parametrization; its generalization to higher spin is named as a forward debt to the last chapter.
+\end{note}
+
+\medskip\noindent\textbf{Example: the Stern--Gerlach cascade re-read through the Bloch sphere.}
+The sequential-SG experiments of the measurement chapter's Sections~\ref{sec:observables} and~\ref{sec:commutators} acquire a transparent geometric interpretation. Consider the paradigmatic $z$-$x$-$z$ cascade: a $\ket{+z}$ beam enters a magnet oriented along $+x$, whose $+x$ output port feeds a magnet oriented back along $+z$. The measurement chapter computed the transmission probability as $1/2 \times 1/2 = 1/4$. On the Bloch sphere: the initial state is the north pole. The $+x$ projection maps it to the point on the equator at $+x$, collapsing the sphere to that single point; the squared overlap $|\braket{+z|+x}|^2 = 1/2$ is $\cos^2(\pi/4)$, the angle between $z$ and $x$ being $\pi/2$. The $+x$ output, now the equatorial point, is then interrogated along $+z$; the squared overlap is again $1/2$, and the product is $1/4$. The loss of certainty -- the $x$-question destroys the $z$-information -- is now a geometric fact: rotating the quantization axis by $\pi/2$ projects onto an orthogonal great circle, and the information residing in the original axis's pole is spread uniformly over that circle. A second $z$-interrogation then selects one hemisphere, restoring the $z$-information at the cost of half the ensemble.
+
+The general cascade of arbitrary axes follows the same geometry. A sequence of filters with axes $\bm n_1,\bm n_2,\ldots$ transmits a fraction $\prod_k \cos^2(\Theta_k/2)$ where $\Theta_k$ is the angle between $\bm n_k$ and $\bm n_{k+1}$. The Bloch sphere reduces every sequential-SG calculation to spherical trigonometry.
+
+This section has repaid three of the book's oldest structural debts from the representation theory of SU(2) alone: the half-angle law \eqref{eq:half-angle-law} (Chapter~2 debt \#9), the spin-$\bm n$ orthonormal basis \eqref{eq:spin-n-derived} (Chapter~2 debt \#11), and the spinor $4\pi$ sign interpretation \eqref{eq:spinor-sign-interpretation} (Chapter~2 debt \#10). It has also discharged the $\Theta^2$ share of Chapter~4's rotation-spectrum debt \#24: the formula $\Theta^2 = (-1)^{2j}$ is now a theorem of the rotation algebra, proved for all $j$ in \eqref{eq:theta-j} and cashed for the $j=1/2$ doublet. And it has read the $\sigma$-commutator \eqref{eq:sigma-commutator} of Chapter~3 as the $j=1/2$ instance of the rotation algebra \eqref{eq:galilei-algebra}, repaying the measurement chapter's debt \#19. Spin is intrinsic -- a property of the particle with no coordinate representation, its algebra fixed entirely by the rotation group. But angular momentum also has an orbital form, $\bm L = \bm r \times \bm p$, whose quantization is forced by the same algebra yet constrained by the geometry of space itself.
+
+\section{Orbital Angular Momentum: Spherical Harmonics, Central Potential, Parity}
+\label{sec:orbital-angular-momentum}
+
+The spin of the preceding section is intrinsic: a property of the particle with no coordinate representation, its algebra fixed entirely by the Lie bracket of the rotation group. But angular momentum enters physics through a second, older door. A particle moving in space carries orbital angular momentum $\bm L = \bm r \times \bm p$, and the position-representation machinery of the solutions chapter -- $X$ as multiplication \eqref{eq:x-multiplication}, $P$ as the derivative \eqref{eq:momentum-generator}, the canonical commutator \eqref{eq:canonical-commutator-built} computed from the representations -- is precisely the machinery that gives $\bm L$ its concrete differential form. This section constructs the orbital representation of the rotation algebra, solves its eigenvalue problem in spherical coordinates, derives the spherical harmonics and the central-potential reduction, and connects parity to the orbital quantum numbers.
+
+\medskip\noindent\textbf{The orbital angular momentum operator.}
+From the position-representation generators of Chapter~5,
+\begin{linenomath}
+  \begin{equation}
+    \bm L = \bm r \times \bm p,
+    \qquad
+    L_i = \epsilon_{ijk}\,x_j\,p_k
+    = -i\hbar\,\epsilon_{ijk}\,x_j\,\frac{\partial}{\partial x_k},
+    \label{eq:orbital-L}
+  \end{equation}
+\end{linenomath}
+where $\epsilon_{ijk}$ is the completely antisymmetric symbol with $\epsilon_{123} = 1$, and summation over repeated indices is implied. The operator is defined on the dense domain of smooth, square-integrable wave functions; the domain questions, like all unbounded-operator questions in this book, are honestly deferred to Appendix~A.
+
+\medskip\noindent\textbf{Verification of the angular momentum algebra.}
+That the orbital operators \eqref{eq:orbital-L} satisfy the rotation algebra \eqref{eq:galilei-algebra} is proved directly from the canonical commutator \eqref{eq:canonical-commutator-built}. Compute $[L_x, L_y]$ as a representative case. From the definition,
+\begin{linenomath}
+  \begin{align}
+    L_x &= y\,p_z - z\,p_y = -i\hbar\bigl(y\,\partial_z - z\,\partial_y\bigr), \nonumber\\
+    L_y &= z\,p_x - x\,p_z = -i\hbar\bigl(z\,\partial_x - x\,\partial_z\bigr).
+  \end{align}
+\end{linenomath}
+The commutator expands,
+\begin{linenomath}
+  \begin{align}
+    [L_x, L_y] &= [y\,p_z - z\,p_y,\; z\,p_x - x\,p_z] \nonumber\\
+    &= [y\,p_z,\,z\,p_x] - [y\,p_z,\,x\,p_z] - [z\,p_y,\,z\,p_x] + [z\,p_y,\,x\,p_z],
+  \end{align}
+\end{linenomath}
+and the four terms are evaluated using the commutator algebra of Chapter~3 \eqref{eq:commutator-algebra}. All coordinates commute among themselves, $[x_i, x_j] = 0$, and all momenta commute among themselves, $[p_i, p_j] = 0$, leaving only the mixed terms. The first term: $[y\,p_z,\,z\,p_x] = y\,[p_z,z]\,p_x = y\,(-i\hbar)\,p_x = -i\hbar\,y\,p_x$. The last term: $[z\,p_y,\,x\,p_z] = x\,[z,p_z]\,p_y = x\,(i\hbar)\,p_y = i\hbar\,x\,p_y$. The middle two terms vanish because $p_z$ commutes with $x$ and $p_y$ commutes with $z$. Hence $[L_x, L_y] = i\hbar\,(x\,p_y - y\,p_x) = i\hbar\,L_z$. The full set,
+\begin{linenomath}
+  \begin{equation}
+    [L_i, L_j] = i\hbar\,\epsilon_{ijk}\,L_k,
+  \end{equation}
+\end{linenomath}
+completes the verification: the orbital operators satisfy exactly the same algebra as the abstract generators $\bm J$ of Chapter~4. The algebra is the physics; whether the representation is orbital or intrinsic is a question about which Hilbert space carries it.
+
+\medskip\noindent\textbf{Spherical coordinates.}
+The orbital problem is naturally expressed in spherical coordinates $(r,\theta,\phi)$, with $x = r\sin\theta\cos\phi$, $y = r\sin\theta\sin\phi$, $z = r\cos\theta$. The chain rule transforms the Cartesian derivatives. For $L_z = -i\hbar(x\partial_y - y\partial_x)$, the radial and polar derivatives cancel, leaving only the azimuthal derivative. Explicitly, from $\tan\phi = y/x$ (and $r,\theta$ independent of the combination $x\partial_y-y\partial_x$), the chain rule gives
+\begin{linenomath}
+\begin{align*}
+\partial_x &= \sin\theta\cos\phi\,\partial_r + \frac{\cos\theta\cos\phi}{r}\,\partial_\theta - \frac{\sin\phi}{r\sin\theta}\,\partial_\phi,\\
+\partial_y &= \sin\theta\sin\phi\,\partial_r + \frac{\cos\theta\sin\phi}{r}\,\partial_\theta + \frac{\cos\phi}{r\sin\theta}\,\partial_\phi.
+\end{align*}
+\end{linenomath}
+Forming $x\partial_y - y\partial_x$: the $\partial_r$ terms $r\sin\theta\cos\phi(\sin\theta\sin\phi) - r\sin\theta\sin\phi(\sin\theta\cos\phi)$ cancel; the $\partial_\theta$ terms $\sin\theta\cos\theta\sin\phi\cos\phi - \sin\theta\cos\theta\sin\phi\cos\phi$ cancel; the $\partial_\phi$ terms give $r\sin\theta\cos\phi(\frac{\cos\phi}{r\sin\theta}) - r\sin\theta\sin\phi(-\frac{\sin\phi}{r\sin\theta}) = \cos^2\phi + \sin^2\phi = \partial_\phi$. Hence
+\begin{linenomath}
+  \begin{equation}
+    L_z = -i\hbar\,\frac{\partial}{\partial\phi},
+    \label{eq:Lz-phi}
+  \end{equation}
+\end{linenomath}
+a single derivative with no $r$ or $\theta$ dependence. The squared angular momentum operator, obtained by the same chain-rule substitution of \eqref{eq:orbital-L} into $L^2 = L_x^2 + L_y^2 + L_z^2$, is
+\begin{linenomath}
+  \begin{equation}
+    L^2 = -\hbar^2\Bigl[
+      \frac{1}{\sin\theta}\,\frac{\partial}{\partial\theta}
+      \Bigl(\sin\theta\,\frac{\partial}{\partial\theta}\Bigr)
+      + \frac{1}{\sin^2\theta}\,\frac{\partial^2}{\partial\phi^2}
+    \Bigr],
+  \end{equation}
+\end{linenomath}
+the angular part of the Laplacian, multiplied by $-\hbar^2$.
+
+\medskip\noindent\textbf{Eigenfunctions of $L_z$ and the integer restriction.}
+The eigenvalue equation $L_z\Phi(\phi) = \hbar m\,\Phi(\phi)$ with \eqref{eq:Lz-phi} is $(-i\hbar\,\dd/\dd\phi)\Phi = \hbar m\,\Phi$, solved immediately:
+\begin{linenomath}
+  \begin{equation}
+    \Phi_m(\phi) = \frac{1}{\sqrt{2\pi}}\,e^{im\phi},
+    \qquad
+    \int_0^{2\pi}\!\dd\phi\;|\Phi_m(\phi)|^2 = 1.
+  \end{equation}
+\end{linenomath}
+Now the topological argument. The configuration space of a particle in $\mathbb{R}^3$ is the space itself, and a wave function $\psi(\bm r)$ is a single-valued function on $\mathbb{R}^3$: the phase of $\psi$ at a point must be independent of the path taken to reach it. In spherical coordinates, the azimuthal coordinate $\phi$ and $\phi + 2\pi$ label the same physical point. Single-valuedness therefore demands $\Phi_m(\phi + 2\pi) = \Phi_m(\phi)$, which requires $e^{i2\pi m} = 1$, hence
+\begin{linenomath}
+  \begin{equation}
+    m \in \mathbb{Z}.
+  \end{equation}
+\end{linenomath}
+The magnetic quantum number for orbital angular momentum is integer. Since the ladder argument of the spectrum section \eqref{eq:angular-momentum-spectrum} established $m_{\max} = \ell$ with integer spacing between $m$ values, the integer restriction on $m$ forces $\ell$ to be integer as well: $\ell = 0,1,2,\ldots$. This is the topological argument that distinguishes orbital from intrinsic angular momentum. The SU(2) double-valuedness -- the spinor sign \eqref{eq:spinor-sign-interpretation} of the preceding section -- is excluded for orbital motion by the single-valuedness of wave functions on the physical configuration space. The spectrum theorem \eqref{eq:angular-momentum-spectrum} permits both integer and half-integer $j$; orbital angular momentum realizes only the integer sector.
+
+\medskip\noindent\textbf{Spherical harmonics.}
+The simultaneous eigenfunctions of $L^2$ and $L_z$, denoted $\braket{\theta,\phi|\ell m}$ and called the \textbf{spherical harmonics}, are defined by
+\begin{linenomath}
+  \begin{equation}
+    Y_\ell^m(\theta,\phi) := \braket{\theta,\phi|\ell m},
+    \qquad
+    L^2\,Y_\ell^m = \hbar^2\ell(\ell+1)\,Y_\ell^m,
+    \qquad
+    L_z\,Y_\ell^m = \hbar m\,Y_\ell^m,
+    \label{eq:spherical-harmonic-def}
+  \end{equation}
+\end{linenomath}
+with $\ell = 0,1,2,\ldots$ and $m = -\ell,-\ell+1,\ldots,\ell$. They form an orthonormal basis for square-integrable functions on the sphere $S^2$:
+\begin{linenomath}
+  \begin{equation}
+    \int_{S^2}\!\dd\Omega\; Y_\ell^m(\theta,\phi)^*\,Y_{\ell'}^{m'}(\theta,\phi)
+    = \delta_{\ell\ell'}\,\delta_{mm'},
+    \qquad
+    \dd\Omega = \sin\theta\,\dd\theta\,\dd\phi.
+  \end{equation}
+\end{linenomath}
+The spherical harmonics are constructed systematically from the highest-weight state $Y_\ell^\ell$, the unique (up to normalization) eigenfunction annihilated by the ladder operator $L_+$, using the orbital realization of \eqref{eq:Jpm-def}. In spherical coordinates,
+\begin{linenomath}
+  \begin{equation}
+    L_\pm = \hbar\,e^{\pm i\phi}\Bigl(
+      \pm\frac{\partial}{\partial\theta}
+      + i\cot\theta\,\frac{\partial}{\partial\phi}
+    \Bigr).
+  \end{equation}
+\end{linenomath}
+The condition $L_+ Y_\ell^\ell = 0$ is a first-order differential equation. Since $L_z Y_\ell^\ell = \hbar\ell Y_\ell^\ell$, the $\phi$-dependence is fixed: $Y_\ell^\ell(\theta,\phi) = f(\theta)e^{i\ell\phi}$. Insert this ansatz into $L_+ = \hbar e^{i\phi}(\partial_\theta + i\cot\theta\,\partial_\phi)$:
+\begin{linenomath}
+\begin{equation*}
+L_+\bigl(f(\theta)e^{i\ell\phi}\bigr)
+= \hbar e^{i\phi}\bigl[f'(\theta) + i\cot\theta\,(i\ell)f(\theta)\bigr]e^{i\ell\phi}
+= \hbar e^{i(\ell+1)\phi}\bigl[f'(\theta) - \ell\cot\theta\,f(\theta)\bigr] = 0.
+\end{equation*}
+\end{linenomath}
+Hence $f'(\theta) = \ell\cot\theta\,f(\theta)$, a separable first-order ODE: $\dd f/f = \ell\cot\theta\,\dd\theta = \ell(\cos\theta/\sin\theta)\,\dd\theta$, whose integral is $\ln f = \ell\ln\sin\theta + \text{const}$, giving $f(\theta) \propto \sin^\ell\theta$. The normalization $\int_{S^2}|Y_\ell^\ell|^2\dd\Omega = 1$ fixes the prefactor via the beta-function integral $\int_0^\pi \sin^{2\ell+1}\theta\,\dd\theta = 2\frac{2^{2\ell}(\ell!)^2}{(2\ell+1)!}$, yielding
+\begin{linenomath}
+  \begin{equation}
+    Y_\ell^\ell(\theta,\phi) = \frac{(-1)^\ell}{2^\ell \ell!}
+    \sqrt{\frac{(2\ell+1)!}{4\pi}}\,
+    \sin^\ell\theta\;e^{i\ell\phi},
+  \end{equation}
+\end{linenomath}
+where the phase convention is Condon--Shortley: $(-1)^\ell$ ensures consistency with the real, positive ladder matrix elements of \eqref{eq:ladder-action-j}. Lower-$m$ harmonics are obtained by repeated application of $L_-$, using the normalized action \eqref{eq:ladder-action-j}:
+\begin{linenomath}
+  \begin{equation}
+    Y_\ell^{m-1}(\theta,\phi)
+    = \frac{1}{\hbar\sqrt{\ell(\ell+1) - m(m-1)}}\,
+    L_-\,Y_\ell^{m}(\theta,\phi).
+  \end{equation}
+\end{linenomath}
+The first few spherical harmonics, normalized and phased by Condon--Shortley:
+\begin{linenomath}
+  \begin{align}
+    Y_0^0 &= \frac{1}{\sqrt{4\pi}}, \nonumber\\
+    Y_1^0 &= \sqrt{\frac{3}{4\pi}}\,\cos\theta, \qquad
+    Y_1^{\pm1} = \mp\sqrt{\frac{3}{8\pi}}\,\sin\theta\,e^{\pm i\phi}, \nonumber\\
+    Y_2^0 &= \sqrt{\frac{5}{16\pi}}\,(3\cos^2\theta - 1), \qquad
+    Y_2^{\pm1} = \mp\sqrt{\frac{15}{8\pi}}\,\sin\theta\cos\theta\,e^{\pm i\phi}, \qquad
+    Y_2^{\pm2} = \sqrt{\frac{15}{32\pi}}\,\sin^2\theta\,e^{\pm i2\phi}.
+  \end{align}
+\end{linenomath}
+The general expression, stated for completeness, involves the associated Legendre functions $P_\ell^m(\cos\theta)$:
+\begin{linenomath}
+  \begin{equation}
+    Y_\ell^m(\theta,\phi) = (-1)^m\,
+    \sqrt{\frac{(2\ell+1)}{4\pi}\,
+    \frac{(\ell-m)!}{(\ell+m)!}}\,
+    P_\ell^m(\cos\theta)\,e^{im\phi},
+  \end{equation}
+\end{linenomath}
+for $m \ge 0$, with $Y_\ell^{-m} = (-1)^m (Y_\ell^m)^*$ for negative $m$.
+
+\begin{note}
+  The phase factor $(-1)^m$ and the factor in the normalization are the Condon--Shortley convention, chosen to make the ladder matrix elements real and positive. Other conventions exist in the literature; this book adopts Condon--Shortley throughout, matching the ladder actions \eqref{eq:ladder-action-j}. The $Y_1^0$ harmonic is real and positive on the positive $z$-axis ($\theta = 0$), $Y_1^0(0,\phi) = \sqrt{3/4\pi} > 0$, fixing the overall sign.
+\end{note}
+
+\medskip\noindent\textbf{The rigid rotor.}
+A particle constrained to a sphere of radius $R$ has moment of inertia $I = mR^2$ and Hamiltonian $H = \bm L^2/2I$. Since the spherical harmonics are the eigenfunctions of $\bm L^2$, the spectrum follows immediately:
+\begin{linenomath}
+  \begin{equation}
+    H\,Y_\ell^m = \frac{\hbar^2\ell(\ell+1)}{2I}\,Y_\ell^m,
+    \qquad
+    E_\ell = \frac{\hbar^2\ell(\ell+1)}{2I},
+    \qquad
+    \ell = 0,1,2,\ldots,
+    \label{eq:rigid-rotor}
+  \end{equation}
+\end{linenomath}
+each level $(2\ell+1)$-fold degenerate. This is the spectrum of a rigid diatomic molecule in its rotational band. Transitions between levels are governed by the dipole selection rule $\Delta\ell = \pm1$ (a consequence of the rank-1 tensor character of the electric dipole operator, developed in the Wigner--Eckart section); the absorption frequencies are $\omega_{\ell\to\ell+1} = \hbar(2\ell+2)/I$, uniformly spaced by $2\hbar/I$ for large $\ell$. The carbon monoxide molecule's $J = 1 \to 0$ rotational transition at approximately $115\,\text{GHz}$ (wavelength $2.6\,\text{mm}$) is a standard astrophysical probe of cold molecular clouds. The rigid rotor is the orbital analog of the spin precession of the evolution chapter: a two-parameter system (the orientation angles $\theta,\phi$) whose spectrum is entirely determined by the rotation algebra.
+
+\medskip\noindent\textbf{Central potentials and the radial equation.}
+For a particle of mass $m$ in a spherically symmetric potential $V(r)$, the Hamiltonian
+\begin{linenomath}
+  \begin{equation}
+    H = -\frac{\hbar^2}{2m}\,\nabla^2 + V(r)
+  \end{equation}
+\end{linenomath}
+commutes with $\bm L^2$ and $L_z$ (all functions of $r$ alone are rotation-invariant). The triple $\{H, L^2, L_z\}$ is a complete set of compatible observables in the sense of Chapter~3 \eqref{eq:csco-joint}; joint eigenstates are labelled by three quantum numbers $(n,\ell,m)$ where $n$ is a radial quantum number. Separate the wave function in spherical coordinates,
+\begin{linenomath}
+  \begin{equation}
+    \psi_{n\ell m}(r,\theta,\phi) = R_{n\ell}(r)\,Y_\ell^m(\theta,\phi),
+  \end{equation}
+\end{linenomath}
+and apply the Laplacian in spherical form. The angular part acts on $Y_\ell^m$ and produces $\hbar^2\ell(\ell+1)/r^2$. The radial function satisfies
+\begin{linenomath}
+  \begin{equation}
+    -\frac{\hbar^2}{2m}\,
+    \frac{1}{r^2}\,\frac{\dd}{\dd r}\!\left(r^2\frac{\dd R}{\dd r}\right)
+    + \Bigl[V(r) + \frac{\hbar^2\ell(\ell+1)}{2mr^2}\Bigr]\,R(r)
+    = E\,R(r),
+    \label{eq:radial-equation}
+  \end{equation}
+\end{linenomath}
+with the boundary condition that $r^2|R(r)|^2 \to 0$ as $r \to 0$ and $r \to \infty$. The substitution $u(r) := r\,R(r)$ removes the first-derivative term, reducing the problem to a one-dimensional Schrodinger equation on the half-line:
+\begin{linenomath}
+  \begin{equation}
+    -\frac{\hbar^2}{2m}\,\frac{\dd^2 u}{\dd r^2}
+    + \Bigl[V(r) + \frac{\hbar^2\ell(\ell+1)}{2mr^2}\Bigr]\,u(r)
+    = E\,u(r),
+    \qquad
+    u(0) = 0.
+  \end{equation}
+\end{linenomath}
+The boundary condition $u(0) = 0$ is the regularity requirement: $R(r)$ must be finite at the origin, and $u = rR$ vanishes there. The term $\hbar^2\ell(\ell+1)/2mr^2$ is the \textbf{centrifugal barrier}: for $\ell > 0$, it repels the particle from the origin. This is a kinematic effect of rotation -- a consequence of the angular momentum, not a force -- and it is the reason that $\ell > 0$ states have vanishing probability density at $r = 0$: $R_{n\ell}(r) \sim r^\ell$ near the origin. The one-dimensional domain $[0,\infty)$ with the boundary condition $u(0)=0$ from \eqref{eq:radial-equation} makes every central-potential problem equivalent to a half-line problem with an effective potential $V_{\text{eff}}(r) = V(r) + \hbar^2\ell(\ell+1)/2mr^2$.
+
+The radial equation \eqref{eq:radial-equation} is the central-potential reduction. Its solution for the Coulomb potential $V(r) = -e^2/r$ is the hydrogen atom -- the chapter's closing harvest. Its solution for a general short-range potential, with scattering boundary conditions, is the partial-wave expansion of the scattering chapter.
+
+\medskip\noindent\textbf{Parity of orbital states.}
+The parity operator $\Pi$, defined in the discrete-symmetries section of Chapter~4 \eqref{eq:parity-def}, acts on spatial coordinates as $\Pi: \bm r \mapsto -\bm r$. In spherical coordinates this sends $\theta \mapsto \pi - \theta$ and $\phi \mapsto \phi + \pi$. Applied to a spherical harmonic,
+\begin{linenomath}
+  \begin{equation}
+    \Pi\,Y_\ell^m(\theta,\phi)
+    = Y_\ell^m(\pi - \theta, \phi + \pi)
+    = (-1)^\ell\,Y_\ell^m(\theta,\phi).
+    \label{eq:Ylm-parity}
+  \end{equation}
+\end{linenomath}
+The proof uses the explicit form of $Y_\ell^m$: under $\theta \mapsto \pi-\theta$, $\cos\theta \mapsto -\cos\theta$ and $\sin\theta \mapsto \sin\theta$, while under $\phi \mapsto \phi+\pi$, $e^{im\phi} \mapsto (-1)^m e^{im\phi}$; the associated Legendre function $P_\ell^m(\cos\theta)$ contains the factor $\sin^m\theta$ times a polynomial in $\cos\theta$ of parity $(-1)^{\ell-m}$, and the product of $(-1)^{\ell-m}$ from the polynomial and $(-1)^m$ from the azimuthal factor yields $(-1)^\ell$. The orbital parity is therefore $(-1)^\ell$: even-$\ell$ states are parity-even, odd-$\ell$ states are parity-odd. This connects directly to Chapter~4's Laporte rule \eqref{eq:parity-selection}: electric dipole transitions, mediated by the odd-parity operator $e\bm r$, connect only states of opposite parity, which for orbital states means $\Delta\ell$ odd. The dipole selection rule $\Delta\ell = \pm1$ (with $\ell = 0 \to \ell' = 0$ forbidden) is the special case, developed quantitatively in the Wigner--Eckart section.
+
+The CSCO for a spinless particle in a central potential is $\{H, L^2, L_z\}$. The energy $E_{n\ell}$ depends on $n$ and $\ell$ but not on $m$: the $m$-degeneracy $(2\ell+1)$ is forced by rotation invariance, by the level-local degeneracy corollary of Chapter~4 \eqref{eq:degeneracy-invariance}. Any additional degeneracy -- the hydrogen atom's $\ell$-degeneracy at fixed $n$, where all $\ell < n$ share the same energy -- is not a consequence of SO(3) alone and signals a higher symmetry.
+
+\begin{note}
+  The orbital angular momentum theory handles one particle in a central field. The spin of the preceding section, the orbital motion of this section, and the coupling of the two (spin--orbit) are independent pieces of the same rotation algebra. Spin--orbit coupling is a relativistic effect; it is named here as the first correction to the central-potential picture and is developed in the perturbation-theory chapter. The commutation of $\bm L$ with any function of $r$ alone is the key: $[L_i, f(r)] = 0$ for any $f$, because $L_i$ contains only angular derivatives. This fact, together with the orbital algebra \eqref{eq:orbital-L}, is the entire angular content of the central-potential problem.
+\end{note}
+
+The orbital angular momentum operator \eqref{eq:orbital-L} and its spherical-harmonic eigenfunctions \eqref{eq:spherical-harmonic-def} are the position-representation realization of the abstract angular-momentum algebra \eqref{eq:galilei-algebra}. The radial equation \eqref{eq:radial-equation} reduces every central-potential problem to a one-dimensional half-line problem parameterized by $\ell$. Before the coupling of multiple angular momenta can be taken up, an alternative construction deserves its own treatment: Schwinger's oscillator model re-derives the entire angular momentum theory from two boson modes, unifying the ladder method with the harmonic oscillator algebra of Chapter~5 and providing the natural boson language for the Clebsch--Gordan coefficients and the Racah algebra of Section~\ref{sec:angular-momentum-coupling}.
+
+\section{Schwinger's Oscillator Model of Angular Momentum}
+\label{sec:schwinger-model}
+
+The algebraic ladder method of Section~\ref{sec:angular-momentum-algebra} derived the complete angular momentum spectrum from the single commutator \eqref{eq:galilei-algebra} by positivity and descent termination -- a direct structural parallel of the harmonic oscillator construction of Section~\ref{sec:harmonic-oscillator}. The parallel is not accidental. There exists a deeper connection: the angular momentum algebra can be realised entirely within the algebra of two independent boson modes. This construction, due to Julian Schwinger (1952), re-derives the entire angular momentum theory from the canonical commutator $[a,a^\dagger]=1$ of \eqref{eq:ladder-algebra}, unifies the ladder template of Chapter~5 with the rotation algebra of Chapter~4, and provides the natural boson language for angular momentum coupling and the Racah algebra of Section~\ref{sec:angular-momentum-coupling}. The construction is self-contained: every result of Sections~\ref{sec:angular-momentum-algebra} and~\ref{sec:spin-half} is recovered from the properties of two harmonic oscillators.
+
+\medskip\noindent\textbf{Two-mode boson algebra.}
+Introduce two independent boson modes, distinguished by a binary label:
+\begin{linenomath}
+  \begin{equation}
+    [a_\mu, a_\nu^\dagger] = \delta_{\mu\nu},
+    \qquad
+    [a_\mu, a_\nu] = [a_\mu^\dagger, a_\nu^\dagger] = 0,
+    \qquad
+    \mu,\nu \in \{+,-\}.
+    \label{eq:schwinger-bosons}
+  \end{equation}
+\end{linenomath}
+Each mode carries its own Fock space: $a_+^\dagger$ creates a quantum of $+$-type, $a_-^\dagger$ creates a quantum of $-$-type, and the two-mode vacuum $\ket{0,0}$ is annihilated by both $a_+$ and $a_-$. The two-mode Fock states are the tensor products of the single-mode number states,
+\begin{linenomath}
+  \begin{equation*}
+    \ket{n_+, n_-}
+    = \frac{(a_+^\dagger)^{n_+}}{\sqrt{n_+!}}\,
+      \frac{(a_-^\dagger)^{n_-}}{\sqrt{n_-!}}\,
+      \ket{0,0},
+    \qquad
+    n_+, n_- = 0,1,2,\ldots,
+  \end{equation*}
+\end{linenomath}
+diagonalising the number operators
+\begin{linenomath}
+  \begin{equation*}
+    N_+ := a_+^\dagger a_+,\qquad
+    N_- := a_-^\dagger a_-,\qquad
+    N_\pm\ket{n_+,n_-} = n_\pm\ket{n_+,n_-}.
+  \end{equation*}
+\end{linenomath}
+The total boson number is $N := N_+ + N_-$. The Fock states form a complete orthonormal basis for the two-mode Hilbert space, and every operator on that space can be expressed in terms of the boson creation and annihilation operators.
+
+\medskip\noindent\textbf{The Jordan--Schwinger map.}
+The angular momentum operators are defined as bilinears in the boson operators:
+\begin{linenomath}
+  \begin{equation}
+    \begin{aligned}
+      J_+ &= \hbar\,a_+^\dagger a_-, \\
+      J_- &= \hbar\,a_-^\dagger a_+, \\
+      J_z &= \frac{\hbar}{2}\bigl(a_+^\dagger a_+ - a_-^\dagger a_-\bigr).
+    \end{aligned}
+    \qquad
+    J_i = \frac{\hbar}{2}\,a_\alpha^\dagger\,\sigma^i_{\alpha\beta}\,a_\beta,
+    \label{eq:schwinger-J}
+  \end{equation}
+\end{linenomath}
+where the compact second form uses the Pauli matrices $\sigma^i$ and summation over $\alpha,\beta\in\{+,-\}$ is implied. The Cartesian components follow from $J_x = (J_+ + J_-)/2$ and $J_y = (J_+ - J_-)/(2i)$. The map \eqref{eq:schwinger-J} is the \textbf{Jordan--Schwinger construction}: each angular momentum component is a quadratic form in the bosons, built from the Pauli matrices -- the $j=1/2$ representation embedded in bilinears.
+
+The verification that these operators satisfy the rotation algebra is direct and instructive. The computation uses only the boson commutators \eqref{eq:schwinger-bosons} and the standard identities $[N_+,a_+^\dagger] = a_+^\dagger$, $[N_+,a_+] = -a_+$, $[N_-,a_-^\dagger] = a_-^\dagger$, $[N_-,a_-] = -a_-$, with all cross-commutators ($+$ with $-$) vanishing. For the ladder commutator $[J_z, J_+]$:
+\begin{linenomath}
+  \begin{align*}
+    [J_z, J_+]
+    &= \frac{\hbar}{2}\,\hbar\,
+       \bigl[N_+ - N_-,\; a_+^\dagger a_-\bigr] \\
+    &= \frac{\hbar^2}{2}\,
+       \bigl([N_+, a_+^\dagger]a_- - a_+^\dagger[N_-, a_-]\bigr) \\
+    &= \frac{\hbar^2}{2}\,
+       \bigl(a_+^\dagger a_- - a_+^\dagger(-a_-)\bigr)
+       = \hbar^2 a_+^\dagger a_-
+       = \hbar J_+ .
+  \end{align*}
+\end{linenomath}
+The commutator $[J_z, J_-] = -\hbar J_-$ follows by hermitian conjugation, since $J_- = J_+^\dagger$. For the ladder pair commutator:
+\begin{linenomath}
+  \begin{align*}
+    [J_+, J_-]
+    &= \hbar^2\,
+       \bigl[a_+^\dagger a_-,\; a_-^\dagger a_+\bigr] \\
+    &= \hbar^2\,
+       \bigl(a_+^\dagger[a_-, a_-^\dagger a_+]
+            + [a_+^\dagger, a_-^\dagger a_+]a_-\bigr) \\
+    &= \hbar^2\,
+       \bigl(a_+^\dagger a_+ - a_-^\dagger a_-\bigr)
+       = \hbar^2\,(N_+ - N_-)
+       = 2\hbar J_z .
+  \end{align*}
+\end{linenomath}
+The two commutators $[J_z,J_\pm]=\pm\hbar J_\pm$ and $[J_+,J_-]=2\hbar J_z$ are exactly the angular momentum algebra in the ladder basis \eqref{eq:Jz-Jpm}, \eqref{eq:Jp-Jm}, which is equivalent to $[J_i,J_j]=i\hbar\epsilon_{ijk}J_k$ \eqref{eq:galilei-algebra}. The verification is complete: any quadratic boson form constructed from the Pauli matrices as in \eqref{eq:schwinger-J} automatically closes the rotation algebra.
+
+\medskip\noindent\textbf{Number operators and the Casimir.}
+The number operators provide an immediate expression for the Casimir invariant. Compute the products:
+\begin{linenomath}
+  \begin{align*}
+    J_+ J_- &= \hbar^2\,a_+^\dagger a_- a_-^\dagger a_+
+            = \hbar^2\,a_+^\dagger(N_- + 1)a_+
+            = \hbar^2\,(N_+ N_- + N_+), \\[4pt]
+    J_- J_+ &= \hbar^2\,a_-^\dagger a_+ a_+^\dagger a_-
+            = \hbar^2\,a_-^\dagger(N_+ + 1)a_-
+            = \hbar^2\,(N_- N_+ + N_-).
+  \end{align*}
+\end{linenomath}
+Using the standard form $J^2 = J_z^2 + \frac{1}{2}(J_+ J_- + J_- J_+)$ from \eqref{eq:Jsq-def}:
+\begin{linenomath}
+  \begin{align}
+    J^2
+    &= \frac{\hbar^2}{4}(N_+ - N_-)^2
+       + \frac{\hbar^2}{2}\bigl(2N_+ N_- + N_+ + N_-\bigr) \notag \\
+    &= \frac{\hbar^2}{4}\bigl(N_+^2 - 2N_+ N_- + N_-^2 + 4N_+ N_- + 2N\bigr) \notag \\
+    &= \frac{\hbar^2}{4}\bigl(N_+^2 + 2N_+ N_- + N_-^2\bigr)
+       + \frac{\hbar^2}{2}N \notag \\
+    &= \frac{\hbar^2}{4}N^2 + \frac{\hbar^2}{2}N
+       = \frac{\hbar^2}{2}\,N\Bigl(\frac{N}{2} + 1\Bigr).
+    \label{eq:schwinger-Jsq}
+  \end{align}
+\end{linenomath}
+Together with $J_z = \frac{\hbar}{2}(N_+ - N_-)$, the Casimir and the $z$-component are expressed purely through the occupation numbers of the two boson modes. The spectrum of angular momentum can now be read off directly from the known spectrum of the number operators (\eqref{eq:number-spectrum}), without any ladder termination argument.
+
+\medskip\noindent\textbf{Angular momentum states as two-mode Fock states.}
+The Fock states $\ket{n_+, n_-}$ are simultaneous eigenstates of $N_+$ and $N_-$, hence of $N = N_+ + N_-$ and $N_+ - N_-$, and therefore of $J^2$ and $J_z$. Identify the angular momentum quantum numbers through
+\begin{linenomath}
+  \begin{equation*}
+    j = \frac{n_+ + n_-}{2},\qquad
+    m = \frac{n_+ - n_-}{2},
+  \end{equation*}
+\end{linenomath}
+so that $n_+ = j + m$ and $n_- = j - m$. The angular momentum eigenstate $\ket{j,m}$ is, up to normalisation, the Fock state with these occupation numbers:
+\begin{linenomath}
+  \begin{equation}
+    \ket{j,m}
+    = \frac{(a_+^\dagger)^{\,j+m}}{\sqrt{(j+m)!}}\;
+      \frac{(a_-^\dagger)^{\,j-m}}{\sqrt{(j-m)!}}\;
+      \ket{0,0}.
+    \label{eq:schwinger-states}
+  \end{equation}
+\end{linenomath}
+The spectrum follows without a ladder argument. The occupation numbers $n_+, n_-$ are nonnegative integers, so their sum $2j$ is a nonnegative integer and their difference $2m$ is an integer with the same parity as $2j$. Hence
+\begin{linenomath}
+  \begin{equation*}
+    j = 0,\;\frac12,\;1,\;\frac32,\;2,\;\ldots,
+    \qquad
+    m = -j,\,-j+1,\,\ldots,\,j-1,\,j,
+  \end{equation*}
+\end{linenomath}
+identical to the result \eqref{eq:angular-momentum-spectrum} of Section~\ref{sec:angular-momentum-algebra}. The eigenvalues are confirmed by direct substitution:
+\begin{linenomath}
+  \begin{align*}
+    J^2\ket{j,m}
+    &= \frac{\hbar^2}{2}\cdot 2j\Bigl(\frac{2j}{2}+1\Bigr)\ket{j,m}
+       = \hbar^2 j(j+1)\ket{j,m}, \\[4pt]
+    J_z\ket{j,m}
+    &= \frac{\hbar}{2}\bigl((j+m) - (j-m)\bigr)\ket{j,m}
+       = \hbar m\ket{j,m}.
+  \end{align*}
+\end{linenomath}
+The $(2j+1)$-fold degeneracy at fixed $j$ has a transparent combinatorial meaning: it is the number of ways to partition $N = 2j$ bosons between the two modes with a fixed difference $2m$. For each $m = -j,\ldots,j$ there is exactly one Fock state $\ket{j+m, j-m}$, yielding $2j+1$ orthogonal states spanning the $j$-multiplet. The integer--half-integer dichotomy is the distinction between even and odd total boson number: $j$ is integer when $N$ is even, half-integer when $N$ is odd. The boson construction therefore recovers the angular momentum superselection rule of Section~\ref{sec:angular-momentum-algebra} as a consequence of the discreteness of Fock-space occupation numbers: coherent superpositions of integer and half-integer $j$ would require superpositions of states with different total boson number, which are forbidden by the superselection rule for the total number operator $N$.
+
+\medskip\noindent\textbf{Ladder action in the boson picture.}
+The ladder operators of \eqref{eq:schwinger-J} act on the Fock states by shifting one quantum between the two modes. Using $[a_-, (a_-^\dagger)^{n}] = n\,(a_-^\dagger)^{n-1}$, which follows by induction from $[a_-, a_-^\dagger] = 1$, and $a_-\ket{0} = 0$:
+\begin{linenomath}
+  \begin{align*}
+    J_+\ket{j,m}
+    &= \hbar\,a_+^\dagger a_-\;
+       \frac{(a_+^\dagger)^{j+m}}{\sqrt{(j+m)!}}\,
+       \frac{(a_-^\dagger)^{j-m}}{\sqrt{(j-m)!}}\;
+       \ket{0,0} \\[4pt]
+    &= \hbar\;
+       \frac{(a_+^\dagger)^{j+m}}{\sqrt{(j+m)!}}\;
+       \frac{(j-m)(a_-^\dagger)^{j-m-1}}{\sqrt{(j-m)!}}\;
+       a_+^\dagger \ket{0,0} \\[4pt]
+    &= \hbar\,(j-m)\,
+       \frac{(a_+^\dagger)^{j+m+1}}{\sqrt{(j+m)!}}\,
+       \frac{(a_-^\dagger)^{j-m-1}}{\sqrt{(j-m)!}}\;
+       \ket{0,0} \\[4pt]
+    &= \hbar\,\sqrt{j-m}\,\sqrt{j+m+1}\;
+       \frac{(a_+^\dagger)^{j+m+1}}{\sqrt{(j+m+1)!}}\,
+       \frac{(a_-^\dagger)^{j-m-1}}{\sqrt{(j-m-1)!}}\;
+       \ket{0,0} \\[4pt]
+    &= \hbar\,\sqrt{(j-m)(j+m+1)}\;\ket{j,m+1}.
+  \end{align*}
+\end{linenomath}
+The coefficient $\sqrt{(j-m)(j+m+1)} = \sqrt{j(j+1)-m(m+1)}$ is exactly the ladder coefficient of \eqref{eq:ladder-action-j}, recovered here from the boson algebra rather than from the norm argument of Section~\ref{sec:angular-momentum-algebra}. The lowering action $J_-\ket{j,m} = \hbar\sqrt{(j+m)(j-m+1)}\ket{j,m-1}$ follows by the same computation with $+$ and $-$ exchanged. The boson construction therefore reproduces not only the spectrum but also the precise matrix elements --- including the Condon--Shortley phase convention, which is automatic in the boson realisation because all coefficients are manifestly real and positive when the Fock states are defined with the standard normalisation.
+
+\begin{note}
+  The two boson modes $a_\pm$ are the creation operators for the two basis states $\ket{+z},\ket{-z}$ of the fundamental spin-$1/2$ representation. The Jordan--Schwinger construction expresses the statement, proved in the representation theory of SU(2), that every irreducible representation of angular momentum $j$ lives in the totally symmetric subspace of $2j$ copies of the spin-$1/2$ representation --- the Schwinger--Bargmann--Majorana realisation. A Fock state with $n_+ = j+m$ quanta of $+$-type and $n_- = j-m$ quanta of $-$-type is the fully symmetrised product of $n_+$ factors of $\ket{+z}$ and $n_-$ factors of $\ket{-z}$. The connection to the Schwinger boson construction of Section~\ref{sec:schwinger-model} and to the general representation theory of SU(2) is developed in Appendix~B.
+\end{note}
+
+\medskip\noindent\textbf{Example: the two-spin-$1/2$ system in the Schwinger picture.}
+The boson language illuminates the coupled states of two spin-$1/2$ particles (the paradigm of Section~\ref{sec:angular-momentum-coupling}) from a new angle. Assign each particle its own pair of boson modes: $a_\pm^{(1)}$ for particle~1 and $a_\pm^{(2)}$ for particle~2. The total angular momentum operators are the sums $J_i = J_i^{(1)} + J_i^{(2)}$, with each $J_i^{(k)}$ given by the map \eqref{eq:schwinger-J} applied to the $k$-th boson pair. The four uncoupled basis states in the boson representation are
+\begin{linenomath}
+  \begin{equation*}
+    \ket{\uparrow\uparrow} = a_+^{(1)\dagger} a_+^{(2)\dagger}\ket{0},\qquad
+    \ket{\uparrow\downarrow} = a_+^{(1)\dagger} a_-^{(2)\dagger}\ket{0},\qquad
+    \ket{\downarrow\uparrow} = a_-^{(1)\dagger} a_+^{(2)\dagger}\ket{0},\qquad
+    \ket{\downarrow\downarrow} = a_-^{(1)\dagger} a_-^{(2)\dagger}\ket{0},
+  \end{equation*}
+\end{linenomath}
+each containing exactly two bosons (one per particle; total $N = 2$). The triplet and singlet states of \eqref{eq:singlet-triplet} are the states of definite total $J$ in this four-dimensional Fock subspace: the three symmetric combinations form the $j=1$ triplet, and the antisymmetric combination is the $j=0$ singlet,
+\begin{linenomath}
+  \begin{equation*}
+    \ket{0,0} = \frac{1}{\sqrt{2}}\,
+      \bigl(a_+^{(1)\dagger} a_-^{(2)\dagger}
+          - a_-^{(1)\dagger} a_+^{(2)\dagger}\bigr)\ket{0}.
+  \end{equation*}
+\end{linenomath}
+This boson-pair wave function is the structure behind the Cooper pair problem of superconductivity: two fermions bound into a spin-singlet, zero-angular-momentum pair by an attractive interaction, expressed in the boson language that makes the pairing amplitude manifest. The full development of this connection is the business of Chapter~10.
+
+\medskip\noindent\textbf{Advantage and limitation.}
+The advantage of the Schwinger construction is that it reduces the entire angular momentum theory to the algebra of the harmonic oscillator. Every spectral fact, every ladder coefficient, and every coupling rule can be re-derived from the boson commutator $[a,a^\dagger]=1$ alone, without the ladder-termination argument --- the termination is replaced by the discreteness of the boson number spectrum, which is the independent result of Chapter~5. The Schwinger model also provides the natural bridge to the coupling of multiple angular momenta: total angular momentum operators become sums of bilinears in multiple boson pairs, and the Clebsch--Gordan coefficients emerge as the overlaps between Fock states in different occupation-number bases. Its limitation is that the boson construction obscures the group-theoretic origin of the angular momentum spectrum in the topology of the rotation group --- the $4\pi$ periodicity of spinors and the integer--half-integer dichotomy have a cleaner home in the SU(2) representation theory of Section~\ref{sec:rotation-group}.
+
+With the spectrum independently confirmed and the boson language established, the next task is to formalise the coupling of multiple angular momenta on the tensor product space. The two-spin-$1/2$ example just encountered is the simplest case; the general theory of Clebsch--Gordan coefficients, their explicit Racah closed form, and the symmetric 3-$j$ notation occupies the following section.
+
+\section{Angular Momentum Coupling: CG Coefficients, Racah Form, Recurrences, and 3-j Symbols}
+\label{sec:angular-momentum-coupling}
+
+The preceding sections constructed three distinct realizations of the angular momentum algebra -- the intrinsic spin-$1/2$ representation, the orbital representation on wave functions, and the Schwinger boson model which re-derived the entire theory from two harmonic oscillators. Many physical systems carry more than one angular momentum: two electrons in an atom, each with spin; one electron with both spin and orbital motion; a nucleus with spin in the electronic cloud. The question of this section is how two angular momenta combine: given two systems with definite angular momenta $j_1$ and $j_2$, what are the possible values of the total angular momentum? The answer requires the tensor product of Hilbert spaces, the Clebsch--Gordan decomposition of the product representation, and the explicit construction of coupled basis states. The Schwinger boson language of Section~\ref{sec:schwinger-model} provides the natural setting: the Racah closed form for the CG coefficients is derived in that formalism, and the 3-$j$ symbols introduced here carry the cyclic symmetry that the boson construction makes manifest.
+
+\medskip\noindent\textbf{Tensor product of angular momentum spaces.}
+Let two systems carry angular momentum operators $\bm J_1$ and $\bm J_2$, each satisfying the rotation algebra \eqref{eq:galilei-algebra} on its own Hilbert space $\mathcal{H}_1$ and $\mathcal{H}_2$, and each commuting with all operators of the other system: $[J_{1i}, J_{2j}] = 0$ for all $i,j$. The combined Hilbert space is the tensor product $\mathcal{H} = \mathcal{H}_1 \otimes \mathcal{H}_2$, and the total angular momentum operator is the sum of the two generators -- each acting nontrivially on its own factor and as the identity on the other:
+\begin{linenomath}
+  \begin{equation}
+    \bm J = \bm J_1 \otimes I + I \otimes \bm J_2,
+    \label{eq:total-J}
+  \end{equation}
+\end{linenomath}
+where the notation $A \otimes I$ means $A$ acts on $\mathcal{H}_1$ and the identity on $\mathcal{H}_2$, and $I \otimes B$ means the identity on $\mathcal{H}_1$ and $B$ on $\mathcal{H}_2$. The components of $\bm J$ satisfy the rotation algebra as well:
+\begin{linenomath}
+  \begin{align}
+    [J_i, J_j]
+    &= [J_{1i} \otimes I + I \otimes J_{2i},\;
+       J_{1j} \otimes I + I \otimes J_{2j}] \nonumber\\
+    &= [J_{1i}, J_{1j}] \otimes I + I \otimes [J_{2i}, J_{2j}] \nonumber\\
+    &= i\hbar\epsilon_{ijk}\,(J_{1k} \otimes I + I \otimes J_{2k}) \nonumber\\
+    &= i\hbar\epsilon_{ijk}\,J_k,
+  \end{align}
+\end{linenomath}
+where the cross terms $[J_{1i}, J_{2j}]$ vanish by the mutual-commutation hypothesis. The total angular momentum is therefore a valid generator of simultaneous rotations of both subsystems.
+
+\medskip\noindent\textbf{Two natural bases.}
+The tensor product space $\mathcal{H}_1 \otimes \mathcal{H}_2$ admits two complete sets of compatible observables, hence two natural orthonormal bases, distinguished by which operators are diagonalized.
+
+\textbf{Uncoupled basis.} Diagonalize $J_1^2, J_{1z}, J_2^2, J_{2z}$ -- the individual angular momenta of each subsystem. The basis vectors are product states,
+\begin{linenomath}
+  \begin{equation}
+    \ket{j_1,m_1} \otimes \ket{j_2,m_2}
+    \equiv \ket{j_1,m_1;\,j_2,m_2},
+  \end{equation}
+\end{linenomath}
+with $j_1,j_2$ fixed by the subsystems and $m_1 = -j_1,\ldots,j_1$, $m_2 = -j_2,\ldots,j_2$. The dimension of this basis is $(2j_1+1)(2j_2+1)$, the product of the multiplet dimensions. The uncoupled basis is simple to write down but does not diagonalize $J^2$: total angular momentum is not sharp in a product state. Indeed, a product state $\ket{j_1,m_1}\otimes\ket{j_2,m_2}$ is an eigenstate of $J_z = J_{1z} \otimes I + I \otimes J_{2z}$ with eigenvalue $\hbar(m_1+m_2)$, but it is generally not an eigenstate of $J^2$.
+
+\textbf{Coupled basis.} Diagonalize $J_1^2, J_2^2, J^2, J_z$ -- the individual magnitudes (which commute with $J^2$ and $J_z$) and the total angular momentum. The basis vectors are denoted
+\begin{linenomath}
+  \begin{equation}
+    \ket{j_1,j_2;\,J,M},
+  \end{equation}
+\end{linenomath}
+with $J_1^2$ and $J_2^2$ taking the fixed values $j_1,j_2$, and $J^2$ and $J_z$ taking the eigenvalues $\hbar^2 J(J+1)$ and $\hbar M$ respectively, where the allowed $J$ values are the subject of the next paragraph. The coupled basis diagonalizes the total angular momentum and is the natural basis for any problem with rotation-invariant interactions between the subsystems.
+
+\medskip\noindent\textbf{The Clebsch--Gordan series.}
+The possible total angular momentum quantum numbers $J$ for fixed $j_1$ and $j_2$ are determined by the spectrum theorem \eqref{eq:angular-momentum-spectrum} applied to the total operator $\bm J$ of \eqref{eq:total-J}. The result is the \textbf{Clebsch--Gordan series}:
+\begin{linenomath}
+  \begin{equation}
+    J = |j_1 - j_2|,\; |j_1 - j_2| + 1,\; \ldots,\; j_1 + j_2.
+    \label{eq:cg-series}
+  \end{equation}
+\end{linenomath}
+The proof sketch uses highest-weight counting. The total $J_z$ eigenvalue of a product state is $M = m_1 + m_2$. The maximum possible $M$ in the product space is $M_{\max} = j_1 + j_2$, achieved by the single product state $\ket{j_1,j_1}\otimes\ket{j_2,j_2}$ (up to normalization). This state must be the highest-weight state of a total-$J$ multiplet with $J = j_1 + j_2$, because no state with larger $M$ exists. Applying the total lowering operator $J_- = J_{1-} \otimes I + I \otimes J_{2-}$ generates the full $(2J+1) = 2(j_1+j_2)+1$ states of that multiplet. Next, the subspace with $M = j_1 + j_2 - 1$ is two-dimensional: it is spanned by $\ket{j_1,j_1-1}\otimes\ket{j_2,j_2}$ and $\ket{j_1,j_1}\otimes\ket{j_2,j_2-1}$. One linear combination belongs to the $J = j_1+j_2$ multiplet already constructed (it is $J_-\ket{j_1+j_2,j_1+j_2}$ up to normalization); the orthogonal combination is the highest-weight state of a multiplet with $J = j_1+j_2-1$. The process continues: at each step down, the dimension of the $M$ subspace increases by one until $M = |j_1-j_2|$, after which it remains constant and then decreases. The counting stops when $J = |j_1-j_2|$, at which point the orthogonally constructed highest-weight states exhaust the product space. The dimension check confirms the decomposition: $\sum_{J=|j_1-j_2|}^{j_1+j_2} (2J+1) = (2j_1+1)(2j_2+1)$, the dimension of the product space. The full representation-theoretic proof, via characters and Young tableaux, is collected in Appendix~B.
+
+\medskip\noindent\textbf{Clebsch--Gordan coefficients.}
+The change of basis between the uncoupled and coupled bases defines the \textbf{Clebsch--Gordan coefficients}:
+\begin{linenomath}
+  \begin{equation}
+    \ket{j_1,j_2;\,J,M}
+    = \sum_{m_1=-j_1}^{j_1}\;
+      \sum_{m_2=-j_2}^{j_2}\;
+      \braket{j_1,m_1;\,j_2,m_2|J,M}\;
+      \ket{j_1,m_1}\otimes\ket{j_2,m_2},
+    \label{eq:cg-def}
+  \end{equation}
+\end{linenomath}
+where $\braket{j_1,m_1;\,j_2,m_2|J,M} \in \mathbb{R}$ (they can be chosen real) are the CG coefficients. They vanish unless two conditions hold:
+\begin{linenomath}
+  \begin{equation}
+    m_1 + m_2 = M,
+    \qquad
+    |j_1 - j_2| \le J \le j_1 + j_2.
+  \end{equation}
+\end{linenomath}
+The first is $J_z$ additivity; the second is the CG series \eqref{eq:cg-series}. The CG coefficients form an orthogonal matrix (in fact, real orthogonal) connecting two orthonormal bases:
+\begin{linenomath}
+  \begin{equation}
+    \sum_{m_1,m_2}
+      \braket{j_1,m_1;\,j_2,m_2|J,M}\,
+      \braket{j_1,m_1;\,j_2,m_2|J',M'}
+    = \delta_{JJ'}\,\delta_{MM'},
+  \end{equation}
+\end{linenomath}
+and the inverse relation,
+\begin{linenomath}
+  \begin{equation}
+    \ket{j_1,m_1}\otimes\ket{j_2,m_2}
+    = \sum_{J,M}\;
+      \braket{j_1,m_1;\,j_2,m_2|J,M}\;
+      \ket{j_1,j_2;\,J,M}.
+  \end{equation}
+\end{linenomath}
+The Condon--Shortley phase convention, fixed in the spectrum section \eqref{eq:ladder-action-j}, extends to the CG coefficients: all CG coefficients are real, and the coefficient with the largest $m_1$ (or equivalently the coefficient for the highest-weight state) is taken positive, $\braket{j_1,j_1;\,j_2,J-j_1|J,J} > 0$.
+
+\medskip\noindent\textbf{Racah closed form.}
+The orthogonality relations define the CG coefficients implicitly as the matrix elements of a change of basis. An explicit closed-form algebraic expression was derived by Racah (1942) using the Schwinger boson construction of Section~\ref{sec:schwinger-model}:
+\begin{linenomath}
+  \begin{multline}
+    \braket{j_1,m_1;\,j_2,m_2|J,M}
+    = \delta_{M,m_1+m_2}\;
+      \sqrt{(2J+1)}\;
+      \sqrt{\frac{(j_1+j_2-J)!\,(J+j_1-j_2)!\,(J+j_2-j_1)!}{(j_1+j_2+J+1)!}} \\
+    \times \sqrt{(j_1+m_1)!\,(j_1-m_1)!\,(j_2+m_2)!\,(j_2-m_2)!\,(J+M)!\,(J-M)!} \\
+    \times \sum_{z} \frac{(-1)^z}{z!\,(j_1+j_2-J-z)!\,(j_1-m_1-z)!\,(j_2+m_2-z)!\,(J-j_2+m_1+z)!\,(J-j_1-m_2+z)!}.
+    \label{eq:racah-cg}
+  \end{multline}
+\end{linenomath}
+The sum over $z$ runs over all integers for which the factorial arguments are nonnegative; the range is automatically finite, terminated by the factorial poles in the denominator. The Kronecker delta $\delta_{M,m_1+m_2}$ enforces the $J_z$ additivity condition, and the triangle constraint $|j_1-j_2|\le J\le j_1+j_2$ is implicit in the vanishing of the square-root prefactor when $J$ falls outside the CG series \eqref{eq:cg-series}.
+
+\begin{note}
+  The derivation of \eqref{eq:racah-cg} via the Schwinger boson construction is sketched here, not given in full combinatorial detail. Insert the boson realisation \eqref{eq:schwinger-states} of the angular momentum states into the overlap $\braket{j_1,m_1;j_2,m_2|J,M}$ and evaluate the resulting boson vacuum expectation value by commuting all annihilation operators to the right. The sum over $z$ in \eqref{eq:racah-cg} is the residue sum from the binomial expansions that result. The full derivation, and its generalisation to the SU(2) representation theory via characters, is collected in Appendix~B.
+\end{note}
+
+\medskip\noindent\textbf{CG recurrence relations.}
+The Racah formula \eqref{eq:racah-cg} gives the CG coefficients in one closed sum, but a more practical computational route uses recurrence relations that descend directly from the ladder algebra. Act with the total ladder operators $J_\pm = J_{1\pm} \otimes I + I \otimes J_{2\pm}$ on both sides of the defining relation \eqref{eq:cg-def}. On the left-hand side, $J_\pm$ acts on the coupled state using the ladder action \eqref{eq:ladder-action-j}:
+\begin{linenomath}
+  \begin{equation*}
+    J_\pm\ket{j_1,j_2;\,J,M}
+    = \hbar\sqrt{J(J+1)-M(M\pm1)}\;\ket{j_1,j_2;\,J,M\pm1}.
+  \end{equation*}
+\end{linenomath}
+On the right-hand side, $J_{1\pm}$ and $J_{2\pm}$ act independently on the two factors of the uncoupled product. Insert the CG expansion \eqref{eq:cg-def} and act:
+\begin{linenomath}
+\begin{align*}
+&J_\pm\sum_{m_1',m_2'}\braket{j_1,m_1';j_2,m_2'|J,M}\ket{j_1,m_1'}\otimes\ket{j_2,m_2'}\\
+&= \sum_{m_1',m_2'}\braket{j_1,m_1';j_2,m_2'|J,M}
+\Bigl[\hbar\sqrt{j_1(j_1+1)-m_1'(m_1'\pm1)}\,\ket{j_1,m_1'\pm1}\otimes\ket{j_2,m_2'}\\
+&\qquad\qquad + \hbar\sqrt{j_2(j_2+1)-m_2'(m_2'\pm1)}\,\ket{j_1,m_1'}\otimes\ket{j_2,m_2'\pm1}\Bigr].
+\end{align*}
+\end{linenomath}
+Project onto $\bra{j_1,m_1}\otimes\bra{j_2,m_2}$ and shift the summation indices: in the first term set $m_1'\pm1=m_1\Rightarrow m_1'=m_1\mp1$, $m_2'=m_2$; in the second set $m_1'=m_1$, $m_2'\pm1=m_2\Rightarrow m_2'=m_2\mp1$. The ladder coefficient arguments simplify: $j_1(j_1+1)-(m_1\mp1)(m_1\mp1\pm1)=j_1(j_1+1)-m_1(m_1\mp1)=(j_1\pm m_1)(j_1\mp m_1+1)$, with the analogous simplification for $j_2$. Equating to the left-hand side \eqref{eq:ladder-action-j} yields the recurrence:
+\begin{linenomath}
+  \begin{multline}
+    \sqrt{(J\mp M)(J\pm M+1)}\;
+      \braket{j_1,m_1;\,j_2,m_2|J,M\pm1} \\
+    = \sqrt{(j_1\pm m_1)(j_1\mp m_1+1)}\;
+      \braket{j_1,m_1\mp1;\,j_2,m_2|J,M} \\
+    \quad + \sqrt{(j_2\pm m_2)(j_2\mp m_2+1)}\;
+      \braket{j_1,m_1;\,j_2,m_2\mp1|J,M}.
+    \label{eq:cg-recurrence}
+  \end{multline}
+\end{linenomath}
+The upper (lower) signs correspond to $J_+$ ($J_-$). These recurrences connect every CG coefficient for a given $(j_1,j_2)$ to those with neighbouring $m_1,m_2$ values. Together with the Condon--Shortley phase convention and the normalisation condition (the sum of squared CG coefficients for each $(J,M)$ row is unity), the recurrences determine all CG coefficients up to overall signs -- the standard computational route in numerical atomic and nuclear spectroscopy codes.
+
+\medskip\noindent\textbf{3-$j$ symbols.}
+The Clebsch--Gordan coefficients, real and orthogonal as they are, treat the three angular momenta $(j_1,j_2,J)$ asymmetrically: $j_1$ and $j_2$ are coupled to produce $J$, which enters the CG notation as the resultant, not as an equal partner. The more symmetric notation, introduced by Wigner, is the \textbf{3-$j$ symbol}:
+\begin{linenomath}
+  \begin{equation}
+    \begin{pmatrix}
+      j_1 & j_2 & j_3 \\
+      m_1 & m_2 & m_3
+    \end{pmatrix}
+    := \frac{(-1)^{j_1-j_2-m_3}}{\sqrt{2j_3+1}}\;
+       \braket{j_1,m_1;\,j_2,m_2|j_3,-m_3}.
+    \label{eq:3j-symbol}
+  \end{equation}
+\end{linenomath}
+The third angular momentum, here denoted $j_3$, enters on the same footing as $j_1$ and $j_2$. The sign and normalisation prefactor are chosen to make the symmetry properties of the 3-$j$ symbol as clean as possible. The symbol vanishes unless $m_1+m_2+m_3 = 0$ (the $J_z$ condition, now in the symmetric form) and unless $(j_1,j_2,j_3)$ satisfy the triangle inequalities $|j_1-j_2|\le j_3\le j_1+j_2$ (and cyclic permutations). Its symmetry properties are:
+\begin{linenomath}
+  \begin{equation*}
+    \begin{pmatrix}j_1&j_2&j_3\\ m_1&m_2&m_3\end{pmatrix}
+    = \begin{pmatrix}j_2&j_3&j_1\\ m_2&m_3&m_1\end{pmatrix}
+    = \begin{pmatrix}j_3&j_1&j_2\\ m_3&m_1&m_2\end{pmatrix}
+    \qquad\text{(cyclic invariance)},
+  \end{equation*}
+\end{linenomath}
+\begin{linenomath}
+  \begin{equation*}
+    \begin{pmatrix}j_1&j_2&j_3\\ m_1&m_2&m_3\end{pmatrix}
+    = (-1)^{j_1+j_2+j_3}\,
+      \begin{pmatrix}j_2&j_1&j_3\\ m_2&m_1&m_3\end{pmatrix}
+    \qquad\text{(odd permutation, phase $(-1)^{j_1+j_2+j_3}$)},
+  \end{equation*}
+\end{linenomath}
+and under simultaneous reversal of all magnetic quantum numbers,
+\begin{linenomath}
+  \begin{equation*}
+    \begin{pmatrix}j_1&j_2&j_3\\ -m_1&-m_2&-m_3\end{pmatrix}
+    = (-1)^{j_1+j_2+j_3}\,
+      \begin{pmatrix}j_1&j_2&j_3\\ m_1&m_2&m_3\end{pmatrix}.
+  \end{equation*}
+\end{linenomath}
+These symmetries are stated without proof; they are derived from the Racah closed form \eqref{eq:racah-cg} by algebraic manipulation of the factorial sum. The cyclic symmetry reflects the invariance of the Racah sum under a cyclic relabeling of the three angular momenta; the parity phase $(-1)^{j_1+j_2+j_3}$ under odd permutations follows from the Regge symmetries of the $3nj$-symbols. The full derivation is collected in Appendix~B.
+These symmetries are exact and do not rely on any phase convention. The orthogonality relations of the CG coefficients translate into corresponding relations for the 3-$j$ symbols, and the Wigner--Eckart theorem of Section~\ref{sec:irreducible-tensor-operators} takes a particularly compact form in the 3-$j$ convention. The 3-$j$ symbol is the preferred bookkeeping device in advanced spectroscopic and many-body calculations, where coupling schemes involving three or more angular momenta make the cyclic symmetry indispensable.
+
+\medskip\noindent\textbf{Two spin-$1/2$ particles: the paradigm.}
+The simplest and most important instance is $j_1 = j_2 = 1/2$. The product space has dimension $2 \times 2 = 4$. The uncoupled basis, written with the compact notation $\ket{\uparrow} := \ket{\tfrac12,+\tfrac12}$ and $\ket{\downarrow} := \ket{\tfrac12,-\tfrac12}$, is
+\begin{linenomath}
+  \begin{equation}
+    \ket{\uparrow\uparrow},\qquad
+    \ket{\uparrow\downarrow},\qquad
+    \ket{\downarrow\uparrow},\qquad
+    \ket{\downarrow\downarrow},
+  \end{equation}
+\end{linenomath}
+where the first arrow labels system 1 and the second labels system 2. The CG series \eqref{eq:cg-series} gives $J = 0,1$ -- a singlet and a triplet. The coupled basis states are constructed by the highest-weight method:
+
+The state with maximum $M = 1$ is unique: $\ket{1,1} = \ket{\uparrow\uparrow}$. Apply $J_- = J_{1-} \otimes I + I \otimes J_{2-}$, with the single-particle ladder actions of \eqref{eq:ladder-action-j} giving $J_{i-}\ket{\uparrow} = \hbar\ket{\downarrow}$ and $J_{i-}\ket{\downarrow} = 0$:
+\begin{linenomath}
+  \begin{equation}
+    \ket{1,0}
+    = \frac{1}{\hbar\sqrt{1\cdot2 - 0}}
+      \,J_-\ket{1,1}
+    = \frac{1}{\sqrt{2}}\,
+      \bigl(\ket{\uparrow\downarrow} + \ket{\downarrow\uparrow}\bigr).
+  \end{equation}
+\end{linenomath}
+Applying $J_-$ again yields $\ket{1,-1} = \ket{\downarrow\downarrow}$. The triplet is complete.
+
+The remaining state in the four-dimensional space is orthogonal to the triplet and has $M = 0$. It must be the $J = 0$ singlet:
+\begin{linenomath}
+  \begin{equation}
+    \ket{0,0} = \frac{1}{\sqrt{2}}\,
+      \bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr).
+  \end{equation}
+\end{linenomath}
+The sign is fixed by the Condon--Shortley convention: $\braket{1/2,1/2;\,1/2,-1/2|0,0} > 0$. Collecting the four states:
+\begin{linenomath}
+  \begin{equation}
+    \begin{aligned}
+      \ket{1,1}   &= \ket{\uparrow\uparrow}, \\
+      \ket{1,0}   &= \frac{1}{\sqrt{2}}\,
+                       \bigl(\ket{\uparrow\downarrow}
+                       + \ket{\downarrow\uparrow}\bigr), \\
+      \ket{1,-1}  &= \ket{\downarrow\downarrow}, \\
+      \ket{0,0}   &= \frac{1}{\sqrt{2}}\,
+                       \bigl(\ket{\uparrow\downarrow}
+                       - \ket{\downarrow\uparrow}\bigr).
+    \end{aligned}
+    \label{eq:singlet-triplet}
+  \end{equation}
+\end{linenomath}
+The triplet states are symmetric under exchange of the two spins; the singlet is antisymmetric. This symmetry distinction is the physical content of the coupling: it is the reason that the two-particle wave function of identical fermions must be a product of an antisymmetric spin part (singlet) and a symmetric spatial part, or vice versa -- the Pauli principle, which is the composite-systems chapter's entry point.
+
+The Clebsch--Gordan coefficients for $1/2 \otimes 1/2$ are collected in Table~\ref{tab:cg-half-half}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Clebsch--Gordan coefficients $\braket{1/2,m_1;\,1/2,m_2|J,M}$ for $1/2 \otimes 1/2$. Rows label the uncoupled basis $(m_1,m_2)$; columns label the coupled basis $(J,M)$. Empty entries are zero.}
+  \label{tab:cg-half-half}
+  \begin{tabular}{c|cccc}
+    $(m_1,m_2)$ & $(1,1)$ & $(1,0)$ & $(1,-1)$ & $(0,0)$ \\
+    \hline
+    $(\uparrow,\uparrow)$   & $1$ & & & \\
+    $(\uparrow,\downarrow)$ & & $1/\sqrt{2}$ & & $1/\sqrt{2}$ \\
+    $(\downarrow,\uparrow)$ & & $1/\sqrt{2}$ & & $-1/\sqrt{2}$ \\
+    $(\downarrow,\downarrow)$ & & & $1$ & \\
+  \end{tabular}
+\end{table}
+
+\medskip\noindent\textbf{Properties of the singlet state.}
+The singlet $\ket{0,0}$ of \eqref{eq:singlet-triplet} has a remarkable property: it is rotationally invariant. Under a simultaneous rotation of both spins by the same SU(2) element $U \otimes U$, the singlet is unchanged:
+\begin{linenomath}
+  \begin{equation}
+    (U \otimes U)\,\ket{0,0} = \ket{0,0},
+  \end{equation}
+\end{linenomath}
+for every $U \in \mathrm{SU}(2)$. The proof is one line: $\ket{0,0}$ is the unique state with $J = 0$, and the rotation operator $U \otimes U = e^{-i\theta(\bm n\cdot\bm\sigma)/2} \otimes e^{-i\theta(\bm n\cdot\bm\sigma)/2} = e^{-i\theta(\bm n\cdot(\bm\sigma\otimes I + I\otimes\bm\sigma))/2}$ acts as the identity on the $J = 0$ subspace because $e^{-i\theta\cdot 0} = 1$. The singlet is the same state in every spin basis: if Alice measures her spin along $\bm n$ and Bob measures his along the same axis $\bm n$, the two results are always opposite -- perfect anticorrelation. This is the spin-singlet correlation at the heart of the Einstein--Podolsky--Rosen argument, and its full development -- entanglement, Bell inequalities, and the measurement problem's sharpest form -- is the composite-systems chapter's subject.
+
+\begin{note}
+  The singlet is \textbf{entangled}: it cannot be written as a single tensor product $\ket{\psi_1}\otimes\ket{\psi_2}$ of one-spin states. Any attempt to assign a definite spin state to either particle individually fails; only the pair has a definite state. This inseparability, the property that the whole is not the product of its parts, is the defining feature of entanglement. Chapter~7 develops the concept systematically: the Schmidt decomposition, the partial trace, mixed-state reduced density operators, and the Bell basis. The singlet \eqref{eq:singlet-triplet} is the Bell state $\ket{\Psi^-}$ and is maximally entangled.
+\end{note}
+
+\medskip\noindent\textbf{Example: hyperfine splitting of the hydrogen ground state.}
+The hydrogen atom in its electronic ground state ($n=1$, $\ell=0$) has zero orbital angular momentum. The total angular momentum of the atom is the sum of the electron spin $\bm S_e$ ($j=1/2$) and the nuclear (proton) spin $\bm S_p$ ($j=1/2$):
+\begin{linenomath}
+  \begin{equation}
+    \bm F = \bm S_e + \bm S_p,
+  \end{equation}
+\end{linenomath}
+exactly the two-spin-$1/2$ system. The magnetic interaction between the two spin magnetic moments is the hyperfine Hamiltonian $H_{\text{hf}} = A\,\bm S_e\cdot\bm S_p$, where $A$ is a constant set by the contact probability density at the nucleus. The scalar product is expressed in terms of the Casimir operators:
+\begin{linenomath}
+  \begin{equation}
+    \bm S_e\cdot\bm S_p
+    = \frac12\bigl(F^2 - S_e^2 - S_p^2\bigr)
+    = \frac{\hbar^2}{2}\,
+      \bigl[F(F+1) - \tfrac34 - \tfrac34\bigr].
+  \end{equation}
+\end{linenomath}
+For the triplet $F = 1$: $\bm S_e\cdot\bm S_p = \hbar^2/4$, giving $E_{F=1} = +A\hbar^2/4$. For the singlet $F = 0$: $\bm S_e\cdot\bm S_p = -3\hbar^2/4$, giving $E_{F=0} = -3A\hbar^2/4$. The hyperfine splitting is
+\begin{linenomath}
+  \begin{equation}
+    \Delta E_{\text{hf}} = E_{F=1} - E_{F=0} = A\hbar^2,
+  \end{equation}
+\end{linenomath}
+corresponding to the famous $21\,\text{cm}$ line: $\nu = \Delta E_{\text{hf}}/2\pi\hbar \approx 1420\,\text{MHz}$, $\lambda \approx 21\,\text{cm}$. This spectral line, produced by the singlet-to-triplet magnetic dipole transition in neutral interstellar hydrogen, is one of the most important probes in radio astronomy. The transition is forbidden by electric dipole selection rules ($\Delta\ell = 0$, no parity change) but allowed as a magnetic dipole transition ($\Delta F = 1$), with a spontaneous lifetime of approximately $11$ million years -- which is why it is observed in emission from diffuse clouds rather than in terrestrial laboratories, and why its detection in 1951 (Ewen and Purcell) opened the field of 21-cm cosmology.
+
+The hyperfine splitting is the simplest experimental repayment of the angular momentum coupling theory. The two-spin-$1/2$ paradigm converts the single unknown coupling constant $A$ into a predicted doublet with a definite $3:1$ degeneracy ratio (triplet weight $3$, singlet weight $1$); the measured transition frequency then fixes $A$ from the observed line. The same CSCO logic that built the coupled basis $\ket{F,M_F}$ from the uncoupled one -- via the CG coefficients of Table~\ref{tab:cg-half-half} -- is the bookkeeping behind every atomic and nuclear hyperfine structure calculation.
+
+\medskip\noindent\textbf{6-$j$ symbols.}
+The addition of two angular momenta is unambiguous: the coupled basis $\ket{j_1,j_2;J,M}$ is the unique result of the Clebsch--Gordan series \eqref{eq:cg-series}. For three angular momenta $j_1,j_2,j_3$, the coupling order is not unique. The total $J$ can be reached by two distinct routes: first couple $j_1$ and $j_2$ to an intermediate $j_{12}$, then couple $j_{12}$ and $j_3$ to $J$; or first couple $j_2$ and $j_3$ to $j_{23}$, then couple $j_1$ and $j_{23}$ to $J$. The two schemes produce two different coupled bases on the same tensor product space, and the overlap between them is the \textbf{6-$j$ symbol}:
+\begin{linenomath}
+  \begin{equation*}
+    \begin{Bmatrix}
+      j_1 & j_2 & j_{12} \\
+      j_3 & J   & j_{23}
+    \end{Bmatrix}.
+  \end{equation*}
+\end{linenomath}
+The 6-$j$ symbol is a recoupling coefficient, not a coupling coefficient; it is a number (independent of all $m$'s) that encodes the geometry of three angular momenta. Its physical context is the transformation between the $LS$-coupling and $jj$-coupling schemes of atomic spectroscopy: in $LS$ coupling the orbital angular momenta are coupled first, then the spins, then the totals; in $jj$ coupling each electron's orbital and spin are coupled first, then the individual $j$'s are coupled to the total $J$. The 6-$j$ symbol provides the unitary matrix connecting the two descriptions. The full Racah algebra of $3nj$-symbols -- 6-$j$, 9-$j$, and their symmetries -- is developed in Appendix~B.
+
+\medskip\noindent\textbf{Advantage and limitation.}
+The advantage of the angular momentum coupling formalism is that it separates geometry from dynamics: the CG coefficients \eqref{eq:cg-def} -- or, with greater symmetry, the 3-$j$ symbols \eqref{eq:3j-symbol} -- are fixed by the rotation group alone, encoding the purely geometric content of adding two angular momenta, while the physics -- interaction strengths, energy splittings, transition amplitudes -- enters only through the reduced matrix elements that the Wigner--Eckart theorem will isolate. The Racah closed form \eqref{eq:racah-cg} supplies the CG coefficients in a single analytic expression valid for all ranks, and the recurrence relations \eqref{eq:cg-recurrence} provide the practical computational route. The limitation is that this section treats only two angular momenta in full detail; the addition of three or more, encoded in the 6-$j$ symbols named above and in the full Racah algebra, is deferred to the specialised literature and to Appendix~B. The tensor product space of this section is the simplest instance of the composite-system formalism; its generalization to arbitrary Hilbert spaces and to the partial-trace operation that defines reduced states is the composite-systems chapter's first task.
+
+With coupled states and CG coefficients in hand, the next question is how operators -- not just states -- transform under rotations. The answer is the theory of irreducible tensor operators, which converts the geometric bookkeeping of this section into spectroscopic selection rules.
+
+\section{Irreducible Tensor Operators and the Wigner--Eckart Theorem}
+\label{sec:irreducible-tensor-operators}
+
+The angular momentum algebra of Section~\ref{sec:angular-momentum-algebra} classified states by their transformation under rotations: a state $\ket{j,m}$ rotates into a linear combination of the $2j+1$ partners in its multiplet, the coefficients the Wigner $D$-functions.\footnote{The $D^{(j)}_{m'm}(R) := \braket{j,m'|U(R)|j,m}$ are developed in Appendix~B; only the fact of their existence and the orthogonality of the representation-matrix elements are needed here.} Operators, however, are the objects that connect states, and their transformation under rotations determines which states they can connect --- the subject of spectroscopy. This section classifies operators by their rotational rank and proves the theorem that factorizes every matrix element of every such operator into a geometric part, fixed by the rotation group, and a physical part, the reduced matrix element.
+
+\medskip\noindent\textbf{Scalar and vector operators.} Operators are transformed by conjugation: under a finite rotation $U(R) = e^{-i\theta J_n/\hbar}$ (\eqref{eq:generator-correspondence}), an operator $A$ goes to
+\begin{linenomath}
+\begin{equation*}
+A \mapsto U(R)\,A\,U(R)^\dagger .
+\end{equation*}
+\end{linenomath}
+The classification begins with the two simplest cases. A \textbf{scalar operator} $S$ is invariant under every rotation,
+\begin{linenomath}
+\begin{equation*}
+U(R)\,S\,U(R)^\dagger = S \quad\Longleftrightarrow\quad [J_i, S] = 0 \;\; (i=1,2,3) .
+\end{equation*}
+\end{linenomath}
+The commutator form follows by expanding $U(R)$ to first order in the angle and reading off the coefficient of the generator. The Hamiltonian of a rotation-invariant system is a scalar; so is the Casimir $J^2$ of \eqref{eq:Jsq-def}, and any function of it. A \textbf{vector operator} $\bm V = (V_1,V_2,V_3)$ transforms under rotations as a spatial vector: its Cartesian components rotate into linear combinations of themselves,
+\begin{linenomath}
+\begin{equation*}
+U(R)\,V_i\,U(R)^\dagger = \sum_{j} R_{ji}\,V_j
+\quad\Longleftrightarrow\quad
+[J_i, V_j] = i\hbar\,\epsilon_{ijk}V_k .
+\end{equation*}
+\end{linenomath}
+The infinitesimal form is again the first-order expansion, and it mirrors the defining commutator of the rotation algebra itself (\eqref{eq:galilei-algebra}). Indeed, the angular momentum vector $\bm J$ is a vector operator under rotations --- the commutation relation $[J_i, J_j] = i\hbar\epsilon_{ijk}J_k$ is exactly the vector condition. So are the position and momentum operators $\bm r$ and $\bm p$; the evolution chapter's conjugation relation $\eqref{eq:rotation-translation-conjugation}$ showed that momentum transforms as a vector under rotations.
+
+\medskip\noindent\textbf{Spherical components.} The Cartesian labelling hides the rotation-group structure. A vector operator $\bm V$ spans a three-dimensional representation, but that representation is reducible: it is the $j=1$ multiplet. Its spherical components are the operators that transform irreducibly --- each is an eigenoperator of $J_z$, and $J_\pm$ step between them:
+\begin{linenomath}
+\begin{equation}
+V^{(1)}_{\pm 1} := \mp\frac{V_x \pm iV_y}{\sqrt{2}}, \qquad V^{(1)}_0 := V_z .
+\label{eq:spherical-vector-components}
+\end{equation}
+\end{linenomath}
+The normalization is chosen so that the transformation rules mirror those of the corresponding state $\ket{1,q}$. Specifically, applying the commutator form of Section~\ref{sec:angular-momentum-algebra} to the definitions,
+\begin{linenomath}
+\begin{equation*}
+[J_z, V^{(1)}_q] = \hbar q\,V^{(1)}_q, \qquad
+[J_\pm, V^{(1)}_q] = \hbar\sqrt{1(1+1)-q(q\pm1)}\,V^{(1)}_{q\pm1},
+\end{equation*}
+\end{linenomath}
+exactly the ladder action \eqref{eq:ladder-action-j} with $j=1$, acting on the $q$-index of the operator instead of the $m$-index of a state.
+
+\medskip\noindent\textbf{Irreducible tensor operators.} The generalization is immediate and is the content of this section. An \textbf{irreducible tensor operator} $T^{(k)}_q$ of rank $k$ ($q = -k,-k+1,\ldots,k$) is a set of $2k+1$ operators whose rotational transformation law is that of the angular momentum state $\ket{k,q}$:
+\begin{linenomath}
+\begin{equation}
+U(R)\,T^{(k)}_q\,U(R)^\dagger = \sum_{q'=-k}^{k} T^{(k)}_{q'}\,D^{(k)}_{q'q}(R) .
+\label{eq:tensor-operator-def-integral}
+\end{equation}
+\end{linenomath}
+Expanding $U(R)$ to first order for an infinitesimal rotation about each axis yields the equivalent commutator form:
+\begin{linenomath}
+\begin{equation}
+[J_z, T^{(k)}_q] = \hbar q\,T^{(k)}_q, \qquad
+[J_\pm, T^{(k)}_q] = \hbar\sqrt{k(k+1)-q(q\pm1)}\,T^{(k)}_{q\pm1}.
+\label{eq:tensor-operator-def}
+\end{equation}
+\end{linenomath}
+An irreducible tensor operator of rank~$k$ is therefore a $k$-multiplet of operators: $J_z$ measures the ``magnetic'' label $q$, and $J_\pm$ raise and lower it, exactly as they do on the states $\ket{k,q}$. The rank $k=0$ case reduces to the scalar operator ($[J_i, T^{(0)}_0] = 0$). The rank $k=1$ case reproduces the spherical vector components \eqref{eq:spherical-vector-components}. A rank-$2$ tensor operator has five components transforming as $\ket{2,q}$; the electric quadrupole operator, whose components are bilinear in the position coordinates, is the standard instance.
+
+The definition is constructive: any operator whose commutators with $\bm J$ close in the pattern \eqref{eq:tensor-operator-def} is an irreducible tensor operator of rank $k$, and every physical operator can be expanded as a sum of such irreducible tensors --- the operator counterpart of the Clebsch--Gordan series \eqref{eq:cg-series}. The classification is worth the effort because it yields a theorem that determines every matrix element up to a single number.
+
+\medskip\noindent\textbf{The Wigner--Eckart theorem.} The theorem factorizes the matrix element of an irreducible tensor operator between angular momentum eigenstates into a geometric factor, dictated wholly by the rotation group, and a physical factor --- the reduced matrix element --- that encodes the specific dynamics of the system:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\braket{\alpha',j',m'|T^{(k)}_q|\alpha,j,m}
+= \braket{j,m;k,q|j',m'}\,
+\frac{\braket{\alpha',j'||T^{(k)}||\alpha,j}}{\sqrt{2j'+1}} \; } .
+\label{eq:wigner-eckart}
+\end{equation}
+\end{linenomath}
+Here $\braket{j,m;k,q|j',m'}$ is the Clebsch--Gordan coefficient for coupling $j \otimes k \to j'$, and the reduced matrix element $\braket{\alpha',j'||T^{(k)}||\alpha,j}$ --- the double-bar notation --- is independent of $m$, $m'$, and $q$. The auxiliary labels $\alpha,\alpha'$ carry all quantum numbers not of angular momentum origin: principal quantum number, radial excitation, and any other internally conserved labels. The factor $1/\sqrt{2j'+1}$ is a conventional normalization, adopted here so that the reduced matrix element of the identity operator ($k=0$, $T^{(0)}_0 = I$) is $\braket{\alpha',j||I||\alpha,j} = \sqrt{2j+1}\,\delta_{\alpha'\alpha}$, the number of states in the multiplet.
+
+\begin{proof}
+The proof uses only the rotation-operator conjugation law and the orthogonality of the Clebsch--Gordan coefficients. The key observation is that the combination $T^{(k)}_q\ket{\alpha,j,m}$ transforms under rotations as the tensor product of two irreducible representations, $j \otimes k$, and that the Clebsch--Gordan coefficients are precisely the expansion coefficients of the coupled basis in the uncoupled one.
+
+Apply a rotation $U(R)$ to the object $T^{(k)}_q\ket{\alpha,j,m}$. The tensor operator transforms by conjugation \eqref{eq:tensor-operator-def-integral}, and the state $\ket{\alpha,j,m}$ transforms by the representation matrix:
+\begin{linenomath}
+\begin{align*}
+U(R)\,\bigl(T^{(k)}_q\ket{\alpha,j,m}\bigr)
+&= \bigl(U(R)T^{(k)}_q U(R)^\dagger\bigr)\,\bigl(U(R)\ket{\alpha,j,m}\bigr) \\
+&= \sum_{q'} T^{(k)}_{q'}\,D^{(k)}_{q'q}(R)\;
+   \sum_{m'} \ket{\alpha,j,m'}\,D^{(j)}_{m'm}(R) \\
+&= \sum_{q',m'} T^{(k)}_{q'}\ket{\alpha,j,m'}\;
+   D^{(j)}_{m'm}(R)\,D^{(k)}_{q'q}(R) .
+\end{align*}
+\end{linenomath}
+The combination $T^{(k)}_q\ket{\alpha,j,m}$ therefore transforms under the product representation $D^{(j)}\otimes D^{(k)}$, whose Clebsch--Gordan decomposition \eqref{eq:cg-series} is
+\begin{linenomath}
+\begin{equation*}
+D^{(j)}\otimes D^{(k)} = \bigoplus_{J=|j-k|}^{j+k} D^{(J)} .
+\end{equation*}
+\end{linenomath}
+Now define, for each total $J$ and projection $M$, the coupled state --- the linear combination of the products $T^{(k)}_q\ket{\alpha,j,m}$ that transforms irreducibly under $D^{(J)}$:
+\begin{linenomath}
+\begin{equation}
+\ket{\alpha; j,k; J,M}
+:= \sum_{m,q} \braket{j,m;k,q|J,M}\,
+   T^{(k)}_q\ket{\alpha,j,m} .
+\label{eq:we-coupled-state}
+\end{equation}
+\end{linenomath}
+The defining property of the Clebsch--Gordan coefficients --- they are the unitary matrix that diagonalizes the tensor product --- guarantees that under a rotation,
+\begin{linenomath}
+\begin{equation*}
+U(R)\,\ket{\alpha; j,k; J,M}
+= \sum_{M'} \ket{\alpha; j,k; J,M'}\,D^{(J)}_{M'M}(R) ,
+\end{equation*}
+\end{linenomath}
+so that $\ket{\alpha; j,k; J,M}$ transforms as a single state of angular momentum $(J,M)$. Its overlap with the eigenstate $\bra{\alpha',j',m'}$ is therefore the matrix element of an operator between two states of definite angular momentum, and it must be diagonal in $J$ and $M$: states belonging to different irreducible representations are orthogonal under the invariant inner product. Hence
+\begin{linenomath}
+\begin{equation}
+\braket{\alpha',j',m'|\alpha; j,k; J,M}
+= \delta_{j'J}\,\delta_{m'M}\,
+  \braket{\alpha',j'|||\alpha;j,k;J} ,
+\label{eq:we-diagonal}
+\end{equation}
+\end{linenomath}
+where the undetermined coefficient $\braket{\alpha',j'|||\alpha;j,k;J}$ is independent of $m'$ and $M$ --- the content of Schur's lemma for the rotation group.\footnote{Schur's lemma in this context: any operator commuting with every $U(R)$ is a multiple of the identity on each irreducible subspace. For the matrix element between two irreducible subspaces, the lemma forces the factorised form \eqref{eq:we-diagonal}. A proof using only the rotation-operator algebra is given in Appendix~B.} Insert the definition \eqref{eq:we-coupled-state} of the coupled state and use the orthogonality of the Clebsch--Gordan coefficients. The orthogonality relation for the rows of the Clebsch--Gordan matrix is
+\begin{linenomath}
+\begin{equation*}
+\sum_{J,M} \braket{j,m;k,q|J,M}\braket{j,m';k,q'|J,M}
+= \delta_{mm'}\,\delta_{qq'} .
+\end{equation*}
+\end{linenomath}
+Multiply \eqref{eq:we-diagonal} by $\braket{j,m;k,q|J,M}$, sum over $J$ and $M$, and apply the orthogonality:
+\begin{linenomath}
+\begin{align*}
+\braket{\alpha',j',m'|T^{(k)}_q|\alpha,j,m}
+&= \sum_{J,M} \braket{j,m;k,q|J,M}\,
+   \braket{\alpha',j',m'|\alpha;j,k;J,M} \\
+&= \sum_{J,M} \braket{j,m;k,q|J,M}\,
+   \delta_{j'J}\,\delta_{m'M}\,
+   \braket{\alpha',j'|||\alpha;j,k;J} \\
+&= \braket{j,m;k,q|j',m'}\,
+   \braket{\alpha',j'|||\alpha;j,k;j'} .
+\end{align*}
+\end{linenomath}
+The reduced matrix element is conventionally defined by absorbing the factor into the double-bar symbol:
+\begin{linenomath}
+\begin{equation*}
+\braket{\alpha',j'||T^{(k)}||\alpha,j}
+:= \sqrt{2j'+1}\; \braket{\alpha',j'|||\alpha;j,k;j'} ,
+\end{equation*}
+\end{linenomath}
+which reproduces \eqref{eq:wigner-eckart} and completes the proof.
+\end{proof}
+
+The theorem is the chapter's engine for spectroscopy. Every matrix element of every operator that carries a definite rotational rank factorizes: the Clebsch--Gordan coefficient carries all the dependence on the orientation quantum numbers $m$, $m'$, and $q$, while the reduced matrix element carries everything else --- the radial integrals, the principal quantum numbers, the coupling constants. The two are cleanly separated, and the separation is exact.
+
+\medskip\noindent\textbf{Selection rules.} The theorem's immediate measurable content is encoded in the Clebsch--Gordan coefficient, which vanishes unless two conditions are met:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\begin{array}{l}
+\text{(i)}\;\; m' = m + q \quad\text{(additivity of $J_z$ eigenvalues)}, \\[4pt]
+\text{(ii)}\;\; |j-k| \le j' \le j+k \quad\text{(triangle inequality for angular momentum)} .
+\end{array}
+\;}
+\label{eq:wigner-eckart-selection}
+\end{equation}
+\end{linenomath}
+These are the concrete spectroscopic rules that the evolution chapter's \eqref{eq:selection-rule} prepared and that govern every measurement of every rotation-invariant system. The content is the chapter's harvest, ranked by rank:
+
+\begin{itemize}
+\item \textbf{Scalar operators ($k=0$).} $\braket{\alpha',j',m'|S|\alpha,j,m} = 0$ unless $j'=j$ and $m'=m$. Scalar operators are diagonal in the angular momentum quantum numbers --- they cannot change the multiplet. The Hamiltonian of a rotation-invariant system, being a scalar, has matrix elements only within each $j$-subspace, consistent with the multiplet degeneracy of Section~\ref{sec:angular-momentum-algebra}.
+\item \textbf{Vector operators ($k=1$).} The triangle condition reads $|j-1| \le j' \le j+1$, so a vector operator connects only states whose angular momenta differ by at most one unit:
+\begin{linenomath}
+\begin{equation*}
+\Delta j := j' - j = 0,\pm 1, \qquad
+j = 0 \to j' = 0 \;\; \text{forbidden}.
+\end{equation*}
+\end{linenomath}
+The $m$-selection rule gives $\Delta m = 0,\pm1$ (corresponding to $q = 0,\pm1$ spherical components). These are the electric dipole selection rules, the workhorse of atomic and molecular spectroscopy. The forbidden $0\to0$ transition is a direct consequence of the triangle inequality: both sides of $|0-1|\le 0\le 0+1$ would require $1\le 0$, which is impossible.
+\item \textbf{Quadrupole operators ($k=2$).} The condition $|j-2|\le j'\le j+2$ permits $\Delta j = 0,\pm1,\pm2$, with $j=0\to j'=0,1$ and $j=1/2\to j'=1/2$ additionally forbidden by the triangle. Quadrupole transitions are the next allowed channel when dipole transitions are parity-forbidden, and their intensities are characteristically weaker by powers of the fine-structure constant times the square of the atomic size over the wavelength.
+\end{itemize}
+
+The selection rules are exclusionary: they declare which matrix elements are zero. Among those that survive, the Wigner--Eckart theorem supplies their relative magnitudes --- the ratio of any two matrix elements within the same reduced matrix element is a ratio of Clebsch--Gordan coefficients, computable from the rotation algebra alone, without solving any dynamics.
+
+\medskip\noindent\textbf{Example: the Zeeman $p\to s$ transition.} A concrete case fixes the machinery. Consider an atomic electric dipole transition from a $p$-state ($\ell=1$, hence $j=1$ for the orbital angular momentum) to an $s$-state ($\ell=0$, $j=0$). The electric dipole operator $e\bm r$ is a vector operator under rotations; its spherical components are $r^{(1)}_q$ with $q = -1,0,1$. The transition matrix elements are
+\begin{linenomath}
+\begin{equation*}
+\braket{n',0,0|r^{(1)}_q|n,1,m}
+= \braket{1,m;1,q|0,0}\,
+  \frac{\braket{n',0||r^{(1)}||n,1}}{\sqrt{1}} .
+\end{equation*}
+\end{linenomath}
+The Clebsch--Gordan coefficient couples $j=1$ with $k=1$ to $j'=0$. Its value, from the tabulation of Section~\ref{sec:angular-momentum-coupling} (the special case $J=0$ of the series \eqref{eq:cg-series}), is
+\begin{linenomath}
+\begin{equation*}
+\braket{1,m;1,q|0,0} = \frac{(-1)^{1-m}}{\sqrt{3}}\,\delta_{m,-q},
+\end{equation*}
+\end{linenomath}
+so that only the three combinations $(m,q) = (1,-1), (0,0), (-1,1)$ are nonzero, and the magnitude $|\text{CG}| = 1/\sqrt{3}$ is identical for all three. The reduced matrix element $\braket{n',0||r^{(1)}||n,1}$ is a single radial integral common to all nine would-be matrix elements; only three survive the selection rules, and all three carry the same weight.
+
+In a magnetic field $\bm B = B\hat{z}$, the Zeeman Hamiltonian $H_Z = \mu_B B\,L_z/\hbar$ of Section~\ref{sec:hydrogen-atom} splits the $p$-level into three sublevels: $E_{1,m} = E_1 + \mu_B B m$ with $m = -1,0,1$, while the $s$-level ($m'=0$) is unsplit. The three dipole-allowed channels produce three spectral lines:
+\begin{linenomath}
+\begin{equation*}
+\hbar\omega_{m\to0} = (E_{1} - E_{0}) + \mu_B B m,\qquad m = -1,0,1,
+\end{equation*}
+\end{linenomath}
+the normal Zeeman triplet: one unshifted line ($\Delta m = 0$, $\pi$-polarization) and two symmetrically shifted lines ($\Delta m = \pm 1$, $\sigma^\pm$-polarization), separated by $\mu_B B/\hbar$. The polarization labelling follows from the photon's angular momentum: the $\Delta m = 0$ transition emits a photon linearly polarized along $z$; the $\Delta m = \pm 1$ transitions emit circularly polarized photons in the $xy$-plane. The three transitions have equal intrinsic oscillator strength --- a direct prediction of the Clebsch--Gordan coefficient, with no adjustable parameters --- because $|1/\sqrt{3}|^2$ is the same for all three. (The directional intensity observed in a spectrometer carries an additional geometric factor from the dipole radiation pattern: viewed perpendicular to the field and summed over polarisations, the $\Delta m=0$ line is twice as intense as each $\Delta m=\pm1$ line; viewed along the field, only the circularly polarised $\sigma^\pm$ components appear.) The prediction is verified in every atomic spectroscopy laboratory, and the measurement of the Zeeman splitting $\mu_B B$ is a direct determination of the Bohr magneton.
+
+The advantage of the Wigner--Eckart theorem is its complete separation of geometry from dynamics: all the $m$-dependence of every transition amplitude in every rotation-invariant system is carried by the Clebsch--Gordan coefficients, which are the group-theory bookkeeping, computed once and tabulated for all ranks. Its limitation is equally plain: the theorem says nothing about the reduced matrix element, which must be computed --- or measured --- separately for each physical system. A vector operator's reduced matrix element between two specific levels is the integral of a radial function against the dipole operator; the theorem guarantees that once that one number is known, every matrix element of the operator between every pair of magnetic sublevels of those two multiplets is determined. For the $p\to s$ transition, the nine candidate matrix elements collapse to three nonzero values, and those three share a single reduced matrix element; two numbers --- the reduced matrix element and its complex conjugate --- determine the entire polarization-resolved emission spectrum.
+
+The chapter's two towers --- the angular momentum algebra of Sections~\ref{sec:angular-momentum-algebra} and~\ref{sec:angular-momentum-coupling}, and the Wigner--Eckart engine of this section --- are now complete. The algebra delivered the spectrum and the coupling rules; the Wigner--Eckart theorem converts the coupling rules into spectroscopic selection rules and relative intensities. What remains is to deploy the entire machinery on the atom that launched the quantum theory: the hydrogen atom, whose Coulomb potential is the central-potential problem par excellence, and whose spectrum is the book's oldest unpaid debt.
+
+\section{The Hydrogen Atom: Fruit of Rotational Symmetry}
+\label{sec:hydrogen-atom}
+
+The chapter opened by naming the rotation algebra's debt; it built the algebra's spectrum, its representations, and its spectroscopic engine. It now collects the harvest. The hydrogen atom --- one electron of mass $m_e$ and charge $-e$, bound to a proton of mass $m_p$ and charge $+e$ by the Coulomb potential --- is the central-potential problem whose exact solution repays the book's oldest spectral debt: the Balmer formula of the historical chapter (Section~\ref{subsec:matrix}). The machinery is assembled: the radial equation from Section~\ref{sec:orbital-angular-momentum}, the angular momentum spectrum from Section~\ref{sec:angular-momentum-algebra}, and the selection rules from Section~\ref{sec:irreducible-tensor-operators}. The solution is the chapter's flagship.
+
+\medskip\noindent\textbf{The Coulomb problem.} Separate the centre-of-mass motion, reducing the two-body problem to one body of reduced mass $\mu = m_e m_p/(m_e + m_p) \approx m_e$ moving in the Coulomb potential. In Gaussian units,
+\begin{linenomath}
+\begin{equation*}
+V(r) = -\frac{e^2}{r},
+\end{equation*}
+\end{linenomath}
+where $-e$ is the electron's charge. The Hamiltonian commutes with $\bm L$, by the construction of Section~\ref{sec:orbital-angular-momentum}: the potential is central, depending only on $r = |\bm r|$. The CSCO of Section~\ref{sec:orbital-angular-momentum} applies: $\{H, L^2, L_z\}$, joint eigenstates $\ket{n,\ell,m}$, with the principal quantum number $n$ to be determined by the radial dynamics. Separate variables in $\psi(r,\theta,\phi) = R(r)Y_\ell^m(\theta,\phi)$ and substitute $u(r) = rR(r)$. The radial equation \eqref{eq:radial-equation} becomes a one-dimensional Schr\"odinger equation on the half-line $r \in [0,\infty)$:
+\begin{linenomath}
+\begin{equation}
+-\frac{\hbar^2}{2\mu}\frac{\dd^2 u}{\dd r^2}
++ \left[-\frac{e^2}{r} + \frac{\hbar^2\ell(\ell+1)}{2\mu r^2}\right] u(r)
+= E\,u(r),
+\qquad u(0) = 0 .
+\label{eq:hydrogen-radial}
+\end{equation}
+\end{linenomath}
+The boundary condition $u(0)=0$ enforces regularity of $R(r)$ at the origin: the centrifugal barrier $\hbar^2\ell(\ell+1)/2\mu r^2$ of Section~\ref{sec:orbital-angular-momentum} suppresses the wave function near $r=0$ for $\ell>0$; for every $\ell$ the regular solution behaves as $u(r) \sim r^{\ell+1}$.
+
+\medskip\noindent\textbf{Bound states: asymptotic analysis.} Bound states have $E < 0$. Define the decay constant
+\begin{linenomath}
+\begin{equation*}
+\kappa := \frac{\sqrt{-2\mu E}}{\hbar} > 0,
+\end{equation*}
+\end{linenomath}
+and the dimensionless radial coordinate $\rho := 2\kappa r$. Transform the radial equation \eqref{eq:hydrogen-radial}. Divide by $-\hbar^2/2\mu$:
+\begin{linenomath}
+\begin{equation*}
+\frac{\dd^2 u}{\dd r^2} - \frac{\ell(\ell+1)}{r^2}u + \frac{2\mu e^2}{\hbar^2 r}u = \underbrace{-\frac{2\mu E}{\hbar^2}}_{\kappa^2}\,u.
+\end{equation*}
+\end{linenomath}
+The chain rule with $\rho = 2\kappa r$ gives $\dd/\dd r = 2\kappa\,\dd/\dd\rho$ and $\dd^2/\dd r^2 = 4\kappa^2\,\dd^2/\dd\rho^2$. Substituting and dividing through by $4\kappa^2$:
+\begin{linenomath}
+\begin{equation*}
+\frac{\dd^2 u}{\dd\rho^2}
+- \frac{\ell(\ell+1)}{\rho^2}u
++ \frac{\mu e^2}{\hbar^2\kappa}\,\frac{1}{\rho}u
+= \frac{1}{4}u.
+\end{equation*}
+\end{linenomath}
+Define the dimensionless parameter $\nu := \mu e^2/\hbar^2\kappa$, not yet quantised. The radial equation then takes the compact form
+\begin{linenomath}
+\begin{equation*}
+\frac{\dd^2 u}{\dd\rho^2}
+- \frac{\ell(\ell+1)}{\rho^2}\,u
++ \left(\frac{\nu}{\rho} - \frac{1}{4}\right)u = 0,
+\qquad
+\nu := \frac{\mu e^2}{\hbar^2\kappa}.
+\end{equation*}
+\end{linenomath} The asymptotic behaviour at the two boundaries is extracted by dropping subdominant terms. As $\rho \to \infty$, the equation reduces to $u'' \approx u/4$, whose solutions are $u \sim e^{\pm\rho/2}$; normalisability selects the decaying exponential $u \sim e^{-\rho/2}$. As $\rho \to 0$, the centrifugal term dominates, $u'' \approx \ell(\ell+1)u/\rho^2$, whose regular solution is $u \sim \rho^{\ell+1}$ (the irregular branch $u\sim\rho^{-\ell}$ is rejected by $u(0)=0$). Extract both factors:
+\begin{linenomath}
+\begin{equation}
+u(\rho) = \rho^{\ell+1}\,e^{-\rho/2}\,v(\rho) .
+\label{eq:hydrogen-ansatz}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Power-series solution.} Expand the remaining function in a power series:
+\begin{linenomath}
+\begin{equation*}
+v(\rho) = \sum_{k=0}^{\infty} c_k\,\rho^k, \qquad c_0 \neq 0 .
+\end{equation*}
+\end{linenomath}
+Substitute $u(\rho) = \rho^{\ell+1}e^{-\rho/2}v(\rho)$ into the radial equation. Compute the derivatives. Let $A(\rho) := \frac{\ell+1}{\rho} - \frac{1}{2}$; then
+\begin{linenomath}
+\begin{align*}
+u' &= \rho^{\ell+1}e^{-\rho/2}\bigl(A v + v'\bigr),\\
+u'' &= \rho^{\ell+1}e^{-\rho/2}\bigl[(A' + A^2)v + 2A v' + v''\bigr].
+\end{align*}
+\end{linenomath}
+With $A' = -(\ell+1)/\rho^2$ and $A^2 = (\ell+1)^2/\rho^2 - (\ell+1)/\rho + 1/4$, the combination simplifies:
+\begin{linenomath}
+\begin{equation*}
+A' + A^2 = \frac{\ell(\ell+1)}{\rho^2} - \frac{\ell+1}{\rho} + \frac{1}{4}.
+\end{equation*}
+\end{linenomath}
+Insert $u''$ into $u'' - \frac{\ell(\ell+1)}{\rho^2}u + (\frac{\nu}{\rho} - \frac{1}{4})u = 0$. The terms $\frac{\ell(\ell+1)}{\rho^2}$ and $\frac{1}{4}$ cancel identically, leaving
+\begin{linenomath}
+\begin{equation*}
+v'' + 2\Bigl(\frac{\ell+1}{\rho} - \frac{1}{2}\Bigr)v' + \frac{\nu-\ell-1}{\rho}\,v = 0.
+\end{equation*}
+\end{linenomath}
+Multiplying by $\rho$ yields the differential equation for $v$:
+\begin{linenomath}
+\begin{equation*}
+\rho\,v'' + \bigl(2\ell+2 - \rho\bigr)v' + (\nu - \ell - 1)v = 0.
+\end{equation*}
+\end{linenomath}
+Now insert the power-series ansatz $v = \sum_k c_k\rho^k$, $v' = \sum_k k c_k\rho^{k-1}$, $v'' = \sum_k k(k-1)c_k\rho^{k-2}$. Collecting the coefficient of $\rho^{k-1}$ (shifting the $\rho^k$ terms with $k \to k-1$):
+\begin{linenomath}
+\begin{equation*}
+\bigl[k(k-1) + (2\ell+2)k\bigr]c_k
++ \bigl[\nu - \ell - 1 - (k-1)\bigr]c_{k-1} = 0.
+\end{equation*}
+\end{linenomath}
+The bracket $k(k-1) + (2\ell+2)k = k(k+2\ell+1)$; the second bracket is $\nu - \ell - k$. Hence
+\begin{linenomath}
+\begin{equation*}
+k(k+2\ell+1)\,c_k = (k + \ell - \nu)\,c_{k-1},
+\qquad k \ge 1.
+\end{equation*}
+\end{linenomath}
+Shifting the index $k \to k+1$ gives the two-term recurrence:
+\begin{linenomath}
+\begin{equation}
+c_{k+1} = \frac{k + \ell + 1 - \nu}{(k+1)(k+2\ell+2)}\;c_k, \qquad k = 0,1,2,\ldots
+\label{eq:hydrogen-recurrence}
+\end{equation}
+\end{linenomath}
+The asymptotic behaviour of the series at large $k$ determines whether $u(\rho)$ is normalisable. For $k \gg 1$, the ratio $c_{k+1}/c_k \sim 1/k$, which is the same as the series for $e^\rho = \sum_k \rho^k/k!$. Hence, unless the series terminates, $v(\rho) \sim e^{\rho}$ at large $\rho$, producing $u(\rho) \sim \rho^{\ell+1}e^{+\rho/2}$, which diverges exponentially and is not square-integrable.
+
+\medskip\noindent\textbf{Quantisation.} The series must therefore terminate at some finite $k = n_r \ge 0$, where $n_r$ is a nonnegative integer. The recurrence \eqref{eq:hydrogen-recurrence} gives $c_{n_r+1} = 0$, which forces the numerator to vanish:
+\begin{linenomath}
+\begin{equation}
+n_r + \ell + 1 - \nu = 0
+\;\Longrightarrow\;
+\nu = n_r + \ell + 1 =: n .
+\label{eq:hydrogen-quantization}
+\end{equation}
+\end{linenomath}
+The parameter $\nu$ is therefore an integer $n = 1,2,3,\ldots$, called the \textbf{principal quantum number}. Since $n_r \ge 0$, the orbital angular momentum is bounded by $\ell \le n-1$, so for each $n$ the allowed $\ell$-values are
+\begin{linenomath}
+\begin{equation*}
+\ell = 0, 1, \ldots, n-1 .
+\end{equation*}
+\end{linenomath}
+The quantisation condition $\nu = n$ yields the energy spectrum directly. From the definitions $\nu = \mu e^2/\hbar^2\kappa$ and $\kappa = \sqrt{-2\mu E}/\hbar$, substitute $\nu = n$:
+\begin{linenomath}
+\begin{equation*}
+\frac{\mu e^2}{\hbar^2\kappa} = n
+\;\Longrightarrow\;
+\kappa = \frac{\mu e^2}{\hbar^2 n}.
+\end{equation*}
+\end{linenomath}
+Square both sides and use $\kappa^2 = -2\mu E/\hbar^2$:
+\begin{linenomath}
+\begin{equation*}
+\frac{-2\mu E}{\hbar^2} = \frac{\mu^2 e^4}{\hbar^4 n^2}
+\;\Longrightarrow\;
+E_n = -\frac{\mu e^4}{2\hbar^2}\,\frac{1}{n^2}.
+\end{equation*}
+\end{linenomath}
+Collecting the result:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+E_n = -\frac{\mu e^4}{2\hbar^2}\,\frac{1}{n^2},
+\qquad n = 1,2,3,\ldots,
+\qquad \ell = 0,1,\ldots,n-1 .
+\;}
+\label{eq:hydrogen-spectrum}
+\end{equation}
+\end{linenomath}
+The ground-state energy is $E_1 = -\mu e^4/2\hbar^2 \approx -13.6\;\text{eV}$; the Bohr radius, the natural length scale of the problem, is
+\begin{linenomath}
+\begin{equation*}
+a_0 := \frac{\hbar^2}{\mu e^2} \approx 0.529\;\text{\AA},
+\end{equation*}
+\end{linenomath}
+so that $E_1 = -e^2/2a_0$. The bound-state spectrum is entirely discrete (the positive-energy continuum, $E>0$, describes unbound scattering states, named here and owed to the scattering chapter). This is Bohr's 1913 formula, derived not from a postulate about allowed orbits but from the Schr\"odinger equation with the rotation algebra --- the historical chapter's oldest quantitative debt, repaid.
+
+\medskip\noindent\textbf{The Balmer formula and the Rydberg constant.} The photon emitted when the electron falls from level $n$ to a lower level $n'$ carries the energy difference:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\frac{1}{\lambda_{n\to n'}}
+= \frac{E_n - E_{n'}}{2\pi\hbar c}
+= R_\infty\left(\frac{1}{n'^{2}} - \frac{1}{n^{2}}\right),
+\qquad
+R_\infty := \frac{\mu e^4}{4\pi\hbar^3 c} .
+\;}
+\label{eq:balmer-formula}
+\end{equation}
+\end{linenomath}
+$R_\infty$ is the \textbf{Rydberg constant}. For hydrogen ($\mu \approx m_e$), $R_H \approx 109\,677\;\text{cm}^{-1}$. The Balmer series ($n'=2$) of the historical chapter's Table~1.1 is now a column of theoretical predictions:
+\begin{linenomath}
+\begin{equation*}
+\begin{array}{c|c|c}
+\text{Transition} & \lambda_{\text{calc}}\;(\text{nm}) & \text{Balmer's label} \\ \hline
+n=3\to2 & 656.3 & H_\alpha \\
+n=4\to2 & 486.1 & H_\beta \\
+n=5\to2 & 434.0 & H_\gamma \\
+n=6\to2 & 410.2 & H_\delta
+\end{array}
+\end{equation*}
+\end{linenomath}
+The agreement is to one part in $10^4$; the residual difference --- the reduced-mass correction from $\mu \neq m_e$, the relativistic fine structure, and the Lamb shift --- are the later chapters' business. The Lyman series ($n'=1$) lies in the ultraviolet; the Paschen series ($n'=3$) in the infrared. The formula is the chapter's first landing on a measurable quantity.
+
+\medskip\noindent\textbf{Degeneracy structure.} For each $n$, the allowed values $\ell = 0,1,\ldots,n-1$ each accommodate $2\ell+1$ values of $m$. The total degeneracy of the $n$th level (ignoring spin) is
+\begin{linenomath}
+\begin{equation*}
+d_n = \sum_{\ell=0}^{n-1} (2\ell+1) = n^2 .
+\end{equation*}
+\end{linenomath}
+With the electron spin included, the degeneracy is $2n^2$. The $m$-degeneracy ($2\ell+1$ within each $\ell$) is forced by rotation invariance: it is the level-local corollary \eqref{eq:degeneracy-invariance} at work, the $m$-multiplet of Section~\ref{sec:angular-momentum-algebra}. The $\ell$-degeneracy --- that all $\ell < n$ share the same $E_n$ --- is of a different character. It is \emph{accidental} in the sense of the rotation group: no three-dimensional rotation mixes states of different $\ell$, yet the Coulomb potential gives them equal energy. The extra degeneracy signals a higher symmetry --- the $1/r$ potential admits a conserved vector, the Runge--Lenz vector, which together with $\bm L$ generates the group SO(4).\footnote{The Runge--Lenz vector is $\bm A = (\bm p\times\bm L - \bm L\times\bm p)/2m - e^2\bm r/r$; classically it points along the major axis of the Kepler ellipse, and quantum-mechanically its commutation relations with $\bm L$ close the SO(4) algebra. The SO(4) explanation of the $n^2$ degeneracy was given by Pauli (1926) and by Fock (1935). The group is named here; its algebra is developed in Appendix~B.} The rotation group SO(3) forces the $2\ell+1$ degeneracy; the Coulomb group SO(4) forces the $n^2$ degeneracy. The distinction matters: in a non-Coulomb central potential, the $\ell$-degeneracy is lifted, and the levels depend on both $n$ and $\ell$, while the $m$-degeneracy persists.
+
+\medskip\noindent\textbf{Radial wave functions.} The terminated series $v(\rho)$ is a polynomial of degree $n_r = n-\ell-1$. The resulting radial functions are expressed in terms of the associated Laguerre polynomials $L_{p}^{(q)}$:
+\begin{linenomath}
+\begin{equation}
+R_{n\ell}(r)
+= \left(\frac{2}{n a_0}\right)^{\!3/2}
+\sqrt{\frac{(n-\ell-1)!}{2n\,[(n+\ell)!]}}\;
+\left(\frac{2r}{n a_0}\right)^{\!\ell}
+e^{-r/na_0}\;
+L_{n-\ell-1}^{(2\ell+1)}\!\left(\frac{2r}{n a_0}\right) .
+\label{eq:hydrogen-radial-functions}
+\end{equation}
+\end{linenomath}
+The full wave function is $\psi_{n\ell m}(r,\theta,\phi) = R_{n\ell}(r)\,Y_\ell^m(\theta,\phi)$ with the spherical harmonics of Section~\ref{sec:orbital-angular-momentum}. The normalisation is $\int_0^\infty r^2\dd r\int\dd\Omega\,|\psi_{n\ell m}|^2 = 1$, the radial part satisfying $\int_0^\infty r^2\dd r\,R_{n\ell}(r)R_{n'\ell}(r) = \delta_{nn'}$. The first few are collected in Table~\ref{tab:hydrogen-wavefunctions}.
+
+\begin{table}[htbp!]
+\centering
+\caption{Hydrogen radial wave functions for $n=1,2,3$. The full wave function is $\psi_{n\ell m}(r,\theta,\phi) = R_{n\ell}(r)\,Y_\ell^m(\theta,\phi)$. $a_0 = \hbar^2/\mu e^2$ is the Bohr radius.}
+\label{tab:hydrogen-wavefunctions}
+\small
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{ccl}
+\toprule
+$n$ & $\ell$ & $R_{n\ell}(r)$ \\
+\midrule
+1 & 0 & $\displaystyle 2a_0^{-3/2}\,e^{-r/a_0}$ \\[8pt]
+2 & 0 & $\displaystyle (2a_0)^{-3/2}\left(2 - \frac{r}{a_0}\right)e^{-r/2a_0}$ \\[8pt]
+2 & 1 & $\displaystyle (2a_0)^{-3/2}\,\frac{1}{\sqrt{3}}\,\frac{r}{a_0}\,e^{-r/2a_0}$ \\[8pt]
+3 & 0 & $\displaystyle (3a_0)^{-3/2}\;2\left(1 - \frac{2r}{3a_0} + \frac{2r^2}{27a_0^2}\right)e^{-r/3a_0}$ \\[8pt]
+3 & 1 & $\displaystyle (3a_0)^{-3/2}\,\frac{2\sqrt{2}}{3}\,\frac{r}{a_0}\left(1 - \frac{r}{6a_0}\right)e^{-r/3a_0}$ \\[8pt]
+3 & 2 & $\displaystyle (3a_0)^{-3/2}\,\frac{2\sqrt{2}}{3\sqrt{5}}\,\frac{r^2}{a_0^2}\,e^{-r/3a_0}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The ground state $\psi_{100}(r) = (\pi a_0^3)^{-1/2}\,e^{-r/a_0}$ is spherically symmetric, with zero orbital angular momentum and an exponential decay on the scale of the Bohr radius. The probability density is a diffuse cloud, not an orbit: $\langle r\rangle = 3a_0/2$, and the most probable radius is $r = a_0$ --- Bohr's circular-orbit radius recovered as the mode of a distribution, not as the radius of a path. The wave function has no node; the node count of $R_{n\ell}$ is $n_r = n-\ell-1$, consistent with the oscillation theorem for one-dimensional Sturm--Liouville problems applied to the radial equation \eqref{eq:hydrogen-radial}.
+
+\medskip\noindent\textbf{Zeeman splitting: the chapter's second measurable.} Place the hydrogen atom in a uniform magnetic field $\bm B = B\hat{z}$. The orbital magnetic moment couples to the field, adding to the Hamiltonian the Zeeman term:
+\begin{linenomath}
+\begin{equation}
+H_Z = \frac{e}{2\mu c}\,B\,L_z = \mu_B B\,\frac{L_z}{\hbar},
+\qquad
+\mu_B := \frac{e\hbar}{2\mu c} .
+\label{eq:zeeman-splitting}
+\end{equation}
+\end{linenomath}
+$\mu_B$ is the Bohr magneton. The electron spin contributes an additional term $2\mu_B B\,S_z/\hbar$ (the factor $2$ is the spin $g$-factor; the full Zeeman Hamiltonian $H_Z = \mu_B B\,(L_z + 2S_z)/\hbar$ is named here, and its perturbation-theoretic treatment --- the anomalous Zeeman effect --- is the later chapter's debt). For the orbital contribution alone, $L_z$ commutes with the Coulomb Hamiltonian (both are diagonal in the $\ket{n,\ell,m}$ basis), so the energy shifts are exact within the $m$-multiplet:
+\begin{linenomath}
+\begin{equation}
+\Delta E_{n\ell m} = \mu_B B\,m, \qquad m = -\ell,\ldots,\ell .
+\end{equation}
+\end{linenomath}
+Each $\ell$-level splits into $2\ell+1$ equally spaced sublevels. A transition between two levels of different $\ell$ therefore splits into multiple spectral lines. The Wigner--Eckart selection rules of Section~\ref{sec:irreducible-tensor-operators} govern which lines appear.
+
+\textbf{The normal Zeeman triplet.} Consider the Lyman-$\alpha$ line: the transition $2p \to 1s$ ($n=2,\ell=1 \to n=1,\ell=0$) at $\lambda = 121.6\;\text{nm}$. The initial $2p$ level has three magnetic sublevels ($m = -1,0,1$); the final $1s$ level has one ($m'=0$). In a field $B$, the three initial sublevels split to $E_{2,1,m} = E_2 + \mu_B B m$, while $E_{1,0,0}$ is unsplit. The dipole operator is rank $k=1$; its spherical components $r^{(1)}_q$ connect $\ell=1$ to $\ell=0$ with the matrix elements computed in Section~\ref{sec:irreducible-tensor-operators}. The Wigner--Eckart theorem enforces $\Delta m = q = 0,\pm1$, and all three surviving channels have equal CG coefficients ($1/\sqrt{3}$ in magnitude). Three spectral lines result:
+\begin{linenomath}
+\begin{equation*}
+\begin{aligned}
+\Delta m = -1:&\quad \hbar\omega = (E_2 - E_1) + \mu_B B &&(\sigma^-\ \text{polarisation}), \\
+\Delta m = \phantom{-}0:&\quad \hbar\omega = E_2 - E_1 &&(\pi\ \text{polarisation}), \\
+\Delta m = +1:&\quad \hbar\omega = (E_2 - E_1) - \mu_B B &&(\sigma^+\ \text{polarisation}) .
+\end{aligned}
+\end{equation*}
+\end{linenomath}
+The three lines form the \textbf{normal Zeeman triplet}: one unshifted $\pi$-component and two $\sigma^\pm$-components displaced by $\pm\mu_B B/\hbar$. The splitting is linear in $B$ and directly measures the Bohr magneton. The three lines have equal intrinsic oscillator strength, as predicted by the equal CG coefficients of Section~\ref{sec:irreducible-tensor-operators}. The $2s \to 1s$ transition, by contrast, is forbidden: $\Delta\ell = 0$ violates the dipole selection rule $\Delta\ell = \pm1$, and the parity Laporte rule \eqref{eq:parity-selection} independently forbids it (both $2s$ and $1s$ are parity-even).
+
+The Zeeman triplet is the chapter's second landing on a directly measurable quantity (after the Balmer series), and it cross-checks three sections: the angular momentum spectrum \eqref{eq:angular-momentum-spectrum} supplies the magnetic quantum numbers, the Wigner--Eckart theorem \eqref{eq:wigner-eckart} supplies the selection rules and relative intensities, and the hydrogen spectrum \eqref{eq:hydrogen-spectrum} supplies the unperturbed line position. Every element of the chapter is confirmed or contradicted by the measured polarisation and splitting of a single spectral line.
+
+\medskip\noindent\textbf{The book's oldest debt, discharged.} The historical chapter opened with Balmer's 1885 discovery: four visible hydrogen lines whose wavelengths obeyed $1/\lambda = R(1/4 - 1/n^2)$. Bohr's 1913 model reproduced the formula by flat --- a quantisation condition on the classical orbits, with no theoretical warrant. The present chapter has derived the formula from two axioms already in the book: the Schr\"odinger equation (the evolution chapter's \eqref{eq:schroedinger}) and the rotation algebra (the evolution chapter's \eqref{eq:galilei-algebra}). The Bohr radius, the Rydberg constant, and the $n=1,2,\ldots$ series are theorems, not postulates. The repayment is complete.
+
+The advantage of the hydrogen solution is its completeness and exactness: every bound-state energy, every wave function, and every dipole matrix element is known in closed form, making the atom a touchstone for every approximate method. Its limitation is the one the derivation inherited: the Schr\"odinger equation is nonrelativistic. The fine structure --- the relativistic correction to the kinetic energy, the spin-orbit coupling, and the Darwin term --- splits the $n^2$ degeneracy on the scale of $\alpha^2 E_n \approx 10^{-4}\;\text{eV}$, orders of magnitude smaller than the Coulomb energies but spectroscopically resolved.\footnote{The spin-orbit coupling, $\bm L\cdot\bm S$, is the first relativistic correction; it couples the orbital and spin angular momenta, requiring the coupled basis of Section~\ref{sec:angular-momentum-coupling}, and its perturbative treatment belongs to the later chapter on approximation methods. No spin-orbit term is added to the Hamiltonian here.} The Lamb shift, a quantum-electrodynamic effect splitting the $2s$ and $2p_{1/2}$ levels by about $1\;\text{GHz}$, is of a still different origin. Both belong to the book's later chapters; the hydrogen atom solved here is the nonrelativistic, spinless, exact solution --- the fruit of rotational symmetry, harvested in full.
+
+\section{Summary and Open Debts}
+\label{sec:ch6summary}
+
+The chapter's content compresses into seven principles, one harvest, and one ledger. The bookkeeping of honesty is restated with them: zero new axioms; the rotation algebra \eqref{eq:galilei-algebra} inherited from the evolution chapter; the ladder template inherited from the oscillator chapter; the position representation inherited from the same; everything else --- the spectrum, the spinor sign, the half-angle law, the spherical harmonics, the Clebsch--Gordan series, the Wigner--Eckart factorisation, the hydrogen spectrum --- proved.
+\begin{enumerate}
+\item[\textbf{(R1)}] \textbf{Rotation group.} The rotation group SO(3) and its universal cover SU(2); the 2:1 homomorphism \eqref{eq:su2-so3-homomorphism} as the group-theoretic origin of the spinor sign (Section~\ref{sec:rotation-group}). Finite rotations are the exponential map of the generators, $R_{\bm n}(\theta) = e^{-i\theta J_n/\hbar}$ (\eqref{eq:generator-correspondence}); the SU(2) parametrisation $U = e^{-i(\theta/2)\bm n\cdot\bm\sigma}$ (\eqref{eq:su2-param}) carries half the angle of the spatial rotation it represents.
+
+\item[\textbf{(R-X)}] \textbf{Finite rotations.} The Euler-angle parametrisation $U(\alpha,\beta,\gamma) = e^{-i\alpha J_z/\hbar}e^{-i\beta J_y/\hbar}e^{-i\gamma J_z/\hbar}$ (\eqref{eq:euler-angles}) parametrises every finite rotation by three angles, with the third angle ranging to $4\pi$ in SU(2). The Wigner D-matrices $D^{(j)}_{m'm}(\alpha,\beta,\gamma) = \braket{j,m'|U(\alpha,\beta,\gamma)|j,m} = e^{-i\alpha m'} d^{(j)}_{m'm}(\beta) e^{-i\gamma m}$ (\eqref{eq:D-matrix-def}) are the $(2j+1)$-dimensional irreducible unitary representations of SU(2); the reduced d-matrix $d^{(j)}_{m'm}(\beta) = \braket{j,m'|e^{-i\beta J_y/\hbar}|j,m}$ carries the nontrivial angular dependence. For integer $\ell$, the D-matrices reduce to the spherical harmonics: $D^{(\ell)}_{m0}(\alpha,\beta,0) = \sqrt{4\pi/(2\ell+1)}\,Y_\ell^{m*}(\beta,\alpha)$ (\eqref{eq:D-Y-relation}), and $D^{(\ell)}_{00}(\alpha,\beta,\gamma) = P_\ell(\cos\beta)$. The explicit $j=1/2$ D-matrix recovers the half-angle law of (R3) directly from Euler-angle decomposition: $d^{(1/2)}(\beta) = \bigl(\begin{smallmatrix}\cos(\beta/2) & -\sin(\beta/2) \\ \sin(\beta/2) & \cos(\beta/2)\end{smallmatrix}\bigr)$ (Section~\ref{sec:rotation-group}).
+
+\item[\textbf{(R2)}] \textbf{Angular momentum spectrum.} From the single commutator $[J_i, J_j] = i\hbar\epsilon_{ijk}J_k$ (\eqref{eq:galilei-algebra}), the ladder method of the oscillator chapter yields the complete spectrum: $J^2\ket{j,m} = \hbar^2 j(j+1)\ket{j,m}$ and $J_z\ket{j,m} = \hbar m\ket{j,m}$, with $j = 0,\frac12,1,\frac32,\ldots$ and $m = -j,\ldots,j$ (\eqref{eq:angular-momentum-spectrum}). The ladder operators $J_\pm$ of \eqref{eq:Jpm-def} step within the $(2j+1)$-dimensional multiplet; their normalised actions \eqref{eq:ladder-action-j} close the algebra with the Casimir $J^2 = J_-J_+ + J_z^2 + \hbar J_z$ (\eqref{eq:Jsq-def}). The spectrum is a theorem of the algebra's positivity --- no additional postulate (Section~\ref{sec:angular-momentum-algebra}).
+
+\item[\textbf{(R3)}] \textbf{Spin $1/2$.} The $j=1/2$ representation is the Pauli algebra: $S_i = (\hbar/2)\sigma_i$ with $[\sigma_i,\sigma_j] = 2i\epsilon_{ijk}\sigma_k$ and $\{\sigma_i,\sigma_j\} = 2\delta_{ij}I$ (\eqref{eq:pauli-algebra}). The spin-$\bm n$ ONB is derived, not assumed --- $\ket{+\bm n} = \cos(\theta/2)\ket{+z} + e^{i\phi}\sin(\theta/2)\ket{-z}$ (\eqref{eq:spin-n-derived}) --- repaying the states chapter's debts: the half-angle law $|\braket{+z|+\bm n}|^2 = \cos^2(\theta/2)$ (\eqref{eq:half-angle-law}), the spinor $4\pi$ sign (\eqref{eq:spinor-sign-interpretation}), and the Stern--Gerlach two-state (Section~\ref{sec:spin-half}). The Bloch sphere $\bm r = \braket{\psi|\bm\sigma|\psi}$ (\eqref{eq:bloch-vector}) is the state space $S^2$; time reversal is $\Theta = e^{-i\pi J_y/\hbar}K_0$ with $\Theta^2 = (-1)^{2j}I$ (\eqref{eq:theta-j}), proving $\Theta^2 = -I$ for half-integer spin and discharging the evolution chapter's outstanding clause.
+
+\item[\textbf{(R4)}] \textbf{Orbital angular momentum.} $\bm L = \bm r\times\bm p$ in the position representation (\eqref{eq:orbital-L}) satisfies the same algebra; single-valuedness of wave functions on $\mathbb{R}^3$ forces integer $\ell$ (\eqref{eq:Lz-phi}). The eigenfunctions are the spherical harmonics $Y_\ell^m(\theta,\phi)$ (\eqref{eq:spherical-harmonic-def}), whose parity is $(-1)^\ell$ (\eqref{eq:Ylm-parity}). Any central potential reduces to the radial equation \eqref{eq:radial-equation} with the centrifugal barrier $\hbar^2\ell(\ell+1)/2\mu r^2$ and the substitution $u(r)=rR(r)$; the CSCO is $\{H, L^2, L_z\}$ (Section~\ref{sec:orbital-angular-momentum}).
+
+\item[\textbf{(R-Y)}] \textbf{Schwinger oscillator model.} Two independent boson modes $a_+, a_-$ with $[a_\mu,a_\nu^\dagger] = \delta_{\mu\nu}$ (\eqref{eq:schwinger-bosons}) generate the entire angular momentum algebra via the Jordan--Schwinger map $J_i = \frac{\hbar}{2} a_\alpha^\dagger\sigma^i_{\alpha\beta}a_\beta$ (\eqref{eq:schwinger-J}): $J_+ = \hbar a_+^\dagger a_-$, $J_- = \hbar a_-^\dagger a_+$, $J_z = \frac{\hbar}{2}(a_+^\dagger a_+ - a_-^\dagger a_-)$. The Fock states $\ket{n_+,n_-}$ diagonalise $J^2$ and $J_z$; the quantum numbers read off directly as $j = (n_++n_-)/2$, $m = (n_+-n_-)/2$, and the angular momentum states are $\ket{j,m} = (a_+^\dagger)^{j+m}(a_-^\dagger)^{j-m}\ket{0,0}/\sqrt{(j+m)!(j-m)!}$ (\eqref{eq:schwinger-states}). The Casimir is $J^2 = (\hbar^2/2)N(N/2+1)$ with $N = N_++N_-$ (\eqref{eq:schwinger-Jsq}). The Schwinger construction is the statement that every $j$-representation lives in the totally symmetric subspace of $2j$ spin-$1/2$ systems, and it provides the natural language for the Racah algebra and the boson realisation of SU(2) (Section~\ref{sec:schwinger-model}).
+
+\item[\textbf{(R5)}] \textbf{Coupling and Wigner--Eckart.} Two angular momenta couple by the tensor-product sum $\bm J = \bm J_1\otimes I + I\otimes\bm J_2$ (\eqref{eq:total-J}); the coupled basis $\ket{j_1,j_2;J,M}$ expands in the uncoupled basis with Clebsch--Gordan coefficients (\eqref{eq:cg-def}). The Clebsch--Gordan series \eqref{eq:cg-series} ($J = |j_1-j_2|,\ldots,j_1+j_2$) is proved by highest-weight counting; the Racah closed form \eqref{eq:racah-cg} gives every coefficient; the 3-$j$ symbol \eqref{eq:3j-symbol} provides the symmetric notation; and the two-spin-$1/2$ system yields the triplet and singlet (\eqref{eq:singlet-triplet}). Irreducible tensor operators $T^{(k)}_q$ are the operator analogues of $k$-multiplets, defined by their commutators with $\bm J$ (\eqref{eq:tensor-operator-def}). The Wigner--Eckart theorem (\eqref{eq:wigner-eckart}) factorises every matrix element into a geometric Clebsch--Gordan coefficient and a physical reduced matrix element; its selection rules (\eqref{eq:wigner-eckart-selection}) are the chapter's spectroscopic engine (Sections~\ref{sec:angular-momentum-coupling} and~\ref{sec:irreducible-tensor-operators}).
+\end{enumerate}
+
+\textbf{The hydrogen harvest.} The Coulomb problem $V(r) = -e^2/r$ inserted into the radial equation \eqref{eq:hydrogen-radial} is solved by power-series termination; the quantisation condition forces the principal quantum number $n=1,2,\ldots$ with $\ell=0,1,\ldots,n-1$, yielding the spectrum $E_n = -\mu e^4/2\hbar^2 n^2$ (\eqref{eq:hydrogen-spectrum}). The Balmer formula $1/\lambda = R_\infty(1/n'^2-1/n^2)$ (\eqref{eq:balmer-formula}) with $R_\infty = \mu e^4/4\pi\hbar^3 c$ repays the historical chapter's oldest spectral debt. The radial wave functions are the associated Laguerre polynomials \eqref{eq:hydrogen-radial-functions}, collected in Table~\ref{tab:hydrogen-wavefunctions}. The Zeeman splitting $\Delta E = \mu_B B m$ (\eqref{eq:zeeman-splitting}) produces the normal Zeeman triplet; the Wigner--Eckart selection rules determine its polarisation and relative intensities (Section~\ref{sec:hydrogen-atom}).
+
+The chapter's integration of experiment and formalism is collected in Table~\ref{tab:ch6-dictionary}, which adds the rotation rows to the dictionaries of the states, measurement, evolution, and operator-method chapters (Tables~\ref{tab:ch2-dictionary}, \ref{tab:ch3-dictionary}, \ref{tab:ch4-dictionary}, and \ref{tab:ch5-dictionary}).
+
+\begin{table}[htbp!]
+\centering
+\caption{The experiment--formalism dictionary, fifth instalment: the rotation and angular momentum rows of this chapter, extending Tables~\ref{tab:ch2-dictionary}, \ref{tab:ch3-dictionary}, \ref{tab:ch4-dictionary}, and \ref{tab:ch5-dictionary}.}
+\label{tab:ch6-dictionary}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ll}
+\toprule
+Experimental notion & Formal object \\
+\midrule
+Rotation angle & group parameter $\theta$ \\
+Rotation axis & generator $J_n$ in $R_{\bm n}(\theta) = e^{-i\theta J_n/\hbar}$ \\
+$2\pi$ rotation sign on spinors & SU(2) double covering of SO(3) ($-I$ for half-integer spin) \\
+Angular momentum quantum numbers & $j,m$ eigenvalues of $J^2,J_z$ \\
+Multiplet degeneracy & $(2j+1)$-dimensional irreducible representation \\
+Spin-$1/2$ state & spinor in $\mathbb{C}^2$, Bloch sphere $S^2$ \\
+Half-angle law & SU(2) rotation: $\ket{+\bm n} = \cos(\theta/2)\ket{+z} + e^{i\phi}\sin(\theta/2)\ket{-z}$ \\
+Euler angles & $(\alpha,\beta,\gamma)$ parametrising $U(\alpha,\beta,\gamma)$ \\
+Wigner D-matrix & $D^{(j)}_{m'm}(R) = \braket{j,m'|U(R)|j,m}$ \\
+Schwinger bosons & two-mode Fock states, $j = (n_++n_-)/2$ \\
+Spherical harmonics & orbital eigenfunctions $\ket{\ell m}$, $L^2 Y_\ell^m = \hbar^2\ell(\ell+1)Y_\ell^m$ \\
+Centrifugal barrier & $\hbar^2\ell(\ell+1)/2\mu r^2$ in radial equation \\
+Clebsch--Gordan coefficient & change-of-basis amplitude $\braket{j_1,m_1;j_2,m_2|J,M}$ \\
+3-$j$ symbol & $\begin{pmatrix}j_1&j_2&j_3\\m_1&m_2&m_3\end{pmatrix}$, cyclic and parity symmetries \\
+Singlet/triplet & $J=0$ (antisymmetric) and $J=1$ (symmetric) two-spin states \\
+Tensor operator rank & multiplet label $k$ in $T^{(k)}_q$ \\
+Selection rule & Wigner--Eckart triangle $|j-k| \le j' \le j+k$, $m'=m+q$ \\
+Reduced matrix element & physics factor $\braket{\alpha',j'||T^{(k)}||\alpha,j}$ \\
+Hydrogen spectrum & $E_n = -\mu e^4/2\hbar^2 n^2$, $n=1,2,\ldots$ \\
+Balmer/Rydberg formula & $1/\lambda = R_\infty(1/n'^2-1/n^2)$, $R_\infty = \mu e^4/4\pi\hbar^3 c$ \\
+Zeeman splitting & $\Delta E = \mu_B B\,m$, Bohr magneton $\mu_B = e\hbar/2\mu c$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\medskip\noindent\textbf{The debt ledger, balanced.} The chapter was chartered as the book's structural repayment; it is time to state the balance. \emph{Repaid here:} the Balmer/Rydberg formula (ch1, Section~\ref{subsec:matrix}) --- derived from the radial Coulomb problem, not from circular-orbit postulates; the Stern--Gerlach two-state (ch1, Section~\ref{subsec:spin}) --- as the $j=1/2$ representation; the half-angle law (ch2, \eqref{eq:half-angle}) --- as a theorem of SU(2); the spinor $4\pi$ sign interpretation (ch2 debt \#10) --- as the $2\pi$ rotation in SU(2) carrying the $-I$ computed at \eqref{eq:spinor-sign}; the spin-$\bm n$ ONB construction (ch2 debt \#11) --- as SU(2) rotation of the reference state $\ket{+z}$; the $\sigma$-commutator (ch3 debt \#19) --- as the $j=1/2$ instance of the rotation algebra; the rotation spectrum, ladders, $\Theta^2$ for half-integer spin, multiplet classification, and angular-momentum superselection (ch4 debt \#24) --- every item proved, none assumed; the ladder template for rotations, the orbital wave functions, the central-potential reduction, and the hydrogen atom (ch5 debt \#27) --- the ladder re-run, the spherical harmonics built, and the Coulomb problem solved in full.
+
+\emph{Planted, and declared openly:} the tensor product formalism ($\bm J_1\otimes I + I\otimes\bm J_2$, Clebsch--Gordan coefficients, the coupled and uncoupled bases) to the chapter on composite systems; the density operator, named at the Bloch sphere \eqref{eq:bloch-vector} and exercised on the non-selective SG measurement of Section~\ref{sec:spin-half}, to the same chapter's theory of mixed states; the singlet state \eqref{eq:singlet-triplet} and its spin-correlation language, to the entanglement section of that chapter; the Schwinger boson construction \eqref{eq:schwinger-J} and the boson realisation of SU(2) (\eqref{eq:schwinger-states}), to Appendix~B and to the field-quantisation chapter's coherent-state families; the Wigner--Eckart selection rules \eqref{eq:wigner-eckart-selection} and the dipole matrix elements of Sections~\ref{sec:irreducible-tensor-operators} and~\ref{sec:hydrogen-atom}, to the perturbation chapter's Stark and Zeeman applications and the Fermi golden rule that repays the Einstein $A$/$B$ coefficient debt; the hydrogen radial wave functions \eqref{eq:hydrogen-radial-functions}, to the variational and perturbative treatments of helium; the central-potential machinery of Section~\ref{sec:orbital-angular-momentum}, to the partial-wave expansion and the scattering chapter; the Zeeman Hamiltonian \eqref{eq:zeeman-splitting}, to the degenerate perturbation theory of the same; the coherent spin states and the Bloch sphere geometry, to the field-quantisation chapter; the full representation theory of SU(2) --- Wigner $D$-functions, character theory, the general Clebsch--Gordan proof via Young tableaux --- to Appendix~B; and the Runge--Lenz vector with its SO(4) algebra, to the same.
+
+\medskip\noindent\textbf{The exit question.} The chapter has treated angular momentum as a property of a single system --- one particle's spin, one particle's orbital motion --- and then as a sum over two subsystems whose Hilbert spaces are tensored. The two-spin-$1/2$ singlet state $\ket{0,0} = (\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow})/\sqrt{2}$ of Section~\ref{sec:angular-momentum-coupling} is the book's first encounter with a state that is not a product: it cannot be written as $\ket{\psi_1}\otimes\ket{\psi_2}$ for any choice of single-particle states. The consequence is measurable and unsettling. If Alice measures $\sigma_z$ on the first spin and finds $+1$, Bob's second spin is, with certainty, in the state $\ket{\downarrow}$ --- however far apart the two spins are, and even if the measurements are spacelike separated. And this certainty holds for every measurement axis: the singlet is rotationally invariant, $\bm\sigma_1 + \bm\sigma_2 = 0$, so the perfect anticorrelation is independent of which component Alice chooses to measure. The state of the whole is not the product of the states of its parts; a measurement on one part instantly conditions the statistics of the other.
+
+That is entanglement. Two systems share one Hilbert space --- the tensor product of their individual spaces --- and the rule for building the composite from its constituents, the classification of states into separable and entangled, and the operational consequences of non-separability for measurement and information, are the subject of the next chapter.
+
+\begin{problemset}
+
+\item ($\star$) (Section~\ref{sec:rotation-group}) Rotation operators for integer and half-integer $j$. Let $R_{\bm n}(\theta) = e^{-i\theta J_n/\hbar}$ be a finite rotation about axis $\bm n$ by angle $\theta$.
+\begin{enumerate}
+\item[(a)] For a system with total angular momentum $j$, insert the complete set of $J_n$ eigenstates and show that $R_{\bm n}(\theta)\ket{j,m} = \sum_{m'} D^{(j)}_{m'm}(\theta,\bm n)\ket{j,m'}$ where the $D$-functions are the representation matrices.
+\item[(b)] For $j$ integer, verify that $R_{\bm n}(2\pi) = +I$ by evaluating the action on the state with $m=j$ and stepping down with $J_-^\dagger$. (Hint: each application of the ladder operator to $\ket{j,j}$ produces a real positive coefficient; conjugation by a $2\pi$ rotation brings a factor $e^{-i2\pi j} = +1$.)
+\item[(c)] For $j=1/2$, exponentiate $R_z(\theta) = e^{-i\theta\sigma_z/2}$ directly using $\sigma_z^2 = I$ and show that $R_z(2\pi) = -I$. State why this sign changes no count of any experiment (the ray theorem, Section~\ref{sec:rays}).
+\item[(d)] Conclude: integer-$j$ states are periodic under $2\pi$ rotations; half-integer-$j$ states are antiperiodic. This is the rotation-theoretic basis of the superselection rule discussed in Section~\ref{sec:angular-momentum-algebra}.
+\end{enumerate}
+
+\item ($\star$) (Section~\ref{sec:angular-momentum-algebra}) The ladder algebra from the rotation commutator. Starting from $[J_i, J_j] = i\hbar\epsilon_{ijk}J_k$ (\eqref{eq:galilei-algebra}):
+\begin{enumerate}
+\item[(a)] Define $J_\pm := J_x \pm iJ_y$. Prove that $[J_z, J_\pm] = \pm\hbar J_\pm$ (\eqref{eq:Jpm-def} and the step commutators).
+\item[(b)] Prove that $[J_+, J_-] = 2\hbar J_z$ (\eqref{eq:Jp-Jm}).
+\item[(c)] Show that $J^2 := J_x^2 + J_y^2 + J_z^2$ can be written as $J^2 = J_-J_+ + J_z^2 + \hbar J_z$ and also as $J^2 = J_+J_- + J_z^2 - \hbar J_z$ (\eqref{eq:Jsq-def}).
+\item[(d)] Using (a) and either form of (c), prove that $[J^2, J_i] = 0$ for $i = x,y,z$, so that $\{J^2, J_z\}$ is a CSCO for a single angular momentum.
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:angular-momentum-algebra}) Spin-1 matrix representation. Construct the $3\times3$ matrices for $J_x$, $J_y$, $J_z$ in the $j=1$ multiplet.
+\begin{enumerate}
+\item[(a)] Label the basis $\ket{1,1}$, $\ket{1,0}$, $\ket{1,-1}$. Using the ladder actions \eqref{eq:ladder-action-j} with $j=1$, write out the matrix elements of $J_+$ and $J_-$, and hence $J_x = (J_+ + J_-)/2$ and $J_y = (J_+ - J_-)/2i$.
+\item[(b)] Write $J_z$ directly as a diagonal matrix with entries $\hbar,0,-\hbar$.
+\item[(c)] Verify that your matrices satisfy $[J_x, J_y] = i\hbar J_z$ and its cyclic permutations, and that $J^2 = J_x^2 + J_y^2 + J_z^2 = 2\hbar^2 I_{3\times3}$, confirming $\lambda_1 = 1(1+1) = 2$.
+\item[(d)] Show that your $J_i$ are related to the SO(3) generators $L_i$ of Section~\ref{sec:rotation-group} by a unitary transformation. (Hint: the matrices $(L_i)_{jk} = -i\hbar\epsilon_{ijk}$ are the defining $3\times3$ representation; compare their commutators.)
+\end{enumerate}
+
+\item ($\star$) (Section~\ref{sec:spin-half}) Pauli algebra drill.
+\begin{enumerate}
+\item[(a)] For any two vectors $\bm a, \bm b \in \mathbb{R}^3$, prove the Pauli identity
+\begin{linenomath}
+\begin{equation*}
+(\bm a\cdot\bm\sigma)(\bm b\cdot\bm\sigma) = (\bm a\cdot\bm b)\,I + i(\bm a\times\bm b)\cdot\bm\sigma .
+\end{equation*}
+\end{linenomath}
+(Hint: expand the left side using $\sigma_i\sigma_j = \delta_{ij}I + i\epsilon_{ijk}\sigma_k$, which follows from \eqref{eq:pauli-algebra}.)
+\item[(b)] Use the identity of (a) to exponentiate a spin rotation. For a unit vector $\bm n$, show that
+\begin{linenomath}
+\begin{equation*}
+e^{-i(\theta/2)\,\bm n\cdot\bm\sigma}
+= \cos(\theta/2)\,I - i\sin(\theta/2)\,(\bm n\cdot\bm\sigma) .
+\end{equation*}
+\end{linenomath}
+(Hint: expand the exponential as a power series; separate even and odd terms; use $(\bm n\cdot\bm\sigma)^2 = I$ from (a).)
+\item[(c)] Apply the result of (b) to a state initially $\ket{+z}$. Take $\bm n = (\sin\theta, 0, \cos\theta)$ (rotation about the $y$-axis). Show that the resulting state is $\cos(\theta/2)\ket{+z} + \sin(\theta/2)\ket{-z}$, recovering the spin-$\bm n$ ONB \eqref{eq:spin-n-derived} for this special case.
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:spin-half}) The Bloch sphere. A pure spin-$1/2$ state can be written as $\ket{\psi} = \cos(\theta/2)\ket{+z} + e^{i\phi}\sin(\theta/2)\ket{-z}$ with $\theta\in[0,\pi]$, $\phi\in[0,2\pi)$.
+\begin{enumerate}
+\item[(a)] Construct the density operator $\rho = \ket{\psi}\bra{\psi}$ and show that it takes the form $\rho = \frac12(I + \bm r\cdot\bm\sigma)$ with $\bm r = (\sin\theta\cos\phi,\;\sin\theta\sin\phi,\;\cos\theta)$, a unit vector on the sphere $S^2$ --- the Bloch sphere (\eqref{eq:bloch-vector}).
+\item[(b)] Compute the expectation values $\langle\sigma_x\rangle$, $\langle\sigma_y\rangle$, $\langle\sigma_z\rangle$ in the state $\ket{\psi}$ and verify that $\langle\bm\sigma\rangle = \bm r$.
+\item[(c)] For the state $\ket{+\bm n}$ constructed from the general axis $\bm n = (\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$ by the SU(2) rotation of $\ket{+z}$ (\eqref{eq:spin-n-derived}), evaluate $|\braket{+z|+\bm n}|^2$ and $|\braket{-z|+\bm n}|^2$ and confirm the half-angle law \eqref{eq:half-angle-law}.
+\item[(d)] A Stern--Gerlach apparatus with its field gradient along $\bm n$ measures the observable $\bm n\cdot\bm\sigma$. Show that in the state $\ket{+\bm z}$, the probability of the outcome $+1$ is $\cos^2(\theta/2)$, where $\theta$ is the angle between $\bm n$ and $\bm z$. Relate this to the cascade example of Section~\ref{sec:spin-half}.
+\end{enumerate}
+
+\item ($\star\star$) (Section~\ref{sec:orbital-angular-momentum}) Spherical harmonics by the ladder method. Construct $Y_\ell^m(\theta,\phi)$ for $\ell=1$ and $\ell=2$ from the highest-weight states.
+\begin{enumerate}
+\item[(a)] In the position representation, $L_+ = \hbar e^{i\phi}(\partial_\theta + i\cot\theta\,\partial_\phi)$. Show that the highest-weight condition $L_+ Y_\ell^\ell = 0$ together with $L_z Y_\ell^\ell = \hbar\ell\,Y_\ell^\ell$ forces $Y_\ell^\ell(\theta,\phi) = c_\ell \sin^\ell\theta\,e^{i\ell\phi}$, and determine the normalisation constant $c_\ell$ from $\int\dd\Omega\,|Y_\ell^\ell|^2 = 1$.
+\item[(b)] Apply $L_- = L_+^\dagger$ (or its coordinate form) repeatedly to $Y_1^1$ and $Y_2^2$, using the normalised ladder action \eqref{eq:ladder-action-j}, to obtain $Y_1^0$, $Y_1^{-1}$ and $Y_2^1$, $Y_2^0$, $Y_2^{-1}$, $Y_2^{-2}$.
+\item[(c)] Verify explicitly that your $Y_1^m$ are orthogonal, $\int\dd\Omega\,(Y_1^{m})^* Y_1^{m'} = \delta_{mm'}$, and that their parity is $(-1)^1 = -1$ (\eqref{eq:Ylm-parity}).
+\item[(d)] Repeat the parity check for $Y_2^m$ and confirm that the parity is $(-1)^2 = +1$.
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:schwinger-model}) Schwinger oscillator model drill. Let $a_+,a_-$ be two independent boson modes with $[a_\mu,a_\nu^\dagger] = \delta_{\mu\nu}$, $[a_\mu,a_\nu] = [a_\mu^\dagger,a_\nu^\dagger] = 0$ (\eqref{eq:schwinger-bosons}).
+\begin{enumerate}
+\item[(a)] Define $J_+ = \hbar a_+^\dagger a_-$, $J_- = \hbar a_-^\dagger a_+$, $J_z = \frac{\hbar}{2}(a_+^\dagger a_+ - a_-^\dagger a_-)$. Verify by direct computation using the boson commutators that $[J_z, J_\pm] = \pm\hbar J_\pm$ and $[J_+, J_-] = 2\hbar J_z$, so that $\{J_+, J_-, J_z\}$ satisfy the angular momentum algebra.
+\item[(b)] Define the number operators $N_+ = a_+^\dagger a_+$ and $N_- = a_-^\dagger a_-$, and the total $N = N_+ + N_-$. Show that $J^2 := \frac12(J_+J_- + J_-J_+) + J_z^2 = \frac{\hbar^2}{2}N(N/2+1)$ (\eqref{eq:schwinger-Jsq}), and $J_z = \frac{\hbar}{2}(N_+ - N_-)$.
+\item[(c)] Construct the $j=1$ multiplet states as two-mode Fock states: use \eqref{eq:schwinger-states} to write $\ket{1,1}$, $\ket{1,0}$, $\ket{1,-1}$ in terms of $(a_+^\dagger)^{n_+}(a_-^\dagger)^{n_-}\ket{0,0}$. State the occupation numbers $(n_+, n_-)$ for each.
+\item[(d)] Verify the ladder action: act with $J_+ = \hbar a_+^\dagger a_-$ on $\ket{1,0}$ (expressed in the boson Fock basis) and confirm that $J_+\ket{1,0} = \hbar\sqrt{2}\ket{1,1}$, and similarly $J_-\ket{1,1} = \hbar\sqrt{2}\ket{1,0}$. Compute $\braket{1,1|J_+|1,0}$ and $\braket{1,0|J_-|1,1}$ directly in the boson picture and show they agree with the general ladder action \eqref{eq:ladder-action-j}.
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:angular-momentum-coupling}) Clebsch--Gordan coefficients for $1\otimes 1/2$. A spin-1 particle (orbital $\ell=1$) and a spin-$1/2$ particle are coupled to total angular momentum $\bm J = \bm L + \bm S$.
+\begin{enumerate}
+\item[(a)] Using the Clebsch--Gordan series \eqref{eq:cg-series}, determine the possible total $J$ values and their dimensions. Verify the dimension count: $\sum_J (2J+1) = (2\cdot1+1)(2\cdot\frac12+1) = 6$.
+\item[(b)] Construct the coupled states $\ket{J,M}$ by the standard method: start from the highest-weight state $\ket{3/2,3/2} = \ket{1,1}\otimes\ket{1/2,1/2}$, apply $J_- = L_- + S_-$ repeatedly to build the $J=3/2$ quartet, and then construct the $J=1/2$ doublet orthogonal to them. Present the results as a table of CG coefficients $\braket{1,m_\ell;1/2,m_s|J,M}$.
+\item[(c)] Verify the orthogonality of the rows (and columns) of your CG table.
+\item[(d)] For the hyperfine Hamiltonian $H_{\text{hf}} = A\,\bm L\cdot\bm S$ (where $A$ is a constant), use the identity $\bm L\cdot\bm S = \frac12(J^2 - L^2 - S^2)$ to compute the energy splitting between the $J=3/2$ and $J=1/2$ multiplets, expressing the answer in units of $A\hbar^2$.
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:angular-momentum-coupling}) The $3$-$j$ symbol and its symmetries. The $3$-$j$ symbol is defined by \eqref{eq:3j-symbol}:
+\begin{linenomath}
+\begin{equation*}
+\begin{pmatrix}j_1 & j_2 & j_3 \\ m_1 & m_2 & m_3\end{pmatrix}
+:= \frac{(-1)^{j_1-j_2-m_3}}{\sqrt{2j_3+1}}\,
+\braket{j_1,m_1;j_2,m_2|j_3,-m_3}.
+\end{equation*}
+\end{linenomath}
+\begin{enumerate}
+\item[(a)] For the case $(j_1,j_2,j_3) = (1,1,2)$, use the Racah formula \eqref{eq:racah-cg} to compute the CG coefficients $\braket{1,m_1;1,m_2|2,M}$ for all $m_1,m_2$ with $M=m_1+m_2$. (You may compute the four cases $(m_1,m_2) = (1,1), (1,0), (0,1), (0,0)$ and use symmetry or the ladder recurrence \eqref{eq:cg-recurrence} for the rest.)
+\item[(b)] Convert the CG coefficients of (a) to $3$-$j$ symbols $\begin{pmatrix}1&1&2\\m_1&m_2&m_3\end{pmatrix}$ with $m_3 = -M$. Write out the nonzero entries.
+\item[(c)] Verify the cyclic symmetry: show that $\begin{pmatrix}1&1&2\\m_1&m_2&m_3\end{pmatrix}$ is unchanged under cyclic permutations $(1,2,3)\to(2,3,1)\to(3,1,2)$ of the columns. (Hint: use the definition of the $3$-$j$ symbol in terms of CG coefficients and the symmetry properties of the latter.)
+\item[(d)] Verify the parity symmetry: show that
+\begin{linenomath}
+\begin{equation*}
+\begin{pmatrix}1&1&2\\ -m_1 & -m_2 & -m_3\end{pmatrix}
+= (-1)^{1+1+2}
+\begin{pmatrix}1&1&2\\ m_1 & m_2 & m_3\end{pmatrix}
+= +\begin{pmatrix}1&1&2\\ m_1 & m_2 & m_3\end{pmatrix},
+\end{equation*}
+\end{linenomath}
+and confirm that under an odd permutation of columns the symbol also acquires the phase $(-1)^{1+1+2}=+1$, so it is fully symmetric for this triple.
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:irreducible-tensor-operators}) Wigner--Eckart for a vector operator in a $j=1$ multiplet. Let $V^{(1)}_q$ ($q = -1,0,1$) be the spherical components of a vector operator, defined by \eqref{eq:tensor-operator-def}.
+\begin{enumerate}
+\item[(a)] Write down the Clebsch--Gordan coefficients $\braket{1,m;1,q|1,m'}$ for all $m,m',q \in \{-1,0,1\}$. (You may use a standard table or derive the non-zero values from the ladder method of Section~\ref{sec:angular-momentum-coupling}.)
+\item[(b)] The Wigner--Eckart theorem \eqref{eq:wigner-eckart} gives
+\begin{equation*}
+\braket{1,m'|V^{(1)}_q|1,m} = \braket{1,m;1,q|1,m'}\,\braket{1||V^{(1)}||1}/\sqrt{3}.
+\end{equation*}
+List every nonzero matrix element and give its value as a multiple of the reduced matrix element $v := \braket{1||V^{(1)}||1}/\sqrt{3}$.
+\item[(c)] Verify that the $m$-selection rule $m' = m+q$ (\eqref{eq:wigner-eckart-selection}) is satisfied by every nonzero entry. How many of the $9\times3 = 27$ would-be matrix elements survive?
+\item[(d)] Show that the matrix element $\braket{1,0|V^{(1)}_0|1,0}$ is proportional to the reduced matrix element, but that the proportionality factor vanishes --- and explain why this is consistent with the $j=0\to j'=0$ forbidden transition rule of Section~\ref{sec:irreducible-tensor-operators}, applied here to a different triangular condition.
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:hydrogen-atom}) Hydrogen ground-state moments and the virial theorem. The hydrogen ground state is $\psi_{100}(r) = (\pi a_0^3)^{-1/2}\,e^{-r/a_0}$, where $a_0 = \hbar^2/\mu e^2$ is the Bohr radius.
+\begin{enumerate}
+\item[(a)] Compute the expectation values $\langle r\rangle$, $\langle r^2\rangle$, and $\langle 1/r\rangle$ in the ground state. (Radial integrals: $\int_0^\infty r^n e^{-\alpha r}\dd r = n!/\alpha^{n+1}$.)
+\item[(b)] Using the radial kinetic energy operator $T_r = -(\hbar^2/2\mu r^2)(\dd/\dd r)(r^2\,\dd/\dd r)$ or the full $T = -\hbar^2\nabla^2/2\mu$ in spherical coordinates, compute $\langle T\rangle$ in the ground state. (Hint: the angular part of $\nabla^2$ annihilates the spherically symmetric ground state; use $T = -(\hbar^2/2\mu)(1/r^2)(\dd/\dd r)(r^2\,\dd/\dd r)$.)
+\item[(c)] Compute $\langle V\rangle$ with $V(r) = -e^2/r$. Show that the virial theorem for the Coulomb potential, $\langle T\rangle = -\frac12\langle V\rangle$, holds exactly.
+\item[(d)] Using $\langle H\rangle = \langle T\rangle + \langle V\rangle = E_1 = -\mu e^4/2\hbar^2$, verify that the values from (b) and (c) are consistent. What is the root-mean-square momentum $\sqrt{\langle p^2\rangle}$ in the ground state?
+\end{enumerate}
+
+\item ($\star\star\star$) (Section~\ref{sec:hydrogen-atom}) The Lyman-$\alpha$ Zeeman triplet. Consider the $2p \to 1s$ transition of hydrogen at $\lambda = 121.6\;\text{nm}$ in a magnetic field $B\hat{z}$.
+\begin{enumerate}
+\item[(a)] With the Zeeman Hamiltonian $H_Z = \mu_B B\,L_z/\hbar$ (\eqref{eq:zeeman-splitting}), write the energies $E_{2,1,m}$ ($m = -1,0,1$) and $E_{1,0,0}$ as functions of $B$. Determine the three transition frequencies $\omega_m = (E_{2,1,m} - E_{1,0,0})/\hbar$.
+\item[(b)] The electric dipole operator is $e\bm r$, with spherical components $r^{(1)}_q$. Using the Wigner--Eckart theorem as in Section~\ref{sec:irreducible-tensor-operators}, list all allowed channels ($m\to m'=0$ with $q = -m$) and compute the relative transition amplitudes as multiples of the reduced matrix element. Show that all three surviving amplitudes have equal magnitude.
+\item[(c)] The intensity of each line is proportional to $|\braket{1s|r^{(1)}_q|2p,m}|^2$. Confirm that the three lines of the normal Zeeman triplet have equal intensity. Identify the polarisation of each line: $\Delta m = 0$ gives linear polarisation along $z$ ($\pi$-light); $\Delta m = \pm1$ gives circular polarisation in the $xy$-plane ($\sigma^\pm$-light).
+\item[(d)] Sketch the spectrum: energy (or frequency) on the horizontal axis, intensity on the vertical axis, with the three lines labelled by $\Delta m$ and polarisation. If the spectrometer resolves only the total intensity (summing over polarisations), what is the observed splitting pattern?
+\end{enumerate}
+
+\end{problemset}
+

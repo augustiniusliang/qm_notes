@@ -1,0 +1,1262 @@
+\chapter{Composite Systems and Entanglement}
+
+The preceding chapter closed with a question it deliberately left for the present chapter (Section~\ref{sec:ch6summary}): the singlet state $\ket{0,0}$ of two spin-$1/2$ particles---the antisymmetric combination
+\begin{linenomath}
+\begin{equation}
+\ket{0,0} = \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr),
+\end{equation}
+\end{linenomath}
+familiar from the coupling of two angular momenta (\eqref{eq:singlet-triplet})---is not a product of one-particle states. It cannot be written as $\ket{\psi_A}\otimes\ket{\psi_B}$ for any choice of single-particle states. Yet it is a perfectly valid state of the two-particle system, and its physical consequences---perfect correlation of spin measurements along every axis, violation of Bell inequalities, the EPR dilemma---are experimentally confirmed facts about nature. The singlet is entangled, and entanglement is the subject of this chapter.
+
+Chapters~2 through~6 built the quantum theory of a single system: its states (rays of a Hilbert space, ch2), its measurements (self-adjoint operators and the Born rule, ch3), its evolution (unitary families and the Schr\"odinger equation, ch4), its symmetries (the Galilei group and conservation laws, ch4), the pictures and representations that organize the description (ch5), and its angular momentum---the spectrum of rotation, the hydrogen atom, the Wigner--Eckart theorem (ch6). Each of those chapters studied one system at a time. But the universe contains more than one system, and ch6's $\tfrac12 \otimes \tfrac12$ coupling, with its product basis, its total angular momentum operator $\bm J = \bm J_1 \otimes I + I \otimes \bm J_2$ (\eqref{eq:total-J}), and its Clebsch--Gordan change-of-basis (\eqref{eq:cg-def}), forces the question: what is the general structure of composite quantum systems?
+
+This chapter answers that question. It formalizes the tensor product of Hilbert spaces as the mathematical structure that houses composite systems (Section~\ref{sec:tensor-products}). It develops the density operator as the language for describing subsystems of composites---the formalism that ch3 named via Gleason's theorem (\eqref{eq:gleason}) and ch6 used for the Bloch sphere (\eqref{eq:bloch-vector}) but whose full theory, including mixed states, the partial trace, and the distinction between proper and improper mixtures, has been deferred to this chapter (Section~\ref{sec:density-operator}). It classifies pure bipartite states by their Schmidt rank, introduces the Bell basis as the maximally entangled orthonormal basis of two qubits, defines mixed-state separability, and quantifies entanglement via the von Neumann entropy (Section~\ref{sec:entanglement}). It presents the Einstein--Podolsky--Rosen argument as the conceptual challenge that entanglement poses to the completeness of quantum mechanics, stated in the modern spin form using the singlet (Section~\ref{sec:epr}). It derives the CHSH inequality as the testable consequence of local realism, computes its quantum-mechanical violation for the singlet---the measurable quantity $2\sqrt{2}$ that exceeds the local bound of $2$---and describes the Aspect experiments that confirmed the violation (Section~\ref{sec:bell}). And it restates the measurement problem in the language of entanglement: the von Neumann measurement scheme produces an entangled superposition of system and apparatus, and the problem's three faces---determinate outcomes, the preferred basis, and the quantum-to-classical transition---are stated precisely, with decoherence named as the FAPP resolution and the ``and/or'' problem left as the deep conceptual residue (Section~\ref{sec:measurement-problem}).
+
+The chapter adds zero new axioms. Every display below is proved from the axioms of Chapters~2--6: the state-space axioms (S1)--(S5) of ch2, the measurement axioms (M1)--(M5) of ch3, the evolution axiom (D1) of ch4, the Galilean algebra and symmetry principles of ch4, the pictures and representations of ch5, and the angular momentum theory of ch6. Cited without proof: Gleason's theorem (already ch3's signpost), the Tsirelson bound (Tsirelson 1980, footnoted), the spectral properties of partial traces, the Peres--Horodecki PPT criterion (named, not proved), and decoherence theory (named, FAPP-only, its full development a forward debt). The no-cloning theorem is proved from linearity in one paragraph (Exercise~\ref{item:ex-no-cloning}); the no-signaling theorem is proved from the partial trace in one paragraph (Section~\ref{sec:bell}).
+
+This is a theorem chapter in the pattern of ch6. Its harvest is a number: $\lvert\langle S\rangle\rvert = 2\sqrt{2} \approx 2.828$, the quantum-mechanical violation of the CHSH inequality, confirmed by Aspect and successors at over $30\sigma$. The chapter closes the book's structural arc. From ch1's experimental crises through ch7's Bell violation, the theory of nonrelativistic quantum mechanics now has its full axiomatic structure. The next question is not ``what is the theory?'' but ``what does the theory predict for real systems?''---the perturbation, scattering, and approximation methods of ch8.
+\section{Tensor Products of Hilbert Spaces}
+\label{sec:tensor-products}
+
+Chapter~6 used the tensor product operationally---the two-spin-$1/2$ Hilbert space $\mathbb{C}^2 \otimes \mathbb{C}^2$, the product basis $\ket{\uparrow\uparrow}, \ket{\uparrow\downarrow}, \ket{\downarrow\uparrow}, \ket{\downarrow\downarrow}$, the total angular momentum $\bm J = \bm J_1 \otimes I + I \otimes \bm J_2$ (\eqref{eq:total-J}), the Clebsch--Gordan coefficients as the change of basis between uncoupled and coupled bases (\eqref{eq:cg-def})---without a formal definition. This section supplies that definition: the tensor product of two Hilbert spaces, its inner product, its basis, the action of operators on it, and the Schmidt decomposition as the fundamental structural theorem for bipartite pure states.
+
+\medskip\noindent\textbf{Motivation: the singlet is not a product.}
+The singlet state
+\begin{linenomath}
+\begin{equation}
+\ket{0,0} = \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr)
+\end{equation}
+\end{linenomath}
+of ch6's \eqref{eq:singlet-triplet} is a sum of two product vectors with a relative minus sign. No choice of single-qubit states $\ket{\psi_A}, \ket{\psi_B} \in \mathbb{C}^2$ can produce it as $\ket{\psi_A} \otimes \ket{\psi_B}$, because the coefficient matrix of a product state has rank one, while the singlet's coefficient matrix
+\begin{linenomath}
+\begin{equation}
+C = \frac{1}{\sqrt{2}}
+\begin{pmatrix}
+0 & 1 \\
+-1 & 0
+\end{pmatrix}
+\end{equation}
+\end{linenomath}
+has rank two. The singlet is entangled---a state of the composite that is not a product of subsystem states. The tensor product is the arena in which such states live.
+
+\medskip\noindent\textbf{Definition of the tensor product.}
+Let $\mathcal{H}_A$ and $\mathcal{H}_B$ be Hilbert spaces with dimensions $d_A = \dim\mathcal{H}_A$ and $d_B = \dim\mathcal{H}_B$ (finite or countably infinite; the finite-dimensional case carries the chapter's physics). The algebraic tensor product $\mathcal{H}_A \otimes_{\text{alg}} \mathcal{H}_B$ is the vector space spanned by formal products $\ket{\psi_A} \otimes \ket{\phi_B}$ with $\ket{\psi_A} \in \mathcal{H}_A$, $\ket{\phi_B} \in \mathcal{H}_B$, subject to bilinearity:
+\begin{linenomath}
+\begin{equation}
+(\alpha\ket{\psi_A} + \beta\ket{\psi'_A}) \otimes \ket{\phi_B}
+= \alpha\ket{\psi_A}\otimes\ket{\phi_B} + \beta\ket{\psi'_A}\otimes\ket{\phi_B},
+\end{equation}
+\end{linenomath}
+and similarly in the second factor. A general vector in the algebraic tensor product is a finite sum of product vectors. To obtain a Hilbert space, the algebraic tensor product is completed in the norm induced by the inner product defined below. The result is the Hilbert-space tensor product $\mathcal{H}_A \otimes \mathcal{H}_B$:
+\begin{linenomath}
+\begin{equation}
+\mathcal{H}_A \otimes \mathcal{H}_B := \overline{\mathcal{H}_A \otimes_{\text{alg}} \mathcal{H}_B}^{\;\lVert\cdot\rVert},
+\label{eq:tensor-product-def}
+\end{equation}
+\end{linenomath}
+where the completion adds limits of Cauchy sequences of finite sums. In finite dimensions the completion is automatic and every vector is a finite sum.
+
+\medskip\noindent\textbf{Basis and inner product.}
+Let $\{\ket{e_i}\}_{i=1}^{d_A}$ be an orthonormal basis of $\mathcal{H}_A$ and $\{\ket{f_j}\}_{j=1}^{d_B}$ an orthonormal basis of $\mathcal{H}_B$. The set of product vectors
+\begin{linenomath}
+\begin{equation}
+\{\ket{e_i} \otimes \ket{f_j} \mid i = 1,\ldots,d_A,\; j = 1,\ldots,d_B\}
+\label{eq:tensor-product-basis}
+\end{equation}
+\end{linenomath}
+is an orthonormal basis of $\mathcal{H}_A \otimes \mathcal{H}_B$. The inner product on product vectors is defined by
+\begin{linenomath}
+\begin{equation}
+\braket{e_i \otimes f_j \mid e_k \otimes f_l}
+= \braket{e_i \mid e_k}\,\braket{f_j \mid f_l}
+= \delta_{ik}\,\delta_{jl},
+\label{eq:tensor-inner-product}
+\end{equation}
+\end{linenomath}
+and extended to all vectors by (anti)linearity. The dimension of the tensor product is the product of the dimensions:
+\begin{linenomath}
+\begin{equation}
+\dim(\mathcal{H}_A \otimes \mathcal{H}_B) = d_A\,d_B.
+\end{equation}
+\end{linenomath}
+This is the crucial difference from a direct sum, whose dimension is $d_A + d_B$; it is also the origin of entanglement---the composite space is vastly larger than the Cartesian product of the subsystem state spaces.
+
+A general vector $\ket{\Psi} \in \mathcal{H}_A \otimes \mathcal{H}_B$ expands in the product basis as
+\begin{linenomath}
+\begin{equation}
+\ket{\Psi} = \sum_{i=1}^{d_A}\sum_{j=1}^{d_B} c_{ij}\,\ket{e_i} \otimes \ket{f_j},
+\qquad
+\sum_{i,j} \lvert c_{ij}\rvert^2 = 1.
+\end{equation}
+\end{linenomath}
+The coefficient matrix $C$ with entries $C_{ij} = c_{ij}$ is a $d_A \times d_B$ matrix. The state $\ket{\Psi}$ is a product state $\ket{\Psi} = \ket{\psi_A} \otimes \ket{\phi_B}$ if and only if the coefficient matrix has rank one: $c_{ij} = a_i b_j$ with $\ket{\psi_A} = \sum_i a_i \ket{e_i}$ and $\ket{\phi_B} = \sum_j b_j \ket{f_j}$.
+
+\medskip\noindent\textbf{Operators on tensor product spaces.}
+The action of a product operator on a product vector is defined by
+\begin{linenomath}
+\begin{equation}
+(A \otimes B)(\ket{\psi_A} \otimes \ket{\phi_B})
+= A\ket{\psi_A} \otimes B\ket{\phi_B},
+\label{eq:tensor-operator}
+\end{equation}
+\end{linenomath}
+and extended to all vectors by linearity. The identity on the composite space is $I_{\mathcal{H}_A \otimes \mathcal{H}_B} = I_A \otimes I_B$. An operator of the form $A \otimes I_B$ acts only on subsystem $A$; $A \otimes B$ is a product of local operators. The most general operator on $\mathcal{H}_A \otimes \mathcal{H}_B$ is not factorable; its matrix elements in the product basis are
+\begin{linenomath}
+\begin{equation}
+\braket{e_i \otimes f_j \mid O \mid e_k \otimes f_l},
+\label{eq:tensor-operator-general}
+\end{equation}
+\end{linenomath}
+with four indices coupling the two subspaces. An operator that couples the subsystems (e.g., the interaction Hamiltonian $H_{AB}$) cannot be written as a sum of products of local operators with a single term each; the general form is $O = \sum_{\alpha} A_\alpha \otimes B_\alpha$.
+
+\begin{note}
+The total angular momentum operator $\bm J = \bm J_1 \otimes I + I \otimes \bm J_2$ of \eqref{eq:total-J} is a sum of two product operators, each of which acts nontrivially on only one subsystem. The two terms commute---$[\bm J_1 \otimes I,\, I \otimes \bm J_2] = 0$---because the first acts as the identity on subsystem $B$ and the second as the identity on subsystem $A$. The operator $(\bm a \cdot \bm \sigma) \otimes (\bm b \cdot \bm \sigma)$, which will appear in the CHSH observable of Section~\ref{sec:bell}, is a product operator with both factors nontrivial.
+\end{note}
+
+\medskip\noindent\textbf{The Schmidt decomposition.}
+For any bipartite pure state $\ket{\Psi} \in \mathcal{H}_A \otimes \mathcal{H}_B$, there exists a representation of the form
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\ket{\Psi} = \sum_{k=1}^{r} \sqrt{\lambda_k}\;\ket{u_k} \otimes \ket{v_k}
+\;},
+\label{eq:schmidt-decomposition}
+\end{equation}
+\end{linenomath}
+where $\{\ket{u_k}\}_{k=1}^{r}$ is an orthonormal set in $\mathcal{H}_A$, $\{\ket{v_k}\}_{k=1}^{r}$ is an orthonormal set in $\mathcal{H}_B$, the Schmidt coefficients satisfy $\lambda_k > 0$ and $\sum_{k=1}^{r} \lambda_k = 1$, and the Schmidt rank $r$ satisfies $1 \le r \le \min(d_A, d_B)$.
+
+The proof proceeds via the singular value decomposition of the coefficient matrix. Write $\ket{\Psi} = \sum_{i=1}^{d_A}\sum_{j=1}^{d_B} C_{ij} \ket{e_i} \otimes \ket{f_j}$. The $d_A \times d_B$ matrix $C$ admits a singular value decomposition $C = U \Sigma V^\dagger$, where $U$ is a $d_A \times d_A$ unitary matrix, $V$ is a $d_B \times d_B$ unitary matrix, and $\Sigma$ is a $d_A \times d_B$ diagonal matrix with nonnegative entries $\sigma_k = \sqrt{\lambda_k}$ for $k = 1,\ldots,r$ (the singular values) and zero elsewhere. Explicitly,
+\begin{linenomath}
+\begin{equation}
+C_{ij} = \sum_{k=1}^{r} U_{ik}\,\sqrt{\lambda_k}\,V_{jk}^{*},
+\end{equation}
+\end{linenomath}
+where $r$ is the number of nonzero singular values (the rank of $C$). Substituting into the expansion of $\ket{\Psi}$:
+\begin{linenomath}
+\begin{align}
+\ket{\Psi}
+&= \sum_{i,j} \Bigl(\sum_{k=1}^{r} U_{ik}\,\sqrt{\lambda_k}\,V_{jk}^{*}\Bigr) \ket{e_i} \otimes \ket{f_j}
+= \sum_{k=1}^{r} \sqrt{\lambda_k} \Bigl(\sum_i U_{ik}\ket{e_i}\Bigr) \otimes \Bigl(\sum_j V_{jk}^{*}\ket{f_j}\Bigr) \\
+&= \sum_{k=1}^{r} \sqrt{\lambda_k}\; \ket{u_k} \otimes \ket{v_k},
+\end{align}
+\end{linenomath}
+where we define $\ket{u_k} := \sum_i U_{ik}\ket{e_i}$ and $\ket{v_k} := \sum_j V_{jk}^{*}\ket{f_j}$. The columns of $U$ are orthonormal ($U^\dagger U = I$), so the $\{\ket{u_k}\}$ are orthonormal; similarly, $\{\ket{v_k}\}$ are orthonormal from the columns of $V^{*}$. The singular values are positive by construction ($\lambda_k = \sigma_k^2 > 0$), and the normalization of $\ket{\Psi}$ requires $\braket{\Psi|\Psi} = \sum_k \lambda_k = 1$. This completes the proof.
+
+The Schmidt rank $r$ is the rank of the coefficient matrix $C$. A product state has $r = 1$ (its coefficient matrix has rank one). An entangled state has $r > 1$. The decomposition is not unique when some $\lambda_k$ are degenerate; the $\{\ket{u_k}\}$ and $\{\ket{v_k}\}$ associated with a degenerate Schmidt coefficient can be rotated among themselves by a unitary transformation in the degenerate subspace.
+
+\begin{note}
+The Schmidt coefficients $\lambda_k$ will be identified in Section~\ref{sec:density-operator} as the eigenvalues of the reduced density operator $\rho_A = \tr_B(\ket{\Psi}\bra{\Psi})$. The existence proof above uses only the SVD of the coefficient matrix---a purely mathematical existence argument that does not depend on the density operator. The eigenvalue interpretation is deferred to Section~\ref{sec:density-operator} with an explicit honesty clause at the point of the forward reference, in the same pattern as ch3's canonical commutator (\eqref{eq:canonical-commutator}) whose physical content was built in ch5 (\eqref{eq:canonical-commutator-built}).
+\end{note}
+
+\medskip\noindent\textbf{Example: two-qubit Schmidt decomposition.}
+Consider a general pure state of two qubits:
+\begin{linenomath}
+\begin{equation}
+\ket{\Psi} = \alpha\ket{\uparrow\uparrow} + \beta\ket{\uparrow\downarrow} + \gamma\ket{\downarrow\uparrow} + \delta\ket{\downarrow\downarrow},
+\end{equation}
+\end{linenomath}
+with $\lvert\alpha\rvert^2 + \lvert\beta\rvert^2 + \lvert\gamma\rvert^2 + \lvert\delta\rvert^2 = 1$. The coefficient matrix is
+\begin{linenomath}
+\begin{equation}
+C =
+\begin{pmatrix}
+\alpha & \beta \\
+\gamma & \delta
+\end{pmatrix}.
+\end{equation}
+\end{linenomath}
+The singular values of $C$ are the square roots of the eigenvalues of $C^\dagger C$. The Schmidt rank is the rank of $C$.
+
+For the product state $\ket{\uparrow\uparrow}$: $C = \begin{pmatrix}1&0\\0&0\end{pmatrix}$, rank $1$, $\lambda_1 = 1$, $r = 1$.
+
+For the singlet $\ket{0,0}$: $C = \frac{1}{\sqrt{2}}\begin{pmatrix}0&1\\-1&0\end{pmatrix}$, rank $2$, $C^\dagger C = \frac12 I$, so $\lambda_1 = \lambda_2 = 1/2$, $r = 2$ --- maximally entangled in $\mathbb{C}^2 \otimes \mathbb{C}^2$.
+
+For the partially entangled state $\ket{\psi(\theta)} = \cos\theta\ket{\uparrow\uparrow} + \sin\theta\ket{\downarrow\downarrow}$: $C = \begin{pmatrix}\cos\theta&0\\0&\sin\theta\end{pmatrix}$, rank $2$, $\lambda_1 = \cos^2\theta$, $\lambda_2 = \sin^2\theta$, $r = 2$ except at $\theta = 0, \pi/2$ where $r = 1$.
+
+The product basis $\{\ket{\uparrow\uparrow}, \ket{\uparrow\downarrow}, \ket{\downarrow\uparrow}, \ket{\downarrow\downarrow}\}$ and the coupled basis $\{\ket{1,1}, \ket{1,0}, \ket{1,-1}, \ket{0,0}\}$ of ch6's \eqref{eq:singlet-triplet} are two orthonormal bases of the same space $\mathbb{C}^2 \otimes \mathbb{C}^2$, related by the Clebsch--Gordan coefficients of ch6's \eqref{eq:cg-def}. The coupled basis diagonalizes the total angular momentum; the product basis diagonalizes the individual $z$-components. The singlet---the unique antisymmetric state---has Schmidt rank $2$ and Schmidt coefficients $(1/2, 1/2)$ in any product basis, a consequence of its rotational invariance (\eqref{eq:singlet-triplet}).
+
+The advantage of the Schmidt decomposition is that it provides a canonical form for any bipartite pure state, revealing the entanglement structure in the number and distribution of the $\lambda_k$. Its limitation is that it applies only to pure states; the classification of mixed-state entanglement requires the more involved definition of Section~\ref{sec:entanglement}, and the decomposition itself says nothing about the physical interpretation of the coefficients $\lambda_k$---that interpretation requires the density operator of the next section.
+
+The next section develops the density operator formalism: the mathematical object whose eigenvalues are exactly the Schmidt coefficients, and whose partial trace generates subsystem states from composites.
+\section{The Density Operator}
+\label{sec:density-operator}
+
+Chapter~3 named the density operator $\rho$ via Gleason's theorem (\eqref{eq:gleason})---``every consistent pricing of an experiment's projectors comes from a unique positive unit-trace $\rho$''---and used it no further. Chapter~6 introduced $\rho = \ket{\psi}\bra{\psi}$ for the Bloch sphere parametrization of pure spin-$1/2$ states (\eqref{eq:bloch-vector}) and applied the non-selective update $\rho \mapsto \sum_n P_n \rho P_n$ to describe ensembles of spin measurements whose outcomes are not recorded. But the density operator's full power---its ability to describe mixed states as convex combinations of projectors, its indifference to the distinction between proper and improper mixtures, its role in generating subsystem states from entangled composites via the partial trace---has not been exploited. The measurement theory of ch3 was built entirely in the ray language; the state of a subsystem of an entangled pair cannot be described by a ray. This section develops the density operator formalism in full.
+
+\medskip\noindent\textbf{Pure and mixed states.}
+A density operator on a Hilbert space $\mathcal{H}$ is any operator $\rho$ that can be written as a convex combination of pure-state projectors:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\rho = \sum_k p_k \ket{\psi_k}\bra{\psi_k},
+\qquad
+p_k \ge 0,\quad \sum_k p_k = 1,
+\;},
+\label{eq:density-operator-def}
+\end{equation}
+\end{linenomath}
+where each $\ket{\psi_k}$ is a normalized state vector in $\mathcal{H}$. The decomposition is not unique: different ensembles (different sets of $\{\ket{\psi_k}\}$ and $\{p_k\}$) can yield the same density operator. This unitary freedom in the ensemble decomposition will be exhibited explicitly below.
+
+From the definition, three necessary and sufficient conditions characterize a density operator:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\rho = \rho^\dagger,\qquad \tr\rho = 1,\qquad \rho \ge 0,
+\;},
+\label{eq:density-properties}
+\end{equation}
+\end{linenomath}
+where $\rho \ge 0$ means $\braket{\phi|\rho|\phi} \ge 0$ for all $\ket{\phi} \in \mathcal{H}$ (positive semidefinite). The hermiticity and unit trace follow immediately from the definition: $\rho^\dagger = \sum_k p_k (\ket{\psi_k}\bra{\psi_k})^\dagger = \rho$; $\tr\rho = \sum_k p_k \tr(\ket{\psi_k}\bra{\psi_k}) = \sum_k p_k \braket{\psi_k|\psi_k} = \sum_k p_k = 1$. Positivity follows because each term is a positive operator and the $p_k$ are nonnegative. Conversely, any operator satisfying the three conditions is diagonalizable with nonnegative eigenvalues $p_k$ summing to one, and the spectral decomposition $\rho = \sum_k p_k \ket{k}\bra{k}$ is a valid ensemble decomposition---so the two characterizations are equivalent.
+
+A pure state corresponds to a density operator of rank one:
+\begin{linenomath}
+\begin{equation}
+\rho = \ket{\psi}\bra{\psi},
+\qquad \rho^2 = \rho,\qquad \tr(\rho^2) = 1.
+\end{equation}
+\end{linenomath}
+The condition $\rho^2 = \rho$ characterizes projectors; together with unit trace it forces rank one. A mixed state has $\tr(\rho^2) < 1$; the deviation from unity measures the degree of mixing.
+
+\medskip\noindent\textbf{Expectation values.}
+The Born rule (\eqref{eq:born-rule}, ch2) assigns the probability $\lvert\braket{\phi|\psi}\rvert^2$ to the transition $\ket{\psi} \to \ket{\phi}$. For an ensemble described by $\rho = \sum_k p_k \ket{\psi_k}\bra{\psi_k}$, the expectation value of an observable $A$ is the average over the ensemble:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\langle A \rangle = \tr(\rho A),
+\;},
+\label{eq:density-expectation}
+\end{equation}
+\end{linenomath}
+derived as follows:
+\begin{linenomath}
+\begin{align}
+\tr(\rho A) &= \tr\Bigl(\sum_k p_k \ket{\psi_k}\bra{\psi_k} A\Bigr)
+= \sum_k p_k \tr\bigl(\ket{\psi_k}\bra{\psi_k}A\bigr)
+= \sum_k p_k \braket{\psi_k|A|\psi_k}.
+\end{align}
+\end{linenomath}
+The last equality uses the cyclic property of the trace: for any operator $O$, $\tr(\ket{\phi}\bra{\psi}O) = \braket{\psi|O|\phi}$. The trace formula unifies the ensemble average: the Born-rule mean in each component state, weighted by the classical probabilities $p_k$, is recovered as a single trace. The probability of obtaining outcome $\nu$ in a measurement described by the projector $P_\nu$ is
+\begin{linenomath}
+\begin{equation}
+p_\nu = \tr(\rho P_\nu),
+\end{equation}
+\end{linenomath}
+which is ch3's Gleason display \eqref{eq:gleason} promoted from a signpost to a working formula.
+
+\medskip\noindent\textbf{Purity and the Bloch ball.}
+The purity of a state is measured by $\tr(\rho^2)$:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\tr(\rho^2) \le 1,
+\qquad
+\text{equality iff } \rho \text{ is pure},
+\;},
+\label{eq:purity}
+\end{equation}
+\end{linenomath}
+proved by writing $\rho = \sum_k p_k \ket{k}\bra{k}$ in its eigenbasis: $\tr(\rho^2) = \sum_k p_k^2 \le (\sum_k p_k)^2 = 1$, with equality if and only if exactly one $p_k = 1$ and the rest vanish. The difference $1 - \tr(\rho^2)$ is the linear entropy, a measure of mixedness.
+
+For a single qubit ($\mathcal{H} = \mathbb{C}^2$), the density operator takes the form
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\rho = \frac12\bigl(I + \bm r \cdot \bm \sigma\bigr),
+\qquad
+\lvert\bm r\rvert \le 1,
+\;},
+\label{eq:bloch-ball}
+\end{equation}
+\end{linenomath}
+where $\bm r = \tr(\rho \bm \sigma)$ is the Bloch vector. The derivation extends ch6's construction of the pure-state Bloch sphere (\eqref{eq:bloch-vector}). Any $2\times2$ hermitian operator with unit trace can be expanded in the basis $\{I, \sigma_x, \sigma_y, \sigma_z\}$: $\rho = \frac12(I + \bm r \cdot \bm \sigma)$, where the coefficient of $I$ is fixed by $\tr\rho = 1$ and the coefficients $r_i = \tr(\rho \sigma_i)$ follow from $\tr(\sigma_i) = 0$ and $\tr(\sigma_i\sigma_j) = 2\delta_{ij}$. The purity is
+\begin{linenomath}
+\begin{equation}
+\tr(\rho^2) = \frac12(1 + \lvert\bm r\rvert^2),
+\end{equation}
+\end{linenomath}
+so $\lvert\bm r\rvert = 1$ for pure states (the Bloch sphere $S^2$, ch6's \eqref{eq:bloch-vector}) and $\lvert\bm r\rvert < 1$ for mixed states (the interior). The maximally mixed state $\rho = I/2$ sits at the center ($\bm r = \bm 0$) and has $\tr(\rho^2) = 1/2$, the minimum possible for a qubit.
+
+\medskip\noindent\textbf{The partial trace.}
+A composite system in a state $\rho_{AB}$ on $\mathcal{H}_A \otimes \mathcal{H}_B$ defines a state for subsystem $A$ alone via the partial trace:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\rho_A := \tr_B(\rho_{AB}),
+\qquad
+\tr\bigl(\rho_{AB}(O_A \otimes I_B)\bigr) = \tr_A(\rho_A O_A)
+\;},
+\label{eq:partial-trace}
+\end{equation}
+\end{linenomath}
+for every operator $O_A$ on $\mathcal{H}_A$. This condition defines $\rho_A$ uniquely: it is the operator on $\mathcal{H}_A$ whose expectation values reproduce those of all observables of the form $O_A \otimes I_B$ (observables that act only on subsystem $A$). The definition is operational: no experiment performed on subsystem $A$ alone can detect correlations with subsystem $B$; the partial trace encodes everything locally accessible.
+
+In a product basis $\{\ket{e_i} \otimes \ket{f_j}\}$, the matrix elements of the reduced state are
+\begin{linenomath}
+\begin{equation}
+\braket{e_i|\rho_A|e_j}
+= \sum_k \braket{e_i \otimes f_k|\rho_{AB}|e_j \otimes f_k},
+\label{eq:partial-trace-matrix}
+\end{equation}
+\end{linenomath}
+obtained by evaluating the defining condition on $O_A = \ket{e_j}\bra{e_i}$:
+\begin{linenomath}
+\begin{align}
+\tr_A(\rho_A\ket{e_j}\bra{e_i})
+&= \braket{e_i|\rho_A|e_j}
+= \tr\bigl(\rho_{AB}(\ket{e_j}\bra{e_i} \otimes I_B)\bigr) \\
+&= \sum_{k,l} \braket{e_k\otimes f_l|\rho_{AB}\bigl(\ket{e_j}\bra{e_i} \otimes I_B\bigr)|e_k\otimes f_l}
+= \sum_k \braket{e_i\otimes f_k|\rho_{AB}|e_j\otimes f_k}.
+\end{align}
+\end{linenomath}
+The partial trace of a product operator factors: $\tr_B(A \otimes B) = A \, (\tr B)$.
+
+\medskip\noindent\textbf{Reduced state of a pure composite.}
+For a bipartite pure state $\ket{\Psi} \in \mathcal{H}_A \otimes \mathcal{H}_B$, the reduced density operator of subsystem $A$ is
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\rho_A = \tr_B\bigl(\ket{\Psi}\bra{\Psi}\bigr),
+\;},
+\label{eq:reduced-pure}
+\end{equation}
+\end{linenomath}
+and similarly $\rho_B = \tr_A(\ket{\Psi}\bra{\Psi})$. A crucial fact follows: if $\ket{\Psi}$ is entangled, $\rho_A$ is mixed. A subsystem of a pure entangled state is not pure.
+
+To see this, substitute the Schmidt decomposition \eqref{eq:schmidt-decomposition} into \eqref{eq:reduced-pure}:
+\begin{linenomath}
+\begin{align}
+\rho_A &= \tr_B\Bigl(\sum_{k,l=1}^{r} \sqrt{\lambda_k\lambda_l}\;
+\ket{u_k}\bra{u_l} \otimes \ket{v_k}\bra{v_l}\Bigr)
+= \sum_{k,l=1}^{r} \sqrt{\lambda_k\lambda_l}\;
+\ket{u_k}\bra{u_l} \; \tr\bigl(\ket{v_k}\bra{v_l}\bigr) \\
+&= \sum_{k,l=1}^{r} \sqrt{\lambda_k\lambda_l}\;
+\ket{u_k}\bra{u_l} \; \delta_{kl}
+= \sum_{k=1}^{r} \lambda_k \ket{u_k}\bra{u_k}.
+\end{align}
+\end{linenomath}
+The orthonormality of the $\{\ket{v_k}\}$ collapses the double sum: $\tr(\ket{v_k}\bra{v_l}) = \braket{v_l|v_k} = \delta_{kl}$. The result is the spectral decomposition of $\rho_A$: the Schmidt coefficients $\lambda_k$ of \eqref{eq:schmidt-decomposition} are the eigenvalues of the reduced density operator, and the Schmidt vectors $\{\ket{u_k}\}$ are the corresponding eigenvectors. The same computation for $\rho_B$ gives $\rho_B = \sum_k \lambda_k \ket{v_k}\bra{v_k}$, so $\rho_A$ and $\rho_B$ have the same nonzero eigenvalues (though generally different eigenvectors). This is the eigenvalue interpretation of the Schmidt coefficients promised in Section~\ref{sec:tensor-products}.
+
+For the singlet $\ket{0,0}$: $\rho_A = \tr_B(\ket{0,0}\bra{0,0}) = \frac12(\ket{\uparrow}\bra{\uparrow} + \ket{\downarrow}\bra{\downarrow}) = I/2$, the maximally mixed state on $\mathbb{C}^2$. Each spin individually, without reference to the other, is completely unpolarized---the defining property of maximal entanglement.
+
+\begin{note}
+The Schmidt rank $r$ is the number of nonzero eigenvalues of $\rho_A$ (equivalently, the rank of $\rho_A$). The state $\ket{\Psi}$ is a product state ($r=1$) if and only if $\rho_A$ is pure ($\tr(\rho_A^2) = 1$). The purity $\tr(\rho_A^2) = \sum_k \lambda_k^2$ is a measure of entanglement: smaller purity means more entangled (for fixed subsystem dimension).
+\end{note}
+
+\medskip\noindent\textbf{Non-selective measurement in density-operator language.}
+When a measurement is performed but the outcome is not recorded---the non-selective case of ch3---the post-measurement ensemble state is obtained by applying the L\"uders update (Axiom M3, \eqref{eq:luders-update}) to each branch and summing with the Born-rule weights:
+\begin{linenomath}
+\begin{equation}
+\rho \;\mapsto\; \sum_n P_n \rho P_n,
+\label{eq:non-selective-density}
+\end{equation}
+\end{linenomath}
+where $\{P_n\}$ is the PVM of the measured observable. The derivation from the ray-level update \eqref{eq:luders-update} is direct. For an initial pure state $\rho = \ket{\psi}\bra{\psi}$: the post-measurement state with outcome $n$ is $\ket{\psi_n} = P_n\ket{\psi}/\sqrt{p_n}$ with probability $p_n = \braket{\psi|P_n|\psi}$. The non-selective ensemble, averaged over outcomes, is
+\begin{linenomath}
+\begin{equation}
+\rho \mapsto \sum_n p_n \ket{\psi_n}\bra{\psi_n}
+= \sum_n p_n \frac{P_n\ket{\psi}\bra{\psi}P_n}{p_n}
+= \sum_n P_n \rho P_n.
+\end{equation}
+\end{linenomath}
+For a general mixed state $\rho = \sum_k q_k \ket{\phi_k}\bra{\phi_k}$, linearity extends the same formula:
+\begin{linenomath}
+\begin{align}
+\rho \mapsto \sum_n P_n\Bigl(\sum_k q_k \ket{\phi_k}\bra{\phi_k}\Bigr)P_n
+= \sum_k q_k \Bigl(\sum_n P_n \ket{\phi_k}\bra{\phi_k} P_n\Bigr),
+\end{align}
+\end{linenomath}
+where the sum over $k$ commutes with the sum over $n$, and the term in parentheses is exactly the non-selective update applied to the pure state $\ket{\phi_k}$, which has already been derived above. The map $\rho \mapsto \sum_n P_n \rho P_n$ is trace-preserving ($\tr\sum_n P_n\rho P_n = \sum_n \tr(P_n\rho) = \tr\rho = 1$), completely positive, and not unitary---it eliminates the off-diagonal coherence between different outcome subspaces. This is the density-operator register of the measurement problem, to which Section~\ref{sec:measurement-problem} returns.
+
+\medskip\noindent\textbf{Proper vs.\ improper mixtures.}
+A proper mixture is prepared by classical randomization: flip a coin, prepare $\ket{\uparrow_z}$ if heads, $\ket{\downarrow_z}$ if tails. The resulting density operator $\rho = \frac12(\ket{\uparrow_z}\bra{\uparrow_z} + \ket{\downarrow_z}\bra{\downarrow_z}) = I/2$ encodes classical ignorance about which state was actually prepared---the system really is in one of the two states; we merely do not know which.
+
+An improper mixture arises from entanglement: the reduced state of one spin in the singlet is also $\rho_A = I/2$. But here the composite is pure---the pair's state $\ket{0,0}$ is known with certainty. There is no classical ignorance about the pair's state, yet each spin individually is described by the maximally mixed density operator. The density operator does not distinguish between the two cases.
+
+This formal indifference is exhibited explicitly. The two ensembles
+\begin{linenomath}
+\begin{equation}
+\mathcal{E}_{\text{I}} = \{\ket{\uparrow_z}, \ket{\downarrow_z}; \tfrac12,\tfrac12\},\qquad
+\mathcal{E}_{\text{II}} = \{\ket{\uparrow_x}, \ket{\downarrow_x}; \tfrac12,\tfrac12\},
+\end{equation}
+\end{linenomath}
+produce identical density operators:
+\begin{linenomath}
+\begin{align}
+\rho_{\text{I}}
+&= \tfrac12\ket{\uparrow_z}\bra{\uparrow_z} + \tfrac12\ket{\downarrow_z}\bra{\downarrow_z}
+= \frac12\begin{pmatrix}1&0\\0&0\end{pmatrix} + \frac12\begin{pmatrix}0&0\\0&1\end{pmatrix}
+= \frac12 I, \\
+\rho_{\text{II}}
+&= \tfrac12\ket{\uparrow_x}\bra{\uparrow_x} + \tfrac12\ket{\downarrow_x}\bra{\downarrow_x}
+= \frac12\cdot\frac12\begin{pmatrix}1&1\\1&1\end{pmatrix} + \frac12\cdot\frac12\begin{pmatrix}1&-1\\-1&1\end{pmatrix}
+= \frac12 I.
+\end{align}
+\end{linenomath}
+Both ensembles are proper mixtures (classical ignorance), but they are operationally indistinguishable---no measurement on the qubit can tell them apart. The unitary freedom in the ensemble decomposition is the statement that any two ensembles producing the same $\rho$ are related by a unitary remixing of the state vectors.
+
+A non-selective measurement of $\sigma_z$ on the maximally mixed state $\rho = I/2$ produces
+\begin{linenomath}
+\begin{equation}
+\rho \mapsto P_{+z}\rho P_{+z} + P_{-z}\rho P_{-z}
+= \tfrac12 P_{+z} + \tfrac12 P_{-z} = \tfrac12 I = \rho,
+\end{equation}
+\end{linenomath}
+so the maximally mixed state is a fixed point of the non-selective L\"uders map. The measurement, by destroying the coherence in the $\sigma_z$ basis (which the maximally mixed state already lacks), changes nothing.
+
+The proper vs.\ improper distinction is the engine of the measurement problem. When a system entangles with a measuring apparatus, the reduced state of the system becomes an improper mixture---diagonal in the pointer basis, indistinguishable from a classical probability distribution. But the global state remains pure. The question of whether and how this improper mixture becomes a proper one---a single definite outcome---is the measurement problem, restated in Section~\ref{sec:measurement-problem}.
+
+The advantage of the density operator is its universality: it describes pure states, proper mixtures, and improper mixtures in a single formalism, and the partial trace provides the unique consistent rule for obtaining subsystem states. Its limitation is exactly its indifference to the proper/improper distinction: two physically distinct situations---classical ignorance of a factorizable state and the reduced description of an entangled pure state---are represented by the same mathematical object, and the formalism alone does not tell them apart.
+
+The next section uses the density operator and the partial trace to classify entanglement: the Schmidt rank, the Bell basis, mixed-state separability, and the entanglement entropy.
+\section{Entanglement: Separability and the Schmidt Decomposition}
+\label{sec:entanglement}
+
+With the tensor product (Section~\ref{sec:tensor-products}) and the density operator (Section~\ref{sec:density-operator}) in hand, entanglement can now be classified quantitatively. The Schmidt decomposition of Section~\ref{sec:tensor-products}---whose coefficients were identified in Section~\ref{sec:density-operator} as the eigenvalues of the reduced density operator---is the central tool. This section defines separability for pure and mixed states, constructs the Bell basis of maximally entangled two-qubit states, introduces the entanglement entropy as the canonical pure-state measure, and names the no-cloning theorem as the conceptual boundary of quantum information.
+
+\medskip\noindent\textbf{Pure-state separability.}
+A pure state $\ket{\Psi} \in \mathcal{H}_A \otimes \mathcal{H}_B$ is separable---it is a product state---if and only if it can be written as
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\ket{\Psi} = \ket{\psi_A} \otimes \ket{\phi_B},
+\qquad
+\text{equivalently } r_S(\ket{\Psi}) = 1,
+\;},
+\label{eq:separable-pure}
+\end{equation}
+\end{linenomath}
+where $r_S$ is the Schmidt rank---the number of nonzero Schmidt coefficients $\lambda_k$ in \eqref{eq:schmidt-decomposition}. A product state has Schmidt rank one because its coefficient matrix $C_{ij} = a_i b_j$ has rank one, hence a single nonzero singular value. The reduced density operator of a product state is pure: $\rho_A = \ket{\psi_A}\bra{\psi_A}$, $\tr(\rho_A^2) = 1$.
+
+A pure state is entangled if and only if $r_S > 1$. At the opposite extreme, a pure state is maximally entangled if all its nonzero Schmidt coefficients are equal:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\lambda_k = \frac{1}{r},
+\qquad
+r = \min(d_A, d_B),
+\;},
+\label{eq:max-entangled-condition}
+\end{equation}
+\end{linenomath}
+where $r$ saturates the upper bound $r \le \min(d_A, d_B)$ of the Schmidt rank. For a maximally entangled state, the reduced density operator is maximally mixed:
+\begin{linenomath}
+\begin{equation}
+\rho_A = \frac{I_A}{r},
+\end{equation}
+\end{linenomath}
+where $I_A$ is the identity on the $r$-dimensional subspace spanned by the Schmidt vectors. The subsystem state contains no information about the composite.
+
+\medskip\noindent\textbf{The Bell basis.}
+On $\mathbb{C}^2 \otimes \mathbb{C}^2$, the four states
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\begin{aligned}
+\ket{\Psi^+} &= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\downarrow} + \ket{\downarrow\uparrow}\bigr), \\
+\ket{\Psi^-} &= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr), \\
+\ket{\Phi^+} &= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\uparrow} + \ket{\downarrow\downarrow}\bigr), \\
+\ket{\Phi^-} &= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\uparrow} - \ket{\downarrow\downarrow}\bigr),
+\end{aligned}
+\;},
+\label{eq:bell-states}
+\end{equation}
+\end{linenomath}
+form an orthonormal basis---the Bell basis. The singlet $\ket{0,0}$ of ch6's \eqref{eq:singlet-triplet} is $\ket{\Psi^-}$. All four Bell states are maximally entangled: each has Schmidt coefficients $\lambda_1 = \lambda_2 = 1/2$, Schmidt rank $2$, and reduced density operator $\rho_A = I/2$ (maximally mixed on $\mathbb{C}^2$).
+
+The orthonormality is verified directly. For $\braket{\Psi^+|\Psi^-}$:
+\begin{linenomath}
+\begin{align}
+\braket{\Psi^+|\Psi^-}
+&= \tfrac12\bigl(\braket{\uparrow\downarrow|\uparrow\downarrow} - \braket{\uparrow\downarrow|\downarrow\uparrow} + \braket{\downarrow\uparrow|\uparrow\downarrow} - \braket{\downarrow\uparrow|\downarrow\uparrow}\bigr) \\
+&= \tfrac12(1 - 0 + 0 - 1) = 0.
+\end{align}
+\end{linenomath}
+For $\braket{\Phi^+|\Phi^-}$:
+\begin{linenomath}
+\begin{align}
+\braket{\Phi^+|\Phi^-}
+&= \tfrac12\bigl(\braket{\uparrow\uparrow|\uparrow\uparrow} - \braket{\uparrow\uparrow|\downarrow\downarrow} + \braket{\downarrow\downarrow|\uparrow\uparrow} - \braket{\downarrow\downarrow|\downarrow\downarrow}\bigr) \\
+&= \tfrac12(1 - 0 + 0 - 1) = 0.
+\end{align}
+\end{linenomath}
+The remaining inner products ($\braket{\Psi^\pm|\Phi^\pm} = 0$ and norm conditions $\braket{\Psi^\pm|\Psi^\pm} = \braket{\Phi^\pm|\Phi^\pm} = 1$) follow by the same pattern: each Bell state is a sum of two orthogonal product vectors with equal weight $1/\sqrt{2}$, and distinct pairs differ in the sign pattern, which produces zero overlap when the two product vectors in one state have no counterpart in the other.
+
+The Bell states are related by local unitaries---operations on one qubit alone---applied to any one Bell state. For example, starting from $\ket{\Psi^+}$:
+\begin{linenomath}
+\begin{align}
+(I \otimes \sigma_x)\ket{\Psi^+} &= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\uparrow} + \ket{\downarrow\downarrow}\bigr) = \ket{\Phi^+}, \\
+(I \otimes \sigma_z)\ket{\Psi^+} &= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr) = \ket{\Psi^-}, \\
+(I \otimes \sigma_y)\ket{\Psi^+} &= \frac{1}{\sqrt{2}}\bigl(-i\ket{\uparrow\uparrow} + i\ket{\downarrow\downarrow}\bigr) = -i\ket{\Phi^-} \sim \ket{\Phi^-},
+\end{align}
+\end{linenomath}
+where the last uses ray equivalence (global phase is unobservable, ch2 \eqref{eq:ray-invariance}). The entire Bell basis is generated from any one Bell state by applying Pauli operators to one qubit. This property makes the Bell basis the natural arena for the CHSH inequality (Section~\ref{sec:bell}).
+
+The singlet $\ket{\Psi^-}$ is distinguished by its rotational invariance: for any $U \in \mathrm{SU}(2)$,
+\begin{linenomath}
+\begin{equation}
+(U \otimes U)\ket{\Psi^-} = \ket{\Psi^-},
+\end{equation}
+\end{linenomath}
+a one-line consequence of $\bm J \ket{0,0} = 0$ (ch6 \eqref{eq:singlet-triplet})---the singlet is the unique state of total angular momentum zero. This invariance is the origin of the correlation function $E_{\text{QM}}(\hat{a},\hat{b}) = -\bm a\cdot\bm b$ that drives the CHSH violation (Section~\ref{sec:bell}).
+
+\medskip\noindent\textbf{Mixed-state separability.}
+The definition of separability extends to mixed states. A density operator $\rho_{AB}$ on $\mathcal{H}_A \otimes \mathcal{H}_B$ is separable if and only if it can be written as a convex combination of product states:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\rho_{AB} = \sum_k p_k \; \rho_A^{(k)} \otimes \rho_B^{(k)},
+\qquad
+p_k \ge 0,\quad \sum_k p_k = 1,
+\;},
+\label{eq:separable-mixed}
+\end{equation}
+\end{linenomath}
+where each $\rho_A^{(k)}$ is a density operator on $\mathcal{H}_A$ and each $\rho_B^{(k)}$ is a density operator on $\mathcal{H}_B$. A mixed state is entangled if and only if it is not separable---that is, if no representation of the form \eqref{eq:separable-mixed} exists.
+
+The definition is simple; testing it is hard. For a given $\rho_{AB}$, determining whether a separable decomposition exists is an NP-hard problem in general. For $2 \times 2$ and $2 \times 3$ systems, the Peres--Horodecki criterion provides a necessary and sufficient condition: $\rho_{AB}$ is separable if and only if its partial transpose $\rho_{AB}^{T_B}$ is positive semidefinite (PPT). The criterion is stated here without proof (Peres 1996, Horodecki et al.\ 1996); Exercise~\ref{item:ex-ppt} works through it for the singlet and the Werner state. For higher dimensions, PPT is necessary but not sufficient (bound entanglement exists).
+
+\begin{note}
+The full theory of mixed-state entanglement---entanglement witnesses, the PPT criterion's proof, the negativity, the entanglement of formation, and bound entanglement---is beyond the scope of this book. The definition \eqref{eq:separable-mixed} and the PPT statement above are the chapter's boundary; quantum information theory proper begins where this chapter ends.
+\end{note}
+
+\medskip\noindent\textbf{Entanglement entropy.}
+For a bipartite pure state $\ket{\Psi}_{AB}$, the canonical measure of entanglement is the von Neumann entropy of the reduced state:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+S(\rho_A) = -\tr(\rho_A \log_2 \rho_A)
+= -\sum_{k=1}^{r} \lambda_k \log_2 \lambda_k,
+\;},
+\label{eq:entanglement-entropy}
+\end{equation}
+\end{linenomath}
+where $\{\lambda_k\}$ are the Schmidt coefficients (the eigenvalues of $\rho_A$). The logarithm is taken to base $2$, giving the entropy in bits. The von Neumann entropy extends the Shannon entropy $H(\{p_k\}) = -\sum_k p_k \log_2 p_k$ of a classical probability distribution to the quantum domain: for a density operator diagonal in its eigenbasis, the von Neumann entropy reduces to the Shannon entropy of its eigenvalue distribution.
+
+The entanglement entropy has the following properties. (i) $S(\rho_A) \ge 0$, with $S = 0$ if and only if $\rho_A$ is pure---that is, if and only if $\ket{\Psi}$ is a product state ($r = 1$). (ii) $S(\rho_A)$ is maximal when all nonzero $\lambda_k$ are equal: $\lambda_k = 1/r$, giving $S_{\max} = \log_2 r$. For a maximally entangled state of two $d$-level systems, $S_{\max} = \log_2 d$. (iii) $S(\rho_A) = S(\rho_B)$ for any bipartite pure state: the two subsystems share the same entropy, because $\rho_A$ and $\rho_B$ have the same nonzero eigenvalues (Section~\ref{sec:density-operator}). (iv) $S(\rho_A)$ is invariant under local unitaries $U_A \otimes U_B$: the Schmidt coefficients are unchanged by independent unitary rotations of the two subsystem bases. (v) $S$ is an entanglement monotone for pure states: it cannot increase under local operations and classical communication (LOCC)---named here, not proved; the proof belongs to quantum information theory.
+
+The singlet has $S = -(\frac12\log_2\frac12 + \frac12\log_2\frac12) = 1$ bit of entanglement. A product state has $S = 0$. Between these extremes, entanglement is a continuous resource.
+
+\medskip\noindent\textbf{Example: parametrized two-qubit state.}
+Consider the family of states
+\begin{linenomath}
+\begin{equation}
+\ket{\psi(\theta)} = \cos\theta\,\ket{\uparrow\uparrow} + \sin\theta\,\ket{\downarrow\downarrow},
+\qquad 0 \le \theta \le \tfrac{\pi}{2}.
+\end{equation}
+\end{linenomath}
+The coefficient matrix is diagonal: $C = \operatorname{diag}(\cos\theta, \sin\theta)$, so the Schmidt decomposition is immediate: $\lambda_1 = \cos^2\theta$, $\lambda_2 = \sin^2\theta$, with $\ket{u_1} = \ket{\uparrow}$, $\ket{u_2} = \ket{\downarrow}$, $\ket{v_1} = \ket{\uparrow}$, $\ket{v_2} = \ket{\downarrow}$. The reduced density operator is
+\begin{linenomath}
+\begin{equation}
+\rho_A = \cos^2\theta\,\ket{\uparrow}\bra{\uparrow} + \sin^2\theta\,\ket{\downarrow}\bra{\downarrow}
+= \frac12\bigl(I + (\cos^2\theta - \sin^2\theta)\sigma_z\bigr)
+= \frac12\bigl(I + (\cos 2\theta)\,\sigma_z\bigr),
+\end{equation}
+\end{linenomath}
+whose Bloch vector is $\bm r = (0, 0, \cos 2\theta)$, with length $\lvert\bm r\rvert = \lvert\cos 2\theta\rvert$. At $\theta = 0$: product state $\ket{\uparrow\uparrow}$, $\bm r = (0,0,1)$, $S = 0$. At $\theta = \pi/4$: Bell state $\ket{\Phi^+}$, $\bm r = \bm 0$, $S = 1$. The entanglement entropy varies smoothly:
+\begin{linenomath}
+\begin{equation}
+S(\theta) = -\cos^2\theta\log_2(\cos^2\theta) - \sin^2\theta\log_2(\sin^2\theta) = H_2(\cos^2\theta),
+\end{equation}
+\end{linenomath}
+where $H_2(p) = -p\log_2 p - (1-p)\log_2(1-p)$ is the binary entropy function. Entanglement is a continuous resource, not an on/off switch. For the generalized state $\ket{\psi} = \cos\theta\ket{\uparrow\uparrow} + e^{i\phi}\sin\theta\ket{\downarrow\downarrow}$, the phase $\phi$ can be absorbed by redefining $\ket{\downarrow} \to e^{-i\phi/2}\ket{\downarrow}$ on one qubit---a local unitary---so the Schmidt coefficients and the entanglement entropy are independent of $\phi$.
+
+\medskip\noindent\textbf{The no-cloning theorem.}
+The linearity of quantum mechanics forbids perfect copying of an unknown quantum state. If a unitary $U$ could clone, i.e., $U(\ket{\psi} \otimes \ket{0}) = \ket{\psi} \otimes \ket{\psi}$ for all $\ket{\psi}$ in a two-dimensional subspace, then applying it to the superposition $\ket{+} = (\ket{\uparrow} + \ket{\downarrow})/\sqrt{2}$ would give
+\begin{linenomath}
+\begin{equation}
+U(\ket{+}\otimes\ket{0})
+= \frac{1}{\sqrt{2}}\bigl(U(\ket{\uparrow}\otimes\ket{0}) + U(\ket{\downarrow}\otimes\ket{0})\bigr)
+= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow}\otimes\ket{\uparrow} + \ket{\downarrow}\otimes\ket{\downarrow}\bigr),
+\end{equation}
+\end{linenomath}
+by linearity. But a true cloning of $\ket{+}$ would produce $\ket{+}\otimes\ket{+} = \frac12(\ket{\uparrow}\otimes\ket{\uparrow} + \ket{\uparrow}\otimes\ket{\downarrow} + \ket{\downarrow}\otimes\ket{\uparrow} + \ket{\downarrow}\otimes\ket{\downarrow})$, which differs from the linearity result by the cross terms. The contradiction establishes the theorem. The no-cloning theorem is the conceptual door to quantum information theory---the impossibility of copying is what makes quantum cryptography possible and what prevents superluminal signaling via entanglement. Exercise~\ref{item:ex-no-cloning} formalizes the proof.
+
+The advantage of the entanglement formalism developed in this section is its completeness for pure states: every bipartite pure state has a unique entanglement spectrum $\{\lambda_k\}$, and the entropy $S$ provides a single number that is invariant under local unitaries and monotonic under LOCC. Its limitation is that the pure-state theory does not extend simply to mixed states: no single measure (neither the von Neumann entropy of the reduced state, nor any simple function of it) provides a complete classification of mixed-state entanglement, and the separability problem \eqref{eq:separable-mixed} is computationally hard in general.
+
+The singlet's entanglement---Schmidt rank 2, entropy 1 bit, maximally mixed reduced state---is now fully quantified. In 1935, Einstein, Podolsky, and Rosen argued that states of this kind, where a measurement on one subsystem fixes the description of the other however distant, reveal quantum mechanics as an incomplete theory. Their argument is the subject of the next section.
+\section{The Einstein--Podolsky--Rosen Argument}
+\label{sec:epr}
+
+The singlet's entanglement is not merely a mathematical curiosity. It poses a direct challenge to the completeness of the quantum-mechanical description---a challenge that Einstein, Podolsky, and Rosen formulated in 1935, that Bohr answered in the same year, and that remained a matter of interpretation until Bell converted it into an experimentally decidable question three decades later. This section presents the EPR argument in its modern spin form (Bohm 1951), using the singlet of ch6's \eqref{eq:singlet-triplet} and the measurement axioms of ch3, and connects the dilemma to the operational state definition of ch1.
+
+\medskip\noindent\textbf{Historical context.}
+The 1935 paper ``Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?'' (Einstein, Podolsky, Rosen, \textit{Phys.\ Rev.}\ 47, 777) was the sharpest exchange of the Bohr--Einstein debate. EPR proposed two criteria by which a physical theory should be judged, and argued that quantum mechanics, by those criteria, is incomplete.
+
+The EPR reality criterion:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\begin{minipage}{0.9\textwidth}
+\itshape
+If, without in any way disturbing a system, we can predict with certainty (i.e., with probability equal to unity) the value of a physical quantity, then there exists an element of physical reality corresponding to that quantity.
+\end{minipage}
+\;},
+\label{eq:epr-reality}
+\end{equation}
+\end{linenomath}
+The EPR completeness criterion: a physical theory is complete only if every element of physical reality has a counterpart in the theory.
+
+The criteria are stated here as the conceptual keystones of the argument, not as equations. The question EPR posed is whether quantum mechanics, applied to entangled states, satisfies both criteria simultaneously.
+
+\begin{note}
+The EPR reality and completeness criteria are philosophical premises, not theorems. The argument's force comes from their apparent reasonableness: if a quantity's value can be predicted with certainty without interacting with the system that carries it, then that value must correspond to something real---and a complete theory ought to describe it. The EPR paper's conclusion was that quantum mechanics, which assigns no simultaneous values to noncommuting observables, must be incomplete. The Bell inequality (Section~\ref{sec:bell}) would later show that any theory completing quantum mechanics in EPR's sense must be nonlocal.
+\end{note}
+
+\medskip\noindent\textbf{The EPR--Bohm argument: spin version.}
+Alice and Bob share two spin-$1/2$ particles prepared in the singlet state
+\begin{linenomath}
+\begin{equation}
+\ket{\Psi^-} = \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr)
+\end{equation}
+\end{linenomath}
+of \eqref{eq:bell-states}. The particles are separated---Alice keeps particle 1, Bob takes particle 2 to a distant laboratory. The measurements are spacelike separated: Alice's choice of what to measure cannot causally influence Bob's particle, and vice versa (the locality assumption).
+
+Consider the measurement of $\sigma_z$ on particle 1. The singlet is not an eigenstate of $\sigma_z \otimes I$; its expectation value vanishes:
+\begin{linenomath}
+\begin{equation}
+\braket{\Psi^-|\sigma_z \otimes I|\Psi^-}
+= \tfrac12\bigl(\braket{\uparrow\downarrow|\sigma_z\otimes I|\uparrow\downarrow}
+- \braket{\uparrow\downarrow|\sigma_z\otimes I|\downarrow\uparrow}
+- \braket{\downarrow\uparrow|\sigma_z\otimes I|\uparrow\downarrow}
++ \braket{\downarrow\uparrow|\sigma_z\otimes I|\downarrow\uparrow}\bigr) = 0,
+\label{eq:epr-singlet-correlation}
+\end{equation}
+\end{linenomath}
+since $\braket{\uparrow|\sigma_z|\uparrow} = +1$, $\braket{\downarrow|\sigma_z|\downarrow} = -1$, and the cross terms vanish by orthogonality. But if Alice measures $\sigma_z$ and obtains $+1$, the L\"uders update (\eqref{eq:luders-update}, Axiom M3) collapses the state to
+\begin{linenomath}
+\begin{equation}
+\ket{\Psi'} = \frac{P_{+z}^{(1)} \otimes I}{\sqrt{p_{+z}}} \ket{\Psi^-}
+= \frac{\ket{\uparrow}_1 \otimes \bigl(\braket{\uparrow|\uparrow}\ket{\downarrow} - \braket{\uparrow|\downarrow}\ket{\uparrow}\bigr)/\sqrt{2}}{1/\sqrt{2}}
+= \ket{\uparrow}_1 \otimes \ket{\downarrow}_2,
+\end{equation}
+\end{linenomath}
+where $P_{+z}^{(1)} = \ket{\uparrow}\bra{\uparrow}_1$ is the projector onto spin-up for particle 1, and $p_{+z} = \braket{\Psi^-|P_{+z}^{(1)} \otimes I|\Psi^-} = 1/2$. After Alice's outcome $+1$, Bob's particle is in the state $\ket{\downarrow}$ with certainty: $\sigma_z\ket{\downarrow} = -\ket{\downarrow}$. By the EPR reality criterion, the $z$-component of Bob's spin is an element of physical reality.
+
+But Alice could have measured $\sigma_x$ instead. The singlet in the $x$-basis is
+\begin{linenomath}
+\begin{equation}
+\ket{\Psi^-} = \frac{1}{\sqrt{2}}\bigl(\ket{+x,-x} - \ket{-x,+x}\bigr),
+\end{equation}
+\end{linenomath}
+which follows from the basis change $\ket{\pm x} = (\ket{\uparrow} \pm \ket{\downarrow})/\sqrt{2}$ (ch2 \eqref{eq:spin-n}) by direct substitution. Inverting the basis change gives $\ket{\uparrow} = (\ket{+x} + \ket{-x})/\sqrt{2}$ and $\ket{\downarrow} = (\ket{+x} - \ket{-x})/\sqrt{2}$. Substituting into the $z$-basis singlet:
+\begin{linenomath}
+\begin{align}
+\ket{\Psi^-} &= \frac{1}{\sqrt{2}}\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr) \\
+&= \frac{1}{\sqrt{2}}\Bigl[
+\frac{1}{\sqrt{2}}\bigl(\ket{+x}+\ket{-x}\bigr) \otimes \frac{1}{\sqrt{2}}\bigl(\ket{+x}-\ket{-x}\bigr) \\
+&\qquad - \frac{1}{\sqrt{2}}\bigl(\ket{+x}-\ket{-x}\bigr) \otimes \frac{1}{\sqrt{2}}\bigl(\ket{+x}+\ket{-x}\bigr)
+\Bigr] \\
+&= \frac{1}{2\sqrt{2}}\Bigl[
+\ket{+x,+x} - \ket{+x,-x} + \ket{-x,+x} - \ket{-x,-x} \\
+&\qquad - \ket{+x,+x} - \ket{+x,-x} + \ket{-x,+x} + \ket{-x,-x}
+\Bigr] \\
+&= \frac{1}{\sqrt{2}}\bigl(\ket{+x,-x} - \ket{-x,+x}\bigr).
+\end{align}
+\end{linenomath}
+If Alice measures $\sigma_x$ and obtains $+1$, the L\"uders update gives Bob's particle in $\ket{-x}$ with certainty: $\sigma_x\ket{-x} = -\ket{-x}$. By the same reality criterion, the $x$-component of Bob's spin is also an element of physical reality.
+
+But $[\sigma_z, \sigma_x] \neq 0$ (\eqref{eq:sigma-commutator}, ch3). Quantum mechanics assigns no state in which both $\sigma_z$ and $\sigma_x$ possess definite values simultaneously. Yet Alice, by choosing which measurement to perform on her distant particle---and without in any way disturbing Bob's particle (locality)---can predict with certainty either the $z$-component or the $x$-component of Bob's spin.
+
+The EPR dilemma follows:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\begin{minipage}{0.9\textwidth}
+\itshape
+\textbf{The EPR dilemma.} Either (i) quantum mechanics is incomplete---there exist hidden variables that determine both $\sigma_z$ and $\sigma_x$ for Bob's particle, and the quantum state $\ket{\Psi^-}$ is a statistical description of an ensemble of such variables (Einstein's preference); or (ii) quantum mechanics is complete but nonlocal---Alice's measurement choice instantaneously influences Bob's distant particle in violation of relativistic causality (Bohr's defense via complementarity).
+\end{minipage}
+\;},
+\label{eq:epr-dilemma}
+\end{equation}
+\end{linenomath}
+Einstein preferred horn (i); Bohr defended (ii) under the banner of complementarity: the two particles form a single indivisible quantum phenomenon, and the choice of what to measure on particle 1 determines what can meaningfully be said about particle 2.
+
+\medskip\noindent\textbf{Bohr's reply (1935).}
+Bohr's response (ibid.\ 48, 696) rejected the EPR reality criterion as ambiguous when applied to quantum phenomena. The two particles, having interacted, form a single indivisible quantum phenomenon; ``measurement on particle 1'' and ``measurement on particle 2'' are not independent operations but parts of one experimental arrangement. The choice of what to measure on particle 1 determines the experimental context for the whole arrangement, and with it the set of concepts that can meaningfully be applied to particle 2---not because of any physical influence traveling between them, but because the two particles' descriptions are complementary in Bohr's sense. There is no contradiction, Bohr argued, in the fact that different experimental arrangements yield different descriptions, because the arrangement is part of the phenomenon.
+
+\medskip\noindent\textbf{Ch1 and ch3 callbacks.}
+The EPR argument presses directly on the operational state definition of ch1 (\ref{subsec:operational-state}): the state is a catalogue of probabilities for the outcomes of every conceivable measurement. But on whose measurement? If the catalogue for Bob's particle---the probabilities of outcomes of measurements he might perform---depends on what Alice chooses to measure at spacelike separation, then whose catalogue is it? The state is not a property of Bob's particle alone; it is a property of the pair.
+
+The measurement axioms of ch3 (\eqref{eq:luders-update}, (M1)--(M5)) are silent on locality. The L\"uders update applies to the combined system; the conditional state after Alice's outcome is well-defined, and it predicts Bob's outcomes with certainty. The question is whether that update describes a physical change in Bob's distant particle (a collapse propagating faster than light) or merely an updating of Alice's knowledge about a pre-existing state of affairs. Quantum mechanics, as formulated in ch3, does not answer this question---the L\"uders rule is an algorithm for computing probabilities, not a mechanism.
+
+\medskip\noindent\textbf{Example: classical vs.\ quantum correlation.}
+Compare the singlet with a classical analogue: two boxes, one containing a white ball and the other a black ball, prepared by an assistant and sent to Alice and Bob. When Alice opens her box and sees white, she knows with certainty that Bob's box contains black. But the ball's color is definite before she opens the box---classical ignorance, not quantum indeterminacy.
+
+The singlet is deeper. If Alice chooses to measure the ``color in the $z$-direction'' ($\sigma_z$) and obtains white ($+1$), Bob's ball is black ($-1$) in the $z$-direction. If instead she measures the ``color in the $x$-direction'' ($\sigma_x$) and obtains white ($+1$), Bob's ball is black ($-1$) in the $x$-direction. In the classical analogue, the balls would need pre-assigned colors for every possible measurement direction---an infinite set of definite values, one for each axis, all simultaneously real. But quantum mechanics, via the noncommutation $[\sigma_z, \sigma_x] = 2i\sigma_y$, forbids simultaneous definite values for noncommuting observables. The classical analogue fails because the ``color'' depends on which question is asked, and no pre-existing assignment can reproduce the quantum correlations for all axis choices simultaneously.
+
+\begin{note}
+The EPR paper does not settle whether quantum mechanics is complete or incomplete. It states a dilemma. For 29 years, the dilemma was considered a matter of interpretation, not experiment---a philosophical dispute about the meaning of ``physical reality.'' Bell changed that. The next section derives Bell's theorem, which converts the EPR dilemma into a testable inequality that quantum mechanics violates.
+\end{note}
+
+The EPR argument is the conceptual high-water mark of the first half of the twentieth century. It distills the tension between two principles that had been held as self-evident---locality and completeness of the physical description---and shows that quantum mechanics, applied to entangled states, cannot satisfy both. The argument's honesty should be noted: it does not claim to prove incompleteness; it claims to pose a dilemma. Bell's 1964 theorem, to which the next section turns, demonstrates that the dilemma is not a matter of taste: the two horns make different quantitative predictions, and experiment decides between them.
+\section{Bell Inequalities and the Aspect Experiments}
+\label{sec:bell}
+
+The EPR argument of Section~\ref{sec:epr} posed a dilemma: either quantum mechanics is incomplete, and hidden variables complete it locally, or quantum mechanics is complete but nonlocal. For three decades the choice between these horns was a matter of interpretation. Bell (1964) changed that by asking: do the predictions of \textit{all} local hidden-variable theories differ from quantum mechanics, and if so, can the difference be measured? The answer---the CHSH inequality and its quantum-mechanical violation---is the subject of this section. It is the chapter's landing on a measurable quantity: $\lvert\langle S\rangle\rvert = 2\sqrt{2} \approx 2.828$, confirmed by Aspect and successors.
+
+\medskip\noindent\textbf{Local hidden-variable models.}
+A local hidden-variable (LHV) theory supplements the quantum state with a variable $\lambda$ (distributed according to some normalized measure $\rho(\lambda) \ge 0$, $\int\!d\lambda\,\rho(\lambda) = 1$) such that measurement outcomes are deterministic or probabilistic functions of $\lambda$ and the local measurement setting alone. The joint probability for Alice's outcome $a$ (given her setting $\hat{a}$) and Bob's outcome $b$ (given his setting $\hat{b}$) factorizes conditioned on $\lambda$:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+P(a,b \mid \hat{a},\hat{b})
+= \int\! d\lambda\; \rho(\lambda)\;
+P_A(a \mid \hat{a},\lambda)\; P_B(b \mid \hat{b},\lambda),
+\;},
+\label{eq:lhv-model}
+\end{equation}
+\end{linenomath}
+where $P_A(a \mid \hat{a},\lambda)$ is the probability that Alice obtains outcome $a$ given her setting $\hat{a}$ and the hidden variable $\lambda$, and similarly for Bob. The factorized form enforces locality: Alice's outcome depends only on her setting and $\lambda$, not on Bob's setting or outcome, and conversely.
+
+For the case of dichotomic outcomes $A(\hat{a},\lambda) = \pm 1$ and $B(\hat{b},\lambda) = \pm 1$ (deterministic given $\lambda$), the correlation function---the average product of outcomes for settings $\hat{a}$ and $\hat{b}$---is
+\begin{linenomath}
+\begin{equation}
+E(\hat{a},\hat{b})
+= \int\! d\lambda\; \rho(\lambda)\; A(\hat{a},\lambda)\,B(\hat{b},\lambda).
+\label{eq:correlation-function}
+\end{equation}
+\end{linenomath}
+The restriction to deterministic outcomes given $\lambda$ involves no loss of generality: any probabilistic local model can be converted to a deterministic one by expanding the hidden-variable space to include the local randomness.
+
+\medskip\noindent\textbf{The CHSH inequality.}
+Consider four correlation measurements with two settings for Alice ($\hat{a}, \hat{a}'$) and two for Bob ($\hat{b}, \hat{b}'$). Define the CHSH quantity
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+S := E(\hat{a},\hat{b}) + E(\hat{a},\hat{b}') + E(\hat{a}',\hat{b}) - E(\hat{a}',\hat{b}').
+\;},
+\end{equation}
+\end{linenomath}
+For any local hidden-variable model,
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\lvert S\rvert \le 2.
+\;},
+\label{eq:chsh-inequality}
+\end{equation}
+\end{linenomath}
+
+The proof uses only the existence of $\lambda$ and the locality condition---it is independent of the details of the LHV model. For each fixed $\lambda$,
+\begin{linenomath}
+\begin{align}
+S(\lambda)
+&= A(\hat{a},\lambda)\bigl[B(\hat{b},\lambda) + B(\hat{b}',\lambda)\bigr]
++ A(\hat{a}',\lambda)\bigl[B(\hat{b},\lambda) - B(\hat{b}',\lambda)\bigr].
+\end{align}
+\end{linenomath}
+Since $B(\hat{b},\lambda), B(\hat{b}',\lambda) = \pm 1$, the two brackets satisfy:
+\begin{linenomath}
+\begin{equation}
+B(\hat{b},\lambda) + B(\hat{b}',\lambda) =
+\begin{cases}
+\pm 2, & \text{if } B(\hat{b},\lambda) = \pm B(\hat{b}',\lambda), \\
+0, & \text{otherwise},
+\end{cases}
+\end{equation}
+\end{linenomath}
+and conversely $B(\hat{b},\lambda) - B(\hat{b}',\lambda) = 0$ when the sum is $\pm2$, and $\pm2$ when the sum vanishes. Thus exactly one of the two brackets is $\pm2$ and the other is $0$, so $S(\lambda) = \pm2$ for every $\lambda$. Averaging over $\rho(\lambda)$:
+\begin{linenomath}
+\begin{equation}
+\lvert S\rvert
+= \Bigl\lvert\int\!d\lambda\,\rho(\lambda)\,S(\lambda)\Bigr\rvert
+\le \int\!d\lambda\,\rho(\lambda)\,\lvert S(\lambda)\rvert
+= \int\!d\lambda\,\rho(\lambda)\cdot 2
+= 2.
+\end{equation}
+\end{linenomath}
+The inequality is saturated by any LHV model that produces $S(\lambda) = +2$ (or $-2$) for all $\lambda$ with the optimal sign pattern. But no local hidden-variable model can exceed $2$ in absolute value.
+
+\begin{note}
+The CHSH inequality (Clauser, Horne, Shimony, Holt 1969, \textit{Phys.\ Rev.\ Lett.}\ 23, 880) is a four-setting refinement of Bell's original 1964 inequality, which used three directions. The CHSH form is preferred experimentally because it does not require perfect anti-correlation for aligned settings. Bell's original three-direction inequality is derived in Exercise~\ref{item:ex-bell-original}.
+\end{note}
+
+\medskip\noindent\textbf{Quantum-mechanical violation.}
+For the singlet state $\ket{\Psi^-}$ (\eqref{eq:bell-states}), the quantum correlation function for spin measurements along directions $\hat{a}$ and $\hat{b}$ is
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+E_{\text{QM}}(\hat{a},\hat{b})
+= \braket{\Psi^-|(\bm a \cdot \bm \sigma) \otimes (\bm b \cdot \bm \sigma)|\Psi^-}
+= -\bm a \cdot \bm b = -\cos\theta_{ab},
+\;},
+\label{eq:qm-correlation-singlet}
+\end{equation}
+\end{linenomath}
+where $\theta_{ab}$ is the angle between the unit vectors $\hat{a}$ and $\hat{b}$.
+
+The derivation uses the singlet's defining property $\braket{\Psi^-|\sigma_i \otimes \sigma_j|\Psi^-} = -\delta_{ij}$, which is established by direct computation. Expand the product:
+\begin{linenomath}
+\begin{align}
+(\bm a \cdot \bm \sigma) \otimes (\bm b \cdot \bm \sigma)
+&= \sum_{i,j=1}^{3} a_i b_j \; \sigma_i \otimes \sigma_j.
+\end{align}
+\end{linenomath}
+Taking the expectation in $\ket{\Psi^-}$:
+\begin{linenomath}
+\begin{align}
+\braket{\Psi^-|(\bm a \cdot \bm \sigma) \otimes (\bm b \cdot \bm \sigma)|\Psi^-}
+&= \sum_{i,j} a_i b_j \; \braket{\Psi^-|\sigma_i \otimes \sigma_j|\Psi^-} \\
+&= \sum_{i,j} a_i b_j \; (-\delta_{ij})
+= -\sum_i a_i b_i = -\bm a \cdot \bm b = -\cos\theta_{ab}.
+\end{align}
+\end{linenomath}
+The identity $\braket{\Psi^-|\sigma_i \otimes \sigma_j|\Psi^-} = -\delta_{ij}$ is verified by direct computation. For the diagonal cases. For $i=j=z$:
+\begin{linenomath}
+\begin{align}
+\braket{\Psi^-|\sigma_z \otimes \sigma_z|\Psi^-}
+&= \tfrac12\bigl(\bra{\uparrow\downarrow} - \bra{\downarrow\uparrow}\bigr)
+(\sigma_z \otimes \sigma_z)
+\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr) \\
+&= \tfrac12\bigl((+1)(-1) + (-1)(+1)\bigr) = -1.
+\end{align}
+\end{linenomath}
+For $i=j=x$, using $\sigma_x\ket{\uparrow} = \ket{\downarrow}$ and $\sigma_x\ket{\downarrow} = \ket{\uparrow}$:
+\begin{linenomath}
+\begin{align}
+(\sigma_x\otimes\sigma_x)\ket{\uparrow\downarrow}
+= \ket{\downarrow\uparrow},\qquad
+(\sigma_x\otimes\sigma_x)\ket{\downarrow\uparrow}
+= \ket{\uparrow\downarrow}.
+\end{align}
+\end{linenomath}
+Then
+\begin{linenomath}
+\begin{align}
+\braket{\Psi^-|\sigma_x \otimes \sigma_x|\Psi^-}
+&= \tfrac12\bigl(\bra{\uparrow\downarrow} - \bra{\downarrow\uparrow}\bigr)
+\bigl(\ket{\downarrow\uparrow} - \ket{\uparrow\downarrow}\bigr) \\
+&= \tfrac12\bigl(\braket{\uparrow\downarrow|\downarrow\uparrow} - \braket{\uparrow\downarrow|\uparrow\downarrow}
+- \braket{\downarrow\uparrow|\downarrow\uparrow} + \braket{\downarrow\uparrow|\uparrow\downarrow}\bigr) \\
+&= \tfrac12(0 - 1 - 1 + 0) = -1.
+\end{align}
+\end{linenomath}
+The $i=j=y$ case gives $-1$ by the same computation (using $\sigma_y\ket{\uparrow}=i\ket{\downarrow}$, $\sigma_y\ket{\downarrow}=-i\ket{\uparrow}$, the factors of $i$ cancel in the product $\sigma_y\otimes\sigma_y$).
+
+For the off-diagonal case $i=x$, $j=z$ as a representative:
+\begin{linenomath}
+\begin{align}
+\braket{\Psi^-|\sigma_x \otimes \sigma_z|\Psi^-}
+&= \tfrac12\bigl(\bra{\uparrow\downarrow} - \bra{\downarrow\uparrow}\bigr)
+(\sigma_x \otimes \sigma_z)
+\bigl(\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow}\bigr) \\
+&= \tfrac12\bigl(\bra{\uparrow\downarrow} - \bra{\downarrow\uparrow}\bigr)
+\bigl(\ket{\downarrow\downarrow} - (-\ket{\uparrow\uparrow})\bigr) \\
+&= \tfrac12\bigl(\braket{\uparrow\downarrow|\downarrow\downarrow} + \braket{\uparrow\downarrow|\uparrow\uparrow}
+- \braket{\downarrow\uparrow|\downarrow\downarrow} - \braket{\downarrow\uparrow|\uparrow\uparrow}\bigr) \\
+&= \tfrac12(0 + 0 - 0 - 0) = 0.
+\end{align}
+\end{linenomath}
+The remaining cases follow the same pattern: when $i=j$, the action of $\sigma_i\otimes\sigma_i$ exchanges the two product vectors in the singlet (up to a sign), producing $\braket{\Psi^-|\sigma_i\otimes\sigma_i|\Psi^-} = \tfrac12(-1 - 1) = -1$ in each case; when $i \neq j$, the action of $\sigma_i\otimes\sigma_j$ maps each product vector to one orthogonal to both original terms, so all four inner products vanish individually. The identity $\braket{\Psi^-|\sigma_i \otimes \sigma_j|\Psi^-} = -\delta_{ij}$ is thus established. The singlet's rotational invariance---the unique state annihilated by $\bm J = \bm J_1 \otimes I + I \otimes \bm J_2$---guarantees that this $\delta_{ij}$ structure is basis-independent: $-\delta_{ij}$ is the only rotationally invariant two-index tensor on $\mathbb{R}^3$ that is symmetric and negative definite.
+
+The CHSH observable on $\mathbb{C}^2 \otimes \mathbb{C}^2$ is
+\begin{linenomath}
+\begin{equation}
+S = (\bm a \cdot \bm \sigma) \otimes (\bm b \cdot \bm \sigma)
++ (\bm a \cdot \bm \sigma) \otimes (\bm b' \cdot \bm \sigma)
++ (\bm a' \cdot \bm \sigma) \otimes (\bm b \cdot \bm \sigma)
+- (\bm a' \cdot \bm \sigma) \otimes (\bm b' \cdot \bm \sigma),
+\label{eq:chsh-observable}
+\end{equation}
+\end{linenomath}
+whose expectation value in the singlet is
+\begin{linenomath}
+\begin{align}
+\langle S\rangle_{\text{QM}}
+&= -\bm a\cdot\bm b - \bm a\cdot\bm b' - \bm a'\cdot\bm b + \bm a'\cdot\bm b'.
+\end{align}
+\end{linenomath}
+
+For any quantum state and any choice of observables $A, A', B, B'$ with eigenvalues $\pm 1$, the Tsirelson bound restricts the CHSH expectation:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\lvert\langle S\rangle\rvert \le 2\sqrt{2},
+\;},
+\label{eq:tsirelson-bound}
+\end{equation}
+\end{linenomath}
+proved by Tsirelson (Cirel'son 1980, \textit{Lett.\ Math.\ Phys.}\ 4, 93), cited here without proof. The bound is saturated by the singlet with optimal measurement settings.
+
+\medskip\noindent\textbf{Optimal violation.}
+The CHSH expectation is maximized by choosing the four measurement directions in a plane (say the $xz$-plane), with Alice's two directions orthogonal and Bob's two directions orthogonal, and the two pairs rotated by $\pi/4$ relative to each other. The optimal angles are
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\hat{a} = 0,\qquad
+\hat{a}' = \frac{\pi}{2},\qquad
+\hat{b} = \frac{\pi}{4},\qquad
+\hat{b}' = -\frac{\pi}{4},
+\;},
+\label{eq:optimal-violation}
+\end{equation}
+\end{linenomath}
+where angles are measured from the $z$-axis in the $xz$-plane. In vector form: $\hat{a} = \hat{z}$, $\hat{a}' = \hat{x}$, $\hat{b} = (\hat{z} + \hat{x})/\sqrt{2}$, $\hat{b}' = (\hat{z} - \hat{x})/\sqrt{2}$.
+
+The four correlation terms evaluate by computing each dot product explicitly from the vectors $\hat{a} = \hat{z}$, $\hat{a}' = \hat{x}$, $\hat{b} = (\hat{z} + \hat{x})/\sqrt{2}$, $\hat{b}' = (\hat{z} - \hat{x})/\sqrt{2}$:
+\begin{linenomath}
+\begin{align}
+\hat{a}\cdot\hat{b} &= \hat{z}\cdot\frac{\hat{z}+\hat{x}}{\sqrt{2}} = \frac{1}{\sqrt{2}},
+\quad \cos\theta_{ab} = \frac{1}{\sqrt{2}},\quad \theta_{ab} = \frac{\pi}{4}, \\
+\hat{a}\cdot\hat{b}' &= \hat{z}\cdot\frac{\hat{z}-\hat{x}}{\sqrt{2}} = \frac{1}{\sqrt{2}},
+\quad \cos\theta_{ab'} = \frac{1}{\sqrt{2}},\quad \theta_{ab'} = \frac{\pi}{4}, \\
+\hat{a}'\cdot\hat{b} &= \hat{x}\cdot\frac{\hat{z}+\hat{x}}{\sqrt{2}} = \frac{1}{\sqrt{2}},
+\quad \cos\theta_{a'b} = \frac{1}{\sqrt{2}},\quad \theta_{a'b} = \frac{\pi}{4}, \\
+\hat{a}'\cdot\hat{b}' &= \hat{x}\cdot\frac{\hat{z}-\hat{x}}{\sqrt{2}} = -\frac{1}{\sqrt{2}},
+\quad \cos\theta_{a'b'} = -\frac{1}{\sqrt{2}},\quad \theta_{a'b'} = \frac{3\pi}{4}.
+\end{align}
+\end{linenomath}
+Using $E_{\text{QM}} = -\cos\theta_{ab}$:
+\begin{linenomath}
+\begin{align}
+E(\hat{a},\hat{b}) &= -\cos(\pi/4) = -1/\sqrt{2}, \\
+E(\hat{a},\hat{b}') &= -\cos(\pi/4) = -1/\sqrt{2}, \\
+E(\hat{a}',\hat{b}) &= -\cos(\pi/4) = -1/\sqrt{2}, \\
+E(\hat{a}',\hat{b}') &= -\cos(3\pi/4) = -(-1/\sqrt{2}) = +1/\sqrt{2}.
+\end{align}
+\end{linenomath}
+The CHSH sum is
+\begin{linenomath}
+\begin{align}
+\langle S\rangle_{\text{QM}}
+&= -\frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}}
+= -\frac{4}{\sqrt{2}} = -2\sqrt{2}.
+\end{align}
+\end{linenomath}
+Thus $\lvert\langle S\rangle\rvert = 2\sqrt{2} \approx 2.828 > 2$. The quantum prediction exceeds the local bound by a factor of $\sqrt{2}$ and saturates the Tsirelson bound \eqref{eq:tsirelson-bound}.
+
+\begin{note}
+The sign of $\langle S\rangle$ is negative; the absolute value $2\sqrt{2}$ is the violation. The four-term sum is $-2\sqrt{2}$ for the specific sign convention of the CHSH operator as defined in \eqref{eq:chsh-observable}. Flipping the sign convention (e.g., defining the last term with a $+$ sign instead of $-$) would change the sign of $\langle S\rangle$ but not its magnitude. The physical content is $\lvert\langle S\rangle\rvert = 2\sqrt{2} > 2$.
+\end{note}
+
+\medskip\noindent\textbf{The Aspect experiments (1981--1982) and beyond.}
+The CHSH inequality was tested experimentally by Aspect, Grangier, and Roger (1981, \textit{Phys.\ Rev.\ Lett.}\ 47, 460; 1982, ibid.\ 49, 91; Aspect, Dalibard, and Roger 1982, ibid.\ 49, 1804). The experiments used a calcium cascade $4p^2\;{}^1S_0 \to 4s4p\;{}^1P_1 \to 4s^2\;{}^1S_0$, producing entangled photon pairs at wavelengths $551.3$~nm and $422.7$~nm. The photons' polarizations were measured along the four CHSH directions; the measured correlation function agreed with the quantum prediction $E = -\cos(2\theta_{\text{pol}})$ (photons are spin-1, not spin-1/2; the relevant angle is twice the polarizer angle, yielding the same $\cos^2$ structure). The 1981 experiment measured
+\begin{linenomath}
+\begin{equation}
+S = 2.697 \pm 0.015,
+\end{equation}
+\end{linenomath}
+a $40\sigma$ violation of the CHSH bound $\lvert S\rvert \le 2$.
+
+The 1982 experiment closed the locality loophole by using rapidly switched polarizer orientations via acousto-optical devices. The setting changes occurred during the photon flight time, ensuring that the two measurement events were spacelike separated: no signal traveling at or below the speed of light could communicate Alice's setting choice to Bob's detector before his photon arrived. The violation persisted.
+
+Subsequent experiments closed the remaining loopholes. Weihs et al.\ (1998, \textit{Phys.\ Rev.\ Lett.}\ 81, 5039) achieved a $30\sigma$ violation under strict Einstein locality. Hensen et al.\ (2015, \textit{Nature}\ 526, 682) performed the first loophole-free Bell test, combining spacelike separation with high-efficiency detection to close both the locality and the fair-sampling loopholes simultaneously. The verdict is unanimous across platforms---photons, trapped ions, superconducting qubits, nitrogen-vacancy centers---and across decades: local realism is false. Nature is nonlocal in exactly the way quantum mechanics predicts.
+
+\begin{note}
+The CHSH violation rules out all local hidden-variable theories. It does \textit{not} rule out nonlocal hidden-variable theories: Bohmian mechanics is explicitly nonlocal and reproduces all quantum predictions, including the CHSH violation. It does \textit{not} permit superluminal signaling: the no-signaling theorem (proved in one paragraph below) establishes that Alice's marginal statistics are independent of Bob's measurement choices. The tension with relativistic causality is real---Bell's theorem shows that any theory reproducing quantum correlations must be nonlocal in some sense---but the conflict is with local realism, not with the no-signaling constraints of special relativity.
+\end{note}
+
+\medskip\noindent\textbf{The no-signaling theorem.}
+Alice's reduced density operator after tracing out Bob's particle is independent of what Bob chooses to measure. For the singlet, $\rho_A = \tr_B(\ket{\Psi^-}\bra{\Psi^-}) = I/2$ regardless of whether Bob measures $\sigma_z$, $\sigma_x$, or nothing at all. More generally, for any bipartite state $\rho_{AB}$ and any PVM $\{P_b^{(B)}\}$ on Bob's side, the non-selective post-measurement state of Alice is
+\begin{linenomath}
+\begin{equation}
+\rho_A'
+= \tr_B\Bigl(\sum_b (I \otimes P_b^{(B)}) \,\rho_{AB}\, (I \otimes P_b^{(B)})\Bigr)
+= \tr_B(\rho_{AB}) = \rho_A,
+\end{equation}
+\end{linenomath}
+because $\tr_B$ is cyclic on Bob's operators and $\sum_b P_b^{(B)} = I$. Bob's measurement choice, encoded in the PVM $\{P_b^{(B)}\}$, disappears from Alice's reduced state. No signaling is possible: the CHSH violation exhibits nonlocality without enabling superluminal communication.
+
+The advantage of the Bell/CHSH framework is that it converts a philosophical dilemma into an experimentally decidable question: the number $\lvert\langle S\rangle\rvert$ is measurable in a laboratory, and the answer---$2\sqrt{2}$, not $\le2$---is a fact about nature, not an interpretation. Its limitation is that the violation does not single out a particular resolution of the measurement problem; Copenhagen, many-worlds, and Bohmian mechanics all accommodate the violation, the latter by explicit nonlocality.
+
+The next section restates the measurement problem in the language of entanglement, using the density operator and the von Neumann measurement scheme to make precise what the CHSH violation leaves unresolved.
+\section{The Measurement Problem Revisited}
+\label{sec:measurement-problem}
+
+Chapter~3's measurement axioms (M1)--(M5) describe a measurement's effect---the Born rule probabilities, the L\"uders update---but are silent about the measurement process. The non-selective measurement paragraph (ch3 \S\ref{sec:filters}) deferred the problem: how does a unitary interaction between system and apparatus produce the definite outcomes that experience reports? Now, with the tensor product (Section~\ref{sec:tensor-products}) and the density operator (Section~\ref{sec:density-operator}), the process can be modeled, and the problem can be stated precisely. This section presents the von Neumann measurement scheme, identifies the three sub-problems it exposes, names decoherence as the dominant approach to the first two (for all practical purposes), and leaves the ``and/or'' problem as the deep conceptual residue.
+
+\medskip\noindent\textbf{The von Neumann measurement scheme (1932).}
+Consider a system with an observable $A = \sum_n a_n \ket{a_n}\bra{a_n}$ (nondegenerate for simplicity). The system is prepared in a superposition $\ket{\psi} = \sum_n c_n \ket{a_n}$ with $\sum_n \lvert c_n\rvert^2 = 1$. A measuring apparatus, initially in a ready state $\ket{A_0}$, couples to the system via a unitary interaction $U_{\text{meas}}$ designed to correlate each eigenstate of $A$ with a distinct, macroscopically distinguishable pointer state $\ket{A_n}$ of the apparatus:
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+U_{\text{meas}}\;\ket{a_n} \otimes \ket{A_0}
+= \ket{a_n} \otimes \ket{A_n},
+\qquad
+\braket{A_m \mid A_n} = \delta_{mn},
+\;},
+\label{eq:von-neumann-scheme}
+\end{equation}
+\end{linenomath}
+where the orthonormality of the pointer states encodes their distinguishability: a subsequent readout of the apparatus can reliably determine which $\ket{A_n}$ is occupied. The interaction is a controlled unitary: conditioned on the system's eigenstate, the apparatus is rotated to the corresponding pointer state.
+
+By linearity of the Schr\"odinger evolution (Axiom D1, \eqref{eq:evolution-axiom}), the interaction applied to the superposition produces
+\begin{linenomath}
+\begin{equation}
+\boxed{\;
+\ket{\Psi} = U_{\text{meas}}\Bigl(\sum_n c_n \ket{a_n}\Bigr) \otimes \ket{A_0}
+= \sum_n c_n \ket{a_n} \otimes \ket{A_n},
+\;},
+\label{eq:post-measurement-entangled}
+\end{equation}
+\end{linenomath}
+an entangled pure state of system and apparatus. This is the post-measurement state \textit{before observation}. It is a superposition of macroscopic configurations: each term $\ket{a_n} \otimes \ket{A_n}$ represents a definite outcome (the apparatus reads $A_n$), but the state as a whole is a coherent sum of all such terms. The density operator corresponding to \eqref{eq:post-measurement-entangled} is
+\begin{linenomath}
+\begin{equation}
+\rho = \sum_{m,n} c_m c_n^{*}\; \ket{a_m}\bra{a_n} \otimes \ket{A_m}\bra{A_n},
+\label{eq:post-measurement-density}
+\end{equation}
+\end{linenomath}
+where the off-diagonal terms ($m \neq n$) encode quantum coherence between the branches.
+
+\medskip\noindent\textbf{The three sub-problems.}
+The state \eqref{eq:post-measurement-entangled} exposes three distinct problems.
+
+\textit{1. The problem of determinate outcomes.}
+The post-measurement state $\ket{\Psi}$ is a superposition of macroscopically distinct configurations. Experience, however, reports a single definite outcome: the apparatus indicates $A_{n_0}$, not a superposition of all $A_n$. No axiom of the theory---neither the Schr\"odinger equation (deterministic and continuous, \eqref{eq:schroedinger}) nor the L\"uders update (probabilistic and discontinuous, \eqref{eq:luders-update})---selects one term of the superposition over the others. The L\"uders update is an \textit{additional} rule, postulated in ch3 precisely because unitary evolution alone does not yield definite outcomes. This is the measurement problem proper.
+
+\textit{2. The problem of the preferred basis.}
+The von Neumann scheme \eqref{eq:von-neumann-scheme} picks out the eigenbasis of the measured observable $A$ as the basis in which the apparatus states become correlated. But what picks out \textit{that} observable? Why does the apparatus indicate $\ket{A_n}$ (pointer states) rather than superpositions $\sum_n d_n \ket{A_n}$? The scheme assumes that the apparatus is designed to measure $A$; it does not explain why the pointer basis---the basis in which the apparatus states are stable under the system--apparatus--environment interaction---coincides with the eigenbasis of a particular observable. This is the preferred-basis problem.
+
+\textit{3. The problem of the quantum-to-classical transition.}
+The density operator \eqref{eq:post-measurement-density} possesses off-diagonal coherence between the branches. The observed ensemble after many runs of the experiment is described by a diagonal density operator in the pointer basis:
+\begin{linenomath}
+\begin{equation}
+\rho_{\text{obs}} = \sum_n \lvert c_n\rvert^2\; \ket{a_n}\bra{a_n} \otimes \ket{A_n}\bra{A_n},
+\end{equation}
+\end{linenomath}
+with each outcome occurring with frequency $\lvert c_n\rvert^2$ and no interference between terms. Where and how does the interference vanish? The formal transition from the coherent $\rho$ to the diagonal $\rho_{\text{obs}}$ is not described by any unitary evolution: $\rho_{\text{obs}}$ and $\rho$ have the same diagonal elements but $\rho$ has nonzero off-diagonal elements, and unitary transformations preserve eigenvalues, hence do not alter the degree of coherence. The vanishing of off-diagonal terms requires a non-unitary process.
+
+\medskip\noindent\textbf{Decoherence: named, not developed.}
+When the apparatus couples to an environment with many uncontrolled degrees of freedom (photons, air molecules, thermal radiation), the system--apparatus--environment interaction rapidly entangles the apparatus pointer states with orthogonal environment states. Tracing out the environment---which is operationally unavoidable, since no measurement accesses all environmental degrees of freedom---suppresses the off-diagonal terms of the system--apparatus reduced density operator:
+\begin{linenomath}
+\begin{equation}
+\rho_{SA} \;\approx\; \sum_n \lvert c_n\rvert^2\; \ket{a_n}\bra{a_n} \otimes \ket{A_n}\bra{A_n},
+\label{eq:decohered-density}
+\end{equation}
+\end{linenomath}
+where the approximation becomes exact in the limit of infinitely many environment degrees of freedom with perfect orthogonality of environment states.
+
+\begin{note}
+The density operator \eqref{eq:decohered-density} is approximately diagonal \textit{for all practical purposes} (FAPP, in Bell's phrase). The global state---system plus apparatus plus environment---remains pure: the entanglement has merely been transferred to the environment, where it is inaccessible. Decoherence theory (Zurek's einselection, named here; Zurek 1981, \textit{Phys.\ Rev.}\ D 24, 1516) provides the quantitative framework, including the timescale on which off-diagonal terms decay (the decoherence time, typically many orders of magnitude shorter than the relaxation time) and the mechanism by which the environment selects the pointer basis (the states that are robust under environment monitoring, i.e., that commute with the system--environment interaction Hamiltonian). The full theory---master equations, Lindblad operators, environment models---is a forward debt, beyond the scope of this chapter.
+\end{note}
+
+Decoherence addresses problems 1 and 2 FAPP: the reduced density operator becomes effectively diagonal in the einselected basis, explaining why the world \textit{appears} classical (no macroscopic superpositions are observed) and why the pointer basis is the one that is stable under environmental monitoring. But decoherence does not solve problem 1 in principle. The diagonal ensemble \eqref{eq:decohered-density} is an improper mixture---the reduced state of a subsystem of a larger pure state. It describes the statistics of outcomes that would be obtained if the system were measured, but it does not explain why one particular outcome is \textit{experienced}. The ``and/or'' problem---the superposition says \textit{and} (all outcomes coexist); experience says \textit{or} (one outcome occurs)---remains.
+
+\medskip\noindent\textbf{The measurement problem as the theory's open wound.}
+The conflict is between two fundamental principles of the theory. Unitary evolution (ch4's D1, \eqref{eq:evolution-axiom}) is continuous, deterministic, and entanglement-preserving. State reduction (ch3's M3, \eqref{eq:luders-update}) is discontinuous, probabilistic, and coherence-destroying. Both are essential to the theory's empirical success: unitary evolution accounts for every known dynamical law; state reduction accounts for the fact that measurements have outcomes. But the two principles are incompatible as descriptions of a single process. The measurement problem is the statement that the theory contains no rule for deciding when to apply one and when the other.
+
+The Copenhagen reading places the cut between the quantum and classical domains at the observer: the apparatus is classical, described by classical physics, and the formalism's job is to connect preparations to outcomes. What happens ``in between'' is a question the formalism is not designed to answer. This reading is stated, not advocated; it is historically significant and conceptually economical, but it leaves the cut's location arbitrary and the observer's special status unexplained.
+
+\medskip\noindent\textbf{Schr\"odinger's cat.}
+The limiting case of the von Neumann chain illustrates the problem. A radioactive atom in a superposition of undecayed ($\ket{0}$) and decayed ($\ket{1}$) entangles with a Geiger counter, which entangles with a hammer, which entangles with a vial of poison, which entangles with a cat:
+\begin{linenomath}
+\begin{equation}
+\ket{\Psi} = \alpha\ket{0}\otimes\ket{\text{silent}}\otimes\cdots\otimes\ket{\text{alive}}
++ \beta\ket{1}\otimes\ket{\text{click}}\otimes\cdots\otimes\ket{\text{dead}}.
+\end{equation}
+\end{linenomath}
+Every intermediate stage entangles cleanly by the von Neumann scheme \eqref{eq:von-neumann-scheme}. The cat, when treated as a quantum system, ends up in an entangled superposition of alive and dead. But cats are not observed in superpositions. The question---where along this chain does the superposition end and a definite outcome begin?---is the measurement problem in its starkest form. Decoherence makes the cat effectively alive-or-dead FAPP; the ``or'' of experience versus the ``and'' of the state is the book's final open question.
+
+\medskip\noindent\textbf{Ch1 echo.}
+The historical chapter closed with the operational definition of a state: a catalogue of probabilities for the outcomes of every conceivable measurement (\ref{subsec:operational-state}). The measurement problem is the ultimate consequence of that definition. If the state is a catalogue, and the catalogue collapses upon measurement, then the collapse is a change in the catalogue, not necessarily a physical process. Whether this view is tenable---whether the catalogue is all there is, or whether something beyond the catalogue determines which entry is actualized---is the interpretive question the book leaves open.
+
+The advantage of the von Neumann scheme is its precision: it models the measurement interaction as a physical process (a unitary coupling) within the theory, exposing exactly where the axioms of ch3 stop describing and start postulating. Its limitation is that it does not solve the problem it illuminates. Decoherence explains FAPP why superpositions are not observed; it does not explain, and is not claimed to explain, why one particular outcome is experienced. The measurement problem, stated precisely in the language of entanglement, is the chapter's--and the book's structural arc's--open wound.
+
+The chapter closes with a summary of its four principles, the extended experiment--formalism dictionary, and the balanced debt ledger.
+\section{Summary and Open Debts}
+\label{sec:ch7summary}
+
+This chapter completed the book's structural arc. The theory of nonrelativistic quantum mechanics, built axiom by axiom from ch2 through ch6, now includes the description of composite systems, the density operator for subsystems, the classification of entangled states, the EPR argument as the conceptual challenge, and the Bell/CHSH inequality as the measurable signature of quantum nonlocality. The chapter added zero new axioms: every display was proved from the ch2--ch6 axioms, with the honesty declarations specified at each point of use.
+
+\medskip\noindent\textbf{The four principles.}
+
+\begin{enumerate}
+\item[(E1)] \textbf{Composite systems.} The Hilbert space of a composite system is the tensor product $\mathcal{H}_A \otimes \mathcal{H}_B$ of the subsystem spaces (\eqref{eq:tensor-product-def}). The product basis $\{\ket{e_i} \otimes \ket{f_j}\}$ has dimension $d_A d_B$ (\eqref{eq:tensor-product-basis}). Operators act factor-wise: $(A \otimes B)(\ket{\psi_A} \otimes \ket{\phi_B}) = A\ket{\psi_A} \otimes B\ket{\phi_B}$ (\eqref{eq:tensor-operator}), extended linearly. Not every state is a product vector; states that are not---states whose coefficient matrix has rank greater than one---are entangled.
+
+\item[(E2)] \textbf{Density operator.} A general state is described by a density operator $\rho = \sum_k p_k \ket{\psi_k}\bra{\psi_k}$, with $\rho = \rho^\dagger$, $\tr\rho = 1$, $\rho \ge 0$ (\eqref{eq:density-properties}). Expectation values are $\langle A \rangle = \tr(\rho A)$ (\eqref{eq:density-expectation}). Purity $\tr(\rho^2) \le 1$ (\eqref{eq:purity}) distinguishes pure from mixed states. The state of a subsystem is obtained by the partial trace $\rho_A = \tr_B(\rho_{AB})$ (\eqref{eq:partial-trace}). A subsystem of a pure entangled state is mixed (\eqref{eq:reduced-pure}). The density operator does not distinguish proper mixtures (classical ignorance) from improper mixtures (reduced states of entangled composites).
+
+\item[(E3)] \textbf{Entanglement.} Bipartite pure states admit the Schmidt decomposition $\ket{\Psi} = \sum_{k=1}^{r} \sqrt{\lambda_k}\,\ket{u_k} \otimes \ket{v_k}$ (\eqref{eq:schmidt-decomposition}), with Schmidt rank $r$ and Schmidt coefficients $\lambda_k$ equal to the eigenvalues of $\rho_A$. A pure state is separable iff $r = 1$ (\eqref{eq:separable-pure}); maximally entangled iff $\lambda_k = 1/r$ (\eqref{eq:max-entangled-condition}). The Bell basis $\{\ket{\Psi^\pm}, \ket{\Phi^\pm}\}$ (\eqref{eq:bell-states}) is the maximally entangled ONB of $\mathbb{C}^2 \otimes \mathbb{C}^2$. Mixed-state separability is defined via convex combinations of product states (\eqref{eq:separable-mixed}). The entanglement entropy $S(\rho_A) = -\tr(\rho_A\log_2\rho_A)$ (\eqref{eq:entanglement-entropy}) quantifies pure-state entanglement: $S = 0$ for product states, $S = 1$ for the singlet, $S \le \log_2 d$ universally.
+
+\item[(E4)] \textbf{Bell nonlocality.} Local hidden-variable models factorize conditioned on $\lambda$ (\eqref{eq:lhv-model}) and satisfy the CHSH inequality $\lvert S\rvert \le 2$ (\eqref{eq:chsh-inequality}). Quantum mechanics predicts $\lvert\langle S\rangle\rvert \le 2\sqrt{2}$ (\eqref{eq:tsirelson-bound}), saturated by the singlet at $\lvert\langle S\rangle\rvert = 2\sqrt{2}$ for the optimal measurement angles (\eqref{eq:optimal-violation}). The Aspect experiments confirm the quantum prediction, ruling out local realism. The no-signaling theorem establishes that the violation does not enable superluminal communication.
+\end{enumerate}
+
+\medskip\noindent\textbf{The experiment--formalism dictionary v6.}
+Table~\ref{tab:ch7-dictionary} extends the dictionaries of ch2--ch6 with the twelve rows of the composite-systems and entanglement vocabulary. Every laboratory notion has a formal object; every formal object has a laboratory warrant.
+
+\begin{table}[htbp]
+\centering
+\caption{The experiment--formalism dictionary v6: Composite systems and entanglement. Extends \texttt{tab:ch2-dictionary} through \texttt{tab:ch6-dictionary}.}
+\label{tab:ch7-dictionary}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Laboratory notion & Formal object \\
+\midrule
+Composite system & Tensor product $\mathcal{H}_A \otimes \mathcal{H}_B$ \\
+Subsystem state & Reduced density operator $\tr_B(\rho_{AB})$ \\
+Product state & Factorable vector, Schmidt rank $1$ \\
+Entangled state & Non-product state, Schmidt rank $> 1$ \\
+Maximal entanglement & Reduced state $\rho_A = I/r$ \\
+Local hidden variable & $\lambda$ with factorized outcomes \\
+Bell inequality & CHSH bound $\lvert S\rvert \le 2$ \\
+Quantum violation & $2\sqrt{2}$, Aspect confirmation \\
+Measurement process & von Neumann entangling unitary $U_{\text{meas}}$ \\
+Pointer state & Apparatus eigenstate $\ket{A_n}$ \\
+Decoherence & Environment-induced diagonalization, FAPP \\
+Mixed state & Density operator $\rho$, $\tr(\rho^2) \le 1$ \\
+Entanglement entropy & $S = -\tr(\rho_A\log_2\rho_A)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\medskip\noindent\textbf{Debt ledger, balanced.}
+The chapter's three entry contracts from ch3 and ch6 are discharged:
+
+\begin{itemize}
+\item \textbf{ch3 debt \#20:} The density operator is defined (\eqref{eq:density-operator-def}), its properties are proved (\eqref{eq:density-properties}), expectation values via the trace are derived (\eqref{eq:density-expectation}), purity established (\eqref{eq:purity}), the partial trace defined (\eqref{eq:partial-trace}), reduced states of pure composites computed (\eqref{eq:reduced-pure}), non-selective measurement formulated in density language (\eqref{eq:non-selective-density}), proper vs.\ improper mixtures distinguished, and the measurement problem restated in the entanglement language (\S\ref{sec:measurement-problem})---repaying exactly the ledger ch3 opened.
+
+\item \textbf{ch6 debt \#31:} The tensor product is formalized as a Hilbert space (\eqref{eq:tensor-product-def}), its basis and inner product are constructed (\eqref{eq:tensor-product-basis}, \eqref{eq:tensor-inner-product}), operator action is defined (\eqref{eq:tensor-operator}, \eqref{eq:tensor-operator-general}), and the dimension formula $\dim = d_A d_B$ is proved.
+
+\item \textbf{ch6 debt \#32:} Mixed states, the partial trace, entanglement measures via reduced density operators, the Bloch ball (\eqref{eq:bloch-ball}), and the entanglement entropy (\eqref{eq:entanglement-entropy}) are all built.
+
+\item \textbf{ch6 debt \#33:} The singlet/triplet entanglement is classified: Schmidt rank $2$, Bell states constructed (\eqref{eq:bell-states}), the singlet identified as $\ket{\Psi^-}$, the EPR argument stated in the modern spin language (\S\ref{sec:epr}), the CHSH inequality derived and violated (\S\ref{sec:bell}), and the Aspect experiments described as the chapter's measurable landing.
+\end{itemize}
+
+The chapter plants the following forward debts:
+
+\begin{itemize}
+\item \textbf{Decoherence theory:} Named with the FAPP honesty clause (\eqref{eq:decohered-density}); the full theory (master equations, Lindblad operators, environment models, einselection) is a forward debt to a future treatment or advanced course.
+
+\item \textbf{Quantum information theory:} The Bell basis, no-cloning theorem, and no-signaling theorem are named as one-sentence pointers; quantum computation, cryptography, error correction, and teleportation are explicitly beyond the book's scope. The door is left ajar.
+
+\item \textbf{The measurement problem:} Stated precisely in the entanglement language; declared unresolved. The ``and/or'' problem remains.
+
+\item \textbf{CHSH as the paradigm for ch8:} The CHSH violation is the chapter's measurable landing---an exact number derived from structural principles and confirmed by experiment. The approximation methods of ch8 (perturbation theory, scattering theory) now have the full structural toolkit behind them and a paradigm to emulate: every prediction must land on a number that can be measured.
+\end{itemize}
+
+\medskip\noindent\textbf{Exit question.}
+The structural arc of the book is complete. From ch1's experimental crises---the ultraviolet catastrophe, the photoelectric effect, the Balmer spectrum, the Stern--Gerlach two-valuedness---through ch7's Bell violation at $2\sqrt{2}$, the theory of nonrelativistic quantum mechanics now possesses its full axiomatic structure: states as rays of a Hilbert space, measurement as spectral decomposition, evolution as unitary, symmetries as group representations, angular momentum as the rotation spectrum, and composite systems as tensor products with entanglement as their defining non-classical feature. The next question is not ``what is the theory?'' but ``what does the theory predict for real systems?''---the time-independent and time-dependent perturbation theory, the variational method, the Born approximation, the partial-wave expansion, and the scattering matrix of ch8.
+\begin{problemset}
+
+\item[Exercise 7.1] \textbf{Tensor product basis.}
+\label{item:ex-tensor-basis}
+Construct the tensor product basis for $\mathbb{C}^2 \otimes \mathbb{C}^3$ (a qubit and a qutrit). Let $\{\ket{\uparrow}, \ket{\downarrow}\}$ be the standard basis of $\mathbb{C}^2$ and $\{\ket{1}, \ket{0}, \ket{-1}\}$ the standard basis of $\mathbb{C}^3$ (the $j=1$ eigenstates of $S_z$ defined in ch6 Exercise~7.3).
+
+\begin{enumerate}
+\item[(a)] Write the six product basis vectors $\ket{e_i} \otimes \ket{f_j}$. What is the dimension of $\mathbb{C}^2 \otimes \mathbb{C}^3$?
+\item[(b)] Write the matrix representation of $\sigma_z \otimes I_3$ in the tensor product basis. Verify that it is block-diagonal with two $3\times3$ blocks.
+\item[(c)] Write the matrix representation of $I_2 \otimes S_z$ (where $S_z = \hbar\,\operatorname{diag}(1,0,-1)$ is the $j=1$ spin matrix). Verify that it is block-diagonal with three $2\times2$ blocks.
+\item[(d)] Verify explicitly that $[\sigma_z \otimes I_3,\; I_2 \otimes S_z] = 0$. What are the joint eigenvalues of these two operators? How many distinct joint outcomes does a measurement of both observables produce?
+\end{enumerate}
+
+\item[Exercise 7.2] \textbf{Partial trace of the singlet and triplet.}
+\label{item:ex-partial-trace}
+Starting from the pure states $\rho = \ket{\psi}\bra{\psi}$ for the two-spin-$1/2$ coupled states:
+
+\begin{enumerate}
+\item[(a)] For the singlet $\ket{0,0} = (\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow})/\sqrt{2}$ (\eqref{eq:singlet-triplet}), compute $\rho_A = \tr_B(\ket{0,0}\bra{0,0})$ explicitly in the $\{\ket{\uparrow}, \ket{\downarrow}\}$ basis. Show that $\rho_A = I/2$ and $\tr(\rho_A^2) = 1/2$.
+\item[(b)] For the triplet state $\ket{1,1} = \ket{\uparrow\uparrow}$ (\eqref{eq:singlet-triplet}), compute $\rho_A = \tr_B(\ket{1,1}\bra{1,1})$. Show that $\rho_A$ is pure and identify which pure state it is. What is $\tr(\rho_A^2)$?
+\item[(c)] For the triplet state $\ket{1,0} = (\ket{\uparrow\downarrow} + \ket{\downarrow\uparrow})/\sqrt{2}$, compute $\rho_A$ and show that it is mixed. Compute $\tr(\rho_A^2)$.
+\item[(d)] Compare the reduced states of the singlet and the $\ket{1,0}$ triplet state. Both are mixed---explain the physical difference between the two cases in terms of the correlations between the two spins.
+\end{enumerate}
+
+\item[Exercise 7.3] \textbf{Schmidt decomposition of a parametrized state.}
+\label{item:ex-schmidt}
+Consider the parametrized two-qubit state
+\begin{linenomath}
+\begin{equation}
+\ket{\psi(\theta)} = \cos\theta\,\ket{\uparrow\uparrow} + \sin\theta\,\ket{\downarrow\downarrow},
+\qquad 0 \le \theta \le \tfrac{\pi}{2}.
+\end{equation}
+\end{linenomath}
+
+\begin{enumerate}
+\item[(a)] Find the Schmidt decomposition: identify the Schmidt vectors $\{\ket{u_k}\}$, $\{\ket{v_k}\}$ and the Schmidt coefficients $\{\lambda_k\}$. What is the Schmidt rank $r$? For what values of $\theta$ does $r$ change?
+\item[(b)] Compute the reduced density operator $\rho_A = \tr_B(\ket{\psi(\theta)}\bra{\psi(\theta)})$, its eigenvalues, and the entanglement entropy $S(\theta) = -\tr(\rho_A \log_2 \rho_A)$. Express $S$ in terms of the binary entropy function $H_2(p) = -p\log_2 p - (1-p)\log_2(1-p)$.
+\item[(c)] For what value of $\theta$ is the state maximally entangled? What is the entanglement entropy there? For what values is the state a product state?
+\item[(d)] Generalize to $\ket{\psi} = \cos\theta\,\ket{\uparrow\uparrow} + e^{i\phi}\sin\theta\,\ket{\downarrow\downarrow}$. Show that the phase $\phi$ does not affect the Schmidt coefficients or the entanglement entropy. Physical interpretation: why is entanglement invariant under local unitaries?
+\end{enumerate}
+
+\item[Exercise 7.4] \textbf{Bell states, local unitaries, and the no-cloning theorem.}
+\label{item:ex-no-cloning}
+
+\begin{enumerate}
+\item[(a)] Verify the following relations among Bell states:
+\begin{linenomath}
+\begin{align}
+\ket{\Phi^+} &= (I \otimes \sigma_x)\ket{\Psi^+}, \\
+\ket{\Phi^-} &= (I \otimes \sigma_z)\ket{\Psi^+}, \\
+\ket{\Psi^-} &= (I \otimes \sigma_y)\ket{\Psi^+}.
+\end{align}
+\end{linenomath}
+Show that the factor $i$ appearing in the last relation is a global phase absorbed by ray equivalence.
+\item[(b)] Prove the no-cloning theorem. Suppose a unitary operator $U$ on $\mathcal{H} \otimes \mathcal{H}$ clones an arbitrary state in a two-dimensional subspace $\mathcal{H}_0 \subset \mathcal{H}$: $U(\ket{\psi} \otimes \ket{0}) = \ket{\psi} \otimes \ket{\psi}$ for all $\ket{\psi} \in \mathcal{H}_0$, where $\ket{0}$ is a fixed reference state. Apply $U$ to the superposition $\ket{+} = (\ket{0} + \ket{1})/\sqrt{2}$, where $\{\ket{0}, \ket{1}\}$ is an orthonormal basis of $\mathcal{H}_0$, and show that linearity contradicts the cloning assumption. Why does this argument not forbid the preparation of many copies of a \textit{known} state?
+\end{enumerate}
+
+\item[Exercise 7.5] \textbf{CHSH violation for the singlet.}
+\label{item:ex-chsh}
+
+\begin{enumerate}
+\item[(a)] Starting from the quantum correlation function $E_{\text{QM}}(\hat{a},\hat{b}) = -\bm a \cdot \bm b$ (\eqref{eq:qm-correlation-singlet}), construct the CHSH expression $S = E(\hat{a},\hat{b}) + E(\hat{a},\hat{b}') + E(\hat{a}',\hat{b}) - E(\hat{a}',\hat{b}')$. Using planar geometry (all vectors in the $xz$-plane: $\hat{a} = \hat{z}$, $\hat{a}' = \hat{x}$, $\hat{b} = (\hat{z} + \hat{x})/\sqrt{2}$, $\hat{b}' = (\hat{z} - \hat{x})/\sqrt{2}$), evaluate each of the four terms and show that $\langle S\rangle = -2\sqrt{2}$, so $\lvert\langle S\rangle\rvert = 2\sqrt{2}$.
+\item[(b)] Prove that no local hidden-variable theory can exceed $\lvert S\rvert = 2$. Write $S(\lambda) = A(\hat{a})\bigl(B(\hat{b}) + B(\hat{b}')\bigr) + A(\hat{a}')\bigl(B(\hat{b}) - B(\hat{b}')\bigr)$ and show that $S(\lambda) = \pm 2$ for every $\lambda$, using $A, B = \pm 1$.
+\item[(c)] Verify that the four measurement directions are the optimal choice. For any four coplanar directions $\hat{a}, \hat{a}', \hat{b}, \hat{b}'$ with angles $\theta_a, \theta_{a'}, \theta_b, \theta_{b'}$, write $\langle S\rangle$ as a function of the four angles and maximize over all choices. Confirm that the maximum is $2\sqrt{2}$ and that the optimal angles are those given in \eqref{eq:optimal-violation} up to an overall rotation.
+\item[(d)] The detection loophole: if the detection efficiency is $\eta < 1$ and undetected events are discarded (the fair-sampling assumption), show that the effective CHSH bound rises to $2/\eta$. Explain why closing this loophole requires high-efficiency detectors, and state how Hensen et al.\ (2015) achieved a loophole-free test.
+\end{enumerate}
+
+\item[Exercise 7.6] \textbf{Bell's original inequality (1964).}
+\label{item:ex-bell-original}
+Bell's 1964 paper used three measurement directions $\hat{a}, \hat{b}, \hat{c}$ rather than four.
+
+\begin{enumerate}
+\item[(a)] Derive Bell's original inequality:
+\begin{linenomath}
+\begin{equation}
+\lvert E(\hat{a},\hat{b}) - E(\hat{a},\hat{c})\rvert \le 1 + E(\hat{b},\hat{c}),
+\end{equation}
+\end{linenomath}
+for dichotomic outcomes $A, B = \pm 1$ in any LHV model. Use the identity $A(\hat{a})B(\hat{b}) - A(\hat{a})B(\hat{c}) = A(\hat{a})B(\hat{b})\bigl(1 \pm A(\hat{b})B(\hat{c})\bigr) - A(\hat{a})B(\hat{c})\bigl(1 \pm A(\hat{b})B(\hat{c})\bigr)$, take absolute values, and integrate over $\lambda$.
+
+\item[(b)] For the singlet, take $\hat{a}, \hat{b}, \hat{c}$ in the $xz$-plane separated by $\pi/3$ ($60^\circ$): $\theta_{ab} = \theta_{bc} = \pi/3$, $\theta_{ac} = 2\pi/3$. Compute $E(\hat{a},\hat{b}) = -\cos(\pi/3) = -1/2$, $E(\hat{a},\hat{c}) = -\cos(2\pi/3) = +1/2$, and $E(\hat{b},\hat{c}) = -\cos(\pi/3) = -1/2$. Show that $\lvert E(\hat{a},\hat{b}) - E(\hat{a},\hat{c})\rvert = 1$ while $1 + E(\hat{b},\hat{c}) = 1/2$, a violation by a factor of $2$. Compare the violation ratios of Bell's original inequality and the CHSH inequality.
+\end{enumerate}
+
+\item[Exercise 7.7] \textbf{Proper vs.\ improper mixtures.}
+\label{item:ex-proper-improper}
+
+\begin{enumerate}
+\item[(a)] Ensemble I: $\ket{\uparrow_z}$ with probability $1/2$, $\ket{\downarrow_z}$ with probability $1/2$. Compute the density operator $\rho_{\text{I}}$ in the $\{\ket{\uparrow_z}, \ket{\downarrow_z}\}$ basis.
+\item[(b)] Ensemble II: $\ket{\uparrow_x} = (\ket{\uparrow_z} + \ket{\downarrow_z})/\sqrt{2}$ with probability $1/2$, $\ket{\downarrow_x} = (\ket{\uparrow_z} - \ket{\downarrow_z})/\sqrt{2}$ with probability $1/2$. Compute $\rho_{\text{II}}$ and show $\rho_{\text{I}} = \rho_{\text{II}} = I/2$.
+\item[(c)] Compute $\tr(\rho_{\text{I}} \sigma_z)$ and $\tr(\rho_{\text{II}} \sigma_z)$. Interpret the result physically: what does the vanishing of the expectation value tell you about the distinguishability of these two ensembles?
+\item[(d)] A non-selective measurement of $\sigma_z$ is performed on $\rho_{\text{I}}$. Compute the post-measurement state via the L\"uders map $\rho \mapsto \sum_n P_n \rho P_n$ (\eqref{eq:non-selective-density}). Does it differ from $\rho_{\text{I}}$? Explain why the maximally mixed state is a fixed point of the non-selective measurement map.
+\end{enumerate}
+
+\item[Exercise 7.8] \textbf{PPT criterion for two qubits.}
+\label{item:ex-ppt}
+The Peres--Horodecki criterion states that a bipartite state $\rho_{AB}$ is separable only if its partial transpose $\rho_{AB}^{T_B}$ is positive semidefinite (PPT). For $2 \times 2$ and $2 \times 3$ systems, the condition is also sufficient.
+
+\begin{enumerate}
+\item[(a)] Define the partial transpose: $\rho_{AB}^{T_B}$ is obtained by transposing only the indices of subsystem $B$: $\braket{e_i \otimes f_j|\rho_{AB}^{T_B}|e_k \otimes f_l} = \braket{e_i \otimes f_l|\rho_{AB}|e_k \otimes f_j}$. Compute $\rho^{T_B}$ for the singlet $\rho = \ket{\Psi^-}\bra{\Psi^-}$. Write $\rho$ as a $4\times4$ matrix in the product basis $\{\ket{\uparrow\uparrow}, \ket{\uparrow\downarrow}, \ket{\downarrow\uparrow}, \ket{\downarrow\downarrow}\}$ and apply the partial transpose. Find the eigenvalues of $\rho^{T_B}$ and show that one is negative---the singlet is NPT, hence entangled.
+\item[(b)] For a Werner state $\rho_W = p\ket{\Psi^-}\bra{\Psi^-} + (1-p)I/4$ (the convex combination of the singlet and the maximally mixed state, with $0 \le p \le 1$), find the range of $p$ for which $\rho_W^{T_B} \ge 0$ and the range for which it is entangled. Show that the threshold is $p = 1/3$: for $p \le 1/3$, the Werner state is separable (PPT); for $p > 1/3$, it is entangled (NPT).
+\end{enumerate}
+
+\item[Exercise 7.9] \textbf{Von Neumann measurement model.}
+\label{item:ex-von-neumann}
+A spin-$1/2$ system in the state $\ket{\psi} = \alpha\ket{\uparrow} + \beta\ket{\downarrow}$ (with $\lvert\alpha\rvert^2 + \lvert\beta\rvert^2 = 1$) is measured by a second spin-$1/2$ particle (the apparatus) initially in $\ket{\uparrow}$. The measurement interaction is
+\begin{linenomath}
+\begin{equation}
+U_{\text{meas}} = \exp\!\Bigl(-\frac{i}{\hbar}\,\frac{\pi}{4}\,\sigma_z \otimes \sigma_x\Bigr).
+\end{equation}
+\end{linenomath}
+
+\begin{enumerate}
+\item[(a)] Show that $U_{\text{meas}} = \frac{1}{\sqrt{2}}(I \otimes I - i\,\sigma_z \otimes \sigma_x)$ using $(\sigma_z \otimes \sigma_x)^2 = I \otimes I$. Then verify that $U_{\text{meas}}\ket{\uparrow} \otimes \ket{\uparrow} = \ket{\uparrow} \otimes \ket{\uparrow}$ and $U_{\text{meas}}\ket{\downarrow} \otimes \ket{\uparrow} = \ket{\downarrow} \otimes \ket{\downarrow}$. The apparatus flips if and only if the system is in $\ket{\downarrow}$.
+\item[(b)] Compute the post-interaction state $\ket{\Psi} = U_{\text{meas}}(\ket{\psi} \otimes \ket{\uparrow})$. Write it in the form $\ket{\Psi} = \alpha\ket{\uparrow}\otimes\ket{\uparrow} + \beta\ket{\downarrow}\otimes\ket{\downarrow}$. Then compute the full density operator $\rho = \ket{\Psi}\bra{\Psi}$ and identify the off-diagonal coherence terms.
+\item[(c)] Compute the reduced density operator of the apparatus: $\rho_{\text{app}} = \tr_{\text{sys}}(\rho)$. Show that $\rho_{\text{app}} = \lvert\alpha\rvert^2\ket{\uparrow}\bra{\uparrow} + \lvert\beta\rvert^2\ket{\downarrow}\bra{\downarrow}$---diagonal in the $\sigma_z$ basis, with no off-diagonal terms. Where did the interference go? It resides in the system--apparatus correlations (the off-diagonal terms of $\rho$ involve both subsystems). A measurement of the apparatus alone sees no coherence; the coherence is encoded in the entanglement.
+\end{enumerate}
+
+\item[Exercise 7.10] \textbf{Entanglement entropy for Schmidt coefficients.}
+\label{item:ex-entropy}
+
+\begin{enumerate}
+\item[(a)] A pure bipartite state has Schmidt coefficients $\{\lambda_1, \lambda_2, \lambda_3\}$ summing to $1$. For which choice of the $\lambda_k$ is the entanglement entropy $S = -\sum_k \lambda_k \log_2 \lambda_k$ maximal? Compute $S_{\max}$ in terms of the number of nonzero $\lambda_k$.
+\item[(b)] Show that $S = 0$ if and only if exactly one $\lambda_k = 1$ and all others vanish. Interpret this result in terms of separability.
+\item[(c)] Prove that $S(\rho_A) = S(\rho_B)$ for any bipartite pure state. Use the fact that $\rho_A$ and $\rho_B$ have the same nonzero eigenvalues (established in Section~\ref{sec:density-operator} via the Schmidt decomposition).
+\item[(d)] Compute $S$ for the two-qutrit state
+\begin{linenomath}
+\begin{equation}
+\ket{\psi} = \frac{1}{\sqrt{3}}\bigl(\ket{0,0} + \ket{1,1} + \ket{2,2}\bigr),
+\end{equation}
+\end{linenomath}
+where $\{\ket{0}, \ket{1}, \ket{2}\}$ is an orthonormal basis of $\mathbb{C}^3$. Is this state maximally entangled? What is $\rho_A$?
+\end{enumerate}
+
+\end{problemset}

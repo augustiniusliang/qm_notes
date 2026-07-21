@@ -1,0 +1,743 @@
+\chapter{From Experimental Facts to States of the Hilbert Space}
+
+\begin{note}
+    This chapter is constructive in character. Taking only the experimental logic of Chapter~1 as input, it assembles the axioms of the quantum state space step by step: the two composition principles for amplitudes, the Born rule connecting amplitudes with frequencies, the linear structure of superpositions, rays as the physical states, the inner product as a transition amplitude, orthogonality as experimental distinguishability, orthonormal bases as complete sets of alternatives, and finally the Hilbert space --- finite- and infinite-dimensional --- as the natural arena of quantum states. It presupposes nothing beyond Chapter~1 and elementary linear algebra. Starred material may be omitted on a first reading without loss of continuity.
+\end{note}
+
+Chapter~1 ended in debt. Its history of the three crises distilled five kinematical requirements that any successor of classical mechanics must meet (Section~\ref{subsec:why-kinematics}): discrete alternatives in place of a continuum of states; observable data attached to pairs of states rather than to single states; complex amplitudes composed before probabilities; an order-sensitive composition of physical operations; and a notion of state belonging to none of its representations. Its closing study of two-state experiments (Section~\ref{sec:twostate}) then showed all five requirements at work in the simplest laboratory situations --- the Mach--Zehnder interferometer, the polarizer, the Stern--Gerlach magnet --- and condensed them into a preliminary grammar of kets, amplitudes, and squared moduli. That grammar was read off the experiments; it was not yet a theory. What the Dirac--Jordan--von Neumann synthesis achieved abstractly (Section~\ref{subsec:djv-formalism}), this chapter achieves from below, clause by clause.
+
+The route of the repayment is deliberate. We first fix the operational vocabulary --- what an experiment is, what its raw data are, and what the word \emph{state} can legitimately mean --- and find that the data are frequencies, and that frequencies by themselves obey no simple law of combination. We then go beneath the frequencies to the quantities that do combine simply: the two composition principles for amplitudes, and the Born rule that returns from amplitudes to frequencies. Only after that does geometry enter. The addition of amplitudes forces the set of states to be a linear space; the Born rule forces the physical state to be a ray rather than a vector and elevates the inner product to the primitive physical object; orthogonality emerges as perfect distinguishability, and an orthonormal basis as a complete set of alternatives. The chapter closes with the Hilbert space as the finished arena, including an honest preview of the infinite-dimensional case, and with the axioms collected in one place.
+
+One debt will be left open on purpose. The fourth requirement of Chapter~1 --- that the order of physical operations matters --- is motivated at every step of what follows, for the experiments of this chapter are chains of stages whose order cannot be permuted; but its formal repayment requires the theory of linear maps on the state space, which belongs to the next chapter. The same honesty applies to the continuum: it is previewed, not perfected. What this chapter promises is narrower and, for that reason, more solid: by its end, the statement \emph{the state is a ray of a Hilbert space} will have been earned experimentally, clause by clause.
+
+\section{Preparations, Alternatives, and Frequencies}
+\label{sec:alternatives}
+
+Every experiment considered in this book has the same anatomy. A \textbf{preparation} produces a system in a reproducible condition: an oven and a collimator for a silver beam, a laser and a polarizer for a photon, an electron gun and an accelerating voltage. The system then passes through a \textbf{process} --- an interferometer, a crystal, a magnet, or perhaps nothing at all --- and ends at a \textbf{registration}: a counter clicks, a spot appears on a screen, a grain of emulsion blackens. The raw data of physics are clicks and spots. Everything else in the theory is an organization of clicks and spots.
+
+The vocabulary of that organization is fixed once and for all. An \textbf{alternative} is a possible outcome of a given apparatus: this detector rather than that one, transmission rather than absorption, the upper spot rather than the lower. Alternatives are \textbf{mutually exclusive} when a single run of the experiment can realize at most one of them; transmission and absorption at the same polarizer are mutually exclusive, and so are the two spots of a Stern--Gerlach magnet. A set of alternatives is \textbf{complete} for an apparatus when it is exhaustive: every run lands somewhere in the set. Completeness has an immediate quantitative shadow. If, out of $N$ runs prepared in the same way, the counter for the $n$-th alternative fires $N_n$ times, the relative frequencies $N_n/N$ stabilize, as $N$ grows, at numbers $P_n$ which --- precisely because the set is exhaustive --- satisfy
+\begin{linenomath}
+\begin{equation}
+    \sum_n P_n = 1 .
+\end{equation}
+\end{linenomath}
+These frequencies are the whole of the data. Counters register frequencies; no counter has ever registered an amplitude.
+
+From such data alone the word \emph{state} receives its first precise meaning. Chapter~1 defined a state operationally as an equivalence class of preparation procedures (Section~\ref{subsec:operational-state}); we now write the definition in the language of frequencies. Call two preparation procedures $\Pi_1$ and $\Pi_2$ equivalent, and say that they prepare the same state, if they yield the same frequencies for every later experiment:
+\begin{linenomath}
+\begin{equation}
+    \Pi_1 \sim \Pi_2
+    \quad\Longleftrightarrow\quad
+    P(E,n\,|\,\Pi_1) = P(E,n\,|\,\Pi_2)
+    \quad\text{for every experiment } E \text{ and every alternative } n .
+\end{equation}
+\end{linenomath}
+The definition is uncompromisingly operational. A state is nothing but a rule for predicting frequencies; two preparations that predict identically are the same state, whatever they may look like on the bench. A polarizer followed by a long free flight prepares the same photon state as the polarizer alone, because no later experiment can tell the two procedures apart.
+
+One further empirical clause belongs to the vocabulary of this section, and the whole of quantum kinematics is hidden inside it. Suppose an outcome can be reached through several mutually exclusive alternatives. If the arrangement makes the alternatives \emph{distinguishable in principle} --- if it deposits anywhere in the world a record of which alternative was realized, whether or not any observer ever reads that record --- then the frequencies add classically: the frequency of the outcome is the sum of the frequencies of the alternatives. If the arrangement leaves the alternatives unmarked, they do not. We record this dichotomy here as a fact of nature; the rule that governs it is the content of Section~\ref{sec:composition}.
+
+The cleanest proof of the fact is one of the quietest experiments of its decade. In an atom interferometer, a collimated beam of atoms is split --- for instance by diffraction from a standing wave of light --- into two spatially separated paths for the atomic center of mass, and the paths are recombined downstream; the atom counts at the outputs exhibit interference fringes exquisitely sensitive to the relative phase of the two path amplitudes. Now tag the paths. Before recombination, a microwave pulse leaves the atom's internal hyperfine state correlated with the path it took, so that an atom arriving through the upper path carries a different internal label from an atom arriving through the lower. The tag exerts no classical force worth the name on the center of mass; the trajectories, the separations, and the timings are unchanged. Yet the fringes vanish: the visibility collapses the moment the paths become distinguishable in principle, because the internal state of the very atom inside the apparatus could now be inspected to reveal the path. If the tag is withdrawn --- if the internal labels of the two paths are made identical again before recombination --- the fringes return.\footnote{The experiment was performed with rubidium atoms by S.~D\"urr, T.~Nonn, and G.~Rempe, \emph{Nature} \textbf{395}, 33 (1998). The which-way information is stored in the atom's own internal states, and the fringe visibility collapses without any measurable mechanical disturbance of the paths; the restoration of the fringes upon withdrawal of the tag is the conditional content of the marking clause.}
+
+The moral is twofold. First, an alternative is not a hidden choice made by the particle; it is a feature of the whole arrangement, preparation and process and registration together. The atom did not secretly take one path and then fail to remember it; the unmarked arrangement simply does not contain two alternatives, and the marked arrangement does. Second, the operative notion is distinguishability \emph{in principle}: what matters is whether the arrangement contains the which-way information, not whether anyone looks at it. This clause will return in every section of the chapter.
+
+The advantage of the vocabulary fixed here is that every term is cashed out in procedures: preparation, alternative, frequency, state. A theory built on such words cannot drift far from the bench, because its primitives are bench words. Its limitation is that the vocabulary describes the data but supplies no law for them. The marking experiment shows that frequencies obey no universal sum rule, for they add when alternatives are marked and refuse to add when they are not. Frequencies are the data, but they are not the quantities that combine simply; to find those we must go one level beneath the counters, and that is the work of the next section.
+
+\section{The Two Composition Principles for Amplitudes}
+\label{sec:composition}
+
+The experiments of Chapter~1 --- the Mach--Zehnder interferometer, the chain of polarizers, the sequence of Stern--Gerlach magnets (Section~\ref{sec:twostate}) --- showed that nature keeps two sets of books. Counters accumulate frequencies, but the frequencies can be predicted only through intermediate quantities that add where frequencies do not, and that multiply where frequencies merely chain. We now distill those intermediate quantities into the first axiom of the kinematics.
+
+\textbf{Axiom 1 (amplitudes).} To each transition from an alternative of the preparation to an alternative of the registration, nature assigns a complex number, the \textbf{amplitude} of the transition. An amplitude therefore always lives on a \emph{pair} of states, a beginning and an end. In this form the axiom honors the third requirement of Chapter~1 --- complex amplitudes are composed before probabilities --- and, because the primitive quantity attaches to a pair, also the second (Section~\ref{subsec:why-kinematics}). The two rules by which amplitudes are composed are the foundational pair of this chapter.
+
+\textbf{The addition principle.} If an outcome can be reached through several mutually indistinguishable alternatives, the amplitude for the outcome is the sum of the partial amplitudes:
+\begin{linenomath}
+\begin{equation}
+    A_{\mathrm{tot}} = A_1 + A_2
+    \qquad\Longrightarrow\qquad
+    P = |A_1 + A_2|^2 \neq |A_1|^2 + |A_2|^2 = P_1 + P_2 .
+    \label{eq:addition-principle}
+\end{equation}
+\end{linenomath}
+The experimental proof is the Mach--Zehnder interferometer of Chapter~1 (Figure~\ref{fig:mach_zehnder}). Each detector is reached through two alternatives, the upper path and the lower, and the two contributions can cancel at a dark port even though neither contribution vanishes by itself: closing either arm brightens that detector. Probabilities, being non-negative, cannot do this. Whatever adds at the output of an interferometer must be capable of cancellation, and only the amplitudes add. The inequality above is therefore not a defect of the theory but its first success: the fringe pattern \emph{is} the difference between $|A_1 + A_2|^2$ and $|A_1|^2 + |A_2|^2$.
+
+\textbf{The multiplication principle.} If a process is a chain of successive stages with definite intermediate alternatives, the amplitude of the chain is the product of the stage amplitudes:
+\begin{linenomath}
+\begin{equation}
+    A(\psi \to \phi \to \chi) = \braket{\chi|\phi}\,\braket{\phi|\psi} .
+    \label{eq:multiplication-principle}
+\end{equation}
+\end{linenomath}
+Here the amplitude for the transition $\psi \to \phi$ has been written in the bra-ket notation inherited from Chapter~1 (Section~\ref{sec:twostate}), whose formal status will be fixed in Section~\ref{sec:innerproduct}; for the moment it is a compact script for the quantity of Axiom~1. The experimental proof is the chain of filters of Chapter~1. A horizontally polarized photon meets a diagonal polarizer and then a vertical one, and the amplitude of the chain factorizes as $\braket{V|D}\braket{D|H}$; combined with the rule of Section~\ref{sec:born} this will reproduce the measured law $P(H \to D \to V) = 1/4$ (Section~\ref{sec:twostate}). The same factorization governs the sequential Stern--Gerlach arrangement: a $z$-preparation, an $x$-stage, a final $z$-question.
+
+Both principles can be exhibited on a single optical bench with no spatial two-path interferometer at all. Prepare a single photon in horizontal polarization and let it traverse a sequence of oriented wave plates --- a half-wave plate, say, followed by a quarter-wave plate --- and finally an analyzer. Each plate is cut from birefringent crystal, and its fast and slow axes define, for that plate, two perpendicular polarization alternatives of its own. A photon entering a plate is assigned an amplitude for each of the plate's two axis-alternatives; inside the plate the two alternatives accumulate a relative phase set by the plate's thickness and birefringence; at the exit face they recombine. The amplitude to leave the plate with a given polarization is thus a sum of two contributions, one through the fast alternative and one through the slow --- the addition principle, exercised inside a single element. A horizontally polarized photon can in this way leave a quarter-wave plate with a nonzero amplitude to be registered as right-circularly polarized: the conversion $H \to R$ resolves into the plate's two axis-alternatives, each gathering its own phase through the crystal,
+\begin{linenomath}
+\begin{equation}
+    A(H \to R) = e^{i\delta_f}\braket{R|f}\braket{f|H} + e^{i\delta_s}\braket{R|s}\braket{s|H} ,
+\end{equation}
+\end{linenomath}
+and each summand is already a product of two stage amplitudes, one into and one out of an axis-alternative. The chaining from plate to plate then exercises the second principle in full: the amplitude to traverse the whole cascade --- say the conversion $H \to D \to R$, one plate turning horizontal into diagonal and the next turning diagonal into right-circular --- is the product of the per-plate amplitudes, so that rotating any one plate --- changing the relative phase it imposes --- redistributes the counts at the final analyzer. The measured conversion of horizontally polarized single photons into circularly polarized ones, and the phase-dependent flicker of the analyzer counts as the plates are turned, are the two composition principles read directly off one bench. Note that the two alternatives here live on the polarization of one and the same photon; no beam is ever split in space.
+
+Why must the arena of the amplitude be the complex numbers? The interferometer excludes anything smaller. Real non-negative quantities cannot cancel: two open paths can give fewer counts at a detector than one, so the quantities that add must not be probabilities or intensities. A single signed real quantity could cancel, but it could not carry what the experiment shows to be physical. As the phase shifter in one arm of the interferometer is dialed, the detector counts vary continuously and periodically; the amplitude of an alternative must therefore store a continuously adjustable \emph{phase} as well as a magnitude. The minimal number system holding a magnitude and a phase is the complex number,
+\begin{linenomath}
+\begin{equation}
+    A = |A|\,e^{i\varphi} ,
+\end{equation}
+\end{linenomath}
+where $\varphi$ is, operationally, the quantity a phase-shifter dial reads.\footnote{Still larger number systems are not excluded by this argument alone. Quaternionic and other generalizations are constrained only by later consistency requirements --- among them the demand that amplitudes for composite systems behave sensibly --- and are not pursued in this book.}
+
+One feature of the composition law must be registered honestly before we go on. Chaining stage $X$ and then stage $Y$ is a different experiment from chaining $Y$ and then $X$: the sequential Stern--Gerlach arrangement of Chapter~1 (Figure~\ref{fig:sequential_sg}) makes this vivid, for a $z$-selection followed by an $x$-interrogation does not prepare what an $x$-selection followed by a $z$-interrogation prepares. Nothing in the two principles is violated by this. In either order the amplitudes still add over indistinguishable alternatives and multiply over successive stages; what is order-sensitive is the \emph{processes} themselves. The formal machinery for that order-sensitivity --- linear maps on the state space --- will be built in the chapters on measurement and on dynamics. Here we locate, without yet repaying, the fourth requirement of Chapter~1 (Section~\ref{subsec:why-kinematics}): the experiments insist that order matters, and the theory must be built so that it can.
+
+The advantage of the two principles is their economy. The entire combinatorics of quantum kinematics --- every interference pattern, every cascade of filters, every correlation of counters --- is generated by one addition and one multiplication of complex numbers, and the rest of this chapter is, in a sense, only an unfolding of their consequences. Their limitation is equally plain: counters never click in complex numbers. The principles say how amplitudes combine, but no rule given so far turns an amplitude into a frequency. Supplying that rule is the business of the next section.
+
+\section{The Born Rule: from Amplitudes to Frequencies}
+\label{sec:born}
+
+The bridge from amplitude to frequency was first crossed in a footnote. In the scattering papers of 1926, Born proposed that the wave of wave mechanics determines not where a particle is but how likely it is to be found, taking the probability proportional to the squared modulus of the amplitude (Section~\ref{subsec:born-probability}).\footnote{M.~Born, \emph{Z.~Phys.} \textbf{37}, 863 (1926); \textbf{38}, 803 (1926). The historical setting of the proposal is recounted in Section~\ref{subsec:born-probability}; here we record only its axiomatic content.} Chapter~1 told that story; the task of this section is to state the rule as an axiom of the kinematics and to display its empirical content.
+
+\textbf{Axiom 2 (the Born rule).} If a system is prepared in the state $\psi$ and registered against the alternative $\phi$, the probability of the transition is the squared modulus of its amplitude:
+\begin{linenomath}
+\begin{equation}
+    P(\psi \to \phi) = \bigl|\braket{\phi|\psi}\bigr|^2 .
+    \label{eq:born-rule}
+\end{equation}
+\end{linenomath}
+The transition probability is $|\braket{\phi|\psi}|^2$: with this single clause the amplitude calculus of Section~\ref{sec:composition} is connected to the counters of Section~\ref{sec:alternatives}.
+
+The rule is a statement about ensembles. Given a preparation that can be repeated, it predicts the long-run frequency with which the alternative $\phi$ appears among identically prepared systems; about a single run it claims nothing beyond what frequencies assert --- a point the example below makes concrete.\footnote{The elements of probability theory assumed in this book --- ensembles, conditional frequencies, statistical independence --- are collected in Appendix~D.}
+
+The Born rule is exactly the partner the two composition principles need. Add first, then square: two indistinguishable alternatives with amplitudes $A_1$ and $A_2$ give
+\begin{linenomath}
+\begin{equation}
+    P = |A_1 + A_2|^2 = |A_1|^2 + |A_2|^2 + 2\,\mathrm{Re}\bigl(A_1^{*}A_2\bigr) ,
+\end{equation}
+\end{linenomath}
+and the last term --- the interference term, carrying the relative phase --- is the fringe pattern itself. When the alternatives are marked, their indistinguishability fails, the cross term vanishes, and the classical sum rule of Section~\ref{sec:alternatives} is recovered. Multiply first, then square: a chain of successive stages gives $P(\psi \to \phi \to \chi) = |\braket{\chi|\phi}\braket{\phi|\psi}|^2 = |\braket{\chi|\phi}|^2\,|\braket{\phi|\psi}|^2$, which for the polarizer chain of Chapter~1 reads $P(H \to D \to V) = |\braket{D|H}|^2\,|\braket{V|D}|^2 = 1/4$ (Section~\ref{sec:twostate}) --- the transmission frequencies of successive filters multiply, as they must.
+
+Finally, the frequencies over a complete set of alternatives sum to one (Section~\ref{sec:alternatives}), so the amplitudes from any preparation $\psi$ to the alternatives $\{e_n\}$ of a complete set must satisfy
+\begin{linenomath}
+\begin{equation}
+    \sum_n \bigl|\braket{e_n|\psi}\bigr|^2 = 1 .
+\end{equation}
+\end{linenomath}
+This condition, stated here at the level of frequencies, will become the unit-norm condition on state vectors once the inner product is formalized in Section~\ref{sec:innerproduct}.
+
+The empirical content of the axiom is displayed with unmatched directness in the electron biprism experiments of the Tonomura group. In the biprism, a thin charged filament bends the electron trajectories on either side toward one another, so that the amplitude of a single electron arrives at the detector through two indistinguishable alternatives; the source is run so feebly that the apparatus contains, with overwhelming probability, at most one electron at a time. The detector records the arrivals one by one, and the film shows what the Born rule means. The first dots fall at apparently random positions; no regularity governs any single event, and none is predicted for any of them. As the dots accumulate --- hundreds, then thousands, then hundreds of thousands of single electrons --- the pattern converges with increasing sharpness to the computed $|A_1 + A_2|^2$ of the biprism geometry. The film \emph{is} the frequency bridge: the probability belongs to the ensemble, while each single electron, in Dirac's phrase, interferes only with itself --- the same lesson, now for matter, that Taylor's feeble-light photographs taught for light in Chapter~1 (Section~\ref{sec:twostate}).\footnote{A.~Tonomura, J.~Endo, T.~Matsuda, T.~Kawasaki, and H.~Ezawa, \emph{Am.~J.~Phys.} \textbf{57}, 117 (1989).}
+
+\subsection*{A Plausibility Argument for the Born Rule}
+
+Why the squared modulus, and not the first power, or the fourth, or some other function of the amplitude? A rigorous answer exists but lies beyond this chapter; what can be given here is a plausibility argument, heuristic in character, showing that the two composition principles themselves leave little room for anything else. Suppose, then, that the probability of a transition is a function of its amplitude alone, $P = F(A)$. This is already a physical hypothesis: it asserts that the amplitude exhausts what the transition knows.
+
+The multiplication principle constrains $F$ severely. In a staged experiment the amplitudes of successive stages multiply, while the observed frequencies of successive filters multiply as well: the fraction of systems passing both of two independent stages is the product of the fractions passing each. Consistency therefore demands $F(A_1 A_2) = F(A_1)\,F(A_2)$, and the associativity of stage composition --- three stages may be bracketed in either order, $(A_1 A_2) A_3 = A_1 (A_2 A_3)$ --- demands that this rule hold uniformly for chains of any length. Together with $F(1) = 1$ for the trivial stage that changes nothing, and the boundedness $0 \leq F \leq 1$, the only continuous solutions are the powers of the modulus, $F(A) = |A|^\alpha$ for some $\alpha \geq 0$: no dependence on the phase can serve, since $F(e^{i\varphi})\,F(e^{-i\varphi})=F(1)=1$ with both factors in $[0,1]$ forces $F\equiv1$ on every phase.
+
+The addition principle then fixes the exponent. Indistinguishable alternatives may be permuted, regrouped, or subdivided without changing the physical arrangement; more demandingly, the total probability must be one no matter which complete set of alternatives resolves the state. A two-alternative instance shows what this costs: a state with $|a|^\alpha+|b|^\alpha=1$ at $a=b$ carries total probability $2^{\alpha/2-1}$ against the rotated set $\{(\ket{e_1}\pm\ket{e_2})/\sqrt{2}\}$, which equals one only for $\alpha=2$. The same exponent also keeps the bookkeeping coherent: $|A_1 + A_2|^2$ decomposes into $|A_1|^2 + |A_2|^2$ plus an interference term carried entirely by the relative phase, so a single rule accounts both for the fringes of indistinguishable alternatives and for the classical sum rule of marked ones. One arrives, heuristically, at $P = |A|^2$, up to the overall normalization convention fixed by the completeness condition above.
+
+Two warnings belong with this argument. First, it is offered as orientation, not as derivation. Rigorous uniqueness theorems for the probability rule --- Gleason's theorem and its later refinements --- do exist, but they presuppose the measurement formalism of the next chapter and are only signposted here.\footnote{A.~M. Gleason, \emph{J.~Math.~Mech.} \textbf{6}, 885 (1957). Gleason's result characterizes the probability measures on the closed subspaces of a Hilbert space; even its statement requires the language of projections, which belongs to the next chapter.} Second, the argument deliberately does \emph{not} assume the freedom to multiply a state by an overall phase. That freedom is a \emph{consequence} of the Born rule, proved in Section~\ref{sec:rays}; to assume it here would be circular.
+
+The advantage of the Born rule is that with a single axiom the amplitude calculus becomes predictive: compose amplitudes by the two principles, square one modulus, and the frequencies of every experiment in this chapter are computed. Its limitation is written into the Tonomura film: the rule speaks only of ensembles, is silent about the individual event, and says nothing about what a measurement \emph{is}; those questions require the operator formalism of the next chapter. For the present chapter one consequence matters most. Since only squared moduli are observed, the addition of amplitudes must be a well-defined operation on states themselves --- and that requirement, taken seriously, forces the state space to be a linear space. To that structure we now turn.
+
+\section{The Linear Space of States}
+\label{sec:linearspace}
+
+The composition principles of Section~\ref{sec:composition} add amplitudes over indistinguishable alternatives; so far, addition has been an operation on complex numbers attached to processes. The Born rule of Section~\ref{sec:born} forces a stronger reading. Consider two preparable states $\ket{\psi_1}$ and $\ket{\psi_2}$ and an arrangement that feeds each run with one or the other while leaving the alternative ``which one'' unresolved in principle --- no record, anywhere, of which channel was realized. What such an arrangement prepares is not a statistical blend of the two states but a new state,
+\begin{linenomath}
+\begin{equation}
+    \ket{\psi}=\alpha\ket{\psi_1}+\beta\ket{\psi_2},
+\end{equation}
+\end{linenomath}
+whose amplitude for any later test alternative is, by the addition principle, the sum of the partial amplitudes. The two-state families of Chapter~1 (Section~\ref{sec:twostate}) are the standing evidence: a diagonal photon is prepared by an arrangement that does not resolve horizontal against vertical, and its state is written $(\ket{H}+\ket{V})/\sqrt{2}$; the interferometer prepares $(\ket{u}+e^{i\varphi}\ket{l})/\sqrt{2}$ precisely when the arrangement does not resolve path against path. Superposition is an operation on states, and the set of all states preparable relative to a given system closes under it.
+
+That set, denoted $\mathcal{H}$, therefore carries the structure of a vector space over the complex numbers. Its axioms are the familiar ones; what matters here is that each of them is an operational statement.
+\begin{itemize}
+    \item \emph{Closure under superposition.} For any two preparable states and any complex weights, $\alpha\ket{\psi_1}+\beta\ket{\psi_2}$ is again a preparable state: coherent re-blending never leads out of the arena.
+    \item \emph{Scalar multiplication.} The vector $c\ket{\psi}$ has every amplitude of $\ket{\psi}$ re-weighted by the common factor $c$; multiplying a state vector is the coherent re-weighting of all its amplitudes at once. Writing $c=re^{i\chi}$, the modulus $r$ rescales every amplitude together, and the phase $e^{i\chi}$ rotates every amplitude together --- an operation whose physical status is the subject of Section~\ref{sec:rays}.
+    \item \emph{Associativity and commutativity of addition.} An arrangement that leaves three alternatives unresolved does not care how the alternatives are grouped or ordered: $(\ket{\psi_1}+\ket{\psi_2})+\ket{\psi_3}=\ket{\psi_1}+(\ket{\psi_2}+\ket{\psi_3})$, and the sum is independent of the order of its terms.
+    \item \emph{Distributivity.} Coherent re-weighting distributes over superposition, $c\,(\ket{\psi_1}+\ket{\psi_2})=c\ket{\psi_1}+c\ket{\psi_2}$: re-weighting the blend is the same as blending the re-weighted parts.
+    \item \emph{The zero vector.} There is a vector $0$ with $\ket{\psi}+0=\ket{\psi}$; it assigns amplitude zero to every test alternative and represents the vacuous alternative --- see the note below.
+    \item \emph{Additive inverses and the unit scalar.} The vector $-\ket{\psi}$ carries every amplitude of $\ket{\psi}$ with reversed sign --- a shift of $\pi$ against the rest of any superposition --- and $1\ket{\psi}=\ket{\psi}$.
+\end{itemize}
+
+\begin{note}
+The zero vector is not a physical state. A state is a rule assigning frequencies to the outcomes of experiments on an existing ensemble (Section~\ref{sec:alternatives}); the zero vector assigns amplitude zero to every alternative and therefore describes no ensemble at all. It enters the formalism as the additive identity of $\mathcal{H}$, and the equality $\ket{\psi}+(-\ket{\psi})=0$ records the cancellation of two alternatives, not an exotic preparation. Much later we will meet a state called the vacuum; it will be an honest nonzero vector, for the vacuum is a preparation with definite, testable frequencies.
+\end{note}
+
+With the vector space in place, Dirac's ket is formalized: $\ket{\psi}$ simply names a vector of $\mathcal{H}$, exactly the usage that Chapter~1 practiced informally (Section~\ref{sec:twostate}). To each vector $\ket{\phi}$ there will correspond a dual object $\bra{\phi}$; its full definition waits for the inner product of Section~\ref{sec:innerproduct}, and until then the bracket $\braket{\phi|\psi}$ remains what it was in Chapter~1 --- a notation for the transition amplitude.
+
+A set of vectors is \emph{linearly independent} when no member is a superposition of the others; the \emph{span} of a set is the collection of all superpositions of its members; the \emph{dimension} of $\mathcal{H}$ is the number of vectors in any maximal independent set. At this stage these are algebraic notions and nothing more. Their operational reading --- the dimension is the maximal number of mutually exclusive alternatives that a single experiment on the system can return --- will be earned in Sections~\ref{sec:orthogonality} and~\ref{sec:bases}.
+
+Already at the algebraic level, however, the dimension can be made tangible. Take photon polarization, and choose the alternatives of a horizontal--vertical analyzer as the two basic kets. Every polarization state is then a column of two complex amplitudes, and the four states of Chapter~1's bench, augmented by the two circular ones, read
+\begin{linenomath}
+\begin{equation}
+\begin{aligned}
+    \ket{H}&=
+    \begin{pmatrix}1\\0\end{pmatrix},\qquad
+    \ket{V}=
+    \begin{pmatrix}0\\1\end{pmatrix},\\[4pt]
+    \ket{D}&=\frac{1}{\sqrt{2}}
+    \begin{pmatrix}1\\1\end{pmatrix},\qquad
+    \ket{A}=\frac{1}{\sqrt{2}}
+    \begin{pmatrix}1\\-1\end{pmatrix},\\[4pt]
+    \ket{R}&=\frac{1}{\sqrt{2}}
+    \begin{pmatrix}1\\ i\end{pmatrix},\qquad
+    \ket{L}=\frac{1}{\sqrt{2}}
+    \begin{pmatrix}1\\-i\end{pmatrix}.
+\end{aligned}
+\end{equation}
+\end{linenomath}
+Horizontal and vertical alone span the space, since $\ket{D}=(\ket{H}+\ket{V})/\sqrt{2}$ is a superposition of them; conversely $\ket{H}=(\ket{D}+\ket{A})/\sqrt{2}$ and $\ket{V}=(\ket{D}-\ket{A})/\sqrt{2}$ show the diagonal pair to span it equally well. Any two of $\ket{H},\ket{V},\ket{D},\ket{A}$ are linearly independent --- the determinant of each such pair is nonzero --- while any three vectors of the display are necessarily dependent: two complex weights exhaust the space, and no third alternative is independent of an independent pair. The circular states $\ket{R}$ and $\ket{L}$ are no exception; for instance $\ket{R}=\bigl((1+i)\ket{D}+(1-i)\ket{A}\bigr)/2$, as the columns verify at a glance. Their columns carry the factor $i$ whose experimental necessity is established in Section~\ref{sec:innerproduct}, and they add no third direction. Polarization is a two-dimensional state space, and we can see that it is one before dimension has acquired any operational meaning.
+
+What Chapter~1 read off three separate devices is now a theorem of the structure. Relative to any experiment with exactly two mutually exclusive alternatives, call the corresponding kets $\ket{0}$ and $\ket{1}$; they span the state space of the system relative to that experiment, and every preparable state has the form
+\begin{linenomath}
+\begin{equation}
+    \ket{\psi}=\alpha\ket{0}+\beta\ket{1},
+    \qquad
+    |\alpha|^2+|\beta|^2=1,
+\end{equation}
+\end{linenomath}
+where the constraint on the weights is the normalization of Section~\ref{sec:born}: the two alternatives are complete, so their squared amplitudes must sum to one. The general two-state form is thus recovered from the vector-space structure plus the Born rule, not re-assumed device by device.
+
+The advantage of the linear structure is that it makes the theory computable: every consequence of superposition follows from the two composition principles by pure algebra, and the whole kinematics of states is purchased at the price of a single operation --- the addition of amplitudes. Its limitation is subtler, and Chapter~1 already recorded it for the wave function: linearity makes the state space dangerously easy to reify. The vector $\alpha\ket{\psi_1}+\beta\ket{\psi_2}$ is a bookkeeping object for amplitudes, not a material wave propagating in some auxiliary space; it is not made of $\psi_1$-stuff and $\psi_2$-stuff, any more than the diagonal photon of Chapter~1 was half horizontal and half vertical. The states $\ket{\psi_1}$ and $\ket{\psi_2}$ are alternatives the arrangement leaves unresolved, not ingredients the system contains. A vector space, moreover, still knows nothing of length or angle; and since the Born rule tells us that an overall factor drops out of every frequency, we must ask which vectors are \emph{the same state} before we ask about angles between different ones.
+
+\section{Rays: Which Vector Is the State?}
+\label{sec:rays}
+
+The linear space of Section~\ref{sec:linearspace} supplies the candidates; we now say precisely which candidate is the state. The criterion is operational and was fixed in Section~\ref{sec:alternatives}: two preparations define the same state if and only if they yield the same frequencies for every later experiment. Apply it to two vectors that differ by an overall phase. For every test alternative $\phi$, the Born rule of Section~\ref{sec:born} gives
+\begin{linenomath}
+\begin{equation}
+    \bigl|\braket{\phi|\,e^{i\chi}\psi}\bigr|^2
+    =
+    \bigl|e^{i\chi}\braket{\phi|\psi}\bigr|^2
+    =
+    |\braket{\phi|\psi}|^2 .
+    \label{eq:ray-invariance}
+\end{equation}
+\end{linenomath}
+Every outcome frequency of every conceivable experiment is unchanged, so no experiment can distinguish the two preparations: by the operational definition, $\ket{\psi}$ and $e^{i\chi}\ket{\psi}$ are the same state. Chapter~1 stated this as a remark alongside its operational definition of state (Section~\ref{subsec:operational-state}); with the Born rule in hand it has become a theorem. The converse holds as well: if two vectors deliver identical frequencies for every test alternative, they differ at most by such a phase (the proof is the saturation clause of Cauchy--Schwarz, Section~\ref{sec:innerproduct}). Testing against a complete set of alternatives fixes the modulus of every amplitude, and testing against superposed alternatives then fixes every relative phase except one overall angle, which no frequency can reach.
+
+The physical state is therefore not a vector but a \textbf{ray} --- the one-dimensional subspace
+\begin{linenomath}
+\begin{equation}
+    \{\,c\ket{\psi}\;:\;c\in\mathbb{C},\ c\neq 0\,\}.
+\end{equation}
+\end{linenomath}
+To compute, one picks a representative of the ray, and the standing convention is the normalized one,
+\begin{linenomath}
+\begin{equation}
+    \braket{\psi|\psi}=1 .
+\end{equation}
+\end{linenomath}
+This is the completeness condition of Section~\ref{sec:born}, the sum of $|\braket{e_n|\psi}|^2$ over a complete set of alternatives, read as a statement about the vector itself; its full inner-product meaning is sealed in Section~\ref{sec:innerproduct}. The convention costs nothing: the ray theorem has already removed the freedom of a complex factor, normalization spends the modulus of that factor, and the only freedom left in the representative is the phase $e^{i\chi}$ --- exactly the freedom that the theorem declares meaningless.
+
+The states themselves, freed of representatives, are the points of the complex projective space
+\begin{linenomath}
+\begin{equation}
+    \text{states of the system}
+    \;\longleftrightarrow\;
+    \mathbb{CP}^{\,n-1}
+    =
+    \bigl(\mathbb{C}^{n}\setminus\{0\}\bigr)/{\sim},
+    \qquad
+    \ket{\psi}\sim e^{i\chi}\ket{\psi},
+\end{equation}
+\end{linenomath}
+where $n=\dim\mathcal{H}$. Nothing in what follows requires the machinery of projective geometry; the display says only that the space of states has one point per ray and carries no privileged representative. For a two-state system this space is a sphere, on which the two alternatives of any two-outcome experiment appear as antipodal points --- a picture whose precise metric meaning must wait for the inner product of Section~\ref{sec:innerproduct} and for the rotation theory of a later chapter.
+
+That the overall phase is meaningless does not make every phase meaningless. In
+\begin{linenomath}
+\begin{equation}
+    \ket{\psi(\chi)}=\frac{1}{\sqrt{2}}\bigl(\ket{0}+e^{i\chi}\ket{1}\bigr),
+\end{equation}
+\end{linenomath}
+multiplying the whole vector by $e^{i\alpha}$ changes nothing, by the ray theorem. But $\chi$ is the phase of the $\ket{1}$-component \emph{relative} to the $\ket{0}$-component, and it is physical: test the state against the alternative $\ket{0'}=(\ket{0}+\ket{1})/\sqrt{2}$ --- a member of a different basis, an experiment that resolves the superposition --- and the Born rule gives
+\begin{linenomath}
+\begin{equation}
+    P\bigl(0'\,\big|\,\psi(\chi)\bigr)
+    =
+    \left|\frac{1+e^{i\chi}}{2}\right|^2
+    =
+    \frac{1}{4}\bigl|1+e^{i\chi}\bigr|^2
+    =
+    \frac{1}{4}\bigl|\,e^{i\chi/2}(e^{-i\chi/2}+e^{i\chi/2})\bigr|^2
+    =
+    \frac{1}{4}\bigl|2\cos\tfrac{\chi}{2}\bigr|^2
+    =
+    \cos^2\frac{\chi}{2},
+\end{equation}
+\end{linenomath}
+so the counts move continuously with $\chi$ from certainty to exclusion. This is precisely the fringe law of Chapter~1's interferometer (Figure~\ref{fig:mach_zehnder}), where $\chi$ was the setting of a phase shifter in one arm: the dial redistributes counts between the detectors without changing any immediate path probability. The phase of a state vector by itself is unobservable; the relative phase between the components of a superposition is among the most directly measurable quantities in physics.
+
+One experiment exhibits both faces of the theorem in a single arrangement. In a perfect-crystal neutron interferometer, a neutron beam is divided into two spatially separated, coherent arms and recombined before detection --- a Mach--Zehnder built of neutrons. In one arm the spin of the neutron, a spin-$\tfrac12$ degree of freedom, is subjected to a magnetic field arranged to turn it through one full revolution. The experimental fact is this: a full $2\pi$ turn does not restore the spin state but multiplies its amplitude by $-1$, and only a $4\pi$ turn restores it.\footnote{H.~Rauch, A.~Zeilinger, G.~Badurek, A.~Wilfing, W.~Bauspiess, and U.~Bonse, \emph{Physics Letters}~54A (1975), 425; S.~A.~Werner, R.~Colella, A.~W.~Overhauser, and C.~F.~Eagen, \emph{Physical Review Letters}~35 (1975), 1053. The derivation of the sign from the theory of rotations is a debt owed by the chapter on angular momentum; none of its machinery is needed to state the fact.} Considered on either arm alone, the factor $-1$ is an overall phase and is invisible: every experiment performed solely on that arm gives unchanged frequencies, as the ray theorem demands. But inside the interferometer the same factor is a \emph{relative} phase of $\pi$ between the two arms, and the fringe law of this section applies: with the field switched off and a phase $\varphi$ scanned in one arm, the counts follow $P_0(\varphi)\propto\cos^2(\varphi/2)$; with the $2\pi$ rotator inserted they follow
+\begin{linenomath}
+\begin{equation}
+    P_0^{(2\pi)}(\varphi)
+    \propto
+    \cos^2\frac{\varphi+\pi}{2}
+    =
+    \sin^2\frac{\varphi}{2},
+\end{equation}
+\end{linenomath}
+the complementary pattern --- the observed fringes are shifted by exactly half a period, and a second full turn, $4\pi$ altogether, restores the original one. The unobservability of the global phase and the observability of the relative phase are thus read off in one and the same experiment.
+
+A closing remark belongs here, advanced or not at all. The ray theorem says that relative phases within a superposition are observable, and everything so far supports it --- within the alternatives of one experiment. But there are known pairs of states between which no relative phase is ever observable: no experiment has exhibited interference between a state of integer and a state of half-integer total angular momentum, or between states of different electric charge. Such pairs are said to be separated by a \emph{superselection rule}.\footnote{The systematic statement is due to G.~C.~Wick, A.~S.~Wightman, and E.~P.~Wigner (1952); the angular-momentum example finds its explanation in the rotation theory of a later chapter, and the charge example in the quantum theory of fields.} The correct statement of the kinematics is then sector by sector: within each sector every ray can be superposed with every other, and the full space of states is a family of projective spaces rather than a single one. We record the clause and proceed; nothing in the present chapter depends on it.
+
+The advantage of the ray picture is its economy: one mathematical point for one operational state, no redundancy, and the single remaining degree of freedom of a representative --- its overall phase --- certified meaningless by experiment itself. Its limitation is that it decides sameness but not difference: the ray picture tells us which vectors are one state, but not yet how far apart two different states lie, and the superselection clause warns that even the reach of superposition is an empirical, sector-by-sector fact rather than a theorem. To speak of rays, norms, and rotated bases quantitatively, we need the one sesquilinear object that the Born rule keeps invoking --- the inner product, read physically as the transition amplitude itself.
+
+\section{The Inner Product as a Transition Amplitude}
+\label{sec:innerproduct}
+
+Since Chapter~1 we have written $\braket{\phi|\psi}$ for the amplitude of the transition $\psi\to\phi$, and Sections~\ref{sec:composition}--\ref{sec:rays} have spent the notation freely. It is time to say exactly what object it is. The definition is physical: $\braket{\phi|\psi}$ is the amplitude that a system prepared in the state $\ket{\psi}$ is registered in the state $\ket{\phi}$. Nothing more primitive is available: Chapter~1's second kinematical requirement (Section~\ref{subsec:why-kinematics}) was that the observable data live on \emph{pairs} of states, and the inner product is that pair-datum in axiomatic form. Every geometric notion of the state space --- length, angle, orthogonality --- will be derived from it, and each of its properties will turn out to be an experimental statement.
+
+We take the properties one at a time; together they constitute the third axiom of the chapter. The first is \emph{conjugate symmetry},
+\begin{linenomath}
+\begin{equation}
+    \braket{\phi|\psi}=\braket{\psi|\phi}^{*} .
+    \label{eq:ip-conjugate}
+\end{equation}
+\end{linenomath}
+Its experimental warrant is the reciprocity of transition frequencies: $|\braket{\phi|\psi}|^2=|\braket{\psi|\phi}|^2$, the fact that a pair of polarizers transmits the same fraction of an incident beam whichever way the bench is run, and that the sequential Stern--Gerlach arrangements of Chapter~1 return the same fractions in reverse order. Frequencies force only the moduli to agree; declaring the amplitudes themselves to be conjugates is the weakest strengthening compatible with the addition principle, and no experiment has ever required more.
+
+The second property is \emph{linearity in the second argument},
+\begin{linenomath}
+\begin{equation}
+    \braket{\phi|\,\alpha\psi_1+\beta\psi_2}
+    =
+    \alpha\braket{\phi|\psi_1}+\beta\braket{\phi|\psi_2} .
+    \label{eq:ip-linearity}
+\end{equation}
+\end{linenomath}
+This is not a new assumption but the addition principle of Section~\ref{sec:composition} restated in the language of state vectors: the amplitude to reach $\phi$ through an unresolved superposition is the sum of the partial amplitudes. Combined with conjugate symmetry it yields conjugate-linearity in the first argument, $\braket{\alpha\phi_1+\beta\phi_2|\psi}=\alpha^{*}\braket{\phi_1|\psi}+\beta^{*}\braket{\phi_2|\psi}$. A form linear in one argument and conjugate-linear in the other is called \emph{sesquilinear}; the asymmetry between the two arguments is a bookkeeping convention, and physics books and mathematics books make it oppositely.
+
+The third property is \emph{positivity},
+\begin{linenomath}
+\begin{equation}
+    \braket{\psi|\psi}\geq 0,
+    \qquad
+    \braket{\psi|\psi}=0
+    \iff
+    \ket{\psi}=0 .
+    \label{eq:ip-positivity}
+\end{equation}
+\end{linenomath}
+Its experimental reading: the modulus squared of $\braket{\psi|\psi}$ is the probability that a $\psi$-prepared system passes a $\psi$-test --- the total probability of finding the system in an alternative compatible with its own preparation. A preparation that never passes its own test prepares nothing, and nothing is the zero vector of Section~\ref{sec:linearspace}.
+
+With positivity comes the norm of a state vector,
+\begin{linenomath}
+\begin{equation}
+    \|\psi\|=\sqrt{\braket{\psi|\psi}},
+\end{equation}
+\end{linenomath}
+and the convention $\|\psi\|=1$ now seals both the normalization of Section~\ref{sec:born} and the choice of representatives of Section~\ref{sec:rays}: for a normalized state, the completeness condition $\sum_n|\braket{e_n|\psi}|^2=1$ over a complete set of alternatives is precisely the statement $\braket{\psi|\psi}=1$ expanded over that set.
+
+One theorem is admitted at this point, because it answers an experimental question. The \emph{Cauchy--Schwarz inequality} states that
+\begin{linenomath}
+\begin{equation}
+    |\braket{\phi|\psi}|^2
+    \leq
+    \braket{\phi|\phi}\,\braket{\psi|\psi},
+    \label{eq:cauchy-schwarz}
+\end{equation}
+\end{linenomath}
+with equality if and only if $\ket{\phi}$ and $\ket{\psi}$ lie on the same ray.\footnote{The proof is displayed in the note below.} For normalized states it reads $|\braket{\phi|\psi}|^2\leq 1$: a transition probability never exceeds one. This closes a consistency question left open since Section~\ref{sec:born}: the Born rule interprets $|\braket{\phi|\psi}|^2$ as a frequency for \emph{every} pair of states, and it is the inequality that guarantees the quantity to lie in $[0,1]$ state-space-wide, not merely for the pairs checked on particular benches. The question ``can a preparation be found in a test alternative more often than always?'' is answered by an inequality, not by an axiom; and the saturation clause is the ray theorem's converse in quantitative dress --- overlap one means sameness of state.
+
+\begin{note}
+The proof of \eqref{eq:cauchy-schwarz}: apply positivity \eqref{eq:ip-positivity} to the vector $\ket{\psi}-\lambda\ket{\phi}$ with $\lambda=\braket{\phi|\psi}/\braket{\phi|\phi}$:
+\begin{linenomath}
+\begin{align}
+  0 &\le \|\psi-\lambda\phi\|^{2}
+     = \braket{\psi-\lambda\phi|\psi-\lambda\phi} \nonumber\\
+    &= \braket{\psi|\psi} - \lambda\braket{\phi|\psi}^{*} - \lambda^{*}\braket{\phi|\psi} + |\lambda|^{2}\braket{\phi|\phi} \nonumber\\
+    &= \braket{\psi|\psi} - \frac{|\braket{\phi|\psi}|^{2}}{\braket{\phi|\phi}} .
+\end{align}
+\end{linenomath}
+Rearranging gives \eqref{eq:cauchy-schwarz}. Equality holds iff $\|\psi-\lambda\phi\|=0$, i.e.\ $\ket{\psi}=\lambda\ket{\phi}$, which is precisely the statement that the two vectors lie on the same ray.
+\end{note}
+
+The dual object announced in Section~\ref{sec:linearspace} can now be defined. To each vector $\ket{\phi}$ corresponds the \textbf{bra} $\bra{\phi}$, the linear map $\psi\mapsto\braket{\phi|\psi}$ that eats a vector and returns the amplitude of the transition into $\phi$. The composite symbol $\braket{\phi|\psi}$ --- bra meeting ket --- is hereby fixed as the notation of this book. A bra is a bookkeeping device for amplitudes; nothing about observables is asserted by it.
+
+There remains the promissory note of Section~\ref{sec:composition}: why the amplitudes must be \emph{complex}. The bench that closes the question is the polarization bench one last time, now completed by circular analyzers. A right-circular analyzer prepares the state $\ket{R}$: single photons that pass it exhibit three facts. First, any linear analyzer, at whatever orientation, transmits them with probability $\tfrac12$; in particular $|\braket{H|R}|^2=|\braket{V|R}|^2=|\braket{D|R}|^2=|\braket{A|R}|^2=\tfrac12$. Second, an $R$-prepared photon passes a second right-circular analyzer with certainty. Third, it never passes a left-circular analyzer: $\braket{L|R}=0$, where $\ket{L}$ is the state prepared by the left-circular device. Run the bench in the opposite order and the same fractions return, instance by instance --- reciprocity again.
+
+Now suppose, for contradiction, that amplitudes were real. The first fact, restricted to the horizontal--vertical pair, forces $\ket{R}$ to be a real equal-weight superposition of $\ket{H}$ and $\ket{V}$; enumerating the signs, the only such vectors are $(\pm\ket{H}\pm\ket{V})/\sqrt{2}$, which are $\ket{D}$ and $\ket{A}$ up to overall sign. But then a diagonal analyzer would transmit the $R$-photons with probability $1$ or $0$ --- never $\tfrac12$, as the same first fact demands of the diagonal pair. A real state space therefore cannot place two circular polarizations on equal footing with all linear ones while keeping them mutually exclusive. Complex amplitudes accommodate all three facts at once:
+\begin{linenomath}
+\begin{equation}
+    \ket{R}=\frac{1}{\sqrt{2}}\bigl(\ket{H}+i\ket{V}\bigr),
+    \qquad
+    \ket{L}=\frac{1}{\sqrt{2}}\bigl(\ket{H}-i\ket{V}\bigr),
+\end{equation}
+\end{linenomath}
+for then
+\begin{linenomath}
+\begin{equation}
+    \braket{R|L}
+    =
+    \frac{1}{2}\bigl(\bra{H}-i\bra{V}\bigr)\bigl(\ket{H}-i\ket{V}\bigr)
+    =
+    \frac{1}{2}\bigl(1+(-i)(-i)\bigr)
+    =
+    0,
+    \qquad
+    |\braket{D|R}|^2
+    =
+    \left|\frac{1+i}{2}\right|^2
+    =
+    \frac{1}{2},
+\end{equation}
+\end{linenomath}
+and the reversed order gives $\braket{R|D}=(1-i)/2=\braket{D|R}^{*}$: the same bench, run both ways, exhibits orthogonality, reciprocity, and conjugate symmetry in one arrangement. No real bilinear form can make two equal-weight superpositions of the same pair orthogonal while both remain equal-weight with respect to the diagonal pair; the $i$ in $\ket{R}$ is not a decoration but the piece of the kinematics forced by the existence of circular polarization. The debt of Section~\ref{sec:composition} is discharged.
+
+The advantage of the inner-product axiom is that its every clause is an experimental report --- reciprocity, the addition principle, the reliability of preparations --- so that geometry is made physical at a stroke: length is reliability, angle is overlap, and the kinematics of state pairs is complete. Its limitation is that it prices single transitions only. The inner product says what it costs a preparation to pass a test; it does not yet say what an observable is, what values it can return, or how it acts on a state. Those questions belong to the theory of operators and measurement, and they begin in the next chapter. What the inner product does immediately is measure overlap; and its extreme cases decide the most. Overlap one is sameness of state. Overlap zero has a name in the laboratory --- perfect distinguishability --- and it deserves a section of its own.
+
+\section{Orthogonality as Experimental Distinguishability}
+\label{sec:orthogonality}
+
+Two states are called \emph{orthogonal} when the transition between them never happens:
+\begin{linenomath}
+\begin{equation}
+    \braket{\phi|\psi}=0
+    \iff
+    P(\phi\,|\,\psi)=|\braket{\phi|\psi}|^2=0 .
+    \label{eq:orthogonality-iff}
+\end{equation}
+\end{linenomath}
+Chapter~1 supplied the anchor cases (Section~\ref{sec:twostate}): crossed polarizers, $\braket{V|H}=0$, an $H$-prepared photon never passing a $V$-analyzer; and the two beams of a Stern--Gerlach magnet, a $\ket{+z}$-prepared atom never appearing in the $\ket{-z}$ output of a second $z$-oriented apparatus. The definition makes the laboratory statement precise in both directions. If $\braket{\phi|\psi}=0$, then any experiment whose complete set of alternatives contains $\phi$ gives zero counts in its $\phi$-channel on a $\psi$-prepared ensemble, while it returns $\phi$ with certainty on a $\phi$-prepared one: a single ideal run of that experiment decides with certainty which of the two preparations is at hand. Conversely, if some complete set of alternatives containing $\phi$ never fires its $\phi$-outcome on $\psi$-preparations, then the Born rule of Section~\ref{sec:born} forces $\braket{\phi|\psi}=0$. Orthogonality and perfect single-shot distinguishability are one and the same property, the first named by the algebra, the second by the bench.
+
+Sequential Stern--Gerlach filtering (Figure~\ref{fig:sequential_sg}) exhibits the two ends of the spectrum in one family of arrangements. A beam selected as $\ket{+z}$ and sent into an apparatus oriented to select $\ket{-z}$ finds that channel certainly dark: $|\braket{-z|+z}|^2=0$, certain exclusion. Rotate the second magnet to the $x$-axis and both of its channels fire equally often: since $\ket{+x}=(\ket{+z}+\ket{-z})/\sqrt{2}$, the Born rule gives $|\braket{+x|+z}|^2=\tfrac12$, and at this orientation no experiment can do better than even odds --- irreducible confusion. Between the two extremes, the overlap varies continuously, and with it the degree to which the two preparations can be told apart.
+
+That is the general situation. When $0<|\braket{\phi|\psi}|^2<1$, no experiment can decide with certainty in a single shot which of the two preparations is at hand: any test that sometimes accepts $\phi$ will also accept a $\psi$-prepared system with frequency $|\braket{\phi|\psi}|^2$. Distinguishability is therefore not a binary verdict but a spectrum, and the squared overlap is its operational measure --- the frequency with which a $\psi$-ensemble masquerades as $\phi$ in the $\phi$-test itself. Which experiment minimizes the confusion between an arbitrary pair, and how repeated runs drive the error down, are questions of measurement theory proper and are deferred to the next chapter and its literature.\footnote{The general problem of optimal discrimination between non-orthogonal states requires the measurement formalism of the next chapter; what is asserted here is only the negative theorem, which follows from the Born rule alone.}
+
+Families of mutually orthogonal normalized states,
+\begin{linenomath}
+\begin{equation}
+    \braket{\psi_m|\psi_n}=\delta_{mn},
+    \qquad
+    m,n=1,\dots,k,
+\end{equation}
+\end{linenomath}
+are families of mutually exclusive alternatives: a single ideal experiment can have all of them as its outcomes, since no member of the family ever masquerades as another. Their number is bounded by the dimension of the state space, $k\leq\dim\mathcal{H}$, and a maximal such family has exactly $\dim\mathcal{H}$ members.\footnote{The proof is linear algebra: an orthonormal family is linearly independent (apply $\bra{\psi_m}$ to a vanishing combination), whence the bound; a maximal independent family spans the space, whence equality. The spanning half of the statement is where bases enter, in Section~\ref{sec:bases}; details are collected in Appendix~A.} The algebraic dimension of Section~\ref{sec:linearspace} is hereby tied to counting: it is the size of the largest set of perfectly distinguishable preparations.
+
+Non-orthogonal preparations can be refined into exclusive ones. Given two normalized states with $\braket{\psi_1|\psi_2}\neq 0$, form
+\begin{linenomath}
+\begin{equation}
+    \ket{\psi_2'}
+    =
+    \frac{\ket{\psi_2}-\ket{\psi_1}\braket{\psi_1|\psi_2}}
+         {\sqrt{\,1-|\braket{\psi_1|\psi_2}|^2}},
+    \qquad
+    \braket{\psi_1|\psi_2'}=0 .
+\end{equation}
+\end{linenomath}
+Read physically, the step subtracts from the second preparation its $\ket{\psi_1}$-component --- the piece responsible for every $\psi_1$-test it passes --- and normalizes what remains; the remainder never triggers a $\psi_1$-test, as the linearity of the inner product confirms in one line: $\braket{\psi_1|\psi_2'}$ is proportional to $\braket{\psi_1|\psi_2}-\braket{\psi_1|\psi_1}\braket{\psi_1|\psi_2}=0$. The pair $\ket{\psi_1},\ket{\psi_2'}$ can then serve as the two alternatives of a single two-outcome experiment. Iterated on any list of independent preparations, each stage subtracting the components along all directions already carved out, the procedure produces a mutually exclusive family: the Gram--Schmidt orthogonalization of algebra is filter refinement written as a formula, carving a preparation into components no two of which can be confused.
+
+The advantage of the orthogonality concept is that it is decidable by frequencies alone: zero against nonzero overlap is the sharpest statement the theory makes about a pair of states, and it requires no hypotheses about hidden labels the systems might carry. Its limitation lies in the clause that gives it strength --- ``distinguishable'' means distinguishable by some allowed experiment \emph{in principle}, not by the apparatus standing on the bench today. This is the same clause that powered the marking experiment of Section~\ref{sec:alternatives}, where tagging the alternatives in principle, with no force acting on the system, was enough to destroy the interference. A maximal set of perfectly distinguishable alternatives is exactly what an ideal experiment can resolve at once --- and that is precisely what a basis is.
+
+\section{Bases as Complete Sets of Alternatives}
+\label{sec:bases}
+
+Section~\ref{sec:orthogonality} identified mutually orthogonal sets of vectors with the mutually exclusive alternatives of an experiment, and it called a maximal such set --- one to which no further perfectly distinguishable alternative can be added --- the sharpest question the system allows. Such a maximal orthonormal set is an \textbf{orthonormal basis} of $\mathcal{H}$. Explicitly, the alternatives $\ket{e_1},\ket{e_2},\dots$ resolved by an ideal apparatus obey
+\begin{linenomath}
+    \begin{equation}
+        \braket{e_m|e_n}=\delta_{mn},
+        \label{eq:onb}
+    \end{equation}
+\end{linenomath}
+and the only vector orthogonal to all of them is the zero vector. There is one basis per ideal experimental question: the $z$- and $x$-oriented Stern--Gerlach magnets of Chapter~1 (Section~\ref{sec:twostate}) define two different bases of the same two-dimensional state space, as do the $H/V$ and $D/A$ settings of a polarization analyzer. Completeness is here an experimental statement before it is a mathematical one: the alternatives exhaust the possible outcomes, so that in every run exactly one of them is realized, and the count of alternatives in the most refined question is the count promised, in advance, by requirement (i) of Chapter~1 (Section~\ref{subsec:why-kinematics}).
+
+The first consequence is the \textbf{expansion theorem}, the payoff of the whole development of Sections~\ref{sec:composition}--\ref{sec:orthogonality}: every state expands in every basis, with the transition amplitudes as coefficients,
+\begin{linenomath}
+    \begin{equation}
+        \ket{\psi}=\sum_n c_n\ket{e_n}=\sum_n\ket{e_n}\braket{e_n|\psi},
+        \qquad
+        c_n=\braket{e_n|\psi}.
+        \label{eq:expansion}
+    \end{equation}
+\end{linenomath}
+Indeed, with this choice of $c_n$ the algebraic proof is one line:
+\begin{linenomath}
+\begin{equation*}
+    \braket{e_m|\psi-\sum_n c_n\ket{e_n}}
+    = \braket{e_m|\psi} - \sum_n c_n\underbrace{\braket{e_m|e_n}}_{\delta_{mn}}
+    = c_m - c_m = 0 .
+\end{equation*}
+\end{linenomath}
+The difference $\ket{\psi}-\sum_n c_n\ket{e_n}$ is therefore orthogonal to every $\ket{e_m}$, hence vanishes by maximality and the positivity of the norm. The physical reading is what matters: \emph{the amplitude to go anywhere is the sum over a complete set of intermediate alternatives of the product of the stage amplitudes}. Prepared as $\psi$ and resolved by the basis apparatus, the system reaches the alternative $\ket{e_n}$ with amplitude $\braket{e_n|\psi}$ --- the multiplication principle of Section~\ref{sec:composition}; the unprejudiced superposition of all channels then reconstitutes the state --- the addition principle. If instead the intermediate channel is registered, marked in the sense of Section~\ref{sec:alternatives}, the alternatives become distinguishable in principle, and it is the probabilities, not the amplitudes, that add.
+
+Bracketing the expansion with an arbitrary registration alternative $\bra{\phi}$ fuses the two composition principles of Section~\ref{sec:composition} into a single statement:
+\begin{linenomath}
+    \begin{equation}
+        \braket{\phi|\psi}=\sum_n\braket{\phi|e_n}\braket{e_n|\psi}.
+        \label{eq:composition-law}
+    \end{equation}
+\end{linenomath}
+This is the \textbf{general composition law}, the keystone equation of the chapter. Every rule met so far is a special case of it: $\ket{\phi}=\ket{e_m}$ recovers the expansion coefficients; $\ket{\phi}=\ket{\psi}$ returns the normalization of Section~\ref{sec:born}; and when the intermediate alternatives are marked rather than coherent, the same insertion degrades into the classical sum of products of probabilities that Section~\ref{sec:born} exhibited for the sequential-filter experiments of Chapter~1. The law holds for \emph{any} complete set of intermediate alternatives: the value $\braket{\phi|\psi}$ on the left does not depend on which basis was inserted on the right, and this basis-independence of the sum is itself an experimental statement --- the amplitude between a preparation and a registration is a property of the pair, not of the question one chooses to interpose.
+
+The expansion theorem has an abbreviation used so constantly in the literature that it must be displayed here, together with an explicit caution. If the symbol $\ket{e_n}\bra{e_n}$ is agreed to act on any ket $\ket{\psi}$ by yielding the vector $\ket{e_n}\braket{e_n|\psi}$, then the expansion \eqref{eq:expansion} says that $\sum_n\ket{e_n}\bra{e_n}$ returns every ket unchanged, and one writes
+\begin{linenomath}
+    \begin{equation}
+        \sum_n\ket{e_n}\bra{e_n}=I.
+        \label{eq:completeness-shorthand}
+    \end{equation}
+\end{linenomath}
+\emph{In this chapter, \eqref{eq:completeness-shorthand} is a bookkeeping shorthand and nothing more}: a one-line compression of the expansion theorem. No notion of operator has been introduced, and the right-hand side is not yet ``the identity operator on $\mathcal{H}$''; that reading, and the algebra of the individual symbols $\ket{e_n}\bra{e_n}$, belongs to the operator theory of the next chapter.
+
+The coefficients of the expansion carry the probabilities of the basis alternatives, $P_n=|c_n|^2$, so the exhaustiveness of the question appears as \textbf{Parseval's identity} --- the normalization condition of Section~\ref{sec:born}, now derived rather than postulated. Writing $\ket{\phi}=\sum_n b_n\ket{e_n}$, the composition law also delivers the inner product in coordinates:
+\begin{linenomath}
+    \begin{equation}
+        \braket{\phi|\psi}=\sum_n b_n^{*}c_n,
+        \qquad
+        \braket{\psi|\psi}=\sum_n|c_n|^2=1.
+        \label{eq:parseval}
+    \end{equation}
+\end{linenomath}
+The alternatives are exhaustive: the system is certainly found in one of them.
+
+One unifying paragraph discharges a debt incurred in Section~\ref{sec:linearspace}, where the dimension of $\mathcal{H}$ was defined algebraically and its operational meaning was promised here. Three counts coincide: the number of vectors in any orthonormal basis (the algebraic dimension of Section~\ref{sec:linearspace}); the maximal number of mutually exclusive alternatives (Section~\ref{sec:orthogonality}); and the number of answers of the most refined ideal experiment the system supports. The dimension of a state space is therefore not an algebraic ornament but an experimental count. For the spin-$\tfrac12$ system and for photon polarization the count is two; for the energy alternatives of a bound atom it is countably infinite --- a possibility whose consistency Section~\ref{sec:hilbert} now has to redeem.
+
+A change of basis is a change of the experimental question. Let $\{\ket{e_n}\}$ and $\{\ket{e'_m}\}$ be two bases, two ideal apparatuses interrogating the same system. The same state carries two columns of coefficients, related by inserting the composition law:
+\begin{linenomath}
+    \begin{equation}
+        c'_m=\braket{e'_m|\psi}=\sum_n\braket{e'_m|e_n}\braket{e_n|\psi}=\sum_n U_{mn}\,c_n,
+        \qquad
+        U_{mn}=\braket{e'_m|e_n}.
+        \label{eq:overlap}
+    \end{equation}
+\end{linenomath}
+The entries of the \textbf{overlap matrix} $U$ are the transition amplitudes between the alternatives of the two questions; nothing in its definition refers to operators, and none is needed. Inserting the primed basis into $\braket{e_m|e_n}=\delta_{mn}$ gives
+\begin{linenomath}
+    \begin{equation}
+        \sum_k U^{*}_{km}\,U_{kn}
+        =\sum_k\braket{e_m|e'_k}\braket{e'_k|e_n}
+        =\braket{e_m|e_n}
+        =\delta_{mn}.
+        \label{eq:overlap-unitary}
+    \end{equation}
+\end{linenomath}
+A matrix with this property is called \emph{unitary}. The unitarity of the overlap matrix and the conservation of probability are one and the same fact: both experimental questions are exhaustive. The vocabulary of ``unitary operators'' belongs to the next chapter; \eqref{eq:overlap-unitary} is, strictly, a relation between two coordinate systems for the same physics.
+
+The content of these displays is already familiar in the two-state laboratory of Chapter~1. Let the second question be a Stern--Gerlach apparatus rotated to the axis $\bm{n}$ with polar angles $(\theta,\varphi)$ relative to $z$. Its two alternatives, expressed in the $z$-basis, are
+\begin{linenomath}
+    \begin{equation}
+        \ket{+\bm{n}}=\cos\frac{\theta}{2}\,\ket{+z}+e^{i\varphi}\sin\frac{\theta}{2}\,\ket{-z},
+        \qquad
+        \ket{-\bm{n}}=-e^{-i\varphi}\sin\frac{\theta}{2}\,\ket{+z}+\cos\frac{\theta}{2}\,\ket{-z},
+        \label{eq:spin-n}
+    \end{equation}
+\end{linenomath}
+an orthonormal pair, as direct substitution in \eqref{eq:onb} confirms. A beam prepared in $\ket{+z}$ and interrogated along $\bm{n}$ emerges in the $+\bm{n}$ channel with frequency
+\begin{linenomath}
+    \begin{equation}
+        \bigl|\braket{+z|+\bm{n}}\bigr|^2=\cos^2\frac{\theta}{2},
+        \label{eq:half-angle}
+    \end{equation}
+\end{linenomath}
+the spin analogue of Malus' cosine-squared law (Section~\ref{sec:twostate}). An honesty clause, mirroring that of Section~\ref{sec:rays}: the half-angle law \eqref{eq:half-angle} is recorded here purely as an experimental fact of rotated Stern--Gerlach apparatuses. Its \emph{derivation} --- the half-angle $\theta/2$ is the kinematics of a spinor under rotation, rather than a property of ordinary vectors in space --- is a debt owed to the rotation theory of the chapter on angular momentum, where the two-valuedness of the spin-$\tfrac12$ state acquires its group-theoretic explanation. No SU(2) machinery is spent in this chapter. The special case $\theta=\pi/2$, $\varphi=0$ is Chapter~1's $x$-basis, $\ket{\pm x}=(\ket{+z}\pm\ket{-z})/\sqrt{2}$ (Section~\ref{sec:twostate}); its overlap matrix is concretely
+\begin{linenomath}
+    \begin{equation}
+        U^{(z\to x)}=\frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            1 & 1\\
+            1 & -1
+        \end{pmatrix},
+        \label{eq:x-overlap}
+    \end{equation}
+\end{linenomath}
+with rows indexed by the $x$-alternatives and columns by the $z$-alternatives. The unitarity relation \eqref{eq:overlap-unitary} follows by direct multiplication:
+\begin{linenomath}
+    \begin{equation*}
+        U U^{\dagger}
+        = \frac{1}{2}
+        \begin{pmatrix}
+            1 &  1 \\
+            1 & -1
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 &  1 \\
+            1 & -1
+        \end{pmatrix}
+        = \frac{1}{2}
+        \begin{pmatrix}
+            2 & 0 \\
+            0 & 2
+        \end{pmatrix}
+        = I .
+    \end{equation*}
+\end{linenomath} The example plants a seed that the chapters on dynamics and on angular momentum will harvest: rotations of the apparatus act on states through overlap matrices, and the family of all such matrices carries the structure of the rotation group.
+
+This is the place to repay requirement (v) of Chapter~1 (Section~\ref{subsec:why-kinematics}). The state is the abstract vector $\ket{\psi}$; every basis assigns it a coordinate column; no column is the state. The physics lives in the overlaps $\braket{\phi|\psi}$, basis-independent amplitudes that the composition law \eqref{eq:composition-law} computes in any basis with the same value. What the equivalence proofs of 1926 established historically (Section~\ref{subsec:equivalence}) --- that matrix mechanics and wave mechanics are one theory written in two coordinate systems --- appears here as a theorem of the structure rather than a surprise.
+
+The advantage of the basis calculus is freedom. One computes in the basis matched to the apparatus on the bench, translates to any other by an overlap matrix, and reduces every question about alternatives to arithmetic with amplitudes; the state space becomes fully navigable. Its limitation is the seduction of coordinates. A column of coefficients is a representation, not the state --- the very reification against which Section~\ref{sec:linearspace} warned --- and the completeness shorthand \eqref{eq:completeness-shorthand}, for all its convenience, invites an operator reading that this chapter has deliberately not yet earned.
+
+Everything so far is exact for finite sets of alternatives. But the physics of Chapter~1 refuses finiteness: spectra come with infinitely many lines, and a particle can be found at infinitely many positions. What survives of the basis calculus when the number of alternatives is unlimited?
+
+\section{Hilbert Space, Finite and Infinite}
+\label{sec:hilbert}
+
+Two facts of Chapter~1 overflow the finite algebra developed so far: the line spectra of the atoms enumerate countably infinitely many energy alternatives, and the diffraction experiments register particles at continuously many positions. Both extensions are made by a single analytic step, and that step is physics, not mathematical taste. A preparation procedure is never exact; it can only be refined, stage by stage, and a sequence of preparations that settles down --- whose states come arbitrarily close to one another --- must settle down \emph{to a state}. A theory in which such a sequence of physical states had no limit state would be incomplete in the operational sense: it would declare an arbitrarily well-approximated preparation unphysical. The requirement is made precise in one display. A sequence $\ket{\psi_1},\ket{\psi_2},\dots$ is called a \textbf{Cauchy sequence} if its members eventually cluster, and the space is required to contain their limit:
+\begin{linenomath}
+    \begin{equation}
+        \|\psi_n-\psi_m\|\longrightarrow 0
+        \ \ (n,m\to\infty)
+        \qquad\Longrightarrow\qquad
+        \exists\,\ket{\psi}\in\mathcal{H}:\ \|\psi_n-\psi\|\longrightarrow 0 .
+        \label{eq:cauchy}
+    \end{equation}
+\end{linenomath}
+The left-hand side says that the preparations become indistinguishable from one another at any prescribed tolerance; the right-hand side says that the theory recognizes a limiting preparation.
+
+An inner-product space obeying \eqref{eq:cauchy} is called \textbf{complete}, and a complete inner-product space is a \textbf{Hilbert space}. This book adds one further assumption, \textbf{separability}: the space admits a countable orthonormal basis, so that the alternatives of any ideal experiment can be enumerated.\footnote{The rigorous development --- completeness, separability, and the theorem that every separable infinite-dimensional Hilbert space is isomorphic to $\ell^2$ --- is deferred to Appendix A.} Every state space of this book is therefore a separable complex Hilbert space. No axiom of Sections~\ref{sec:alternatives}--\ref{sec:bases} is touched by the extension; only the bookkeeping of infinity is new.
+
+The countable case comes first. With a basis $\ket{e_1},\ket{e_2},\dots$ indexed by the natural numbers, the expansion theorem and the composition law of Section~\ref{sec:bases} survive verbatim, the sums now being series that converge in norm:
+\begin{linenomath}
+    \begin{equation}
+        \ket{\psi}=\sum_{n=1}^{\infty}c_n\ket{e_n},
+        \qquad
+        \sum_{n=1}^{\infty}|c_n|^2<\infty,
+        \qquad
+        \braket{\phi|\psi}=\sum_{n=1}^{\infty}b_n^{*}c_n .
+        \label{eq:ell2-expansion}
+    \end{equation}
+\end{linenomath}
+The space of coefficient columns with $\sum_n|c_n|^2<\infty$ is called $\ell^2$; Parseval's identity is unchanged, and with it the Born probabilities over the complete set of alternatives still sum to one. This is the arena of every bound system in this book: the energy alternatives of the harmonic oscillator and of the particle in a box are countably infinite, and their concrete theory arrives in the chapter on operator methods and representations.
+
+The continuous case must be handled honestly. A particle in the diffraction experiments of Chapter~1 can be registered at any of continuously many positions; \emph{position is a label} for such registration alternatives --- nothing more is claimed here, and no position observable has been defined. The label is introduced as a limit of discrete alternatives, by the mechanism exhibited in the example below; the shorthand itself is quickly stated. One writes
+\begin{linenomath}
+    \begin{equation}
+        \psi(x)=\braket{x|\psi}
+        \label{eq:wavefunction}
+    \end{equation}
+\end{linenomath}
+for the amplitude of the state $\ket{\psi}$ to be registered at the position $x$ --- the \textbf{wave function} of the state --- and one extends the orthonormality condition \eqref{eq:onb} to the continuum by writing
+\begin{linenomath}
+    \begin{equation}
+        \braket{x|x'}=\delta(x-x').
+        \label{eq:delta-normalization}
+    \end{equation}
+\end{linenomath}
+\begin{note}
+The ket $\ket{x}$ is \emph{not} a vector of $\mathcal{H}$: its formal ``norm'' $\braket{x|x}=\delta(0)$ diverges, and no normalization convention repairs the defect. The symbol $\delta(x-x')$ is a distribution, not a function, and \eqref{eq:delta-normalization} is a bookkeeping shorthand --- a powerful calculus whose honest justification, the rigged Hilbert space, is deferred to Appendix A.\footnote{The physical exploitation of the position representation --- wave packets, propagators, and the recovery of Chapter~1's matter waves (Section~\ref{subsec:debroglie}) --- begins in the chapter on operator methods and representations.} The genuine vectors of the continuum theory are the square-integrable wave functions,
+\begin{linenomath}
+    \begin{equation}
+        \int|\psi(x)|^2\,\dd^3 x<\infty,
+        \label{eq:l2}
+    \end{equation}
+\end{linenomath}
+which form the space $L^2(\mathbb{R}^3)$; every statement made with the shorthand can be re-expressed, at the price of some care, among such vectors alone.
+\end{note}
+
+The mechanism by which discrete alternatives fuse into a continuum is visible in a single diffraction experiment. Let $N$ narrow slits at positions $x_n=nd$ be equally illuminated, so that each slit is an alternative $\ket{n}$ with $\braket{n|\psi}=1/\sqrt{N}$, and let a distant screen register arrivals at the point $x$. By the composition law, the arrival amplitude is the sum over the slit alternatives,
+\begin{linenomath}
+    \begin{equation}
+        A_N(x)\propto\frac{1}{\sqrt{N}}\sum_{n=1}^{N} e^{ik_n x},
+        \qquad
+        k_n=\frac{nkd}{L},
+        \label{eq:nslit}
+    \end{equation}
+\end{linenomath}
+in the Fraunhofer regime, with $k=2\pi/\lambda$ and $L$ the screen distance: the multiplication principle supplies the stage amplitudes $\braket{x|n}\propto e^{ik_n x}$ and the addition principle sums them. Now let the slits multiply and close up, $N\to\infty$ and $d\to 0$ with the aperture $a=Nd$ held fixed. The sum becomes an integral over a continuous aperture coordinate $x'$,
+\begin{linenomath}
+    \begin{equation}
+        \begin{aligned}
+            A(x)&\propto\int_{-a/2}^{a/2} e^{ikx'x/L}\,\dd x' \\
+            &=\left.\frac{L}{ikx}\,e^{ikx'x/L}\right|_{-a/2}^{a/2} \\
+            &=\frac{L}{ikx}\bigl(e^{ikax/2L}-e^{-ikax/2L}\bigr) \\
+            &=\frac{2L}{kx}\sin\frac{kax}{2L},
+        \end{aligned}
+        \label{eq:aperture}
+    \end{equation}
+\end{linenomath}
+the familiar diffraction envelope of a single aperture. The discrete slit alternatives have fused into continuously many position alternatives labeled by $x'$; the sum over $n$ has become an integral over $x'$. If the composition law itself is to survive the fusion, with $\sum_n$ replaced by $\int\dd x'$, one must be able to write
+\begin{linenomath}
+    \begin{equation}
+        \braket{x|\psi}=\int\braket{x|x'}\braket{x'|\psi}\,\dd x'
+        \label{eq:continuum-composition}
+    \end{equation}
+\end{linenomath}
+for every state, and this is possible only if $\braket{x|x'}$ vanishes for $x\neq x'$ while its integral over $x'$ is one --- precisely the two demands that define the symbol $\delta(x-x')$. The $\delta$-normalization \eqref{eq:delta-normalization} is therefore not an additional axiom but the price of extending the keystone law \eqref{eq:composition-law} to a continuum of alternatives; the note above states exactly what that price buys.
+
+It is worth listing what the extension to infinite alternatives does and does not change. Unchanged: the Born rule (with probability densities replacing probabilities over continuous labels), rays as physical states, superposition, orthogonality as perfect distinguishability, and the existence of countable orthonormal bases. Changed: only the level of analytic care --- convergence of series, the status of shorthand kets such as $\ket{x}$ --- and not a single axiom.
+
+The advantage of the completed arena is its minimality together with its reach. The separable complex Hilbert space is the smallest structure meeting all five kinematical requirements of Chapter~1 (Section~\ref{subsec:why-kinematics}) --- discrete alternatives, data attached to pairs of states, amplitudes composed before probabilities, order-sensitive processes (previewed in Section~\ref{sec:composition} and still owed a formal theory), and representation-independence --- and it houses a two-state system and a particle in space under one roof. Its limitation is structural: the Hilbert space says what states \emph{are}, not yet what observables \emph{do}. A position label is an alternative, not a measurement; and the magnets and polarizers of Chapter~1 act on states in ways this kinematics has not described.
+
+The arena is finished. It remains to collect the axioms, to take stock of which of Chapter~1's debts this chapter has paid, and to name the question that this kinematics cannot answer.
+
+\section{The State-Space Axioms: Summary and Open Debts}
+\label{sec:ch2summary}
+
+The construction of this chapter is complete, and its content compresses into five statements. Each is an axiom in the formal sense and an experimental report in the operational one; the warrant and the sections that earned it are attached to each.
+\begin{enumerate}
+    \item[\textbf{(S1)}] \textbf{States.} The states of a quantum system are the rays of a separable complex Hilbert space $\mathcal{H}$ (Sections~\ref{sec:linearspace}, \ref{sec:rays}, \ref{sec:hilbert}). \emph{Warrant:} superpositions of alternatives are preparable, and an overall phase is invisible to every experiment.
+    \item[\textbf{(S2)}] \textbf{Amplitudes.} To each pair of states is attached a complex transition amplitude, the inner product $\braket{\phi|\psi}$ (Section~\ref{sec:innerproduct}). \emph{Warrant:} the observable data live on preparation--registration pairs --- requirement (ii) of Chapter~1 (Section~\ref{subsec:why-kinematics}).
+    \item[\textbf{(S3)}] \textbf{Born rule.} The frequency of the transition $\psi\to\phi$ on an ensemble of identically prepared systems is $P(\psi\to\phi)=|\braket{\phi|\psi}|^2$ (Section~\ref{sec:born}). \emph{Warrant:} the interference and counting experiments of Chapter~1, read through Born's interpretation of 1926 (Section~\ref{subsec:born-probability}).
+    \item[\textbf{(S4)}] \textbf{Composition.} Amplitudes add over indistinguishable alternatives and multiply over successive stages; over any complete set of alternatives they obey the general composition law $\braket{\phi|\psi}=\sum_n\braket{\phi|e_n}\braket{e_n|\psi}$ (Sections~\ref{sec:composition}, \ref{sec:bases}). \emph{Warrant:} the interferometers and sequential filters of Chapter~1 (Section~\ref{sec:twostate}).
+    \item[\textbf{(S5)}] \textbf{Ideal experiments.} An ideal experiment is a complete set of mutually exclusive alternatives, represented by an orthonormal basis of $\mathcal{H}$ (Sections~\ref{sec:alternatives}, \ref{sec:orthogonality}, \ref{sec:bases}). \emph{Warrant:} maximal sets of perfectly distinguishable states have exactly $\dim\mathcal{H}$ members.
+\end{enumerate}
+
+The chapter's integration of experiment and formalism is collected, in lieu of a new example, in the two-column dictionary of Table~\ref{tab:ch2-dictionary}: every laboratory notion of Chapter~1 has acquired a precise formal object, and no formal object has been admitted without a laboratory warrant.
+\begin{table}[htbp!]
+    \centering
+    \caption{The experiment--formalism dictionary assembled in this chapter.}
+    \label{tab:ch2-dictionary}
+    \begin{tabular}{ll}
+        \toprule
+        Experimental notion & Formal object \\
+        \midrule
+        A single alternative of an apparatus & a basis vector \\
+        Indistinguishable alternatives & a sum of amplitudes \\
+        Successive processes & a product of amplitudes \\
+        A registered frequency & the squared modulus of an amplitude \\
+        Perfect distinguishability & orthogonality \\
+        A complete experimental question & an orthonormal basis \\
+        A change of the experimental question & an overlap matrix \\
+        A physical state & a ray of $\mathcal{H}$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The mainline duty of this book is a ledger of debts, and the ledger must now be stated plainly. \emph{Repaid:} requirements (i), (ii), (iii), and (v) of Chapter~1 (Section~\ref{subsec:why-kinematics}) --- discrete alternatives (S5), data on pairs of states (S2), amplitudes composed before probabilities (S3, S4), and a representation-independent notion of state (Section~\ref{sec:bases}) --- while the two-state grammar of Chapter~1 (Section~\ref{sec:twostate}) has served throughout as running evidence, cited and never re-derived. \emph{Deferred, and here declared openly:} requirement (iv), the order-sensitivity of physical operations, has been \emph{motivated} only --- a stage $X$ followed by a stage $Y$ is experimentally a different arrangement from $Y$ followed by $X$ (Section~\ref{sec:composition}) --- but its formal repayment requires the theory of linear maps on $\mathcal{H}$, and is owed by the operator theory of the next chapter and the transformation theory of the chapter on dynamics. The continuum shorthand of Section~\ref{sec:hilbert} owes its rigor to Appendix A and its physical development to the chapter on operator methods and representations. And the filtering of Section~\ref{sec:orthogonality} remained, deliberately, at Chapter~1's operational level of selection-as-preparation; the theory of measurement proper belongs to the next chapter. The kinematics is complete; the dynamics and the theory of observation are not yet born.
+
+The state is a ray. But the experiments that forced this kinematics upon us --- polarizers in sequence, magnets in sequence --- act on states, and their order matters. How do observables act on states? That is the theory of operators and measurement, and it is the next chapter.
+
+\begin{problemset}
+\item ($\star$) (Section~\ref{sec:alternatives}) Two preparation procedures are applied to a beam of single photons. Procedure A passes each photon through a linear polarizer oriented at $45^{\circ}$ to the horizontal. Procedure B splits each photon coherently into $H$ and $V$ components of equal amplitude and recombines them with zero relative phase. By enumerating the outcome frequencies of both preparations in the $H/V$, $D/A$, and $R/L$ bases, show that A and B define the same operational state. Procedure C is procedure B with an additional quarter-wave relative phase $\pi/2$ inserted in one arm: exhibit a basis in which C is operationally distinct from A, and identify the state C prepares.
+
+\item ($\star$) (Section~\ref{sec:composition}) A symmetric three-way splitter divides the amplitude equally among three paths, $1/\sqrt{3}$ into each, and path $n$ accumulates an adjustable phase $\varphi_n$ ($n=1,2,3$). The paths are recombined at a second symmetric element, each of whose output ports sums the three path amplitudes with weight $1/\sqrt{3}$ and with relative phases $\{0,0,0\}$ (port C) and $\{0,\,2\pi/3,\,4\pi/3\}$ (port D). Assemble the total amplitudes at C and D from the two composition principles --- products along each stage, sums over the paths --- and compute the two detector probabilities $P_C$ and $P_D$ as functions of $\varphi_1,\varphi_2,\varphi_3$. Now tag each path with an orthogonal internal marker state, and show that every cross term $2\cos(\varphi_m-\varphi_n+\cdots)$ disappears from both ports.
+
+\item ($\star\star$) (Section~\ref{sec:born}) Relative to an orthonormal basis $\{\ket{e_1},\ket{e_2},\ket{e_3}\}$, a preparation $\psi$ has the unnormalized amplitudes $(2,\,i,\,-1)$, and a second preparation $\phi$ has the unnormalized amplitudes $(1,\,1,\,i)$. (a) Normalize both states. (b) Compute the probabilities of the three outcomes for each preparation, and verify that they are exhaustive. (c) Compute $\braket{\phi|\psi}$ and $\braket{\psi|\phi}$, and verify the reciprocity law $P(\psi\to\phi)=P(\phi\to\psi)$.
+
+\item ($\star\star$) (Section~\ref{sec:linearspace}) Take the six polarization states
+\begin{linenomath}
+    \begin{equation}
+        \ket{D}=\frac{\ket{H}+\ket{V}}{\sqrt{2}},\quad
+        \ket{A}=\frac{\ket{H}-\ket{V}}{\sqrt{2}},\quad
+        \ket{R}=\frac{\ket{H}+i\ket{V}}{\sqrt{2}},\quad
+        \ket{L}=\frac{\ket{H}-i\ket{V}}{\sqrt{2}},
+    \end{equation}
+\end{linenomath}
+together with $\ket{H}$ and $\ket{V}$, written as columns in the $H/V$ basis. (a) Show that the six states span $\mathbb{C}^2$. (b) Determine which pairs of distinct states among the six are linearly independent, and state what your answer implies for the number of mutually exclusive alternatives of a photon's polarization. (c) Express $\ket{A}$ in the $R/L$ basis, and verify that the coefficients are the transition amplitudes demanded by the expansion theorem.
+
+\item ($\star\star$) (Section~\ref{sec:rays}) In a neutron interferometer the state before recombination is $(\ket{u}+e^{i\varphi}\ket{l})/\sqrt{2}$, and the detector at the bright port registers $P_0=\cos^2(\varphi/2)$, the Mach--Zehnder law of Chapter~1 (Section~\ref{sec:twostate}, Figure~\ref{fig:mach_zehnder}). A spin rotator inserted in the lower arm performs a $2\pi$ rotation of the neutron's spin, multiplying that arm's amplitude by $-1$ --- the experimental fact asserted in Section~\ref{sec:rays}, whose derivation is owed to the chapter on angular momentum. (a) Compute the modified fringe law $P_0(\varphi)$ in the presence of the rotator, and show that the interference pattern is shifted by half a period. (b) Show that the same factor $-1$ applied to \emph{both} arms leaves all detector statistics unchanged, and state precisely which phase --- global or relative --- each part of this experiment probes.
+
+\item ($\star\star$) (Section~\ref{sec:innerproduct}) Let $\ket{\psi}$ and $\ket{\phi}$ be normalized. (a) Using only positivity and conjugate symmetry, applied to the vector $\ket{\chi}=\ket{\psi}-\braket{\phi|\psi}\ket{\phi}$, derive the probability bound
+\begin{linenomath}
+    \begin{equation}
+        \bigl|\braket{\phi|\psi}\bigr|^2\leq 1,
+    \end{equation}
+\end{linenomath}
+and show that equality holds if and only if $\ket{\psi}$ and $\ket{\phi}$ belong to the same ray. (b) Verify the bound and its saturation clause on the explicit spin-$\tfrac12$ pairs $\bigl(\ket{+z},\ket{+x}\bigr)$ and $\bigl(\ket{+z},\,\cos(\theta/2)\ket{+z}+\sin(\theta/2)\ket{-z}\bigr)$.
+
+\item ($\star\star\star$) (Sections~\ref{sec:orthogonality} and~\ref{sec:bases}) A Stern--Gerlach apparatus is rotated by an angle $\theta$ about the $y$-axis, so that its axis $\bm{n}$ lies in the $x$--$z$ plane (azimuth $\varphi=0$). \emph{Take the rotated basis as given} --- by Section~\ref{sec:bases}'s example,
+\begin{linenomath}
+    \begin{equation}
+        \ket{+\bm{n}}=\cos\frac{\theta}{2}\,\ket{+z}+\sin\frac{\theta}{2}\,\ket{-z},
+        \qquad
+        \ket{-\bm{n}}=-\sin\frac{\theta}{2}\,\ket{+z}+\cos\frac{\theta}{2}\,\ket{-z},
+    \end{equation}
+\end{linenomath}
+whose \emph{construction} is a debt owed to the rotation theory of the chapter on angular momentum; the present exercise is verification only. (a) Expand $\ket{+x}=(\ket{+z}+\ket{-z})/\sqrt{2}$ in the $\{\ket{+\bm{n}},\ket{-\bm{n}}\}$ basis. (b) Compute the four overlaps $\braket{\pm\bm{n}|\pm z}$, i.e.\ all entries of the overlap matrix $U$ with rows indexed by the $\bm{n}$-alternatives and columns by the $z$-alternatives. (c) Verify explicitly that $U$ obeys $\sum_k U^{*}_{km}U_{kn}=\delta_{mn}$.
+
+\item ($\star\star\star$) (Sections~\ref{sec:bases} and~\ref{sec:hilbert}) (a) Let $\{\ket{e_n}\}$ be an orthonormal set. Prove that
+\begin{linenomath}
+    \begin{equation}
+        \sum_n\bigl|\braket{e_n|\psi}\bigr|^2=1
+        \quad\text{for every normalized }\ket{\psi}
+    \end{equation}
+\end{linenomath}
+if and only if the set is complete, i.e.\ no nonzero vector is orthogonal to all of them. Describe the failure mode of a truncated basis by computing the left-hand side for the set $\{\ket{+z}\}$ alone when the system is prepared in $\ket{+x}$. (b) Chapter~1 introduced de Broglie's matter wave (Section~\ref{subsec:debroglie}), in which a particle of definite momentum is represented in position space by $\psi_\lambda(x)=A\,e^{2\pi i x/\lambda}$. (This chapter introduces no momentum label $\ket{p}$; the de Broglie wave function is the whole input.) Compute the formal ``norm'' $\int_{-\infty}^{+\infty}|\psi_\lambda(x)|^2\,\dd x$ and show that it diverges. Then regularize by confining the wave to a box $[-L/2,L/2]$ with periodic boundary conditions, normalize for finite $L$, and discuss the limit $L\to\infty$. Explain why no vector of $\mathcal{H}=L^2(\mathbb{R})$ represents this alternative, and reconcile your conclusion with the $\delta$-normalization shorthand of Section~\ref{sec:hilbert}.
+\end{problemset}

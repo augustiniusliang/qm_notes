@@ -1,0 +1,199 @@
+\chapter{Mathematical Supplement}
+
+\begin{note}
+This appendix collects the rigorous functional-analytic statements whose full proofs lie beyond the scope of a first course in quantum mechanics but whose honest deployment the main text requires. Every theorem below is stated with its hypotheses made explicit and with a pointer to the standard literature. The reader who is encountering these results for the first time should consult Reed and Simon, \emph{Methods of Modern Mathematical Physics}, Volumes~I--IV (Academic Press, 1972--1978), which is the principal reference throughout. Nothing in this appendix is needed for the computational mastery of the main text; it exists to make the register of honesty complete.
+\end{note}
+
+\section{Hilbert Space: Completeness, Separability, and Domains}
+\label{sec:appendix-hilbert}
+
+A complex inner-product space $\mathcal{H}$ whose norm $\|\psi\| := \sqrt{\braket{\psi|\psi}}$ satisfies the Cauchy-sequence completeness condition --- every Cauchy sequence converges to a limit in $\mathcal{H}$ --- is a \textbf{Hilbert space}. The main text introduces this as Axiom~S1, with the experimental warrant that a sequence of refining preparations must converge \emph{to a state}. The mathematical content of the warrant is three clauses.
+
+\medskip\noindent\textbf{Completeness.} A sequence $\{\psi_n\} \subset \mathcal{H}$ is Cauchy if $\|\psi_n - \psi_m\| \to 0$ as $n,m \to \infty$. Completeness is the statement that for every such sequence there exists a $\psi \in \mathcal{H}$ with $\|\psi_n - \psi\| \to 0$. The limit is unique by the standard argument: if $\psi_n \to \psi$ and $\psi_n \to \phi$, then $\|\psi - \phi\| \le \|\psi - \psi_n\| + \|\psi_n - \phi\| \to 0$.
+
+\medskip\noindent\textbf{Separability.} A Hilbert space is \textbf{separable} if it possesses a countable orthonormal basis. The main text's Axiom~S1 requires separability: the dimension of the state space is at most countably infinite. Every separable infinite-dimensional complex Hilbert space is isometrically isomorphic to the sequence space
+\begin{linenomath}
+    \begin{equation}
+        \ell^2 := \Bigl\{ (c_1, c_2, \ldots) : c_n \in \mathbb{C},\; \sum_{n=1}^\infty \lvert c_n\rvert^2 < \infty \Bigr\},
+        \label{eq:ell2-def}
+    \end{equation}
+\end{linenomath}
+with inner product $\braket{\phi|\psi} = \sum_n b_n^* c_n$. The isomorphism is provided by the expansion $\ket{\psi} = \sum_n c_n \ket{e_n}$ in any orthonormal basis $\{\ket{e_n}\}$, which the main text establishes as Theorem~\eqref{eq:expansion}. The square-summability condition $\sum_n \lvert c_n\rvert^2 < \infty$ is the Parseval identity~\eqref{eq:parseval}. This is the structural reason that bound-state spectra are discrete and that every state of a finite system can be approximated by a finite superposition: the $\ell^2$ condition ensures that the tail of the expansion carries arbitrarily little weight.
+
+\medskip\noindent\textbf{Domains of unbounded operators.} A linear operator $A$ on $\mathcal{H}$ is specified not merely by its action but also by its \textbf{domain} $\mathcal{D}(A) \subseteq \mathcal{H}$, the linear subspace on which the action is defined. An operator is \textbf{densely defined} if $\mathcal{D}(A)$ is dense in $\mathcal{H}$. The \textbf{adjoint} $A^\dagger$ is defined on the domain
+\begin{linenomath}
+    \begin{equation}
+        \mathcal{D}(A^\dagger) := \bigl\{ \phi \in \mathcal{H} : \exists\,\eta \in \mathcal{H}\; \text{such that}\; \braket{\phi|A\psi} = \braket{\eta|\psi}\; \forall\,\psi \in \mathcal{D}(A) \bigr\},
+        \label{eq:adjoint-domain}
+    \end{equation}
+\end{linenomath}
+and $A^\dagger \phi := \eta$. An operator is \textbf{symmetric} if $\braket{\phi|A\psi} = \braket{A\phi|\psi}$ for all $\phi,\psi \in \mathcal{D}(A)$; it is \textbf{self-adjoint} if in addition $\mathcal{D}(A^\dagger) = \mathcal{D}(A)$. The distinction is invisible in finite dimension (where every symmetric operator on the whole space is self-adjoint) but load-bearing for the unbounded operators of quantum mechanics: $Q$, $P$, and $H$ are symmetric on a natural dense domain but their self-adjointness requires a careful choice of boundary conditions. A symmetric operator may admit no self-adjoint extension, or many; the physics selects the extension through the boundary conditions appropriate to the system.
+
+The position and momentum operators of Chapter~5 furnish the canonical example. On $\mathcal{H} = L^2(\mathbb{R})$, the operator $Q$ defined by $(Q\psi)(x) = x\psi(x)$ with domain $\mathcal{D}(Q) = \{\psi \in L^2(\mathbb{R}) : \int x^2\lvert\psi(x)\rvert^2\,\dd x < \infty\}$ is self-adjoint. The momentum operator $P = -i\hbar\,\dd/\dd x$ with domain $\mathcal{D}(P) = \{\psi \in L^2(\mathbb{R}) : \psi \text{ absolutely continuous},\; \psi' \in L^2(\mathbb{R})\}$ is likewise self-adjoint. Both are unbounded: $\|Q\psi\|$ and $\|P\psi\|$ are not bounded by a constant multiple of $\|\psi\|$ on their domains. The canonical commutation relation $[Q,P] = i\hbar I$ holds on the intersection of the domains of $QP$ and $PQ$ (the Schwartz space $\mathcal{S}(\mathbb{R})$ is a common dense invariant domain), and the Wintner--Wielandt theorem cited in Chapter~5 states that no such relation can be realized by bounded operators on any Hilbert space: the infinite-dimensional arena is forced, not chosen.\footnote{A.~Wintner, \emph{Phys. Rev.}~\textbf{71}, 738 (1947); H.~Wielandt, \emph{Math. Ann.}~\textbf{121}, 21 (1949). The proof for the trace-class case is the finite-dimensional trace obstruction displayed in Chapter~5; the full bounded-operator statement is in Reed \& Simon, Vol.~II, Sec.~VIII.5.}
+
+\section{The Dirac Delta as a Distribution: the Gelfand Triplet}
+\label{sec:appendix-delta}
+
+The main text deploys the notation $\ket{x}$ and the normalization $\braket{x|x'} = \delta(x - x')$ under an explicit honesty clause: the kets $\ket{x}$ are not vectors of the Hilbert space, the delta is not a function, and the notation is a licensed shorthand for the continuum composition law. This section makes the underlying mathematics precise.
+
+\medskip\noindent\textbf{Tempered distributions.} The \textbf{Schwartz space} $\mathcal{S}(\mathbb{R})$ is the space of rapidly decreasing smooth functions: $\phi \in C^\infty(\mathbb{R})$ such that $\sup_x \lvert x^m \phi^{(n)}(x)\rvert < \infty$ for all $m,n \in \mathbb{N}$. Its continuous dual $\mathcal{S}'(\mathbb{R})$ is the space of \textbf{tempered distributions}. The Dirac delta is the tempered distribution defined by $\delta(\phi) := \phi(0)$ for all $\phi \in \mathcal{S}(\mathbb{R})$. The formal integral notation $\int \delta(x)\phi(x)\,\dd x = \phi(0)$ is a notational convenience; the integral sign does not denote Lebesgue integration.
+
+\medskip\noindent\textbf{The Gelfand triplet (rigged Hilbert space).} The mathematical structure that houses both the normalizable state vectors and the idealizations $\ket{x}$, $\ket{p}$ is the \textbf{Gelfand triplet} (or rigged Hilbert space):
+\begin{linenomath}
+    \begin{equation}
+        \Phi \subset \mathcal{H} \subset \Phi',
+        \label{eq:gelfand-triplet}
+    \end{equation}
+\end{linenomath}
+where $\Phi$ is a dense subspace of $\mathcal{H}$ carrying a finer topology (making the inclusion continuous), and $\Phi'$ is its continuous dual (the space of continuous antilinear functionals on $\Phi$). The construction runs as follows.\footnote{I.~M.~Gel'fand and N.~Ya.~Vilenkin, \emph{Generalized Functions}, Vol.~4 (Academic Press, 1964). A concise modern treatment is in Reed \& Simon, Vol.~II, Sec.~V.3.}
+
+For the position representation on $\mathcal{H} = L^2(\mathbb{R})$, choose $\Phi = \mathcal{S}(\mathbb{R})$, the Schwartz space. The inclusion $\mathcal{S}(\mathbb{R}) \subset L^2(\mathbb{R})$ is continuous and dense. For each $x \in \mathbb{R}$, the evaluation map $\phi \mapsto \phi(x)$ is a continuous linear functional on $\mathcal{S}(\mathbb{R})$; it is therefore an element of $\mathcal{S}'(\mathbb{R})$, which we denote $\bra{x}$. That is, $\bra{x}$ is defined by its action $\braket{x|\phi} := \phi(x)$ for every $\phi \in \mathcal{S}(\mathbb{R})$. The notation is designed to mimic an inner product because the map is antilinear in its first argument when the Dirac formalism is respected; but $\bra{x} \in \Phi'$, not $\Phi$, and there is no vector $\ket{x} \in \mathcal{H}$ whose inner product with $\ket{\phi}$ produces $\phi(x)$. The ket $\ket{x}$ appearing in the main text's formal manipulations is the distributional dual of the bra.
+
+The completeness relation $\int \dd x\,\ket{x}\bra{x} = I$ acquires its precise meaning in this framework: for all $\phi,\psi \in \Phi$,
+\begin{linenomath}
+    \begin{equation}
+        \braket{\phi|\psi} = \int_{-\infty}^{+\infty} \braket{\phi|x}\braket{x|\psi}\,\dd x = \int_{-\infty}^{+\infty} \phi(x)^*\,\psi(x)\,\dd x,
+        \label{eq:resolution-rigorous}
+    \end{equation}
+\end{linenomath}
+which is the ordinary $L^2$ inner product. The integral converges as a Riemann integral because Schwartz functions are smooth and rapidly decreasing. Every operation performed with the continuum shorthand in Chapters~2, 3, and~5 is legitimate when the states are drawn from $\Phi$ (or, more generally, from the domain of the relevant unbounded operator). The extension to all of $\mathcal{H}$ by continuity is the content of the spectral theorem below.
+
+The momentum eigenstates $\ket{p}$ are constructed analogously: $\braket{p|\phi} := \tilde{\phi}(p)$, the Fourier transform of $\phi$ evaluated at $p$. The relation $\braket{x|p} = (2\pi\hbar)^{-1/2} e^{ipx/\hbar}$ is then the kernel of the Fourier transform relating the two distributional bases. Both families $\{\ket{x}\}$ and $\{\ket{p}\}$ are \textbf{generalized eigenbases} of their respective operators, living in $\Phi'$ rather than $\mathcal{H}$.
+
+\section{The Spectral Theorem for Unbounded Self-Adjoint Operators}
+\label{sec:appendix-spectral}
+
+The finite-dimensional spectral theorem proved in Chapter~3 states that every self-adjoint operator on $\mathbb{C}^n$ possesses an orthonormal eigenbasis. The infinite-dimensional generalization is the central theorem of functional analysis for quantum mechanics.
+
+\medskip\noindent\textbf{Theorem (Spectral Theorem for unbounded self-adjoint operators, stated without proof).} \emph{Let $A$ be a (possibly unbounded) self-adjoint operator on a separable Hilbert space $\mathcal{H}$, with domain $\mathcal{D}(A)$. There exists a unique projection-valued measure (PVM) $P$ on the Borel subsets of $\mathbb{R}$ such that}
+\begin{linenomath}
+    \begin{equation}
+        \braket{\phi|A\psi} = \int_{\mathbb{R}} \lambda\,\dd\braket{\phi|P(\lambda)|\psi}
+        \qquad \text{for all } \phi \in \mathcal{H},\; \psi \in \mathcal{D}(A),
+        \label{eq:spectral-theorem}
+    \end{equation}
+\end{linenomath}
+\emph{where $\dd\braket{\phi|P(\lambda)|\psi}$ is the complex measure induced by the PVM. Symbolically,}
+\begin{linenomath}
+    \begin{equation}
+        A = \int_{\mathbb{R}} \lambda\,\dd P(\lambda).
+        \label{eq:spectral-integral}
+    \end{equation}
+\end{linenomath}
+\emph{The spectrum $\sigma(A)$ is the support of the measure $P$: it consists of all $\lambda \in \mathbb{R}$ for which $P((\lambda-\varepsilon, \lambda+\varepsilon)) \neq 0$ for every $\varepsilon > 0$.}
+
+The proof is collected in Reed \& Simon, Vol.~I, Sec.~VIII.3. The statement generalizes the finite-dimensional spectral decomposition $A = \sum_n a_n P_n$ of Chapter~3's~\eqref{eq:spectral-decomposition}. The sum over discrete eigenvalues becomes an integral over the continuum with respect to a projection-valued measure. A point $\lambda \in \sigma(A)$ is an \textbf{eigenvalue} exactly when $P(\{\lambda\}) \neq 0$, i.e., when the PVM assigns nonzero weight to the singleton $\{\lambda\}$. The \textbf{continuous spectrum} is the set of $\lambda$ for which $P(\{\lambda\}) = 0$ but $P((\lambda-\varepsilon, \lambda+\varepsilon)) \neq 0$ for all $\varepsilon > 0$. The \textbf{point spectrum} and \textbf{continuous spectrum} together exhaust $\sigma(A)$.
+
+For $A = Q$ (position), the PVM is $(P(\Omega)\psi)(x) = \chi_\Omega(x)\psi(x)$, where $\chi_\Omega$ is the indicator function of the Borel set $\Omega$. The spectrum is purely continuous: $\sigma(Q) = \mathbb{R}$, and $P(\{\lambda\}) = 0$ for every singleton. For $A = H$ (a typical Hamiltonian), the spectrum is the union of a discrete set of eigenvalues (bound states) and a continuum $[E_0, \infty)$ (scattering states). The spectral theorem is the mathematical foundation of Chapter~3's honest preview of continuous spectra (Section~\ref{sec:continuous-spectra}) and of every statement in the book that invokes the eigenbasis of an unbounded observable.
+
+The functional calculus follows from the spectral theorem: for any Borel-measurable function $f : \mathbb{R} \to \mathbb{R}$, the operator $f(A)$ is defined by
+\begin{linenomath}
+    \begin{equation}
+        f(A) := \int_{\mathbb{R}} f(\lambda)\,\dd P(\lambda),
+        \label{eq:functional-calculus}
+    \end{equation}
+\end{linenomath}
+with domain $\mathcal{D}(f(A)) = \{\psi \in \mathcal{H} : \int \lvert f(\lambda)\rvert^2\,\dd\braket{\psi|P(\lambda)|\psi} < \infty\}$. The evolution operator $U(t) = e^{-iHt/\hbar}$ is the instance $f(\lambda) = e^{-i\lambda t/\hbar}$ applied to $A = H$, and its domain is all of $\mathcal{H}$ because $\lvert e^{-i\lambda t/\hbar}\rvert = 1$ is bounded. The resolvent $(A - zI)^{-1}$ for $z \notin \sigma(A)$ is the instance $f(\lambda) = (\lambda - z)^{-1}$, and its norm is bounded by $1/\mathrm{dist}(z, \sigma(A))$.
+
+\section{Stone's Theorem}
+\label{sec:appendix-stone}
+
+Stone's theorem is cited without proof at Chapter~4's~\eqref{eq:generator-def} as the bridge from the evolution axiom's one-parameter unitary family to its self-adjoint generator. This section records the full statement and the domain clauses that the main text's honesty note defers to this appendix.
+
+\medskip\noindent\textbf{Theorem (Stone, 1932; stated without proof).} \emph{Let $U(t)$, $t \in \mathbb{R}$, be a strongly continuous one-parameter unitary group on a separable Hilbert space $\mathcal{H}$:}
+\begin{linenomath}
+    \begin{equation}
+        U(t+s) = U(t)U(s), \qquad U(0) = I, \qquad U(t)^\dagger U(t) = I,
+        \label{eq:stone-hypotheses}
+    \end{equation}
+\end{linenomath}
+\emph{and for every $\psi \in \mathcal{H}$, $\lim_{t \to 0} \|U(t)\psi - \psi\| = 0$ (strong continuity). Then there exists a unique self-adjoint operator $H$ on $\mathcal{H}$ such that}
+\begin{linenomath}
+    \begin{equation}
+        U(t) = e^{-iHt/\hbar}.
+        \label{eq:stone-conclusion}
+    \end{equation}
+\end{linenomath}
+\emph{The domain of $H$ is precisely the set of vectors $\psi \in \mathcal{H}$ for which the limit}
+\begin{linenomath}
+    \begin{equation}
+        \lim_{t \to 0} \frac{U(t)\psi - \psi}{t}
+        \label{eq:stone-domain}
+    \end{equation}
+\end{linenomath}
+\emph{exists in the norm topology of $\mathcal{H}$, and on this domain $H\psi = i\hbar \times \text{that limit}$. Conversely, every self-adjoint operator $H$ generates a strongly continuous one-parameter unitary group via the functional calculus~\eqref{eq:functional-calculus} applied to $f_t(\lambda) = e^{-i\lambda t/\hbar}$.}
+
+The proof is collected in Reed \& Simon, Vol.~II, Sec.~X.1. The converse direction --- that every self-adjoint $H$ generates a unitary group via the spectral theorem --- is sometimes called Stone's theorem as well; it establishes the one-to-one correspondence between strongly continuous one-parameter unitary groups and self-adjoint operators. The theorem is the reason the main text's evolution axiom (D1) and its infinitesimal form~\eqref{eq:schroedinger} are equivalent: the group law and continuity fix the generator, and the generator reconstructs the group. The $\hbar$ in the exponent is, as Chapter~4 emphasizes, dimensional; its insertion does not alter the mathematical content of the theorem.
+
+For the special case $\mathcal{H} = \mathbb{C}^n$, Stone's theorem reduces to the elementary statement that every continuous unitary representation $U(t)$ of $\mathbb{R}$ is of the form $e^{-iHt/\hbar}$ with $H$ Hermitian, proved by differentiating the group law at zero and invoking the finite-dimensional spectral theorem. The depth of the theorem lies entirely in the passage from finite to infinite dimension, where the domain clauses become essential.
+
+\section{The Trotter Product Formula}
+\label{sec:appendix-trotter}
+
+The Trotter product formula, stated without proof, is the analytic engine behind the Feynman path integral (Chapter~9) and the factorization of evolution operators in many-body theory (Chapter~10).
+
+\medskip\noindent\textbf{Theorem (Trotter, 1959; stated without proof).} \emph{Let $A$ and $B$ be self-adjoint operators on a separable Hilbert space $\mathcal{H}$ such that $A + B$ is essentially self-adjoint on $\mathcal{D}(A) \cap \mathcal{D}(B)$. Then for all $t \in \mathbb{R}$ and all $\psi \in \mathcal{H}$,}
+\begin{linenomath}
+    \begin{equation}
+        e^{-it(A+B)/\hbar}\,\psi = \lim_{n \to \infty} \bigl(e^{-itA/n\hbar}\,e^{-itB/n\hbar}\bigr)^n \psi,
+        \label{eq:trotter}
+    \end{equation}
+\end{linenomath}
+\emph{where the limit is in the strong (norm) topology of $\mathcal{H}$.}
+
+The formula appears in the main text in two contexts, neither invoking it by name. First, the composition property of the propagator~\eqref{eq:propagator-composition} --- inserting $n-1$ resolutions of the identity between $n$ short-time factors --- is the path integral's defining combinatorial step; the Trotter formula justifies taking the $n \to \infty$ limit when the Hamiltonian splits as $H = P^2/2m + V(Q)$. Second, the Weyl relation~\eqref{eq:weyl-relations} can be read as the special case where $[A,B]$ is central, so the Trotter limit converges to the BCH-exact form $e^{-it(A+B)/\hbar} e^{-t^2[A,B]/2\hbar^2}$, but the general case requires the limit.
+
+The proof is collected in Reed \& Simon, Vol.~I, Sec.~VIII.8. The essential self-adjointness hypothesis on $A + B$ is nontrivial for the unbounded operators of quantum mechanics; the standard sufficient condition (Kato--Rellich) is satisfied by $H = P^2/2m + V(Q)$ for a wide class of potentials.
+
+\section{Fresnel Integrals and Conditional Convergence}
+\label{sec:appendix-fresnel}
+
+The free propagator of Chapter~5~\eqref{eq:free-propagator} involves the Fresnel integral
+\begin{linenomath}
+    \begin{equation}
+        \int_{-\infty}^{+\infty} e^{i\alpha p^2}\,\dd p,
+        \label{eq:fresnel-raw}
+    \end{equation}
+\end{linenomath}
+which is not absolutely convergent: $\lvert e^{i\alpha p^2}\rvert = 1$ for all real $p$, so the integral over an infinite domain oscillates without decay. The main text's footnote notes that the integral is evaluated by inserting a convergence factor $e^{-\varepsilon p^2}$ and taking $\varepsilon \to 0^+$ after integration. This section makes the procedure explicit.
+
+The properly regulated Fresnel integral is
+\begin{linenomath}
+    \begin{equation}
+        \int_{-\infty}^{+\infty} e^{i\alpha p^2}\,\dd p := \lim_{\varepsilon \to 0^+} \int_{-\infty}^{+\infty} e^{i\alpha p^2 - \varepsilon p^2}\,\dd p,
+        \label{eq:fresnel-regulated}
+    \end{equation}
+\end{linenomath}
+provided the limit exists and is independent of the regulator. For $\alpha \neq 0$, the regulated Gaussian integral evaluates to
+\begin{linenomath}
+    \begin{equation}
+        \int_{-\infty}^{+\infty} e^{-(\varepsilon - i\alpha)p^2}\,\dd p = \sqrt{\frac{\pi}{\varepsilon - i\alpha}}.
+        \label{eq:fresnel-gaussian}
+    \end{equation}
+\end{linenomath}
+The square root is the principal branch, and the limit $\varepsilon \to 0^+$ must be taken with care to select the correct phase. Writing $\varepsilon - i\alpha = \sqrt{\varepsilon^2 + \alpha^2}\,e^{-i\phi}$ with $\phi = \arctan(\alpha/\varepsilon) \in (0,\pi/2)$ for $\alpha > 0$, the limit $\varepsilon \to 0^+$ gives $\phi \to \pi/2$, hence
+\begin{linenomath}
+    \begin{equation}
+        \lim_{\varepsilon \to 0^+} \sqrt{\frac{\pi}{\varepsilon - i\alpha}} = \sqrt{\frac{\pi}{\lvert\alpha\rvert}}\,e^{i(\pi/4)\,\mathrm{sgn}(\alpha)} = \sqrt{\frac{\pi}{i\alpha}},
+        \label{eq:fresnel-limit}
+    \end{equation}
+\end{linenomath}
+where the final equality uses $\sqrt{i} = e^{i\pi/4}$ and $\sqrt{-i} = e^{-i\pi/4}$. The result is
+\begin{linenomath}
+    \begin{equation}
+        \int_{-\infty}^{+\infty} e^{i\alpha p^2}\,\dd p = \sqrt{\frac{\pi}{i\alpha}} \qquad (\alpha \neq 0),
+        \label{eq:fresnel-result}
+    \end{equation}
+\end{linenomath}
+understood in the regulated sense~\eqref{eq:fresnel-regulated}. Applied to the free propagator with $\alpha = -t/2m\hbar$, one obtains the prefactor $\sqrt{m/2\pi i\hbar t}$ of Chapter~5's~\eqref{eq:free-propagator}.
+
+The same technique underlies every Gaussian integral with a purely imaginary quadratic form that appears in the book: the path integral's free-particle kernel (Chapter~9), the stationary-phase expansion, and the coherent-state overlap integrals. In each case the integral is conditionally convergent --- the limit of symmetric finite-range integrals exists, but the Lebesgue integral over $\mathbb{R}$ does not --- and the regulator makes the computation rigorous. The independence of the limit from the choice of regulator (Gaussian, sharp cutoff, or otherwise) follows from the smoothness of the integrand's oscillations: the Fresnel integral is an \textbf{improper Riemann integral} whose value is fixed by Abel summation.
+
+For reference, the standard Fresnel integrals in real form are
+\begin{linenomath}
+    \begin{equation}
+        \int_0^\infty \cos(x^2)\,\dd x = \int_0^\infty \sin(x^2)\,\dd x = \sqrt{\frac{\pi}{8}},
+        \label{eq:fresnel-real}
+    \end{equation}
+\end{linenomath}
+derived by the same regularization or by contour integration in the complex plane.

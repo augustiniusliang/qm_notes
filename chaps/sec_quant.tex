@@ -1,0 +1,1063 @@
+\chapter{The Second Quantization, and the Way towards Statistical Mechanics}
+
+\begin{note}
+    This chapter adds one genuinely new postulate --- the Symmetrization Postulate of Section~\ref{sec:identical-particles}, which restricts the states of identical particles to either the totally symmetric or the totally antisymmetric subspace of the $N$-fold tensor product, the choice dictated by the particle's spin. The spin-statistics theorem that \emph{proves} this connection is a theorem of relativistic quantum field theory and is stated here as an experimental fact, with a footnote pointing to its proper home. Everything else in the chapter is proved from this postulate, the axioms of the state-space and measurement chapters, and the established formalism of the rotation, pictures, and representations chapters. The interlude chapters on angular momentum and composite systems are cited where their machinery is reused; no construction from those chapters is re-derived here. Two statistical ensembles --- the grand canonical ensemble of Sections~\ref{sec:bose-gas}--\ref{sec:fermi-gas} and the canonical ensemble of Section~\ref{sec:density-operator-partition} --- rest on the density-operator formalism of the composite-systems chapter; the grand canonical ensemble is used before its formal derivation in Section~\ref{sec:density-operator-partition}, with an explicit honesty declaration at each point of first use. The harmonic oscillator's partition function in Section~\ref{sec:density-operator-partition} recovers Planck's 1900 mean energy, closing the book's oldest statistical loop --- the material-oscillator register of the pictures chapter and the field-mode, statistical register of the present chapter meet in that display. Field operators $\psi^\dagger(\bm x)$, $\psi(\bm x)$ are constructed from any complete set of single-particle wave functions in the sense of the pictures chapter; they carry no Lorentz indices and satisfy no relativistic wave equation --- the chapter's boundary is non-relativistic, and the quantization of the full electromagnetic field is named as the discipline beyond it. Displays built on the continuum labels $\ket{\bm x}$ carry the licensed-shorthand status of the state-space and pictures chapters.
+\end{note}
+
+The historical chapter opened with three crises, and the second of them --- the shell structure of atoms --- was the Pauli principle: no two electrons share the same quantum numbers. The angular momentum chapter's singlet state, two spin-$1/2$ particles in the antisymmetric combination $\ket{0,0} = (\ket{\uparrow\downarrow} - \ket{\downarrow\uparrow})/\sqrt{2}$ (\eqref{eq:singlet-triplet}), was the $N=2$ face of that principle, and its closing ledger registered the Pauli principle as a debt for the chapter on identical particles. The same historical chapter recorded a fourth crisis, quieter than the three: Bose's 1924 derivation of Planck's law from the statistics of indistinguishable light quanta, a counting that belonged to no classical statistics and that Einstein, the following year, extended to massive particles --- the prediction of what is now called Bose--Einstein condensation. That prediction, made in 1925, was confirmed in 1995 at a temperature of a hundred and seventy nanokelvin. The arc from the old quantum theory to the quantum statistical mechanics of degenerate gases is the longest in the book, and this chapter draws it.
+
+The chapter's business is the quantum mechanics of many identical particles. Its structure is a single line of ascent. Section~\ref{sec:identical-particles} states the Symmetrization Postulate --- the kinematic constraint that identical particles force on the state space itself --- and builds the arena in which the rest of the chapter operates: Fock space, the direct sum over sectors of every particle number, whose basis vectors are labelled by occupation numbers. Section~\ref{sec:creation-annihilation} defines the operators that raise and lower those occupation numbers --- the creation and annihilation operators, bosonic and fermionic --- and unifies them with the ladder operators of the oscillator chapter and the Schwinger bosons of the angular momentum chapter under one algebraic structure. Section~\ref{sec:second-quantized-observables} transcribes the observables of single-particle quantum mechanics into the language of Fock space: every one-body and two-body operator assumes a universal form in terms of creation and annihilation operators, and the many-body Hamiltonian is the sum of those two forms. Section~\ref{sec:bose-gas} solves the ideal Bose gas in the grand canonical ensemble: the Bose--Einstein distribution, the critical temperature, and the macroscopic occupation of the ground state --- Bose--Einstein condensation, the chapter's centrepiece and the repayment of the book's oldest statistical debt. Section~\ref{sec:fermi-gas} solves the ideal Fermi gas: the Fermi--Dirac distribution, the Fermi sea at zero temperature, and the degeneracy pressure that holds up white dwarfs. Section~\ref{sec:density-operator-partition} supplies the formal foundation of the ensembles the preceding two sections deployed: the density operator in thermal equilibrium, the canonical and grand canonical partition functions, and the harmonic-oscillator partition function from which Planck's 1900 mean energy emerges as the chapter's final repayment. Section~\ref{sec:ch10summary} collects the principles, presents the experiment--formalism dictionary, balances the debt ledger, and opens the door to the interacting many-body theory that is the discipline beyond the chapter's boundary.
+
+\section{Identical Particles: the Symmetrization Postulate and Fock Space}
+\label{sec:identical-particles}
+
+Particles of the same species are genuinely indistinguishable. The statement is not a dynamical approximation --- it is a kinematic constraint on the state space itself, and its visible consequences range from the shell structure of atoms, the historical chapter's second crisis, to the collective behaviour of quantum gases whose statistics this chapter solves. The angular momentum chapter's two-spin-$1/2$ singlet (\eqref{eq:singlet-triplet}) was the $N=2$ antisymmetric case. This section answers the question that case left open: what is the law for $N$ identical particles, and what is the Hilbert space that houses states of every $N$ at once?
+
+\medskip\noindent\textbf{The permutation group on $N$ identical particles.}
+The tentative $N$-particle Hilbert space is the $N$-fold tensor product $\mathcal{H}^{\otimes N}$, built by the machinery of the composite-systems chapter (the tensor-product formalism of its opening section) and cited here without re-derivation. Let the single-particle space $\mathcal{H}_1$ carry an orthonormal basis $\{\ket{\varphi_k}\}$. A product state $\ket{\psi_1} \otimes \cdots \otimes \ket{\psi_N}$ assigns a definite single-particle state to each of the $N$ labelled slots. The symmetric group $S_N$ acts by permuting the tensor factors:
+\begin{linenomath}
+    \begin{equation}
+        P_\pi\,\ket{\psi_1} \otimes \cdots \otimes \ket{\psi_N}
+        = \ket{\psi_{\pi^{-1}(1)}} \otimes \cdots \otimes \ket{\psi_{\pi^{-1}(N)}},
+        \label{eq:permutation-action}
+    \end{equation}
+\end{linenomath}
+where the inverse on the index ensures that $P_{\pi_2}P_{\pi_1} = P_{\pi_2\pi_1}$ (the operators compose like the group elements, not their inverses --- the convention is the standard one and is stated once). Since the particles are identical, every physical observable must commute with all $P_\pi$:
+\begin{linenomath}
+    \begin{equation*}
+        [O, P_\pi] = 0 \quad\text{for every }\pi\in S_N.
+    \end{equation*}
+\end{linenomath}
+An observable that distinguished particle $1$ from particle $2$ would contradict indistinguishability. This commutativity forces physical states into irreducible representations of $S_N$. The representation theory of $S_N$ is rich, but the physics of three-dimensional space selects exactly two of its representations as the physical ones: the two one-dimensional representations --- totally symmetric and totally antisymmetric. The higher-dimensional representations of $S_N$ (parastatistics) are excluded by the spin-statistics connection in relativistic quantum field theory, stated as an experimental fact here and footnoted to its proper home.\footnote{The spin-statistics theorem was proved by Pauli in 1940 within relativistic quantum field theory (\emph{Phys.\ Rev.} \textbf{58}, 716); the proof that integer-spin particles quantize as bosons and half-integer-spin particles as fermions is a theorem of Lorentz invariance, causality, and the positivity of the energy spectrum, and its proper statement belongs to a course in quantum field theory. The present chapter takes the connection as an experimental datum.}
+
+\medskip\noindent\textbf{Symmetric and antisymmetric subspaces.}
+The two one-dimensional representations of $S_N$ are defined by their behaviour under a transposition $\tau_{ij}$, the swap of particles $i$ and $j$. Every permutation $\pi$ is a product of transpositions; the sign $\operatorname{sgn}(\pi) = \pm 1$ records whether the number of transpositions in any such decomposition is even or odd. The two physical subspaces are:
+\begin{itemize}
+    \item \textbf{Totally symmetric} (bosons): $P_\pi\ket{\psi} = \ket{\psi}$ for every $\pi$. The projector onto this subspace is the symmetrizer,
+    \item \textbf{Totally antisymmetric} (fermions): $P_\pi\ket{\psi} = \operatorname{sgn}(\pi)\ket{\psi}$ for every $\pi$. The projector onto this subspace is the antisymmetrizer.
+\end{itemize}
+In one display,
+\begin{linenomath}
+    \begin{equation}
+        S = \frac{1}{N!}\sum_{\pi\in S_N} P_\pi,
+        \qquad
+        A = \frac{1}{N!}\sum_{\pi\in S_N} \operatorname{sgn}(\pi)\,P_\pi.
+        \label{eq:symmetrizers}
+    \end{equation}
+\end{linenomath}
+Both are Hermitian projection operators: $S^2 = S$, $A^2 = A$, $S^\dagger = S$, $A^\dagger = A$, and $SA = AS = 0$ (a state cannot be simultaneously symmetric and antisymmetric for $N \ge 2$, because a single transposition would force $+1 = -1$). The normalization $1/N!$ ensures that each reproduces the state it projects: acting on a state already in the symmetric subspace, $S$ returns the same state unchanged.
+
+The physical $N$-particle spaces are the images of these projectors:
+\begin{linenomath}
+    \begin{equation*}
+        \mathcal{H}_N^{(+)} := S\bigl(\mathcal{H}^{\otimes N}\bigr),
+        \qquad
+        \mathcal{H}_N^{(-)} := A\bigl(\mathcal{H}^{\otimes N}\bigr).
+    \end{equation*}
+\end{linenomath}
+
+\medskip\noindent\textbf{The Symmetrization Postulate.}
+The states of $N$ identical particles are vectors in exactly one of these two subspaces. Which one is determined by the particle's spin: integer spin selects the symmetric subspace --- bosons; half-integer spin selects the antisymmetric subspace --- fermions. The connection to the angular momentum chapter's singlet is explicit: two spin-$1/2$ particles in the singlet state $\ket{0,0}$ of \eqref{eq:singlet-triplet} are in the antisymmetric representation, consistent with the postulate (half-integer spin $\Rightarrow$ fermions $\Rightarrow$ antisymmetric states). The Pauli principle, the historical chapter's second crisis, is the statement that two electrons --- spin-$1/2$ fermions --- cannot occupy the same single-particle state: the antisymmetric subspace contains no vector of the form $\ket{\varphi} \otimes \ket{\varphi} \otimes \cdots$, because a transposition of identical factors would simultaneously demand symmetry ($+1$) from the equality of the factors and antisymmetry ($\pm$ sign) from the postulate --- forcing the state to vanish. This is the exclusion principle in its modern form: a constraint on the state space, not a force.
+
+The postulate is the chapter's single new axiom. It is stated as an experimental fact: every experiment with identical particles in three spatial dimensions conforms to it, and the spin-statistics theorem that proves it from deeper principles is a theorem of relativistic quantum field theory, not of the non-relativistic quantum mechanics this chapter inhabits.
+
+\medskip\noindent\textbf{Fock space: the arena for variable particle number.}
+The $N$-particle spaces constructed above house a definite number of particles. Many processes of interest --- the creation and absorption of quanta, the statistical mechanics of open systems --- require a description that does not fix $N$ in advance. The direct sum over all $N$-particle sectors supplies exactly that description:
+\begin{linenomath}
+    \begin{equation}
+        \mathcal{F}_\pm
+        = \mathbb{C} \;\oplus\; \mathcal{H}_1 \;\oplus\; \mathcal{H}_2^{(\pm)} \;\oplus\; \mathcal{H}_3^{(\pm)} \;\oplus\; \cdots
+        = \bigoplus_{N=0}^{\infty} \mathcal{H}_N^{(\pm)},
+        \label{eq:fock-space}
+    \end{equation}
+\end{linenomath}
+where $\mathcal{H}_0^{(\pm)} := \mathbb{C}$ is the one-dimensional space consisting of complex multiples of a single distinguished vector $\ket{0}$, the \textbf{vacuum state}: the unique state with zero particles, normalized $\braket{0|0} = 1$. The direct sum means that a general vector in $\mathcal{F}_\pm$ is a sequence $(\psi_0, \psi_1, \psi_2, \ldots)$ with $\psi_N \in \mathcal{H}_N^{(\pm)}$, only finitely many of which are nonzero, and the inner product is the sum of the inner products in each sector: $\braket{\Psi|\Phi} = \sum_N \braket{\psi_N|\phi_N}$. This is the \textbf{Fock space} --- the natural arena for quantum systems in which the particle number is a dynamical variable, not a fixed parameter.
+
+The vacuum is the only state common to both the bosonic and the fermionic Fock space. It is the ground floor of the direct sum, the zero of the particle-number counting, and it will serve as the cyclic vector from which every other state is built by the creation operators of the next section. The structure of Fock space makes no assumption about particle-number conservation: operators can change $N$, and the space accommodates it naturally --- the direct sum is the algebraic expression of that possibility.
+
+\medskip\noindent\textbf{Occupation-number basis.}
+Let $\{\ket{\varphi_k}\}$ be an orthonormal basis of the single-particle space $\mathcal{H}_1$, indexed by a discrete or continuous label $k$. A basis of the $N$-particle sector is built by distributing $N$ particles among the modes, with the combinatorics dictated by the statistics. The states of the Fock space are most transparently labelled not by which particle occupies which mode --- the question the symmetrization postulate renders meaningless --- but by how many particles occupy each mode. For bosons, each $n_k$ can be any nonnegative integer; for fermions, the Pauli principle restricts each $n_k$ to zero or one. A basis vector of $\mathcal{F}_\pm$ is
+\begin{linenomath}
+    \begin{equation}
+        \ket{\{n_k\}} = \ket{n_1, n_2, \ldots},
+        \qquad
+        n_k \in \begin{cases}
+            \{0, 1, 2, \ldots\} & \text{(bosons)}, \\[2pt]
+            \{0, 1\}            & \text{(fermions)},
+        \end{cases}
+        \label{eq:occupation-basis}
+    \end{equation}
+\end{linenomath}
+with the total particle number $N = \sum_k n_k$. The vacuum is $\ket{0, 0, \ldots}$, the state in which every occupation number is zero. The occupation-number states are orthonormal: $\braket{n_1, n_2, \ldots|n_1', n_2', \ldots} = \delta_{n_1 n_1'}\,\delta_{n_2 n_2'}\cdots$, and they span the Fock space. The Pauli principle as an algebraic statement, $n_k \in \{0,1\}$, is the defining restriction of the fermionic sector: at most one particle per single-particle mode. The creation and annihilation operators of the next section are defined by their action on exactly these states, and their (anti)commutation relations are read off that action.
+
+\medskip\noindent\textbf{Example: two identical particles in two modes.}
+Take a single-particle space spanned by two orthonormal modes $\ket{\varphi_a}$ and $\ket{\varphi_b}$. The two-mode example anchors the abstraction of Fock space in a concrete, finite-dimensional setting.
+
+\textit{Bosons.} The symmetric two-particle subspace $\mathcal{H}_2^{(+)}$ is three-dimensional, spanned by
+\begin{linenomath}
+    \begin{equation*}
+        \ket{2,0},\qquad \ket{0,2},\qquad \ket{1,1},
+    \end{equation*}
+\end{linenomath}
+where $\ket{n_a, n_b}$ denotes $n_a$ bosons in mode $a$ and $n_b$ bosons in mode $b$. In the coordinate representation, with single-particle wave functions $\varphi_a(\bm x)$ and $\varphi_b(\bm x)$, the symmetrized two-particle wave functions are
+\begin{linenomath}
+    \begin{equation}
+        \psi_S(\bm x_1, \bm x_2)
+        \propto \varphi_a(\bm x_1)\varphi_b(\bm x_2) + \varphi_a(\bm x_2)\varphi_b(\bm x_1),
+        \label{eq:two-particle-symmetrized}
+    \end{equation}
+\end{linenomath}
+for the state $\ket{1,1}$. The state $\ket{2,0}$ has both particles in the same mode, with wave function $\varphi_a(\bm x_1)\varphi_a(\bm x_2)$ --- the symmetric subspace permits it. The bosonic ``bunching'' --- the enhanced probability for two identical bosons to occupy the same state compared to distinguishable particles --- is visible in this three-state enumeration: the distinguishable-particle space would be four-dimensional ($\ket{a,a}$, $\ket{a,b}$, $\ket{b,a}$, $\ket{b,b}$), but symmetrization collapses $\ket{a,b}$ and $\ket{b,a}$ into one state, leaving three. The probability of finding both particles in the same mode is $2/3$ for bosons (two of three states have $n_a=n_b$) against $2/4 = 1/2$ for distinguishable particles.
+
+\textit{Fermions.} The antisymmetric two-particle subspace $\mathcal{H}_2^{(-)}$ is one-dimensional, spanned by the single state
+\begin{linenomath}
+    \begin{equation*}
+        \ket{1,1},
+    \end{equation*}
+\end{linenomath}
+because each mode can hold at most one fermion and two fermions in one mode --- the states $\ket{2,0}$ and $\ket{0,2}$ --- do not exist. The antisymmetrized wave function is the Slater determinant for $N=2$:
+\begin{linenomath}
+    \begin{equation}
+        \psi_A(\bm x_1, \bm x_2)
+        \propto \varphi_a(\bm x_1)\varphi_b(\bm x_2)
+                - \varphi_a(\bm x_2)\varphi_b(\bm x_1),
+        \label{eq:two-particle-antisymmetrized}
+    \end{equation}
+\end{linenomath}
+which vanishes identically if $a=b$ --- the Pauli principle as the vanishing of the determinant with repeated rows. The probability of finding two fermions at the same position, obtained by setting $\bm x_1 = \bm x_2 = \bm x$ in \eqref{eq:two-particle-antisymmetrized}, is zero: the wave function is odd under exchange, so it must vanish on the coincidence surface $\bm x_1 = \bm x_2$. This is the exchange hole, a purely kinematic correlation forced by the antisymmetry of the state space, with no dynamical force behind it.
+
+The advantage of the occupation-number basis is its transparency: the combinatorics of identical particles, which in the first-quantized language requires explicit symmetrization sums over $N!$ permutations, reduces to the arithmetic of nonnegative integers. Its limitation is that it hides the permutation-group structure that justifies it; the projectors \eqref{eq:symmetrizers} are the bridge between the two descriptions, and the worked example above shows that for small $N$ the two descriptions agree --- as they must, by the postulate.
+
+\medskip\noindent\textbf{Transition.}
+The occupation-number language already suggests operators that raise and lower $n_k$ by one --- the algebraic engine whose single-mode prototype the oscillator chapter built in \eqref{eq:ladder-action}. In Fock space, those operators acquire their full many-mode meaning, and they are the subject of the next section.
+
+\section{Creation and Annihilation Operators: the Algebraic Engine}
+\label{sec:creation-annihilation}
+
+The single-mode oscillator of Section~\ref{sec:harmonic-oscillator} --- whose ladder operators \eqref{eq:ladder-action} counted excitations of one mode --- generalizes to many modes, and the generalization unifies three algebraic structures the book has met separately: the harmonic oscillator's ladder operators, the field's creation and annihilation operators (the promissory note of Section~\ref{sec:harmonic-oscillator}), and the Schwinger bosons of the angular momentum chapter (\eqref{eq:schwinger-J}). They are three readings of one algebraic structure, and this section makes that unification explicit.
+
+\medskip\noindent\textbf{Bosonic operators.}
+For each mode $k$ of a chosen single-particle basis, define the \textbf{creation operator} $a_k^\dagger$ and the \textbf{annihilation operator} $a_k$ by their action on the occupation-number basis \eqref{eq:occupation-basis}:
+\begin{linenomath}
+    \begin{align}
+        a_k^\dagger\,\ket{\ldots, n_k, \ldots}
+        &= \sqrt{n_k + 1}\;\ket{\ldots, n_k + 1, \ldots}, \\
+        a_k\,\ket{\ldots, n_k, \ldots}
+        &= \sqrt{n_k}\;\ket{\ldots, n_k - 1, \ldots},
+    \end{align}
+\end{linenomath}
+with the understanding that $a_k\ket{\ldots, 0, \ldots} = 0$: an annihilation operator acting on a mode that is already empty annihilates the state. The definitions are the many-mode generalization of the ladder actions \eqref{eq:ladder-action}, with the normalization fixed by the same norm computation that fixed the single-mode actions. From these definitions, the bosonic canonical commutation relations follow:
+\begin{linenomath}
+    \begin{equation}
+        [a_k, a_l^\dagger] = \delta_{kl},
+        \qquad
+        [a_k, a_l] = [a_k^\dagger, a_l^\dagger] = 0.
+        \label{eq:boson-commutators}
+    \end{equation}
+\end{linenomath}
+The proof of \eqref{eq:boson-commutators} from the defining actions on basis states is assigned to Exercise~3(a) of this chapter; the body of the text states the result with the explicit honesty declaration that the proof follows the same pattern as the single-mode case of the oscillator chapter --- the action of the commutator on a generic occupation-number basis state, mode by mode, reproduces the Kronecker delta. In the same direct manner, the \textbf{number operator}
+\begin{linenomath}
+    \begin{equation}
+        N_k := a_k^\dagger a_k,
+        \qquad
+        N := \sum_k N_k,
+        \label{eq:number-operator}
+    \end{equation}
+\end{linenomath}
+has the occupation-number states as its eigenstates: $N_k\ket{\{n_l\}} = n_k\ket{\{n_l\}}$, with $n_k = 0, 1, 2, \ldots$ --- the spectrum of the single-mode oscillator \eqref{eq:number-spectrum} generalized to arbitrarily many modes.
+
+\medskip\noindent\textbf{Fermionic operators.}
+The antisymmetry of the fermionic state space requires sign bookkeeping beyond the simple square-root normalization of the bosonic case. Let the modes be ordered, $k = 1, 2, \ldots$. The fermionic creation operator on the occupation-number basis is
+\begin{linenomath}
+    \begin{equation*}
+        a_k^\dagger\,\ket{\ldots, n_k, \ldots}
+        = (1 - n_k)\,(-1)^{\sum_{l < k} n_l}\;\ket{\ldots, n_k + 1, \ldots},
+    \end{equation*}
+\end{linenomath}
+with the same understanding that $a_k\ket{\ldots, 0, \ldots} = 0$ and the action of $a_k$ on a mode occupied by one fermion, obtained by Hermitian conjugation of the displayed formula, removes it with the same sign factor. The prefactor $(1 - n_k)$ enforces the Pauli principle: if $n_k = 1$, the creation operator annihilates the state, because a second fermion cannot occupy the same mode. The sign factor $(-1)^{\sum_{l<k}n_l}$ counts the number of occupied modes that precede mode $k$; it ensures that the creation operators for different modes anticommute, as the antisymmetry of the underlying states demands. The resulting algebra is the \textbf{canonical anticommutation relations}:
+\begin{linenomath}
+    \begin{equation}
+        \{a_k, a_l^\dagger\} = \delta_{kl},
+        \qquad
+        \{a_k, a_l\} = \{a_k^\dagger, a_l^\dagger\} = 0,
+        \label{eq:fermion-anticommutators}
+    \end{equation}
+\end{linenomath}
+where $\{A, B\} := AB + BA$ is the anticommutator. The Pauli principle follows as an algebraic theorem: from $\{a_k^\dagger, a_k^\dagger\} = 2(a_k^\dagger)^2 = 0$, one obtains $(a_k^\dagger)^2 = 0$, so no two fermions can be added to the same mode. The occupation number $n_k$ can only be $0$ or $1$, as the basis construction \eqref{eq:occupation-basis} required. The number operator for fermions, $N_k = a_k^\dagger a_k$, has eigenvalues $0$ and $1$ and satisfies $N_k^2 = N_k$ --- it is a projection, consistent with the occupation-number restriction. The detailed verification of \eqref{eq:fermion-anticommutators} from the signed definition is assigned to Exercise~4, with the same honesty declaration as for the bosonic commutators: the proof acts on a generic occupation-number basis state, and the anticommutator's action reproduces the Kronecker delta with the sign factors cancelling or reinforcing as required by the ordering of the modes.
+
+\medskip\noindent\textbf{Example: two fermionic modes.}
+Two fermionic modes span a four-state Fock space: $\ket{0,0}$, $\ket{1,0}$, $\ket{0,1}$, and $\ket{1,1}$. The state $\ket{1,1}$ is the Slater determinant with both modes filled --- the antisymmetrized wave function \eqref{eq:two-particle-antisymmetrized}. The operator $a_1^\dagger a_2$ destroys a fermion in mode~2 and creates one in mode~1, mapping $\ket{0,1} \mapsto \ket{1,0}$ and annihilating $\ket{0,0}$ and $\ket{1,1}$. In the two-dimensional subspace $\{\ket{1,0}, \ket{0,1}\}$, the operators $a_1^\dagger a_2$ and $a_2^\dagger a_1$ act as raising and lowering operators --- the fermionic analog of the Schwinger construction for angular momentum. The four-state Fock space and the sign factors that distinguish the orderings of creation operators are worked out in Exercise~4(c) of this chapter.
+
+\medskip\noindent\textbf{Unified reading with the oscillator chapter.}
+A single bosonic mode --- only one index $k$ --- reduces the Fock-space construction of this section to the harmonic oscillator of Section~\ref{sec:harmonic-oscillator} exactly. With one mode, $[a, a^\dagger] = I$ (\eqref{eq:boson-commutators} reduces to \eqref{eq:ladder-algebra}), $H = \hbar\omega(a^\dagger a + 1/2)$ is the oscillator Hamiltonian \eqref{eq:ladder-algebra}, and the occupation-number states $\ket{n}$ are the oscillator eigenstates \eqref{eq:number-spectrum}. The Fock vacuum $\ket{0}$ is the oscillator ground state \eqref{eq:oscillator-ground}. The algebraic machinery of the oscillator chapter --- spectrum, ladder actions, selection rule --- is recovered as the single-mode restriction of the bosonic Fock space.
+
+The many-mode extension is the step from one oscillator to a collection of independent oscillators, one for each mode $k$, with the excitation quantum of each mode now read as a particle. This is the content of the historical phrase ``second quantization,'' and the chapter states the historical register honestly: nothing is being quantized a second time. The single-particle Schr\"odinger equation was never a classical field theory --- it was quantum mechanics of one particle from the start. The ``second'' quantization is the step from a Hilbert space of fixed particle number to Fock space with variable particle number, and the quanta that the creation operators create are the particles whose quantum mechanics the earlier chapters developed. The name is a fossil of the historical order in which the single-particle Schr\"odinger equation was called the ``first-quantized'' theory and the field the ``second,'' and the chapter uses the phrase only with this caveat.
+
+A remark on the zero-point energy: the oscillator chapter's $H = \hbar\omega(N + 1/2)$ generalizes in the many-mode case to $H = \sum_k \hbar\omega_k(a_k^\dagger a_k + 1/2)$. The sum $\sum_k \hbar\omega_k/2$ over infinitely many modes diverges. It is a constant that drops out of all energy differences and is conventionally subtracted from the Hamiltonian; this is the first and simplest renormalization, and the chapter names it honestly as such without developing the machinery of renormalization theory.
+
+\medskip\noindent\textbf{Field operators.}
+Given any complete orthonormal set of single-particle wave functions $\{\varphi_k(\bm x)\}$, the creation and annihilation operators in the position representation are obtained by a change of single-particle basis:
+\begin{linenomath}
+    \begin{equation}
+        \psi^\dagger(\bm x) = \sum_k \varphi_k^*(\bm x)\,a_k^\dagger,
+        \qquad
+        \psi(\bm x) = \sum_k \varphi_k(\bm x)\,a_k.
+        \label{eq:field-operators}
+    \end{equation}
+\end{linenomath}
+These are the \textbf{field operators} --- operator-valued functions of position, constructed from any complete set of single-particle wave functions. The (anti)commutation relations follow from \eqref{eq:boson-commutators} or \eqref{eq:fermion-anticommutators} and the completeness of the basis $\{\varphi_k\}$:
+\begin{linenomath}
+    \begin{equation}
+        [\psi(\bm x), \psi^\dagger(\bm y)]_\pm = \delta(\bm x - \bm y),
+        \qquad
+        [\psi(\bm x), \psi(\bm y)]_\pm = [\psi^\dagger(\bm x), \psi^\dagger(\bm y)]_\pm = 0,
+    \end{equation}
+\end{linenomath}
+where $[A, B]_\pm$ denotes the commutator (bosons) or anticommutator (fermions), and $\delta(\bm x - \bm y)$ is the Dirac delta in the licensed-shorthand register of the state-space chapter (Section~\ref{sec:hilbert}) and the pictures chapter (Section~\ref{sec:position-representation}); its rigorous content is Appendix~A's standing debt. The derivation of \eqref{eq:field-operators} is a one-line exercise in the completeness of the single-particle basis:
+\begin{linenomath}
+    \begin{equation*}
+        [\psi(\bm x), \psi^\dagger(\bm y)]_\pm
+        = \sum_{k,l} \varphi_k(\bm x)\,\varphi_l^*(\bm y)\,
+          [a_k, a_l^\dagger]_\pm
+        = \sum_k \varphi_k(\bm x)\,\varphi_k^*(\bm y)
+        = \delta(\bm x - \bm y),
+    \end{equation*}
+\end{linenomath}
+where the second equality uses \eqref{eq:boson-commutators} or \eqref{eq:fermion-anticommutators} to replace $[a_k, a_l^\dagger]_\pm$ by $\delta_{kl}$, and the third is the completeness relation $\sum_k \varphi_k(\bm x)\varphi_k^*(\bm y) = \delta(\bm x - \bm y)$ of the single-particle basis. The operator $\psi^\dagger(\bm x)$ creates a particle at the position $\bm x$ --- in the same licensed-shorthand sense: $\ket{\bm x}$ is a non-normalizable ket, and $\psi^\dagger(\bm x)\ket{0} = \ket{\bm x}$ is the one-particle state localized at $\bm x$. The field operators are strictly non-relativistic: they are constructed from a basis of single-particle wave functions, carry no spinor or Lorentz indices, and satisfy no relativistic wave equation. The quantization of the full electromagnetic field, with its vector potential, gauge invariance, and photon polarization, is the discipline beyond the chapter's non-relativistic boundary and is named here as the proper home of the relativistic field concept.
+
+The number density operator in the field representation is
+\begin{linenomath}
+    \begin{equation}
+        n(\bm x) = \psi^\dagger(\bm x)\,\psi(\bm x),
+        \qquad
+        N = \int\!\dd^3 x\;n(\bm x),
+        \label{eq:density-operator-field}
+    \end{equation}
+\end{linenomath}
+which is the second-quantized form of the position probability density of the measurement chapter (\eqref{eq:position-born}): the expectation of $n(\bm x)$ in an $N$-particle state yields the particle-number density at $\bm x$, and its integral over all space is the total particle-number operator $N$ of \eqref{eq:number-operator}.
+
+\medskip\noindent\textbf{Schwinger bosons as two-mode second quantization.}
+The two bosonic modes $a_+^\dagger$, $a_-^\dagger$ of the angular momentum chapter (Section~\ref{sec:schwinger-model}) are a special case of the formalism of this section. The Jordan--Schwinger map
+\begin{linenomath}
+    \begin{equation}
+        J_i = \frac{\hbar}{2}\,a_\alpha^\dagger\,\sigma_{\alpha\beta}^i\,a_\beta,
+        \label{eq:schwinger-revisited}
+    \end{equation}
+\end{linenomath}
+is a one-body operator in the sense of the next section, expressed in the two-mode Fock space. In the angular momentum chapter, the total boson number $N = a_+^\dagger a_+ + a_-^\dagger a_-$ was held fixed at $N = 2j$, and the angular momentum states $\ket{j,m}$ were the two-mode Fock states \eqref{eq:schwinger-states} with that constraint. In Fock space, $N$ is a dynamical variable --- the fixed-$N$ constraint of the angular momentum chapter is lifted, and the Fock space construction provides the natural arena in which $N$ can vary. The angular momentum states $\ket{j,m}$ are the two-mode Fock states $\ket{n_+, n_-}$ with $j = (n_+ + n_-)/2$ and $m = (n_+ - n_-)/2$, exactly as \eqref{eq:schwinger-states} recorded.
+
+The Schwinger construction also supplies the natural language for spin coherent states in the Fock-space formulation. The two-mode boson coherent state is the tensor product of single-mode coherent states of the oscillator chapter:
+\begin{linenomath}
+    \begin{equation*}
+        \ket{\alpha_+, \alpha_-} = D_+(\alpha_+)\,D_-(\alpha_-)\,\ket{0,0}.
+    \end{equation*}
+\end{linenomath}
+Projecting this state onto the fixed-$N$ sector with $N = 2j$ yields the spin coherent state of the angular momentum chapter,
+\begin{linenomath}
+    \begin{equation*}
+        \ket{\theta, \phi}
+        = \frac{1}{\sqrt{(2j)!}}\,
+          \bigl(\cos(\theta/2)\,a_+^\dagger + e^{i\phi}\sin(\theta/2)\,a_-^\dagger\bigr)^{2j}\,\ket{0,0},
+    \end{equation*}
+\end{linenomath}
+which is the Bloch sphere of \eqref{eq:bloch-vector} read as a coherent-state manifold. The projection is verified by expanding the two-mode coherent state in the occupation-number basis:
+\begin{linenomath}
+    \begin{equation*}
+        \ket{\alpha_+, \alpha_-}
+        = e^{-(|\alpha_+|^2 + |\alpha_-|^2)/2}
+          \sum_{n_+, n_- = 0}^\infty
+          \frac{\alpha_+^{n_+}\,\alpha_-^{n_-}}{\sqrt{n_+!\,n_-!}}\,
+          \ket{n_+, n_-},
+    \end{equation*}
+\end{linenomath}
+and retaining only terms with $n_+ + n_- = 2j$. Setting $\alpha_+ = \sqrt{2j}\,\cos(\theta/2)$ and $\alpha_- = \sqrt{2j}\,e^{i\phi}\sin(\theta/2)$ and normalising the projected vector reproduces the displayed form; the factor $e^{-(|\alpha_+|^2+|\alpha_-|^2)/2} = e^{-j}$ is absorbed into the normalisation. The discharge of the angular momentum chapter's ledger entries --- Schwinger bosons (debt~\#39) and spin coherent states --- is complete: the two-mode boson Fock space is the general setting, and the fixed-$N$ angular momentum theory is the restriction to one sector.
+
+The advantage of the creation/annihilation formalism is its algebra: the entire combinatorics of identical particles is encoded in the (anti)commutation relations \eqref{eq:boson-commutators} and \eqref{eq:fermion-anticommutators}, and every observable built from $a_k^\dagger$ and $a_k$ automatically respects the symmetrization postulate. Its limitation is its abstractness: the field operators \eqref{eq:field-operators} hide the underlying single-particle wave functions, and the infinity of modes can obscure the physics --- the zero-point divergence named above is the first warning. The next section returns to the concrete: it transcribes the familiar observables of single-particle quantum mechanics into the language this section has built.
+
+\medskip\noindent\textbf{Transition.}
+Operators that add and remove particles are the vocabulary. Any observable --- Hamiltonian, interaction, external probe --- can be expressed in this vocabulary, and the next section transcribes the observables of single-particle quantum mechanics into the language of Fock space.
+
+\section{Observables in the Second-Quantized Formalism}
+\label{sec:second-quantized-observables}
+
+The measurement axioms of Chapter~3 are general: observables are self-adjoint operators on the Hilbert space, and their spectral decompositions encode ideal experiments. In Fock space, operators that act on one particle at a time --- kinetic energy, external potential --- or on pairs of particles --- interactions --- assume a universal form in terms of the creation and annihilation operators of the preceding section. This section derives those forms.
+
+The guiding idea is simple. A one-body operator in first-quantized language sums over all particles: $T = \sum_{i=1}^N t(\bm x_i, \bm p_i)$. In Fock space, the sum over particles is replaced by a sum over modes weighted by matrix elements --- the number of particles in each mode is handled automatically by the algebra of $a_k^\dagger$ and $a_k$, and the operator's action on every $N$-particle sector is the same formula. The derivation is a transcription, not a new postulate: the first-quantized operator, expressed in the occupation-number basis, is exactly the second-quantized form displayed below.
+
+\medskip\noindent\textbf{One-body operators.}
+Let $t$ be a single-particle operator --- kinetic energy, an external potential, or any other operator on $\mathcal{H}_1$. In a chosen single-particle basis $\{\ket{\varphi_k}\}$ with matrix elements
+\begin{linenomath}
+    \begin{equation*}
+        t_{kl} := \braket{\varphi_k|t|\varphi_l},
+    \end{equation*}
+\end{linenomath}
+the second-quantized form is
+\begin{linenomath}
+    \begin{equation}
+        T = \sum_{k,l} t_{kl}\,a_k^\dagger a_l.
+        \label{eq:one-body-operator}
+    \end{equation}
+\end{linenomath}
+The derivation in abstract form is as follows. In the first-quantized $N$-particle space, the operator that applies $t$ to the $i$-th particle and the identity to the others is $t_i := I \otimes \cdots \otimes t \otimes \cdots \otimes I$, and the total one-body operator is $T^{(N)} = \sum_{i=1}^N t_i$. Restricted to the (anti)symmetrized subspace, this operator has exactly the matrix elements that \eqref{eq:one-body-operator} produces. The proof that the two forms agree on every occupation-number basis state proceeds by inserting the completeness of the single-particle basis into the sum over particles; the result is a sum over single-particle matrix elements weighted by the number of ways each particle can occupy each mode, and the creation and annihilation operators \eqref{eq:boson-commutators} or \eqref{eq:fermion-anticommutators} bookkeep those weights automatically. The transcription is valid for both bosons and fermions --- the (anti)commutation relations of the creation and annihilation operators ensure the correct sign for fermionic matrix elements without any additional sign rules.
+
+\begin{note}
+    The verification of \eqref{eq:one-body-operator} on the occupation-number basis is compact. Let $\ket{\{n_k\}}$ and $\ket{\{m_k\}}$ be two occupation-number states with the same total particle number $\sum_k n_k = \sum_k m_k = N$ (otherwise the matrix element vanishes). The second-quantized form gives
+    \begin{linenomath}
+        \begin{equation*}
+            \braket{\{n_k\}|\sum_{kl} t_{kl}\,a_k^\dagger a_l|\{m_k\}}
+            = \sum_{kl} t_{kl}\,\braket{\{n_k\}|a_k^\dagger a_l|\{m_k\}}.
+        \end{equation*}
+    \end{linenomath}
+    The action of $a_k^\dagger a_l$ removes a particle from mode $l$ and adds one to mode $k$, producing a state proportional to the occupation-number state with $n_k$ and $n_l$ shifted appropriately. Summing over all $k,l$ with the matrix elements $t_{kl} = \braket{\varphi_k|t|\varphi_l}$ reproduces exactly the first-quantized matrix element $\braket{\Psi_{\{n_k\}}|\sum_{i=1}^N t_i|\Psi_{\{m_k\}}}$ between the (anti)symmetrized $N$-particle wave functions built from the same occupation numbers. The creation and annihilation operators automate the sum over the $N$ labelled particles and the $N!$ permutations that the first-quantized form requires.
+\end{note}
+
+In the field representation, the same operator is obtained by inserting the expansion \eqref{eq:field-operators} into \eqref{eq:one-body-operator} and using the completeness of the basis $\{\varphi_k\}$:
+\begin{linenomath}
+    \begin{equation}
+        T = \int\!\dd^3 x\;\psi^\dagger(\bm x)\;t(\bm x, -i\hbar\bm\nabla)\;\psi(\bm x).
+    \end{equation}
+\end{linenomath}
+Two standard instances are the kinetic energy in the momentum basis,
+\begin{linenomath}
+    \begin{equation*}
+        T = \sum_{\bm k} \frac{\hbar^2 \bm k^2}{2m}\;a_{\bm k}^\dagger a_{\bm k},
+    \end{equation*}
+\end{linenomath}
+where $\bm k$ labels plane-wave states, and the external potential in the position representation,
+\begin{linenomath}
+    \begin{equation*}
+        V_{\text{ext}} = \int\!\dd^3 x\;V(\bm x)\,\psi^\dagger(\bm x)\psi(\bm x),
+    \end{equation*}
+\end{linenomath}
+which is the operator whose expectation value is the potential energy of the density $n(\bm x)$ of \eqref{eq:density-operator-field}.
+
+\medskip\noindent\textbf{Two-body operators.}
+A pairwise interaction $V(\bm x_i, \bm x_j)$ summed over all distinct pairs of particles has the second-quantized form
+\begin{linenomath}
+    \begin{equation}
+        V = \frac{1}{2}\sum_{k,l,m,n} V_{klmn}\;a_k^\dagger a_l^\dagger a_n a_m,
+        \label{eq:two-body-operator}
+    \end{equation}
+\end{linenomath}
+with the matrix element
+\begin{linenomath}
+    \begin{equation*}
+        V_{klmn}
+        = \int\!\dd^3 x\;\dd^3 y\;
+          \varphi_k^*(\bm x)\,\varphi_l^*(\bm y)\,
+          V(\bm x, \bm y)\,
+          \varphi_m(\bm x)\,\varphi_n(\bm y).
+    \end{equation*}
+\end{linenomath}
+The factor $1/2$ compensates for the double counting of pairs in the unrestricted sum; the ordering of indices --- $k,l$ on the creation operators, $m,n$ on the annihilation operators, with $n$ and $m$ in that order --- is the convention. For bosons, this ordering produces the normal-ordered form (all creation operators to the left of all annihilation operators) when the matrix element is symmetrized appropriately. For fermions, the antisymmetry of the two-particle states is respected automatically by the anticommutation relations \eqref{eq:fermion-anticommutators}: $V_{klmn}$ inherits the antisymmetry $V_{klmn} = -V_{lkmn} = -V_{klnm}$ from the fermionic two-particle basis, and no extra sign rules are required --- the anticommutators supply the sign changes that distinguish the two orderings.
+
+\begin{note}
+    The derivation of \eqref{eq:two-body-operator} from the first-quantized form $\sum_{i<j} V(\bm x_i, \bm x_j)$ follows the same logic as the one-body case. In the first-quantized $N$-particle space, the pairwise interaction is the sum over all distinct pairs. Expanding each term in the single-particle basis $\{\ket{\varphi_k}\}$ and restricting to the (anti)symmetrized subspace produces matrix elements that are exactly those of \eqref{eq:two-body-operator} acting on the occupation-number basis. The matrix element between two-particle states $\ket{\varphi_k, \varphi_l}_\pm$ and $\ket{\varphi_m, \varphi_n}_\pm$ is
+    \begin{linenomath}
+        \begin{equation*}
+            {}_{\pm}\!\braket{\varphi_k, \varphi_l|V|\varphi_m, \varphi_n}_\pm
+            = V_{klmn} \pm V_{klnm},
+        \end{equation*}
+    \end{linenomath}
+    where the $+$ sign holds for bosons and the $-$ sign for fermions. The second-quantized form \eqref{eq:two-body-operator} with the convention $a_k^\dagger a_l^\dagger a_n a_m$ reproduces this automatically: for bosons, $a_k^\dagger a_l^\dagger = a_l^\dagger a_k^\dagger$ symmetrizes; for fermions, the anticommutation of the creation operators supplies the minus sign. The factor $1/2$ compensates for the double counting of each pair $(k,l)$ and $(l,k)$ in the unrestricted sum.
+\end{note}
+
+A contact interaction between bosons, $V(\bm x, \bm y) = g\,\delta(\bm x - \bm y)$, is the simplest two-body term:
+\begin{linenomath}
+    \begin{equation*}
+        V = \frac{g}{2}\int\!\dd^3 x\;\psi^\dagger(\bm x)\psi^\dagger(\bm x)\psi(\bm x)\psi(\bm x).
+    \end{equation*}
+\end{linenomath}
+In the plane-wave basis, the contact interaction becomes a momentum-conserving sum (Exercise~5 works out the explicit form):
+\begin{linenomath}
+    \begin{equation}
+        H = \sum_{\bm k} \varepsilon_{\bm k}\,a_{\bm k}^\dagger a_{\bm k}
+            + \frac{g}{2}\sum_{\bm k, \bm p, \bm q}
+              a_{\bm k + \bm q}^\dagger a_{\bm p - \bm q}^\dagger a_{\bm p} a_{\bm k},
+        \label{eq:contact-hamiltonian}
+    \end{equation}
+\end{linenomath}
+with $\varepsilon_{\bm k} = \hbar^2 \bm k^2/2m$ for free particles. This is the Lieb--Liniger/Gross--Pitaevskii class of Hamiltonians, and the non-interacting limit $g = 0$ is the ideal Bose gas of the next section.
+
+\medskip\noindent\textbf{The many-body Hamiltonian.}
+The universal Hamiltonian in Fock space is the sum of the one-body and two-body contributions:
+\begin{linenomath}
+    \begin{equation}
+        H = \sum_{k,l} t_{kl}\,a_k^\dagger a_l
+            + \frac{1}{2}\sum_{k,l,m,n} V_{klmn}\,a_k^\dagger a_l^\dagger a_n a_m.
+        \label{eq:many-body-hamiltonian}
+    \end{equation}
+\end{linenomath}
+Every term contains an equal number of creation and annihilation operators, so $[H, N] = 0$ --- particle number is conserved by any Hamiltonian of this form. The proof is one line: each term is a product of an equal number of $a^\dagger$ and $a$, and the commutator $[N, a_k^\dagger a_l]$ vanishes because $[N_k, a_k^\dagger a_l] = a_k^\dagger a_l - a_k^\dagger a_l = 0$ (the creation and annihilation operators raise and lower the occupation of the same mode by the same amount). Number-non-conserving terms --- pairing terms of the form $a_k^\dagger a_l^\dagger + \text{h.c.}$ --- belong to the theory of superconductivity and are named here without development.
+
+\medskip\noindent\textbf{Connection to the measurement chapter.}
+The operators defined above are self-adjoint on Fock space: $t_{kl}$ is Hermitian because $t$ is self-adjoint on $\mathcal{H}_1$, and $V_{klmn}$ has the symmetry $V_{klmn} = V_{mnkl}^*$ because $V(\bm x, \bm y)$ is real and symmetric. The spectral theorem of the measurement chapter (\eqref{eq:spectral-decomposition}) applies to each operator on each $N$-particle sector and, by the direct-sum structure \eqref{eq:fock-space}, to the operators on the whole Fock space. Second quantization does not change quantum mechanics --- it transcribes the same theory into a notation that automates the combinatorics of identical particles. Every observable in Fock space encodes an ideal experiment in the sense of Chapter~3, and the measurement axioms apply without modification.
+
+The advantage of the second-quantized form is the automation of identical-particle combinatorics: \eqref{eq:one-body-operator} and \eqref{eq:two-body-operator} are the same formula for two particles and for $10^{23}$, and the (anti)commutation relations \eqref{eq:boson-commutators}--\eqref{eq:fermion-anticommutators} supply the correct sign for every permutation without an explicit sum over $N!$ terms. Its limitation is that no new physics is added: every prediction of the second-quantized Hamiltonian \eqref{eq:many-body-hamiltonian} is a prediction of the first-quantized Schr\"odinger equation with the symmetrization postulate, and the transcription is a notational advance, not a conceptual one. The power of the notation is what the rest of the chapter demonstrates: in the occupation-number basis, the Hamiltonian that governs the quantum gases of the next two sections is diagonal, and their statistical mechanics is a sum over independent modes.
+
+\medskip\noindent\textbf{Transition.}
+With the Hamiltonian expressed in the language of creation and annihilation, the dynamics of any non-relativistic many-body system is in principle set. The rest of the chapter solves the simplest case --- no interactions --- where the Hamiltonian is diagonal in the occupation-number basis and the exact solution is already dense with the physics the historical chapter left unpaid: the statistics of indistinguishable quanta.
+
+\section{The Ideal Bose Gas, and Bose--Einstein Condensation}
+\label{sec:bose-gas}
+
+Bose in 1924 counted indistinguishable quanta in phase-space cells and derived Planck's law without electromagnetism. The historical chapter recorded that derivation --- the first quantum statistics, the forerunner of the quantum mechanics the rest of the book built --- and left its massive-particle extension as an open debt. The same counting, applied to massive bosons at fixed density, produces a sharper phenomenon: below a temperature set by the density and the mass, a finite fraction of all particles occupies exactly one quantum state. That is Bose--Einstein condensation, the chapter's centrepiece and the repayment of the book's oldest statistical debt.
+
+\medskip\noindent\textbf{Grand canonical ensemble for bosons.}
+A system exchanging energy and particles with a reservoir at temperature $T$ and chemical potential $\mu$ is described by the grand canonical ensemble. The formal derivation of this ensemble from the density operator is deferred to Section~\ref{sec:density-operator-partition}; the present section states the ensemble with its physical meaning --- a system in contact with a particle and energy reservoir, whose statistical weight for a state of energy $E$ and particle number $N$ is $e^{-\beta(E - \mu N)}$ with $\beta = 1/k_B T$ --- and uses the result. This is the first honesty declaration for the grand canonical ensemble; the second, at the corresponding point in Section~\ref{sec:fermi-gas}, repeats the statement, and the derivation in Section~\ref{sec:density-operator-partition} closes the loop.
+
+For the ideal Bose gas, the Hamiltonian is diagonal in the occupation-number basis:
+\begin{linenomath}
+    \begin{equation*}
+        H = \sum_k \varepsilon_k\,a_k^\dagger a_k,
+        \qquad
+        N = \sum_k a_k^\dagger a_k,
+    \end{equation*}
+\end{linenomath}
+where $\varepsilon_k$ are the single-particle energies. A Fock state $\ket{\{n_k\}}$ has energy $E = \sum_k \varepsilon_k n_k$ and particle number $N = \sum_k n_k$. Its statistical weight in the grand canonical ensemble is $\exp[-\beta\sum_k(\varepsilon_k - \mu)n_k]$. Because the Hamiltonian is diagonal, the grand partition function factorizes over modes:
+\begin{linenomath}
+    \begin{equation}
+        \Xi = \tr e^{-\beta(H - \mu N)}
+            = \prod_k \Bigl(\sum_{n_k=0}^{\infty} e^{-\beta(\varepsilon_k - \mu)n_k}\Bigr)
+            = \prod_k \frac{1}{1 - e^{-\beta(\varepsilon_k - \mu)}},
+        \label{eq:grand-partition-bosons}
+    \end{equation}
+\end{linenomath}
+where the geometric series converges provided $\mu < \varepsilon_0$, with $\varepsilon_0$ the ground-state energy. This inequality is the fundamental constraint on the bosonic chemical potential: $\mu$ must lie below the lowest single-particle energy, or the occupation of the ground state diverges.
+
+\medskip\noindent\textbf{Bose--Einstein distribution.}
+The mean occupation of mode $k$ is obtained from the grand partition function by differentiation:
+\begin{linenomath}
+    \begin{equation}
+        \langle n_k \rangle
+        = \frac{1}{\beta}\,\frac{\partial \ln\Xi}{\partial\mu}\bigg|_{T,V}
+        = \frac{1}{e^{\beta(\varepsilon_k - \mu)} - 1}.
+        \label{eq:be-distribution}
+    \end{equation}
+\end{linenomath}
+This is the \textbf{Bose--Einstein distribution} --- the quantum-statistical transcription of Bose's 1924 mean occupation formula, which the historical chapter recorded as $\bar{N}_s/A_s = 1/(e^{h\nu_s/k_B T} - 1)$. The algebraic form is identical; what has changed is the context. Bose derived it for photons, for which $\mu = 0$ (photon number is not conserved) and $\varepsilon_k = \hbar\omega_k$, yielding Planck's spectral distribution. Here, for massive bosons, $\mu$ is a thermodynamic variable that adjusts to fix the mean density, and the physics that follows from that adjustment is the subject of the rest of the section.
+
+Two limits are immediate. At high temperature or low density, $e^{\beta(\varepsilon_k - \mu)} \gg 1$, the $-1$ in the denominator becomes negligible, and $\langle n_k \rangle \approx e^{-\beta(\varepsilon_k - \mu)}$ --- the Maxwell--Boltzmann distribution of classical, distinguishable particles, recovered as the dilute, high-temperature limit of the quantum distribution. This is the quantitative bridge from quantum to classical statistics, and Section~\ref{sec:density-operator-partition} gives the precise condition $n\lambda_T^3 \ll 1$ for its validity. At low temperature, the $-1$ is essential, and the occupation numbers deviate from the classical form --- the regime in which the quantum statistics produces new physics.
+
+\medskip\noindent\textbf{Thermodynamic limit and the density of states.}
+For free particles in a three-dimensional box of volume $V$, the single-particle energies are $\varepsilon = \hbar^2 \bm k^2 / 2m$, with $\bm k = (2\pi/L)\,\bm n$ and $\bm n \in \mathbb{Z}^3$. In the thermodynamic limit ($V \to \infty$, $N \to \infty$, $n = N/V$ fixed), the sum over wave vectors becomes an integral:
+\begin{linenomath}
+    \begin{equation*}
+        \sum_{\bm k} \;\longrightarrow\; V\int\!\frac{\dd^3 k}{(2\pi)^3}
+        = V\int_0^\infty\!\dd\varepsilon\;g(\varepsilon),
+    \end{equation*}
+\end{linenomath}
+where the single-particle density of states per unit volume is
+\begin{linenomath}
+    \begin{equation}
+        g(\varepsilon)\,\dd\varepsilon
+        = \frac{m}{2\pi^2\hbar^3}\,\sqrt{2m\varepsilon}\;\dd\varepsilon
+        = \frac{m^{3/2}}{\sqrt{2}\,\pi^2\hbar^3}\,\sqrt{\varepsilon}\;\dd\varepsilon.
+        \label{eq:density-of-states}
+    \end{equation}
+\end{linenomath}
+The derivation is the same continuum-limit manipulation that the pictures chapter exercised in the free-particle propagator (Section~\ref{sec:propagator}). The number of states with wave vector magnitude below $K$ is
+\begin{linenomath}
+    \begin{equation*}
+        \mathcal{N}(K) = V \cdot \frac{\frac{4\pi}{3}K^3}{(2\pi)^3} = \frac{V K^3}{6\pi^2}.
+    \end{equation*}
+\end{linenomath}
+The density of states per unit energy per unit volume is $g(\varepsilon) = V^{-1}\,\dd\mathcal{N}/\dd\varepsilon$. Using $K = \sqrt{2m\varepsilon}/\hbar$,
+\begin{linenomath}
+    \begin{equation*}
+        \frac{\dd\mathcal{N}}{\dd\varepsilon}
+        = \frac{\dd\mathcal{N}}{\dd K}\,\frac{\dd K}{\dd\varepsilon}
+        = \frac{V K^2}{2\pi^2}\,
+          \frac{\dd}{\dd\varepsilon}\!\Bigl(\frac{\sqrt{2m\varepsilon}}{\hbar}\Bigr)
+        = \frac{V}{2\pi^2}\,\frac{2m\varepsilon}{\hbar^2}\,
+          \frac{1}{\hbar}\sqrt{\frac{m}{2\varepsilon}}
+        = V\,\frac{m}{2\pi^2\hbar^3}\,\sqrt{2m\varepsilon},
+    \end{equation*}
+\end{linenomath}
+so that $g(\varepsilon)\,\dd\varepsilon = (m/2\pi^2\hbar^3)\sqrt{2m\varepsilon}\,\dd\varepsilon$, which is \eqref{eq:density-of-states}.
+
+The total number of particles in the system is the sum of the mean occupations:
+\begin{linenomath}
+    \begin{equation}
+        N = \sum_{\bm k} \langle n_{\bm k} \rangle
+          = N_0 + V\int_{\varepsilon_0}^{\infty}\!\dd\varepsilon\;
+            \frac{g(\varepsilon)}{e^{\beta(\varepsilon - \mu)} - 1},
+        \label{eq:be-n0-equation}
+    \end{equation}
+\end{linenomath}
+where $N_0 = 1/(e^{\beta(\varepsilon_0 - \mu)} - 1)$ is the ground-state occupation. The separation of the ground state from the integral is essential: in the thermodynamic limit, the density of states vanishes as $\sqrt{\varepsilon}$ at low energies, and the ground state --- a single quantum state --- would be missed by the integral alone. This is the step that makes Bose--Einstein condensation possible, and it is treated with explicit care here: the sum over $\bm k$ is evaluated exactly for the $\bm k = 0$ term and converted to an integral for all $\bm k \neq 0$, because the integrand $g(\varepsilon)/(e^{\beta(\varepsilon-\mu)}-1)$ is smooth for $\varepsilon > 0$ and the error from replacing the sum by the integral vanishes as $V^{-1/3}$ in the thermodynamic limit.
+
+\medskip\noindent\textbf{Bose--Einstein condensation.}
+Set the ground-state energy to zero, $\varepsilon_0 = 0$. As the temperature decreases at fixed density $n = N/V$, the chemical potential $\mu$ rises from negative values toward zero, because the mean occupation \eqref{eq:be-distribution} must accommodate the fixed density and lower temperatures reduce the occupation of excited states. At a critical temperature $T_c$, $\mu$ reaches zero. At that point, the integral over excited states saturates: it can accommodate at most
+\begin{linenomath}
+    \begin{equation}
+        N_{\text{ex}}(T, \mu = 0)
+        = V\int_0^\infty\!\dd\varepsilon\;
+          \frac{g(\varepsilon)}{e^{\beta\varepsilon} - 1}.
+    \end{equation}
+\end{linenomath}
+The integral is evaluated by substituting \eqref{eq:density-of-states} and changing variables to $x = \beta\varepsilon$:
+\begin{linenomath}
+    \begin{align*}
+        N_{\text{ex}}(T, 0)
+        &= V\,\frac{m^{3/2}}{\sqrt{2}\,\pi^2\hbar^3}
+           \int_0^\infty\!\dd\varepsilon\;
+           \frac{\sqrt{\varepsilon}}{e^{\beta\varepsilon} - 1} \\[4pt]
+        &= V\,\frac{m^{3/2}}{\sqrt{2}\,\pi^2\hbar^3}\,
+           (k_B T)^{3/2}
+           \int_0^\infty\!\dd x\;\frac{\sqrt{x}}{e^x - 1}.
+    \end{align*}
+\end{linenomath}
+The dimensionless integral is the Bose integral for $s = 3/2$:
+\begin{linenomath}
+    \begin{equation*}
+        \int_0^\infty\!\dd x\;\frac{\sqrt{x}}{e^x - 1}
+        = \frac{\sqrt{\pi}}{2}\,\zeta(3/2).
+    \end{equation*}
+\end{linenomath}
+Inserting the value of the integral into the prefactor, the $\sqrt{\pi}$ from the integral cancels against the $\sqrt{\pi}$ from the density-of-states prefactor, and the result is
+\begin{linenomath}
+    \begin{equation}
+        N_{\text{ex}}(T, \mu = 0)
+        = V\,\Bigl(\frac{m k_B T}{2\pi\hbar^2}\Bigr)^{\!3/2}\,\zeta(3/2).
+    \end{equation}
+\end{linenomath}
+The cancellation is verified by direct arithmetic:
+\begin{linenomath}
+    \begin{equation*}
+        \frac{m^{3/2}}{\sqrt{2}\,\pi^2\hbar^3}\times\frac{\sqrt{\pi}}{2}
+        = \frac{m^{3/2}}{2\sqrt{2}\,\pi^{3/2}\hbar^3}
+        = \Bigl(\frac{m}{2\pi\hbar^2}\Bigr)^{\!3/2}.
+    \end{equation*}
+\end{linenomath}
+The final form involves the thermal de Broglie wavelength $\lambda_T = h/\sqrt{2\pi m k_B T}$.
+
+The critical temperature $T_c$ is defined by the condition that the excited states, at $\mu = 0$, accommodate all $N$ particles:
+\begin{linenomath}
+    \begin{equation}
+        N = V\,\Bigl(\frac{m k_B T_c}{2\pi\hbar^2}\Bigr)^{\!3/2}\,\zeta(3/2).
+    \end{equation}
+\end{linenomath}
+Solving for $T_c$,
+\begin{linenomath}
+    \begin{equation}
+        k_B T_c
+        = \frac{2\pi\hbar^2}{m}\,
+          \Bigl(\frac{n}{\zeta(3/2)}\Bigr)^{\!2/3},
+        \qquad
+        \zeta(3/2) \approx 2.612.
+        \label{eq:tc-bec}
+    \end{equation}
+\end{linenomath}
+Below $T_c$, the chemical potential remains pinned at $\mu = 0$: the excited states can hold at most $N_{\text{ex}}(T, 0) = N\,(T/T_c)^{3/2}$ particles, and the remaining $N - N_{\text{ex}}$ particles occupy the ground state. The condensate fraction is
+\begin{linenomath}
+    \begin{equation}
+        \frac{N_0}{N} = 1 - \Bigl(\frac{T}{T_c}\Bigr)^{\!3/2},
+        \qquad T \leq T_c.
+        \label{eq:condensate-fraction}
+    \end{equation}
+\end{linenomath}
+At $T = 0$, every particle is in the ground state. At $T = T_c$, the condensate fraction vanishes --- a continuous transition, with a discontinuous derivative, of the order parameter $N_0/N$. This macroscopic occupation of a single quantum state is \textbf{Bose--Einstein condensation}. It is a phase transition driven purely by quantum statistics: no interactions are needed, and the transition exists in the ideal (non-interacting) gas --- a fact that distinguishes it from every classical phase transition, which requires interactions to produce singular behaviour in the partition function.
+
+The physical picture behind the condensation is captured by the thermal de Broglie wavelength,
+\begin{linenomath}
+    \begin{equation*}
+        \lambda_T = \frac{h}{\sqrt{2\pi m k_B T}}.
+    \end{equation*}
+\end{linenomath}
+At $T = T_c$, one has $n\lambda_T^3 = \zeta(3/2) \approx 2.612$ --- that is, BEC occurs when the interparticle spacing $n^{-1/3}$ becomes comparable to the quantum-mechanical extent of a single-particle wave packet. When the wave packets of neighbouring particles overlap, their indistinguishability can no longer be neglected, and the bosonic statistics forces them into the same quantum state. This is the spatial interpretation of the critical condition, and it is the bridge between the abstract occupation-number formalism and the physical intuition of overlapping matter waves.
+
+\medskip\noindent\textbf{Measurable landing: the 1995 observation of BEC.}
+The Bose--Einstein condensation of an ideal gas was predicted by Einstein in 1925, one year after Bose's photon derivation. Seventy years passed before the experimental realization. In 1995, Anderson, Ensher, Matthews, Wieman, and Cornell at JILA observed BEC in a dilute gas of $^{87}$Rb atoms confined in a magnetic trap and cooled by laser and evaporative techniques to temperatures below $200$ nanokelvin.\footnote{M.~H.~Anderson, J.~R.~Ensher, M.~R.~Matthews, C.~E.~Wieman, and E.~A.~Cornell, \emph{Science} \textbf{269}, 198 (1995).} For the JILA parameters --- peak density $n \approx 2.5 \times 10^{12}\ \text{cm}^{-3}$, mass $m = 87\,u$ with $u = 1.66 \times 10^{-27}\ \text{kg}$ --- the ideal-gas formula \eqref{eq:tc-bec} gives
+\begin{linenomath}
+    \begin{equation}
+        T_c(^{87}\text{Rb}) \approx 170\ \text{nK},
+        \label{eq:tc-rubidium}
+    \end{equation}
+\end{linenomath}
+which agrees with the measured transition temperature. The condensate was detected by time-of-flight imaging --- the far-field method of the pictures chapter (\eqref{eq:far-field}): after release from the trap, the thermal cloud expands isotropically while the condensate, being a single macroscopic matter wave, retains the narrow momentum distribution of the ground state. The sudden appearance of a narrow peak at low velocity, growing from zero as the temperature drops below $T_c$, is the direct signature of condensation.
+
+A second numerical instance is liquid $^4$He at saturated vapour density, $n \approx 2.2 \times 10^{22}\ \text{cm}^{-3}$. The ideal-gas formula \eqref{eq:tc-bec} gives $T_c \approx 3.1\ \text{K}$. The observed lambda transition in liquid helium occurs at $T_\lambda = 2.17\ \text{K}$. The discrepancy is a measure of interactions: the ideal-gas prediction is already within roughly a factor of two of the measured transition temperature, despite the strong interatomic forces in the liquid. The interacting theory --- the Bogoliubov theory of the weakly interacting Bose gas and the Beliaev diagrammatic extension --- is the proper treatment of the condensed phase, and it is named here as the next step beyond the ideal gas.
+
+The advantage of the ideal Bose gas solution is its completeness: the exact partition function factorizes, the distribution \eqref{eq:be-distribution} is exact, and the condensation transition \eqref{eq:condensate-fraction} is a theorem of the quantum statistics, not a model. Its limitation, transparent in the $^4$He comparison, is that no real Bose gas is ideal: interactions shift $T_c$, deplete the condensate even at zero temperature, and modify the elementary excitations from free particles to phonons (in the neutral gas) or rotons (in liquid helium). The Fock-space Hamiltonian \eqref{eq:many-body-hamiltonian} with the two-body term is the exact starting point for the interacting theory, and the ideal gas is its zero-order solution.
+
+\medskip\noindent\textbf{Transition.}
+Bosons accumulate in the ground state. Fermions refuse to share any state at all. The consequence is not condensation but pressure --- a quantum pressure that holds up white dwarfs. The Pauli principle, now read as a statistical constraint on the occupation numbers, is the engine of the next section.
+
+\section{The Ideal Fermi Gas: Degeneracy Pressure and the Fermi Surface}
+\label{sec:fermi-gas}
+
+At $T = 0$ a non-interacting Fermi gas is not empty like its classical counterpart. It is a filled sea whose surface is sharp in momentum space --- and whose pressure does not depend on temperature at all. The Pauli principle, enforced by the anticommutator \eqref{eq:fermion-anticommutators}, is the engine: at most one fermion per single-particle state, so the $N$ lowest-energy states are occupied and the rest are empty. The Fermi sea, the Fermi energy, and the degeneracy pressure are the collective signatures of that occupation, and they connect the abstract Fock-space construction to the astrophysics of white dwarfs and the condensed-matter physics of metals.
+
+\medskip\noindent\textbf{Fermi--Dirac distribution.}
+The grand canonical ensemble of the preceding section is applied to fermions with the single restriction $n_k \in \{0, 1\}$. The same honesty declaration governs: the grand canonical ensemble is used here and its formal derivation is deferred to Section~\ref{sec:density-operator-partition}. The grand partition function factorizes over modes, with each mode contributing a sum of two terms:
+\begin{linenomath}
+    \begin{equation}
+        \Xi = \tr e^{-\beta(H - \mu N)}
+            = \prod_k \Bigl(\sum_{n_k=0}^{1} e^{-\beta(\varepsilon_k - \mu)n_k}\Bigr)
+            = \prod_k \bigl(1 + e^{-\beta(\varepsilon_k - \mu)}\bigr).
+        \label{eq:grand-partition-fermions}
+    \end{equation}
+\end{linenomath}
+Differentiation with respect to $\mu$ gives the mean occupation:
+\begin{linenomath}
+    \begin{equation}
+        \langle n_k \rangle
+        = \frac{1}{\beta}\,\frac{\partial\ln\Xi}{\partial\mu}\bigg|_{T,V}
+        = \frac{1}{e^{\beta(\varepsilon_k - \mu)} + 1}.
+        \label{eq:fd-distribution}
+    \end{equation}
+\end{linenomath}
+This is the \textbf{Fermi--Dirac distribution}. At $T = 0$, the argument of the exponential is $\beta(\varepsilon_k - \mu)$, which diverges to $+\infty$ for $\varepsilon_k > \mu$ and to $-\infty$ for $\varepsilon_k < \mu$. Hence
+\begin{linenomath}
+    \begin{equation*}
+        \langle n_k \rangle \xrightarrow{T \to 0}
+        \theta(\mu - \varepsilon_k)
+        = \begin{cases}
+            1, & \varepsilon_k < \mu, \\
+            0, & \varepsilon_k > \mu,
+        \end{cases}
+    \end{equation*}
+\end{linenomath}
+where $\theta$ is the Heaviside step function. The zero-temperature chemical potential defines the \textbf{Fermi energy}: $\mu(T=0) \equiv \varepsilon_F$. Every single-particle state with energy below $\varepsilon_F$ is occupied; every state above is empty. This filled configuration is the \textbf{Fermi sea}, and its boundary in momentum space is the \textbf{Fermi surface}.
+
+\medskip\noindent\textbf{The Fermi sea at $T = 0$.}
+For free particles in three dimensions with spin degeneracy $g_s$ (with $g_s = 2$ for spin-$1/2$ fermions), the number of occupied single-particle states below $k_F$ is $N = g_s\,V\cdot(4\pi/3)k_F^3/(2\pi)^3 = g_s V k_F^3/6\pi^2$, giving the Fermi wave vector in terms of the density $n = N/V$:
+\begin{linenomath}
+    \begin{equation}
+        k_F = \Bigl(\frac{6\pi^2 n}{g_s}\Bigr)^{\!1/3}.
+    \end{equation}
+\end{linenomath}
+For the standard case of spin-$1/2$ electrons, $g_s = 2$, and this reduces to the familiar form $k_F = (3\pi^2 n)^{1/3}$.
+The Fermi energy is the kinetic energy at the Fermi surface:
+\begin{linenomath}
+    \begin{equation}
+        \varepsilon_F = \frac{\hbar^2 k_F^2}{2m}
+                      = \frac{\hbar^2}{2m}\,
+                        \Bigl(\frac{6\pi^2 n}{g_s}\Bigr)^{\!2/3},
+        \label{eq:fermi-energy}
+    \end{equation}
+\end{linenomath}
+which for spin-$1/2$ fermions ($g_s = 2$) reduces to $\varepsilon_F = \frac{\hbar^2}{2m}(3\pi^2 n)^{2/3}$.
+The Fermi temperature $T_F = \varepsilon_F/k_B$ sets the scale below which the gas is degenerate --- that is, below which the quantum statistics departs significantly from the classical Maxwell--Boltzmann distribution. For electrons in metals, $n \sim 10^{22}$--$10^{23}\ \text{cm}^{-3}$, giving $\varepsilon_F \sim 1$--$10\ \text{eV}$ and $T_F \sim 10^4$--$10^5\ \text{K}$: room temperature is two orders of magnitude below the degeneracy temperature, and the conduction electrons in a metal at ordinary temperatures are a deeply degenerate Fermi gas.
+
+The ground-state energy is the sum of the single-particle energies over all occupied states, including the spin degeneracy:
+\begin{linenomath}
+    \begin{align}
+        E_0 &= g_s\,V\int_0^{\varepsilon_F}\!\dd\varepsilon\;g(\varepsilon)\,\varepsilon
+             = g_s V\,\frac{m^{3/2}}{\sqrt{2}\,\pi^2\hbar^3}
+               \int_0^{\varepsilon_F}\!\dd\varepsilon\;\varepsilon^{3/2} \notag \\
+            &= g_s V\,\frac{m^{3/2}}{\sqrt{2}\,\pi^2\hbar^3}\,
+               \frac{2}{5}\,\varepsilon_F^{5/2}.
+    \end{align}
+\end{linenomath}
+The energy per particle follows from dividing $E_0$ by $N = g_s V\int_0^{\varepsilon_F} g(\varepsilon)\,\dd\varepsilon$. Since both integrals share the same prefactor $g_s V\,m^{3/2}/(\sqrt{2}\,\pi^2\hbar^3)$, the ratio reduces to
+\begin{linenomath}
+    \begin{equation*}
+        \frac{E_0}{N}
+        = \frac{\int_0^{\varepsilon_F}\!\varepsilon^{3/2}\,\dd\varepsilon}
+               {\int_0^{\varepsilon_F}\!\varepsilon^{1/2}\,\dd\varepsilon}
+        = \frac{\frac{2}{5}\,\varepsilon_F^{5/2}}
+               {\frac{2}{3}\,\varepsilon_F^{3/2}}
+        = \frac{3}{5}\,\varepsilon_F,
+    \end{equation*}
+\end{linenomath}
+independently of the spin degeneracy $g_s$ and of the detailed form of the density-of-states prefactor. Hence
+\begin{linenomath}
+    \begin{equation}
+        \frac{E_0}{N} = \frac{3}{5}\,\varepsilon_F.
+        \label{eq:ground-state-energy}
+    \end{equation}
+\end{linenomath}
+The kinetic energy is finite at zero temperature: the Pauli principle forces particles into higher momentum states as the density increases, and the average kinetic energy grows as $n^{2/3}$.
+
+The zero-temperature pressure --- the \textbf{degeneracy pressure} --- follows from the thermodynamic relation $P = -\partial E_0/\partial V|_N$. Since $\varepsilon_F \propto k_F^2 \propto V^{-2/3}$, one has $E_0 = \frac{3}{5}N\varepsilon_F \propto V^{-2/3}$, and therefore
+\begin{linenomath}
+    \begin{equation}
+        P = -\frac{\partial E_0}{\partial V}\bigg|_N
+          = -\frac{\partial}{\partial V}\Bigl(\frac{3}{5}N\varepsilon_F\Bigr)\bigg|_N
+          = -\frac{3}{5}N\,\frac{\partial\varepsilon_F}{\partial V}
+          = -\frac{3}{5}N\,\Bigl(-\frac{2}{3}\Bigr)\frac{\varepsilon_F}{V}
+          = \frac{2}{3}\,\frac{E_0}{V}
+          = \frac{2}{5}\,n\,\varepsilon_F.
+        \label{eq:degeneracy-pressure}
+    \end{equation}
+\end{linenomath}
+This pressure is finite at $T = 0$, purely quantum in origin, and it is what supports white dwarf stars against gravitational collapse. The Chandrasekhar mass --- the maximum mass a white dwarf can sustain before the electrons become relativistic and the equation of state softens from $P \propto n^{5/3}$ to $P \propto n^{4/3}$ --- is the astrophysical consequence of this pressure, and it is named here without derivation: the full relativistic degenerate Fermi gas belongs to a course in astrophysics, and the non-relativistic pressure \eqref{eq:degeneracy-pressure} is the chapter's contribution to that story.
+
+\medskip\noindent\textbf{The Fermi surface and low-temperature thermodynamics.}
+At finite but low temperature, only states within an energy window of roughly $k_B T$ around the Fermi surface are thermally active: the Pauli principle blocks all lower-energy excitations, because the states they would occupy are already filled. This restricted phase space produces the characteristic low-temperature properties of the degenerate Fermi gas. The number and energy integrals for a free Fermi gas are
+\begin{linenomath}
+    \begin{equation*}
+        N = \int_0^\infty\!\dd\varepsilon\;g(\varepsilon)\,f(\varepsilon),
+        \qquad
+        E = \int_0^\infty\!\dd\varepsilon\;\varepsilon\,g(\varepsilon)\,f(\varepsilon),
+    \end{equation*}
+\end{linenomath}
+with $f(\varepsilon) = 1/(e^{\beta(\varepsilon-\mu)} + 1)$. At low temperatures, $f(\varepsilon)$ differs from the step function only near $\varepsilon = \mu$, and the integrals can be evaluated by the Sommerfeld expansion --- an asymptotic expansion in powers of $(k_B T/\varepsilon_F)^2$. The derivation of the expansion and its application to the specific heat are assigned to Exercise~7 of this chapter; the body of the text states the results with the explicit honesty declaration that the Sommerfeld expansion is mechanical but algebraically lengthy, and the exercise guides the student through it step by step.
+
+The principal results are as follows. The chemical potential at low temperature departs from $\varepsilon_F$ quadratically:
+\begin{linenomath}
+    \begin{equation*}
+        \mu(T) = \varepsilon_F\Bigl[1 - \frac{\pi^2}{12}\Bigl(\frac{k_B T}{\varepsilon_F}\Bigr)^{\!2} + \cdots\Bigr].
+    \end{equation*}
+\end{linenomath}
+The energy, and hence the specific heat, is dominated by the states near the Fermi surface:
+\begin{linenomath}
+    \begin{equation}
+        C_V = \frac{\partial E}{\partial T}\bigg|_{V,N}
+            = \frac{\pi^2}{2}\,k_B\,n\,\frac{k_B T}{\varepsilon_F}.
+    \end{equation}
+\end{linenomath}
+The specific heat is linear in temperature, in contrast to the classical value $C_V = \frac{3}{2} N k_B$ which is independent of $T$. For copper at room temperature, $\varepsilon_F \approx 7.0\ \text{eV}$ and $T_F \approx 8.2 \times 10^4\ \text{K}$, giving $C_V \approx 0.02\,N k_B$ --- roughly seventy times smaller than the classical value. This is the resolution of the classical Drude model's heat-capacity paradox: the Drude theory treated conduction electrons as a classical ideal gas and predicted a specific heat of $\frac{3}{2}N k_B$, which is not observed; the quantum electron gas, with its Pauli-blocked phase space, has a specific heat smaller by the factor $k_B T/\varepsilon_F \sim 10^{-2}$ at room temperature. The paradox and its resolution are stated in one sentence; the full theory of electronic specific heat, including the lattice contribution, belongs to solid-state physics.
+
+A second measurable consequence of the Fermi surface is the Pauli spin susceptibility. In a magnetic field $B$, the Zeeman energy $\pm \mu_B B$ shifts the energies of spin-up and spin-down electrons in opposite directions, creating an imbalance in the two spin populations. The resulting magnetization yields a temperature-independent susceptibility $\chi_P = \mu_B^2\,g(\varepsilon_F)$, proportional to the density of states at the Fermi surface. The derivation involves the same Sommerfeld expansion and is outlined in Exercise~7; the body states the result without derivation.
+
+\medskip\noindent\textbf{Measurable landing: conduction electrons in copper.}
+The conduction electrons in metallic copper provide a standard numerical instance of the degenerate Fermi gas. With one conduction electron per atom and the mass density of copper ($8.96\ \text{g}/\text{cm}^3$, atomic mass $63.5\ \text{u}$), the electron density is $n \approx 8.5 \times 10^{22}\ \text{cm}^{-3}$. The Fermi parameters are
+\begin{linenomath}
+    \begin{equation}
+        \varepsilon_F \approx 7.0\ \text{eV},
+        \qquad
+        k_F \approx 1.36\ \text{\AA}^{-1},
+        \qquad
+        v_F = \frac{\hbar k_F}{m} \approx 1.57 \times 10^6\ \text{m}/\text{s},
+        \qquad
+        T_F \approx 8.2 \times 10^4\ \text{K}.
+        \label{eq:copper-fermi-energy}
+    \end{equation}
+\end{linenomath}
+These numbers are not model parameters: they follow from the density and the electron mass, with no adjustable constants. Photoemission spectroscopy measures the occupied density of states directly, confirming the step-function shape of the Fermi--Dirac distribution at $T=0$ broadened by roughly $k_B T$, and angle-resolved photoemission maps the Fermi surface in momentum space. The de Haas--van Alphen effect --- the oscillation of the magnetization with $1/B$ in a strong magnetic field at low temperature --- measures extremal cross-sectional areas of the Fermi surface with millimetre precision in momentum space, confirming the free-electron sphere to within the small distortions produced by the periodic lattice potential. The effect is named here without development; its theory belongs to the quantum mechanics of electrons in periodic potentials.
+
+The contrast with the Bose gas of the preceding section is instructive. At room temperature, the electron gas in copper is at $T/T_F \approx 0.004$ --- deep in the degenerate regime, with the Fermi--Dirac distribution indistinguishable from a step function on the scale of $k_B T$. The Bose gas, by contrast, requires nanokelvin temperatures to reach $T/T_c < 1$. The difference is not the physics of the distributions --- they are structurally similar, differing only by the sign in the denominator --- but the mass and density of the particles. The electron is four orders of magnitude lighter than the rubidium atom, and the conduction electron density in a metal is three to four orders of magnitude higher than the density of a dilute ultracold atomic gas. The Fermi energy scales as $n^{2/3}/m$, the BEC critical temperature as $n^{2/3}/m$ as well --- but the exclusion principle makes the Fermi energy the characteristic energy, while Bose statistics makes the condensation temperature the characteristic energy. They are the same function of $n$ and $m$ up to a dimensionless factor, and the physics that distinguishes them is the sign in the denominator of the occupation number.
+
+The advantage of the ideal Fermi gas solution is its universality: at densities where the kinetic energy dominates the interaction energy, the free-Fermi-gas predictions for the specific heat, the spin susceptibility, and the Fermi surface geometry are quantitatively accurate. Its limitation is that interactions are never truly absent: in metals, the Coulomb repulsion between electrons is strong, and the success of the free-electron model is a consequence of Landau's Fermi liquid theory --- the dressed quasiparticles near the Fermi surface behave as weakly interacting fermions, with the same Fermi surface volume as the free gas (Luttinger's theorem). The Fermi liquid theory and the BCS pairing instability of the Fermi surface are the interacting chapters the ideal gas opens, and they are named here as the next steps.
+
+\medskip\noindent\textbf{Transition.}
+The two quantum gases --- bosonic and fermionic --- have been treated in an ensemble whose derivation was stated, not proved. The formalism that organizes thermal equilibrium in quantum mechanics is the density operator and the partition function, introduced in the composite-systems chapter and extended here to systems with variable particle number. That formalism is the door this chapter opens onto genuine quantum statistical mechanics, and it is the subject of the final technical section.
+
+\section{The Density Operator and the Quantum Partition Function}
+\label{sec:density-operator-partition}
+
+The statistical ensembles deployed in Sections~\ref{sec:bose-gas} and~\ref{sec:fermi-gas} rest on the density operator formalism of the composite-systems chapter. This section extends that formalism to thermal equilibrium: the canonical and grand canonical density operators are derived from the maximum-entropy principle, the quantum partition function is defined, and the harmonic oscillator partition function is evaluated to recover Planck's 1900 mean energy --- the book's oldest formula, now in its final statistical home. The section also supplies the formal derivation of the grand canonical ensemble whose results the preceding two sections anticipated.
+
+\medskip\noindent\textbf{The density operator reviewed.}
+The density operator $\rho$ of the composite-systems chapter (the density-operator section of that chapter) describes any state --- pure or mixed --- as a single self-adjoint operator:
+\begin{linenomath}
+    \begin{equation*}
+        \rho = \sum_i p_i\,\ket{\psi_i}\bra{\psi_i},
+        \qquad
+        p_i \ge 0,\ \ \sum_i p_i = 1,
+    \end{equation*}
+\end{linenomath}
+where the $\ket{\psi_i}$ are normalized but need not be orthogonal. The expectation value of any observable is $\langle A \rangle = \tr(\rho A)$, and the state is pure iff $\tr(\rho^2) = 1$ and mixed iff $\tr(\rho^2) < 1$. The von Neumann entropy is $S = -k_B\,\tr(\rho\ln\rho)$. These definitions are the composite-systems chapter's; they are stated here without re-derivation, and the present section builds on them.
+
+\medskip\noindent\textbf{The canonical ensemble.}
+A system in thermal contact with a heat bath at temperature $T$, with fixed particle number (or in a fixed-$N$ sector of Fock space), adopts the density operator that maximizes the von Neumann entropy subject to the constraint of fixed mean energy $\langle H \rangle = U$. The maximization is standard Lagrange-multiplier calculus in the spirit of the measurement chapter's variational principle, and the section sketches it in a note rather than claiming it as a derivation from deeper axioms:
+\begin{note}
+    Maximize $S = -k_B\tr(\rho\ln\rho)$ subject to $\tr\rho = 1$ and $\tr(\rho H) = U$. The variation $\delta S = -k_B\tr(\delta\rho(\ln\rho + I))$ together with the constraint variations $\tr\delta\rho = 0$ and $\tr(\delta\rho H) = 0$ yields $\ln\rho + I + \alpha I + \beta H = 0$, hence $\rho \propto e^{-\beta H}$. The multiplier $\beta$ is identified with $1/k_B T$ by matching the classical equipartition theorem in the high-temperature limit; the proof of that identification is the standard thermodynamic one, and the chapter does not reproduce it.
+\end{note}
+The result is the \textbf{canonical density operator}:
+\begin{linenomath}
+    \begin{equation}
+        \rho_\beta = \frac{e^{-\beta H}}{Z},
+        \qquad
+        Z(\beta) = \tr\bigl(e^{-\beta H}\bigr),
+        \qquad
+        \beta = \frac{1}{k_B T}.
+        \label{eq:canonical-density}
+    \end{equation}
+\end{linenomath}
+The normalization $Z$ is the \textbf{canonical partition function}, and every equilibrium thermodynamic quantity follows from it. The internal energy is
+\begin{linenomath}
+    \begin{equation}
+        U = \langle H \rangle = \tr(\rho_\beta H) = -\frac{\partial\ln Z}{\partial\beta}.
+        \label{eq:canonical-energy}
+    \end{equation}
+\end{linenomath}
+The free energy is $F = -k_B T\ln Z$, from which the pressure ($P = -\partial F/\partial V|_T$), the entropy ($S = -\partial F/\partial T|_V$), and the specific heat follow by differentiation. The partition function contains the whole equilibrium statistical mechanics, and the task of equilibrium many-body theory is to evaluate it for Hamiltonians more complicated than the diagonal ones of the preceding two sections.
+
+\medskip\noindent\textbf{The grand canonical ensemble.}
+For systems exchanging both energy and particles with a reservoir, the additional constraint of fixed mean particle number $\langle N \rangle$ introduces a second Lagrange multiplier, the chemical potential $\mu$:
+\begin{linenomath}
+    \begin{equation}
+        \rho_{\beta,\mu} = \frac{e^{-\beta(H - \mu N)}}{\Xi},
+        \qquad
+        \Xi(\beta, \mu) = \tr\bigl(e^{-\beta(H - \mu N)}\bigr).
+        \label{eq:grand-canonical-rho}
+    \end{equation}
+\end{linenomath}
+The normalization $\Xi$ is the \textbf{grand partition function}. The grand potential is $\Omega = -k_B T\ln\Xi$, and the mean particle number is
+\begin{linenomath}
+    \begin{equation*}
+        \langle N \rangle = \frac{1}{\beta}\,\frac{\partial\ln\Xi}{\partial\mu}\bigg|_{T,V}.
+    \end{equation*}
+\end{linenomath}
+This is the ensemble whose results Sections~\ref{sec:bose-gas} and~\ref{sec:fermi-gas} deployed. The connection to Fock space is direct: the trace in \eqref{eq:grand-canonical-rho} is over the entire Fock space, and because the ideal-gas Hamiltonian $H = \sum_k \varepsilon_k a_k^\dagger a_k$ and the number operator $N = \sum_k a_k^\dagger a_k$ are both diagonal in the occupation-number basis, the trace factorizes over modes:
+\begin{linenomath}
+    \begin{equation*}
+        \Xi = \tr\bigl(e^{-\beta\sum_k(\varepsilon_k - \mu)a_k^\dagger a_k}\bigr)
+            = \prod_k \tr_k\bigl(e^{-\beta(\varepsilon_k - \mu)a_k^\dagger a_k}\bigr),
+    \end{equation*}
+\end{linenomath}
+where $\tr_k$ is the trace over the Fock space of mode $k$ alone. For bosons, the sum over $n_k = 0, 1, 2, \ldots$ gives \eqref{eq:grand-partition-bosons}; for fermions, the sum over $n_k = 0, 1$ gives \eqref{eq:grand-partition-fermions}. The factorization is the mathematical expression of the physical statement that the modes of the ideal gas are statistically independent.
+
+\medskip\noindent\textbf{The harmonic oscillator partition function: Planck's 1900 mean energy.}
+The single-mode bosonic Fock space is the harmonic oscillator of Section~\ref{sec:harmonic-oscillator}, and the canonical partition function of one mode is evaluated by summing the geometric series:
+\begin{linenomath}
+    \begin{equation}
+        \begin{split}
+            Z_{\text{ho}}
+            &= \sum_{n=0}^{\infty} e^{-\beta\hbar\omega(n + 1/2)}
+             = e^{-\beta\hbar\omega/2}\sum_{n=0}^{\infty}\bigl(e^{-\beta\hbar\omega}\bigr)^n \\[4pt]
+            &= \frac{e^{-\beta\hbar\omega/2}}{1 - e^{-\beta\hbar\omega}}
+             = \frac{1}{e^{\beta\hbar\omega/2} - e^{-\beta\hbar\omega/2}}
+             = \frac{1}{2\sinh(\beta\hbar\omega/2)}.
+        \end{split}
+        \label{eq:oscillator-partition}
+    \end{equation}
+\end{linenomath}
+The mean energy follows from \eqref{eq:canonical-energy}:
+\begin{linenomath}
+    \begin{align}
+        U &= -\frac{\partial}{\partial\beta}\ln Z_{\text{ho}}
+           = -\frac{\partial}{\partial\beta}
+              \Bigl[-\frac{\beta\hbar\omega}{2} - \ln\bigl(1 - e^{-\beta\hbar\omega}\bigr)\Bigr] \notag \\[4pt]
+          &= \frac{\hbar\omega}{2}
+             + \frac{\hbar\omega\,e^{-\beta\hbar\omega}}{1 - e^{-\beta\hbar\omega}}
+           = \frac{\hbar\omega}{2}\coth\Bigl(\frac{\beta\hbar\omega}{2}\Bigr) \notag \\[4pt]
+          &= \frac{\hbar\omega}{e^{\beta\hbar\omega} - 1} + \frac{\hbar\omega}{2}.
+    \end{align}
+\end{linenomath}
+The first term, $\hbar\omega/(e^{\beta\hbar\omega} - 1)$, is exactly the mean energy that Planck wrote in 1900 for a material resonator of frequency $\omega$ in thermal equilibrium with the radiation field. Multiplied by the electromagnetic mode density $g(\nu)\,\dd\nu = 8\pi\nu^2/c^3\,\dd\nu$ and setting $\omega = 2\pi\nu$, it gives the spectral energy density per unit frequency:
+\begin{linenomath}
+    \begin{equation}
+        \frac{\dd u_\nu}{\dd\nu}
+        = \frac{8\pi h\nu^3}{c^3}\,
+          \frac{1}{e^{h\nu/k_B T} - 1}.
+        \label{eq:plancks-law-recovered}
+    \end{equation}
+\end{linenomath}
+This is Planck's law, the historical chapter's opening formula, recovered from the oscillator partition function and the mode density. The historical arc from the 1900 interpolation to the quantum statistical mechanics of the present chapter is drawn in one paragraph: the oscillators whose discreteness Planck postulated are the material systems of the pictures chapter (\eqref{eq:number-spectrum}), the field modes whose statistics Bose counted are the bosonic modes of Fock space, and the partition function whose evaluation reproduces Planck's mean energy is the canonical partition function of the single-mode oscillator --- the book's oldest formula in its newest dress. The second term $\hbar\omega/2$ is the zero-point energy, present in the oscillator chapter's spectrum \eqref{eq:number-spectrum} and invisible in Planck's 1900 derivation: only level differences enter the exchange frequencies (\eqref{eq:bohr-frequencies}), so the uniform shift disturbs no Planck spectrum, and the zero-point energy is confirmed in the specific heat of solids at low temperatures (the historical chapter's Einstein and Debye models). The classical limit, $k_B T \gg \hbar\omega$, gives $U \to k_B T$ --- equipartition, the Rayleigh--Jeans law's energy per mode. The quantum regime, $k_B T \ll \hbar\omega$, gives $U \to \hbar\omega/2 + \hbar\omega\,e^{-\beta\hbar\omega}$ --- frozen-out degrees of freedom, the specific heat falling exponentially to zero. The Planck recovery is the chapter's final repayment, and it seals the loop that the historical chapter opened.
+
+\medskip\noindent\textbf{The classical limit of the quantum gases.}
+The bridge from the quantum statistics of Sections~\ref{sec:bose-gas}--\ref{sec:fermi-gas} to the classical statistics of the historical chapter's Rayleigh--Jeans law is the thermal de Broglie wavelength,
+\begin{linenomath}
+    \begin{equation*}
+        \lambda_T = \frac{h}{\sqrt{2\pi m k_B T}}.
+    \end{equation*}
+\end{linenomath}
+When the dimensionless parameter $n\lambda_T^3 \ll 1$ --- dilute gas, high temperature, or large mass --- the fugacity $z = e^{\beta\mu}$ is small, and both the Bose--Einstein and Fermi--Dirac distributions reduce to the Maxwell--Boltzmann form:
+\begin{linenomath}
+    \begin{equation}
+        \langle n_k \rangle \longrightarrow e^{-\beta(\varepsilon_k - \mu)},
+        \qquad
+        n\lambda_T^3 \ll 1.
+        \label{eq:classical-limit}
+    \end{equation}
+\end{linenomath}
+In this limit, the $\pm 1$ in the denominator of the quantum distributions is negligible, and the distinguishability of classical particles is recovered as an approximation whose domain of validity is precisely quantified. The quantum statistics contains the classical statistics as its dilute, high-temperature limit --- a theorem of the distributions, not a correspondence-principle plea.
+
+\medskip\noindent\textbf{The road to genuine many-body theory.}
+The partition function $Z = \tr(e^{-\beta H})$ is the starting point of all equilibrium many-body theory. The trace over Fock space can be evaluated by several methods, each the foundation of a major branch of the discipline: path integrals in imaginary time (the Matsubara formalism), perturbative expansion in the interaction (diagrammatic methods, from the Rayleigh--Schr\"odinger series to the Feynman--Dyson expansion), and variational principles (the Gibbs--Bogoliubov inequality, the Hartree--Fock approximation as the optimal single-determinant state). All three approaches are named here without development: they belong to the graduate course in quantum many-body theory whose door this chapter opens, and they are beyond the boundary of the present book.
+
+The advantage of the density-operator formalism is its economy: one operator, the density operator in thermal equilibrium, encodes every macroscopic property, and the partition function from which those properties are extracted is a single trace. Its limitation is that the trace is tractable only for non-interacting systems: the factorization over modes \eqref{eq:grand-partition-bosons}--\eqref{eq:grand-partition-fermions} is exact for the ideal gas and fails the moment the two-body term of \eqref{eq:many-body-hamiltonian} is included. The interacting many-body problem --- the evaluation of $\tr(e^{-\beta H})$ for $H$ containing the two-body term of \eqref{eq:many-body-hamiltonian} --- is the central problem of quantum statistical mechanics, and its solution occupies the graduate curriculum the chapter's exit points toward.
+
+\medskip\noindent\textbf{Transition.}
+The oscillator's partition function is the book's oldest formula in its newest dress. The chapter's work is done: the identical-particle postulate is stated, the creation/annihilation algebra is built, the quantum gases are solved, and the density operator opens the door to the statistical mechanics of quantum matter. It remains to collect the principles, balance the debt ledger, and hand the next set of questions to the disciplines they belong to.
+
+\section{The Second Quantization: Summary, the Repaid Debt Ledger, and Open Doors}
+\label{sec:ch10summary}
+
+The chapter built the quantum mechanics of many identical particles from a single new postulate --- the Symmetrization Postulate --- and the established axioms of the state-space, measurement, and evolution chapters. Its product is a formalism in which the combinatorics of identical particles is automated by algebraic (anti)commutation relations, the ideal quantum gases are solved exactly, and the density operator supplies the bridge to equilibrium statistical mechanics. This section collects the principles into six numbered statements, presents the updated experiment--formalism dictionary, balances the debt ledger the historical chapter opened, and names the disciplines the chapter was chartered to preview.
+
+\medskip\noindent\textbf{The six principles.}
+
+\begin{enumerate}
+    \item[(Q1)] \textbf{Identical particles.} The states of $N$ identical particles are vectors in either the totally symmetric (bosons) or totally antisymmetric (fermions) subspace of the $N$-fold tensor product; the choice is dictated by the particle's spin --- integer spin selects the symmetric subspace, half-integer spin the antisymmetric one --- and Fock space, the direct sum over all $N$, is the natural arena for variable particle number (Section~\ref{sec:identical-particles}, \eqref{eq:fock-space}, \eqref{eq:occupation-basis}).
+
+    \item[(Q2)] \textbf{Creation and annihilation.} On Fock space, the ladder operators of the oscillator chapter generalize to $a_k^\dagger$ (creates a particle in mode $k$) and $a_k$ (annihilates one), satisfying bosonic commutators \eqref{eq:boson-commutators} or fermionic anticommutators \eqref{eq:fermion-anticommutators}; the field operators $\psi^\dagger(\bm x)$, $\psi(\bm x)$ create and annihilate particles at a point. This unifies the single-mode oscillator, the radiation field's mode structure, and the Schwinger bosons under one algebraic structure (Section~\ref{sec:creation-annihilation}, \eqref{eq:field-operators}).
+
+    \item[(Q3)] \textbf{Observables in Fock space.} Every one-body and two-body observable assumes a universal second-quantized form (\eqref{eq:one-body-operator}, \eqref{eq:two-body-operator}); the many-body Hamiltonian \eqref{eq:many-body-hamiltonian} conserves particle number, and the measurement axioms of the measurement chapter apply unchanged (Section~\ref{sec:second-quantized-observables}).
+
+    \item[(Q4)] \textbf{The ideal Bose gas.} The grand canonical ensemble yields the Bose--Einstein distribution \eqref{eq:be-distribution} --- the quantum-statistical form of Bose's 1924 counting. Below the critical temperature \eqref{eq:tc-bec}, a macroscopic fraction \eqref{eq:condensate-fraction} of particles occupies the ground state: Bose--Einstein condensation, a phase transition driven purely by quantum statistics, observed in 1995 at approximately $100$ nanokelvin (Section~\ref{sec:bose-gas}).
+
+    \item[(Q5)] \textbf{The ideal Fermi gas.} The Fermi--Dirac distribution \eqref{eq:fd-distribution} and the Pauli principle together produce the Fermi sea: at $T = 0$ all states up to the Fermi energy \eqref{eq:fermi-energy} are filled, the degeneracy pressure \eqref{eq:degeneracy-pressure} is finite at zero temperature, and low-energy excitations are confined to the Fermi surface --- yielding the linear specific heat of metals (Section~\ref{sec:fermi-gas}).
+
+    \item[(Q6)] \textbf{The density operator and the partition function.} Thermal equilibrium is encoded in the density operator \eqref{eq:canonical-density}, whose normalization $Z = \tr(e^{-\beta H})$ is the partition function; the harmonic oscillator's partition function \eqref{eq:oscillator-partition} recovers Planck's 1900 mean energy --- the chapter's final repayment of the book's oldest formula (Section~\ref{sec:density-operator-partition}).
+\end{enumerate}
+
+\medskip\noindent\textbf{Experiment--formalism dictionary.}
+Table~\ref{tab:ch10-dictionary} extends the dictionaries of the state-space, measurement, evolution, pictures, and angular momentum chapters with the fourteen rows of the second-quantization formalism.
+
+\begin{table}[h]
+    \caption{The experiment--formalism dictionary v6: second quantization. Extends Tables~\ref{tab:ch2-dictionary} through~\ref{tab:ch6-dictionary}.}
+    \label{tab:ch10-dictionary}
+    \begin{tabular}{p{0.35\textwidth} p{0.55\textwidth}}
+        \toprule
+        \textbf{Experiment / Concept} & \textbf{Formal Object} \\
+        \midrule
+        Identical particles & (Anti)symmetric subspace of $\mathcal{H}^{\otimes N}$ \\
+        Boson / fermion & Integer / half-integer spin $\Rightarrow$ symmetric / antisymmetric states \\
+        Fock vacuum & $\ket{0}$, the unique zero-particle state \\
+        Creation / annihilation & $a_k^\dagger$, $a_k$ acting on occupation-number basis \\
+        Occupation number & Eigenvalue of $N_k = a_k^\dagger a_k$ \\
+        Field operator & $\psi^\dagger(\bm x)$, $\psi(\bm x)$ --- creates / annihilates a particle at $\bm x$ \\
+        Bose--Einstein distribution & $\langle n_k \rangle = 1/(e^{\beta(\varepsilon_k-\mu)} - 1)$ \\
+        BEC critical temperature & $T_c = (2\pi\hbar^2/m k_B)(n/\zeta(3/2))^{2/3}$ \\
+        Condensate fraction & $N_0/N = 1 - (T/T_c)^{3/2}$ \\
+        Fermi--Dirac distribution & $\langle n_k \rangle = 1/(e^{\beta(\varepsilon_k-\mu)} + 1)$ \\
+        Fermi energy & $\varepsilon_F = \hbar^2(3\pi^2 n)^{2/3}/2m$ \\
+        Degeneracy pressure & $P = (2/5)\,n\,\varepsilon_F$ \\
+        Canonical density operator & $\rho_\beta = e^{-\beta H}/Z$ \\
+        Partition function & $Z = \tr(e^{-\beta H})$, $F = -k_B T\ln Z$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\medskip\noindent\textbf{The debt ledger, balanced.}
+The chapter repays every entry the historical ledger planted:
+
+\begin{itemize}
+    \item \textbf{Bose's 1924 counting} (ch1 \S1.1). The Bose--Einstein distribution \eqref{eq:be-distribution} is the quantum-statistical transcription of Bose's combinatorial factor; the grand partition function $\Xi = \prod_k (1 - e^{-\beta(\varepsilon_k-\mu)})^{-1}$ is the modern encoding of $W = \prod_s (A_s + N_s - 1)!/N_s!(A_s - 1)!$. Bose--Einstein condensation is its massive-particle consequence, predicted by Einstein in 1925 and observed in 1995. The debt is repaid in full at Section~\ref{sec:bose-gas}.
+
+    \item \textbf{Pauli principle / spin} (ch1, ch6). The Symmetrization Postulate of Section~\ref{sec:identical-particles} is the $N$-particle generalization of the angular momentum chapter's singlet \eqref{eq:singlet-triplet}; the Pauli principle is the algebraic theorem $(a_k^\dagger)^2 = 0$ in Section~\ref{sec:creation-annihilation}. The half-integer-spin $\Rightarrow$ fermion connection is stated as an experimental fact with a relativistic-QFT footnote. The debt's angular-momentum share was repaid by the angular momentum chapter; its many-body share is repaid here.
+
+    \item \textbf{Planck's radiation oscillators} (ch1 \S1.1). Each field mode is a quantized oscillator in the sense of the pictures chapter; the mean energy $\hbar\omega/(e^{\beta\hbar\omega} - 1)$ recovered in Section~\ref{sec:density-operator-partition} from the oscillator partition function \eqref{eq:oscillator-partition}, multiplied by the electromagnetic mode density, reproduces Planck's law \eqref{eq:plancks-law-recovered}. The material-oscillator register was repaid by the pictures chapter; the field-mode and statistical shares are repaid here.
+
+    \item \textbf{Einstein's 1905 light quantum} (ch1 \S1.1). The photon is the excitation created by $a^\dagger$ acting on the vacuum of the electromagnetic field. Named in Section~\ref{sec:creation-annihilation} with the honest statement that the vector nature of the photon and the full Maxwell quantization are beyond the non-relativistic boundary. Repaid in the register of concept, not of full theory.
+
+    \item \textbf{The pictures chapter's field-mode promissory note} (debt \#30). $N$ as particle counter in many modes, $a$, $a^\dagger$ as creation and annihilation operators, coherent states as the classical-field register --- all discharged in Sections~\ref{sec:creation-annihilation}--\ref{sec:bose-gas}. The laser/Glauber sentence that the pictures chapter planted is cashed in the coherent-state unification with the Schwinger construction.
+
+    \item \textbf{The angular momentum chapter's Schwinger bosons} (debt \#39). The Jordan--Schwinger map \eqref{eq:schwinger-revisited} is read as a two-mode instance of the second-quantized formalism; the fixed-$N$ constraint of the angular momentum chapter is lifted, and the spin coherent states are recovered as projected two-mode boson coherent states. Discharged in Section~\ref{sec:creation-annihilation}.
+
+    \item \textbf{The angular momentum chapter's Cooper pair pointer.} Named in the BEC context of Section~\ref{sec:bose-gas}: the boson-pair wave function is the two-particle bound state whose condensation is the BCS mechanism. Named, not developed.
+
+    \item \textbf{The state-space chapter's superselection debt} \#12 (charge share). The boson/fermion superselection of Fock space --- no observable connects the $\mathcal{F}_+$ and $\mathcal{F}_-$ sectors, and the direct sum over $N$ is a non-relativistic superselection structure --- closes the angular-momentum chapter's remaining share of the superselection footnote. The electric-charge share remains quantum field theory's.
+\end{itemize}
+
+\medskip\noindent\textbf{Planted for beyond.}
+The chapter names, without developing, the disciplines whose door it opens:
+
+\begin{itemize}
+    \item The interacting Bose gas: Bogoliubov theory of the weakly interacting condensate, the Beliaev diagrammatic extension, the Gross--Pitaevskii equation for the condensate wave function.
+    \item The interacting Fermi gas: Landau's Fermi liquid theory, the BCS pairing instability of the Fermi surface, the Ginzburg--Landau theory of the superconducting transition.
+    \item The full formalism of quantum statistical mechanics: Matsubara Green's functions, linear response theory and the Kubo formula, the functional-integral representation of the partition function.
+    \item The proper proof of the spin-statistics theorem, belonging to relativistic quantum field theory (the Pauli 1940 proof, named in a footnote at Section~\ref{sec:identical-particles}).
+    \item The quantization of the full electromagnetic field, with the vector potential, gauge invariance, and photon polarization.
+\end{itemize}
+
+All are named; none is developed. The Fock-space Hamiltonian \eqref{eq:many-body-hamiltonian} with the two-body term included is the exact starting point for every item on that list, and the ideal-gas solutions of Sections~\ref{sec:bose-gas} and~\ref{sec:fermi-gas} are the zero-order states about which the interacting theory expands.
+
+\medskip\noindent\textbf{The exit question.}
+The chapter has solved the quantum gases without interactions. Every real quantum gas is interacting. How does a weak repulsion modify the BEC critical temperature? How does an attractive interaction between fermions produce the Cooper instability and superconductivity? The Fock-space Hamiltonian \eqref{eq:many-body-hamiltonian} with the two-body term is the exact starting point --- but it is not exactly solvable. The methods that tame the interacting many-body problem --- perturbative expansions around the quantum-gas ground states, self-consistent field theories (Hartree--Fock, Gross--Pitaevskii, Bogoliubov--de Gennes), and the diagrammatic and functional-integral formulations of quantum statistical mechanics --- are the natural next step. They belong to the graduate course in many-body theory, and they are beyond the boundary of this book.
+
+\begin{problemset}
+
+\item (Section~\ref{sec:identical-particles}) \textbf{Two-particle symmetrization.}
+    Let $\varphi_a(\bm x)$ and $\varphi_b(\bm x)$ be orthonormal single-particle wave functions.
+    \begin{enumerate}
+        \item[(a)] Construct the normalized symmetric and antisymmetric two-particle wave functions
+	        for one particle in each mode, $\psi_S(\bm x_1, \bm x_2)$ and $\psi_A(\bm x_1, \bm x_2)$.
+        \item[(b)] Compute the probability density for finding both particles at the same position, $\bm x_1 = \bm x_2 = \bm x$, for the symmetric and antisymmetric cases. Express your answer in terms of $|\varphi_a(\bm x)|^2$ and $|\varphi_b(\bm x)|^2$.
+        \item[(c)] Explain why for fermions this probability is zero --- the exchange hole. For bosons, show that the probability at coincidence is enhanced relative to the distinguishable-particle result by a factor of two.
+    \end{enumerate}
+
+\item (Section~\ref{sec:identical-particles}) \textbf{Trace of the antisymmetrizer.}
+    \begin{enumerate}
+        \item[(a)] For $N = 2$ identical fermions in a $d$-dimensional single-particle space, compute the dimension of the antisymmetric subspace $\tr(A)$. Verify that it equals $\binom{d}{2}$.
+        \item[(b)] Generalize: for $d$ single-particle modes, what is the dimension of the $N$-fermion Fock sector? Hence what is the condition on $d$ for $N$ fermions to have any state at all?
+        \item[(c)] Evaluate the dimension for $d = 10$, $N = 3$. For $d = 3$, $N = 4$, explain the physical meaning of a zero-dimensional fermionic sector.
+    \end{enumerate}
+
+\item (Section~\ref{sec:creation-annihilation}) \textbf{Boson algebra from Fock-space actions.}
+    From the definition of $a_k$ and $a_k^\dagger$ on the occupation-number basis,
+    \begin{equation*}
+        a_k^\dagger\ket{\ldots, n_k, \ldots} = \sqrt{n_k + 1}\,\ket{\ldots, n_k + 1, \ldots},
+        \qquad
+        a_k\ket{\ldots, n_k, \ldots} = \sqrt{n_k}\,\ket{\ldots, n_k - 1, \ldots},
+    \end{equation*}
+    \begin{enumerate}
+        \item[(a)] Prove $[a_k, a_l^\dagger] = \delta_{kl}$ by acting with the commutator on a generic occupation-number basis state. Consider the cases $k = l$ and $k \neq l$ separately.
+        \item[(b)] Show that $N_k = a_k^\dagger a_k$ has the stated spectrum $n_k = 0, 1, 2, \ldots$ and that $N = \sum_k N_k$ has eigenvalue $\sum_k n_k$.
+        \item[(c)] For two bosonic modes, define the ``hopping'' operators $T_{12} = a_1^\dagger a_2$ and $T_{21} = a_2^\dagger a_1$. Compute $[T_{12}, T_{21}]$ and interpret the result in terms of the number operators $N_1$ and $N_2$.
+    \end{enumerate}
+
+\item (Section~\ref{sec:creation-annihilation}) \textbf{Fermionic signs.}
+    The fermionic creation operator on the occupation-number basis, with modes ordered $k = 1, 2, \ldots$, is defined as
+    \begin{equation*}
+        a_k^\dagger\,\ket{\ldots, n_k, \ldots}
+        = (1 - n_k)\,(-1)^{\sum_{l < k} n_l}\,\ket{\ldots, n_k + 1, \ldots}.
+    \end{equation*}
+    \begin{enumerate}
+        \item[(a)] By considering the action of $a_k^\dagger a_l^\dagger$ and $a_l^\dagger a_k^\dagger$ on a generic basis state, show that $a_k^\dagger a_l^\dagger = -a_l^\dagger a_k^\dagger$ for $k \neq l$, and hence $\{a_k^\dagger, a_l^\dagger\} = 0$.
+        \item[(b)] Prove $(a_k^\dagger)^2 = 0$ --- the algebraic Pauli principle --- and explain why this forces $n_k \in \{0, 1\}$.
+        \item[(c)] For two fermionic modes, write the four Fock states $\ket{n_1, n_2}$ explicitly in the occupation-number representation. Compute the action of $a_1^\dagger$, $a_2^\dagger$, $a_1$, and $a_2$ on each, verifying that the sign factors produce the correct anticommutation relations.
+    \end{enumerate}
+
+\item (Section~\ref{sec:second-quantized-observables}) \textbf{Contact interaction in momentum space.}
+    For bosons with contact interaction $V(\bm x, \bm y) = g\,\delta(\bm x - \bm y)$,
+    \begin{enumerate}
+        \item[(a)] Using the plane-wave basis $\varphi_{\bm k}(\bm x) = e^{i\bm k\cdot\bm x}/\sqrt{V}$, compute the matrix element $V_{\bm k, \bm l, \bm m, \bm n}$ of \eqref{eq:two-body-operator} and show that it is $(g/V)\,\delta_{\bm k + \bm l, \bm m + \bm n}$.
+        \item[(b)] Hence derive the momentum-space form of the two-body term,
+        \begin{equation*}
+            V = \frac{g}{2V}\sum_{\bm k, \bm p, \bm q}
+                a_{\bm k + \bm q}^\dagger a_{\bm p - \bm q}^\dagger a_{\bm p} a_{\bm k}.
+        \end{equation*}
+        \item[(c)] Explain why this form conserves momentum: interactions scatter pairs from $(\bm k, \bm p)$ to $(\bm k + \bm q, \bm p - \bm q)$, and the sum of the wave vectors of the creation operators equals that of the annihilation operators.
+    \end{enumerate}
+
+\item (Section~\ref{sec:bose-gas}) \textbf{BEC critical temperature.}
+    \begin{enumerate}
+        \item[(a)] Starting from the number equation $N = N_0 + V\int_0^\infty\!\dd\varepsilon\,g(\varepsilon)/(e^{\beta(\varepsilon - \mu)} - 1)$ with the density of states \eqref{eq:density-of-states}, set $\mu = 0$ and derive the critical temperature formula
+        \begin{equation*}
+            k_B T_c = \frac{2\pi\hbar^2}{m}\Bigl(\frac{n}{\zeta(3/2)}\Bigr)^{\!2/3},
+        \end{equation*}
+        with $\zeta(3/2) \approx 2.612$. Show explicitly that the $\sqrt{\pi}/2$ from the Bose integral $\int_0^\infty\!\dd x\,\sqrt{x}/(e^x - 1) = \sqrt{\pi}\,\zeta(3/2)/2$ cancels against the $\sqrt{\pi}$ from the density-of-states prefactor, leaving the $2\pi$ in the final form.
+        \item[(b)] Compute $T_c$ for $^{87}$Rb at $n = 2.5 \times 10^{12}\ \text{cm}^{-3}$ ($m = 87\,u$, $u = 1.66 \times 10^{-27}\ \text{kg}$).
+        \item[(c)] Compute $T_c$ for $^4$He at $n = 2.2 \times 10^{22}\ \text{cm}^{-3}$ ($m = 4\,u$). Compare with the observed $\lambda$-transition at $T_\lambda = 2.17\ \text{K}$ and discuss the origin of the discrepancy.
+        \item[(d)] Show that at $T = T_c$, the dimensionless phase-space density satisfies $n\lambda_T^3 = \zeta(3/2) \approx 2.612$, where $\lambda_T = h/\sqrt{2\pi m k_B T}$ is the thermal de Broglie wavelength. Interpret this condition physically in one sentence.
+    \end{enumerate}
+
+\item (Section~\ref{sec:fermi-gas}) \textbf{Sommerfeld expansion.}
+    The number and energy integrals for a degenerate Fermi gas are
+    \begin{equation*}
+        N = \int_0^\infty\!\dd\varepsilon\,g(\varepsilon)\,f(\varepsilon),
+        \qquad
+        E = \int_0^\infty\!\dd\varepsilon\,\varepsilon\,g(\varepsilon)\,f(\varepsilon),
+    \end{equation*}
+    with $f(\varepsilon) = 1/(e^{\beta(\varepsilon - \mu)} + 1)$ and the free-particle density of states $g(\varepsilon) = C\sqrt{\varepsilon}$ where $C = (V m^{3/2})/(\sqrt{2}\,\pi^2\hbar^3)$. The Sommerfeld expansion for integrals of this form, valid at low temperatures, is
+    \begin{equation*}
+        \int_0^\infty\!\dd\varepsilon\,h(\varepsilon)\,f(\varepsilon)
+        = \int_0^\mu\!\dd\varepsilon\,h(\varepsilon)
+          + \frac{\pi^2}{6}\,(k_B T)^2\,h'(\mu) + O(T^4).
+    \end{equation*}
+    \begin{enumerate}
+        \item[(a)] Apply the Sommerfeld expansion to the number integral with $h(\varepsilon) = g(\varepsilon)$. Show that the chemical potential at low temperature is
+        \begin{equation*}
+            \mu(T) = \varepsilon_F\Bigl[1 - \frac{\pi^2}{12}\Bigl(\frac{k_B T}{\varepsilon_F}\Bigr)^{\!2} + \cdots\Bigr],
+        \end{equation*}
+        where $\varepsilon_F$ is the $T = 0$ Fermi energy \eqref{eq:fermi-energy}.
+        \item[(b)] Apply the Sommerfeld expansion to the energy integral with $h(\varepsilon) = \varepsilon\,g(\varepsilon)$. Using the result of part (a) for $\mu(T)$, derive the low-temperature specific heat
+        \begin{equation*}
+            C_V = \frac{\pi^2}{2}\,k_B\,n\,\frac{k_B T}{\varepsilon_F}.
+        \end{equation*}
+        \item[(c)] For copper, $\varepsilon_F \approx 7.0\ \text{eV}$ and $n \approx 8.5 \times 10^{22}\ \text{cm}^{-3}$. Evaluate $C_V$ at $T = 300\ \text{K}$ and compare with the classical value $\frac{3}{2}N k_B$. By what factor is the quantum specific heat smaller?
+    \end{enumerate}
+
+\item (Section~\ref{sec:density-operator-partition}) \textbf{Harmonic oscillator partition function.}
+    \begin{enumerate}
+        \item[(a)] Sum the geometric series to obtain the harmonic oscillator partition function,
+        \begin{equation*}
+            Z_{\text{ho}} = \sum_{n=0}^\infty e^{-\beta\hbar\omega(n + 1/2)}
+                          = \frac{1}{2\sinh(\beta\hbar\omega/2)}.
+        \end{equation*}
+        \item[(b)] From $U = -\partial\ln Z/\partial\beta$, derive the mean energy and show that it interpolates between the zero-point value $\hbar\omega/2$ (as $T \to 0$) and the equipartition value $k_B T$ (as $T \to \infty$). Plot the heat capacity $C = \partial U/\partial T$ as a function of $k_B T/\hbar\omega$ and identify the temperature scale at which the quantum degree of freedom ``freezes out.''
+        \item[(c)] Multiply the mean thermal energy per mode by the electromagnetic mode density $g(\nu)\,\dd\nu = 8\pi\nu^2/c^3\,\dd\nu$ and recover Planck's law for the spectral energy density,
+        \begin{equation*}
+            \frac{\dd u_\nu}{\dd\nu} = \frac{8\pi h\nu^3}{c^3}\,\frac{1}{e^{h\nu/k_B T} - 1}.
+        \end{equation*}
+        Identify which term in the mean energy contributes to Planck's law and explain why the zero-point energy $\hbar\omega/2$ is invisible in the black-body spectrum.
+    \end{enumerate}
+
+\end{problemset}

@@ -1,0 +1,950 @@
+\chapter{Measurement, Operators, and Spectra}
+\begin{note}
+    This chapter is inductive in character. Taking the state-space axioms of Chapter~2 as input, it constructs the theory of measurement and observables from the experimental logic of filters and counters: an ideal measurement as a reproducible filter, projectors as the operators of yes-or-no experiments, projection-valued measures as the bookkeeping of complete experimental questions, observables as self-adjoint operators, the spectral theorem proved in finite dimension and honestly deferred in the infinite one, degenerate spectra and compatible observables, commutators as the arithmetic of incompatibility, and the uncertainty relations as its quantitative shadow. The continuous spectrum is previewed and referred to Appendix A; the chapter closes with the measurement axioms collected in one place. It presupposes nothing beyond Chapter~2 and elementary linear algebra.
+\end{note}
+
+The preceding chapter closed its ledger with an explicit question. With the state-space axioms in hand --- states are rays of a separable complex Hilbert space, amplitudes are inner products, frequencies are squared moduli of amplitudes, and an ideal experiment is a complete set of mutually exclusive alternatives (Section~\ref{sec:ch2summary}) --- it asked: ``The state is a ray. But the experiments that forced this kinematics upon us --- polarizers in sequence, magnets in sequence --- act on states, and their order matters. How do observables act on states?'' This chapter is the answer, and it is an answer of the same inductive kind as the question: no formal object is admitted here that has not first been earned from an experimental arrangement.
+
+The answer itself is not new, and this chapter does not pretend otherwise. The general formalism was found in one stroke by the founders of the theory: von Neumann's treatise of 1932 placed observables as self-adjoint operators on a Hilbert space and cast their statistical predictions into a trace rule; Heisenberg's relation of 1927 set a quantitative limit on the joint determination of certain pairs of quantities; and Bohr's doctrine of complementarity, announced at Como in September of that year, named the conceptual frame in which mutually exclusive experimental arrangements complete rather than contradict one another (Section~\ref{subsec:djv-formalism}). Chapter~1 recorded those achievements and announced that they would be developed systematically in the chapter on measurement. This is that chapter. But where the synthesis was found whole, it is here re-earned piece by piece, so that every clause of the formalism is tied to the laboratory fact that forces it; the slow route --- filters, counters, and the arithmetic of repeatable questions --- is the route this book has chosen.
+
+The route is deliberately narrow at the start. An ideal measurement is first characterized operationally, as a reproducible filter: a device that sorts an incoming ensemble into a complete set of mutually exclusive outputs, whose selected outputs pass the same test again with certainty (Section~\ref{sec:filters}). Repeatability is the single new empirical clause of the chapter, and it does more work than any axiom in this book: together with the Born rule and the state-space geometry already established, it \emph{forces} the conditional state after a sharp measurement outcome --- a theorem, not a postulate. The filter's action on states is the first operator of the book, the projector (Section~\ref{sec:projectors}); a complete experimental question, with its outcomes grouped, ignored, or refined, is a projection-valued measure (Section~\ref{sec:pvm}); attaching instrument readings to the outcomes compresses the whole measure into one operator, the demand that all readings be real forces that operator to be self-adjoint (Section~\ref{sec:selfadjoint}), and the spectral theorem then reverses the arrow: every self-adjoint operator encodes an ideal experiment. Degenerate spectra lead to compatible observables and to the commutator as the measure of incompatibility (Sections~\ref{sec:compatible} and~\ref{sec:commutators}), and the commutator, through the Cauchy--Schwarz theorem admitted in Chapter~2, yields the uncertainty relations (Section~\ref{sec:uncertainty}). One clause is honestly left open. The theory built here speaks only of interrogations: a preparation, a question, an answer. What law governs the state between two interrogations no axiom of this chapter contains; that is the next chapter's opening question, and it is posed, with the ledger balanced, at this chapter's end (Section~\ref{sec:ch3summary}).
+
+Two old debts guide the construction. The fourth kinematical requirement of Chapter~1 --- that the order of physical operations matters (Section~\ref{subsec:why-kinematics}) --- and the matrix multiplication rule of 1925, with its insistence that $AB\neq BA$ (Section~\ref{subsec:matrix}), receive their kinematical repayment here: successive experiments compose as operator products, and noncommutation is the arithmetic of filter order. The open debts of Chapter~2 are repaid in kind: the theory of measurement proper, deferred at its close; the operator reading of the completeness shorthand \eqref{eq:completeness-shorthand}; the uniqueness theorem for the probability rule signposted in Section~\ref{sec:born}; and the uncertainty relations, built on the Cauchy--Schwarz inequality \eqref{eq:cauchy-schwarz}. What remains open is declared, as always, at the exit.
+
+\section{From Selection to Measurement: Reproducible Filters}
+\label{sec:filters}
+
+The state space of the preceding chapter was built out of experiments, yet the experiments themselves were left deliberately schematic. An ideal experiment was identified with a complete set of mutually exclusive alternatives and represented by an orthonormal basis of $\mathcal{H}$ (Sections~\ref{sec:bases} and~\ref{sec:ch2summary}); a filter --- a polarizer passing one component and absorbing the rest, a magnet whose unwanted beam is blocked --- served as selection-as-preparation (Section~\ref{sec:orthogonality}), an operational device for making states. What was not given is what this section must now supply: a precise statement of what an ideal measurement \emph{is}. The frequencies recorded against a basis are the raw data of the kinematics, but the act of interrogation that produces them has so far been only a silent change of basis. The theory of measurement begins by listening to the device.
+
+A filter does two things at once, and measurement theory is the recognition that the two are one. Faced with an incoming ensemble, it \emph{interrogates}: the counters at its output ports accumulate frequencies, and those frequencies are the probabilities of the alternatives, read off through the Born rule \eqref{eq:born-rule}. And it \emph{prepares}: an output port, once selected, delivers a system in a definite state, exactly as the selections of the preceding chapter prepared $\ket{+z}$ beams and $H$-polarized photons. Interrogation and preparation are two readings of a single act.
+
+The cleanest realization is an optical-bench device that will serve as this section's running example. A \textbf{polarizing beam splitter} sorts single photons by polarization without destroying either component: the horizontally polarized component is transmitted, the vertically polarized component is reflected, and both outputs leave the device as usable beams. Sent one photon at a time, in the feeble-light discipline of Chapter~1's two-state experiments (Section~\ref{sec:twostate}), an unpolarized or diagonally polarized input registers as single clicks at two counters, never both at once. The device is a filter with its two faces made visible: its port counts interrogate the incoming state in the $H/V$ basis, and each of its output beams is a prepared state, $H$ at the transmitted port and $V$ at the reflected one.
+
+One further property of such a device is an experimental fact, and it is the single new empirical clause of this chapter. Take either output of the beam splitter and interrogate it with a second, identical analyzer: the transmitted $H$ beam passes the second test as $H$ with certainty, and the reflected $V$ beam as $V$. The same fact was met on the magnetic bench of Chapter~1: a beam selected as $\ket{+z}$, re-interrogated along $z$, returns $+z$ with certainty (Figure~\ref{fig:sequential_sg}). A filter's answer, once given, is \emph{reproducible}: an immediate re-asking of the same question returns the same answer. This is not a theorem about states; it is a property of good instruments, and it is what distinguishes a measurement from a one-shot scattering.
+
+The postulate of this section can now be stated. It comes as two axioms with a theorem between them, and the honesty of the chapter requires that the three not be confused.
+
+\textbf{Axiom M1 (ideal measurement).} An ideal measurement of a system is a complete set of mutually exclusive alternatives $\{\ket{e_n}\}$ --- an orthonormal basis of $\mathcal{H}$ in the sense of Section~\ref{sec:bases} --- realized by a \textbf{reproducible filter}: an apparatus with one output port per alternative, whose selected output, immediately re-interrogated by the same question, returns the same alternative with certainty. In terms of the outcome probabilities, repeatability is the empirical identity
+\begin{linenomath}
+    \begin{equation}
+        P(n\ \mathrm{then}\ n) = p_n \cdot 1 = p_n ,
+        \label{eq:repeatability}
+    \end{equation}
+\end{linenomath}
+the probability of $n$ at the first interrogation times \emph{one} at the second.
+
+\textbf{Axiom M2 (outcome probabilities).} For a system prepared in the state $\psi$, the probability of outcome $n$ is the Born rule of the preceding chapter \eqref{eq:born-rule},
+\begin{linenomath}
+    \begin{equation}
+        p_n = \bigl|\braket{e_n|\psi}\bigr|^2,
+        \qquad
+        \sum_n p_n = 1 ,
+    \end{equation}
+\end{linenomath}
+the frequencies of the port counts on an ensemble of identically prepared systems; the sum is one because the alternatives are exhaustive.
+
+Between the two axioms sits a fact that is proved, not postulated --- the first theorem of measurement theory.
+
+\textbf{Theorem (rank-1 update).} Conditional on the outcome $n$ of an ideal measurement performed on the state $\psi$, the state of the selected output is the ray of $\ket{e_n}$.
+
+The proof uses nothing beyond repeatability and the state-space geometry of the preceding chapter. A selected output is a preparation, so the axioms of Chapter~2 assign it a ray; let $\ket{\chi}$ be a normalized representative of the state conditional on outcome $n$. Repeatability (M1) demands that an immediate re-interrogation with the same question return $n$ with certainty, $\bigl|\braket{e_n|\chi}\bigr|^2 = 1$. By the saturation clause of the Cauchy--Schwarz inequality \eqref{eq:cauchy-schwarz} --- equality holds if and only if the two states belong to the same ray --- this forces
+\begin{linenomath}
+    \begin{equation}
+        \ket{\chi} = e^{i\alpha}\ket{e_n},
+        \qquad\text{or, in unnormalized bookkeeping form,}\qquad
+        \ket{\psi} \longmapsto \ket{e_n}\braket{e_n|\psi} ,
+        \label{eq:state-update}
+    \end{equation}
+\end{linenomath}
+where the overall phase is physically irrelevant by the ray theorem of Section~\ref{sec:rays}. The second form of \eqref{eq:state-update} keeps the record of the incoming state: the squared norm of the right-hand side is $\bigl|\braket{e_n|\psi}\bigr|^2 = p_n$, so the unnormalized output carries the outcome's probability as its length. The conditional ray is forced mathematics: given that re-asking returns the same answer with certainty, no state other than the ray of $\ket{e_n}$ is available. The symbol $\ket{e_n}\braket{e_n|\psi}$ is used here operationally --- extract the $\ket{e_n}$-component of $\ket{\psi}$ --- and receives its precise operator status in Section~\ref{sec:projectors}.
+
+The bookkeeping of honesty must be kept carefully, for it is the brand of this chapter. The experimental input is repeatability and nothing more: that a $\ket{+z}$-selected beam, sent through a second $z$-magnet, returns $+z$ with certainty is a fact of the bench (Figure~\ref{fig:sequential_sg}), and its optical twin is the re-test of the beam-splitter outputs described above. Everything else in the update rule is deduced: the Born rule prices the outcomes (M2), and the saturation clause of \eqref{eq:cauchy-schwarz} then forces the conditional ray. For a \emph{sharp} question --- one whose alternatives are rays, with no two outcomes sharing an answer --- the state after a measurement is therefore proved, not postulated. An axiom appears only where repeatability stops forcing the answer. When several orthogonal alternatives carry the same instrument reading, repeatability confines the conditional state to a subspace but does not fix it within the subspace; the update rule for that \emph{degenerate} case is the one genuinely new measurement axiom of the chapter, and it is stated at the point of first consumption, in Section~\ref{sec:compatible} (Axiom M3).
+
+The beam splitter exhibits every clause of the postulate on one bench. A photon prepared diagonal, $\ket{D} = (\ket{H}+\ket{V})/\sqrt{2}$ in the notation of Section~\ref{sec:linearspace}, exits the two ports at fifty-fifty --- the port counts realize $p_H = p_V = \tfrac12$ by (M2) --- and each output thereafter behaves as $H$ or as $V$ respectively: re-tested, the transmitted beam never fires the $V$ counter, and the reflected beam never fires the $H$ counter. The update theorem is read off directly: selection at a port is conditioning on an outcome, and the selected beam's subsequent statistics are those of the corresponding basis ray. The example also shows what the word \emph{ideal} idealizes away. An absorptive Polaroid sheet is a filter with only one port: it transmits $H$ and destroys $V$, so that no re-testable $V$ output exists. Its transmitted beam is the same prepared state, but the rejected alternative leaves no beam at all, and with it no possibility of confirming repeatability for both outcomes; the beam splitter, not the sheet, is the complete instrument.
+
+The same theorem quantifies what an intermediate measurement disturbs. Chapter~1's decisive arrangement --- a $z$-preparation, an $x$-interrogation, a final $z$-question (Figure~\ref{fig:sequential_sg}) --- showed that the certainty of the first $z$-answer is lost when the $x$-question is interposed. The mechanism is now arithmetic. After the $x$-stage returns an outcome, say $+x$, the update theorem leaves the system in the ray of $\ket{+x} = (\ket{+z}+\ket{-z})/\sqrt{2}$, and the final $z$-question prices that state by (M2): $\bigl|\braket{+z|+x}\bigr|^2 = \tfrac12$; the $-x$ branch contributes the same. The final counts are $+z$ and $-z$ in equal shares, whatever the first stage prepared. The intermediate measurement has not revealed a pre-existing $x$-value while leaving the $z$-value intact; it has re-prepared the state. This is the marking clause of Section~\ref{sec:alternatives} at work: the $x$-outcomes are registered alternatives, distinguishable in principle, and between marked alternatives it is probabilities, not amplitudes, that combine --- the coherence that would have carried the $z$-certainty through the $x$-stage is gone.
+
+One variant of the staged arrangement must be named now, though its full bookkeeping belongs to a later chapter. Suppose the outcomes of an intermediate measurement are recorded --- the alternatives remain marked --- but no port is selected: every branch is allowed to proceed, and later counters see the whole ensemble. This is a \textbf{non-selective measurement}. Its description in the language of this chapter is outcome by outcome: the ensemble is the union of its branches, each branch a pure conditional state weighted by its outcome probability, and later frequencies are the probability-weighted sums of the branches' frequencies. A description of the whole ensemble by a single statistical object exists --- the density operator --- and is built in the chapter on composite systems; it is not needed here, because the branch-by-branch account is complete.
+
+\begin{note}
+    Terminology. Throughout this book, \emph{measurement} means the ideal case of this section: a complete set of alternatives realized by a reproducible, minimally disturbing filter --- the idealization of von Neumann and L\"uders. Real instruments approximate it to varying degrees; the absorptive sheet above is already an approximation with one port missing. Generalized measurement schemes, in which the outcomes need not correspond to orthogonal alternatives, exist and have their uses, but they lie outside the main line of this book.\footnote{The appropriate formalism is that of positive operator-valued measures; the projection-valued measures of Section~\ref{sec:pvm} are the orthogonal case. The mainline route of this book reaches the general case only through the composite-system theory of a later chapter.}
+\end{note}
+
+The advantage of defining measurement by reproducible filtering is that the postulate is phenomenological through and through: every clause --- completeness of the alternatives, the Born pricing of outcomes, the conditional ray --- is either a bench fact or a deduction from bench facts, and the theory of measurement is thereby anchored in the same operational soil as the state space itself. Its limitation is that the idealization is strong. Repeatability is a property of selected instruments in selected regimes, not a universal law of devices, and the minimally disturbing clause will need its own axiom the moment outcomes become degenerate (Section~\ref{sec:compatible}). What the definition does immediately is turn the filter into a mathematical object. The rule \emph{keep the $\ket{e_n}$-component of a state and discard the rest} is the first instance of a map on $\mathcal{H}$ --- an operator --- and the next section makes it precise and finds its algebra.
+
+\section{Projectors: the Operators of Yes-or-No Experiments}
+\label{sec:projectors}
+
+The update rule of Section~\ref{sec:filters} contains the first operator of this book, still disguised as a bookkeeping device. Conditional on outcome $n$, the filter of an ideal measurement maps every incoming state to the vector $\ket{e_n}\braket{e_n|\psi}$: it keeps the component of $\ket{\psi}$ along the selected alternative and discards the rest. Give this map a name,
+\begin{linenomath}
+    \begin{equation}
+        P_n\ket{\psi} := \ket{e_n}\braket{e_n|\psi}
+        \qquad\text{for every }\ket{\psi},
+        \label{eq:projector-action}
+    \end{equation}
+\end{linenomath}
+and the symbol $\ket{e_n}\bra{e_n}$ of the completeness shorthand \eqref{eq:completeness-shorthand} acquires at last its promised operator reading. The map is linear: it acts on a superposition term by term, because the amplitude $\braket{e_n|\psi}$ is linear in $\ket{\psi}$ by the inner-product axioms of Section~\ref{sec:innerproduct}. Linearity is not an extra assumption about filters; it is inherited from the superposition structure of the state space itself.
+
+With the first instance in hand, the general concept costs nothing. An \textbf{operator} on $\mathcal{H}$ is a linear map from $\mathcal{H}$ to itself: a rule $A$ taking every vector $\ket{\psi}$ to a vector $A\ket{\psi}$, with $A(\alpha\ket{\psi_1}+\beta\ket{\psi_2}) = \alpha A\ket{\psi_1} + \beta A\ket{\psi_2}$. An operator is fixed by its action on any basis, and its action is recorded by its \textbf{matrix elements} in that basis,
+\begin{linenomath}
+    \begin{equation}
+        A_{mn} := \braket{e_m|A|e_n},
+        \label{eq:matrix-elements}
+    \end{equation}
+\end{linenomath}
+for the expansion theorem \eqref{eq:expansion} reassembles the action on a general vector from them, $A\ket{\psi} = \sum_{m,n}\ket{e_m}A_{mn}\braket{e_n|\psi}$. In the basis of its own alternatives the filter \eqref{eq:projector-action} has the simplest matrix of all: a single nonzero entry, a $1$ in the $n$-th diagonal place, the arithmetic shadow of a device that passes one alternative and annihilates the rest.
+
+Operators compose, and the composition is the arithmetic of staged experiments. If a process $B$ is followed by a process $A$, the action of the chain is $A(B\ket{\psi}) =: (AB)\ket{\psi}$, and inserting a basis shows the matrix of the chain to be the product of the matrices,
+\begin{linenomath}
+    \begin{equation}
+        (AB)_{mn} = \sum_k A_{mk}B_{kn},
+        \label{eq:operator-product}
+    \end{equation}
+\end{linenomath}
+the row-times-column rule of 1925 recorded in Chapter~1 (Section~\ref{subsec:matrix}). The repayment promised there is now delivered in both directions. Physically: two successive stages of an experiment compose as a product of operators, because each stage acts on the output of the one before. Formally: the product is order-sensitive, $AB \neq BA$ in general, which is precisely the fourth kinematical requirement of Chapter~1 (Section~\ref{subsec:why-kinematics}) --- \emph{the order of physical operations matters} --- receiving its formal repayment. Two qualifications keep the ledger honest. What is repaid here is the kinematical share of the requirement, the composition of given operations; the transformation theory --- how operations are generated, and what becomes of a state while no interrogation is in progress --- is the dynamical share, and it belongs to the next chapter. And the machinery that quantifies the difference $AB - BA$, the commutator, is built in Sections~\ref{sec:compatible} and~\ref{sec:commutators}.
+
+One operation on operators is needed at once, first for the classification of this section and then for every expectation value of the chapter. The \textbf{adjoint} of an operator $A$ is the operator $A^\dagger$ defined by
+\begin{linenomath}
+    \begin{equation}
+        \braket{\phi|A^\dagger|\psi} := \braket{\psi|A|\phi}^{*}
+        \qquad\text{for every pair }\ket{\phi},\ket{\psi}.
+        \label{eq:adjoint-def}
+    \end{equation}
+\end{linenomath}
+In any basis the definition reads $(A^\dagger)_{mn} = A_{nm}^{*}$: the matrix of the adjoint is the conjugate transpose, which both proves that the adjoint exists and fixes it uniquely. (The domain questions that this definition raises in infinite dimension are deferred to Appendix A; the operators of this chapter act on finite-dimensional spaces, or are read formally.) The product rule follows from two applications of \eqref{eq:adjoint-def}. In any basis, $(AB)^\dagger_{mn}=(AB)^*_{nm}=(\sum_k A_{nk}B_{km})^*=\sum_k A^*_{nk}B^*_{km}=\sum_k (A^\dagger)_{kn}(B^\dagger)_{mk}=(B^\dagger A^\dagger)_{mn}$, so $(AB)^\dagger = B^\dagger A^\dagger$: the adjoint of a chain is the chain of the adjoints, reversed.
+
+The filter operators \eqref{eq:projector-action} obey an algebra of their own, and every clause of it is an experimental report. For any $\ket\psi$, the first follows from the definition and $\braket{e_n|e_n}=1$: $P_n^2\ket\psi = P_n(\ket{e_n}\braket{e_n|\psi}) = \ket{e_n}\braket{e_n|e_n}\braket{e_n|\psi} = \ket{e_n}\braket{e_n|\psi} = P_n\ket\psi$. The second uses orthonormality $\braket{e_m|e_n}=\delta_{mn}$: $P_mP_n\ket\psi = \ket{e_m}\braket{e_m|e_n}\braket{e_n|\psi} = \delta_{mn}\ket{e_m}\braket{e_n|\psi}$, vanishing for $m\neq n$. Thus
+\begin{linenomath}
+    \begin{equation}
+        P_n^2 = P_n ,
+        \qquad
+        P_m P_n = 0 \ \ (m \neq n) .
+        \label{eq:projector-algebra}
+    \end{equation}
+\end{linenomath}
+The first clause, \textbf{idempotence}, is repeatability in algebraic dress: a state that has passed the $n$-th filter is unchanged by passing it again --- Axiom M1 applied to the output $\ket{e_n}$, since $P_n\ket{e_n} = \ket{e_n}$. The second clause, \textbf{mutual exclusivity}, is the orthogonality of distinct alternatives \eqref{eq:orthogonality-iff}: a system certainly in the $n$-th output is certainly absent from the $m$-th, and the $m$-th filter annihilates what the $n$-th passed. Together the two clauses say that the filters of one experiment carve $\mathcal{H}$ into non-overlapping rays, each preserved by its own filter and destroyed by every other.
+
+The third clause is a debt discharged. Summing the filter operators over all outcomes of the experiment gives
+\begin{linenomath}
+    \begin{equation}
+        \sum_n P_n = I ,
+        \label{eq:resolution-identity}
+    \end{equation}
+\end{linenomath}
+the \textbf{resolution of identity}: the identity operator, which leaves every state unchanged, is the sum of an experiment's filters. This is precisely the completeness shorthand \eqref{eq:completeness-shorthand} of the preceding chapter, displayed there with an explicit caution --- a bookkeeping compression of the expansion theorem, awaiting an operator reading. The reading is now given: the symbols $\ket{e_n}\bra{e_n}$ are operators, their sum is the identity operator on $\mathcal{H}$, and inserting \eqref{eq:resolution-identity} into any amplitude reproduces the general composition law \eqref{eq:composition-law}. The alternatives of a complete question exhaust the space of states; that is what the decomposition of the identity says.
+
+With the adjoint in hand, the operations on states met so far fall into two great families, classified by how $A$ and $A^\dagger$ are related. The \textbf{filters} of this section are self-adjoint idempotents: $P_n^\dagger = P_n$, proved by $\braket{\phi|P_n^\dagger|\psi} = \braket{\psi|P_n|\phi}^* = \braket{\psi|e_n}^*\braket{e_n|\phi}^* = \braket{e_n|\psi}\braket{\phi|e_n} = \braket{\phi|P_n|\psi}$ via \eqref{eq:adjoint-def} and \eqref{eq:projector-action}; and $P_n^2 = P_n$ from \eqref{eq:projector-algebra}. They are irreversible --- the components they discard are gone, and no operator undoes a filter; information has been traded for an answer. The \textbf{relabelings} are their opposite in every respect. An operator $U$ with
+\begin{linenomath}
+    \begin{equation}
+        U^\dagger U = I
+        \label{eq:unitary-def}
+    \end{equation}
+\end{linenomath}
+is called \textbf{unitary}; it preserves every inner product, $\braket{U\phi|U\psi} = \braket{\phi|\psi}$, and is therefore invertible, its inverse being $U^\dagger$. Unitary operators are already on the page in disguise: the overlap matrix of two bases obeyed exactly this law \eqref{eq:overlap-unitary}, and the operator $U = \sum_n\ket{e'_n}\bra{e_n}$, carrying the orthonormal basis $\{\ket{e_n}\}$ to the basis $\{\ket{e'_n}\}$ of \eqref{eq:overlap}, is its operator reading. A relabeling discards nothing; it is the same physics described against a different complete question. These two families --- self-adjoint filters and unitary relabelings --- are the first instances of the two great operator classes of quantum mechanics, and much of the rest of this book is their theory. One flag is planted here for the next chapter: relabelings so far are changes of the question, applied at an instant. Continuous families of relabelings, and the question of what carries a state \emph{between} interrogations, belong to the theory of evolution.
+
+The algebra of this section is exercised, and the two-state dictionary extended, on the polarization bench of Section~\ref{sec:filters}. In the $H/V$ basis the filters of the two complete polarization questions are explicit $2\times2$ matrices,
+\begin{linenomath}
+    \begin{equation}
+        P_H =
+        \begin{pmatrix}
+            1 & 0\\
+            0 & 0
+        \end{pmatrix},\quad
+        P_V =
+        \begin{pmatrix}
+            0 & 0\\
+            0 & 1
+        \end{pmatrix},\quad
+        P_D = \frac12
+        \begin{pmatrix}
+            1 & 1\\
+            1 & 1
+        \end{pmatrix},\quad
+        P_A = \frac12
+        \begin{pmatrix}
+            1 & -1\\
+            -1 & 1
+        \end{pmatrix},
+    \end{equation}
+\end{linenomath}
+built from the columns of Section~\ref{sec:linearspace} by the rule \eqref{eq:projector-action}: the entries of $P_D$ are $\braket{e_m|D}\braket{D|e_n}$ with $\ket{D} = (\ket{H}+\ket{V})/\sqrt{2}$, and likewise $\ket{A} = (\ket{H}-\ket{V})/\sqrt{2}$. Direct multiplication verifies the whole projector algebra in arithmetic.
+\begin{linenomath}
+\begin{align}
+    P_H+P_V &= \begin{pmatrix}1&0\\0&0\end{pmatrix}+\begin{pmatrix}0&0\\0&1\end{pmatrix}=I, &
+    P_D+P_A &= \frac12\begin{pmatrix}1&1\\1&1\end{pmatrix}+\frac12\begin{pmatrix}1&-1\\-1&1\end{pmatrix}=I,\\
+    P_D^2 &= \frac14\begin{pmatrix}1&1\\1&1\end{pmatrix}^{\!2}
+           =\frac14\begin{pmatrix}2&2\\2&2\end{pmatrix}=P_D, &
+    P_D P_A &= \frac14\begin{pmatrix}1&1\\1&1\end{pmatrix}\begin{pmatrix}1&-1\\-1&1\end{pmatrix}
+            =\frac14\begin{pmatrix}0&0\\0&0\end{pmatrix}=0 .
+\end{align}
+\end{linenomath}
+The sequential-filter law of Chapter~1 then becomes a product of matrices. An $H$-polarized photon meeting a $D$-filter and then a $V$-filter emerges in the state
+\begin{linenomath}
+    \begin{equation}
+        P_V P_D P_H\ket{H} = \tfrac12\ket{V},
+        \qquad
+        \bigl\|P_V P_D P_H\ket{H}\bigr\|^2 = \frac14 ,
+    \end{equation}
+\end{linenomath}
+the measured $1/4$ of the three-polarizer experiment (Section~\ref{sec:twostate}), recovered from operator arithmetic exactly as the multiplication principle \eqref{eq:multiplication-principle} recovered it from amplitudes. And the order-sensitivity of filters is now visible in numbers:
+\begin{linenomath}
+    \begin{equation}
+        P_D P_H = \frac12
+        \begin{pmatrix}
+            1 & 0\\
+            1 & 0
+        \end{pmatrix}
+        \ \neq\
+        P_H P_D = \frac12
+        \begin{pmatrix}
+            1 & 1\\
+            0 & 0
+        \end{pmatrix} ,
+    \end{equation}
+\end{linenomath}
+filter order matters, in arithmetic at last. One identification is recorded here for later consumption. The two benches of this chapter --- polarization and spin --- realize one and the same two-state overlap structure, and the identification $H\leftrightarrow\ket{+z}$, $V\leftrightarrow\ket{-z}$, $D\leftrightarrow\ket{+x}$, $A\leftrightarrow\ket{-x}$ makes the arithmetic of either bench available to the other; it is what will allow $P_D - P_A$ to be read as the $x$-axis spin operator in Section~\ref{sec:commutators}.
+
+A single filter answers a yes-or-no question: is the system in the alternative $\ket{e_n}$, or not? A complete experiment asks all of its yes-or-no questions at once, and the family comes with a bookkeeping of its own --- outcomes grouped and ignored, probabilities assigned consistently to every grouping. That bookkeeping is the projection-valued measure, the subject of the next section.
+
+\section{Projection-Valued Measures: the Bookkeeping of Complete Questions}
+\label{sec:pvm}
+
+The projector of Section~\ref{sec:projectors} is the operator of a single yes-or-no question. A complete experiment asks its whole family of such questions at once, and the family comes with a bookkeeping of its own: outcomes can be grouped into sets, sets can be coarse-grained, and probabilities must be assigned consistently to all of them. The bookkeeping device is the \textbf{projection-valued measure}. Given an ideal experiment with alternatives $\{\ket{e_n}\}$ and projectors $P_n = \ket{e_n}\bra{e_n}$, assign to every set $\Omega$ of outcomes the projector
+\begin{linenomath}
+    \begin{equation}
+        P_\Omega = \sum_{n\in\Omega} P_n ,
+        \label{eq:coarse-graining}
+    \end{equation}
+\end{linenomath}
+the sum of the projectors of the outcomes in the set, projecting onto their span. The assignment obeys the three clauses of a measure,
+\begin{linenomath}
+    \begin{equation}
+        P_{\emptyset} = 0 ,
+        \qquad
+        P_{\mathrm{all}} = I ,
+        \qquad
+        P_{\Omega_1\cup\Omega_2} = P_{\Omega_1} + P_{\Omega_2}
+        \ \ \text{for disjoint }\Omega_1,\Omega_2 ,
+        \label{eq:pvm-axioms}
+    \end{equation}
+\end{linenomath}
+the last of them by the exclusivity clause of \eqref{eq:projector-algebra}, which keeps the sum of two projectors a projector exactly when their ranges are orthogonal. In finite dimension the whole assignment is equivalently a complete family $\{P_n\}$ with $\sum_n P_n = I$ and $P_mP_n = \delta_{mn}P_n$ --- the projector algebra of \eqref{eq:projector-algebra} and \eqref{eq:resolution-identity}, now read as the axioms of an experimental question rather than the properties of a single filter.
+
+The first business of the bookkeeping is \textbf{coarse-graining}. If the distinction among the outcomes $n\in\Omega$ is ignored --- their counters wired to a single register --- the fine-grained experiment is replaced by a coarser one whose single outcome $\Omega$ carries the projector \eqref{eq:coarse-graining}: rank-1 projectors fuse into a projector of higher rank, onto the subspace spanned by the fused alternatives. Coarse-graining is a physical operation on the description, not a notational one: it is the experiment in which some resolutions are deliberately unrecorded. Its extreme case fuses every outcome: the \textbf{trivial measurement} $\{I\}$, the experiment with one port, asked of every system and answered yes always --- ``did anything happen?'' It is the unique projection-valued measure with a single projector, and it will reappear below as the formal opposite of an informative measurement.
+
+The Born rule prices every set of outcomes at once. For a system prepared in the state $\psi$, the probability of the outcome set $\Omega$ is
+\begin{linenomath}
+    \begin{equation}
+        p(\Omega) = \braket{\psi|P_\Omega|\psi},
+        \label{eq:pvm-born}
+    \end{equation}
+\end{linenomath}
+which for a single outcome is (M2) of Section~\ref{sec:filters} and for a general set is the sum of its outcomes' probabilities --- additivity over disjoint sets being exactly the third clause of the measure. In the language of probability theory, \eqref{eq:pvm-born} is a probability measure on the projectors \emph{of one experiment}. The experimental warrant for that additivity is the marked-alternatives sum rule of Section~\ref{sec:alternatives}: the outcomes of a realized measurement are registered alternatives, distinguishable in principle, and their frequencies add classically.
+
+This is the exact sense in which classical logic survives inside quantum mechanics, and its boundary is equally exact. \emph{Within} one projection-valued measure, the logic of outcomes is Boolean: the alternatives are mutually exclusive and exhaustive, their propositions combine by union and intersection of outcome sets, and the ordinary rules of probability apply without exception. \emph{Across} two different measures --- the $z$-question and the $x$-question of a Stern--Gerlach bench --- the propositions of one share no common refinement with the propositions of the other: no third experiment has outcomes that are simultaneously answers to both, and the conjunction ``spin up along $z$ and spin up along $x$'' has no operational meaning. Chapter~1 exhibited this on the bench as the failure of Boolean logic among sequential polarizers and sequential magnets (Section~\ref{sec:twostate}); the exact formal statement of the failure is now on the page: two projection-valued measures whose projectors do not all commute define propositions belonging to no single Boolean algebra. How much two families of questions fail to fit together is measured by the commutator, the subject of Sections~\ref{sec:compatible} and~\ref{sec:commutators}.
+
+The converse question --- must \emph{every} consistent pricing of an experiment's projectors come from a state? --- has a celebrated answer, and it is signposted here rather than proved. Suppose a rule assigns to every projector on $\mathcal{H}$ a number between $0$ and $1$, additively over orthogonal families: the prices of mutually orthogonal projectors summing to the identity add to $1$. On any space of dimension three or greater, every such rule is necessarily of the form
+\begin{linenomath}
+    \begin{equation}
+        p(P) = \tr(\rho P)
+        \label{eq:gleason}
+    \end{equation}
+\end{linenomath}
+for a unique positive operator $\rho$ of unit trace,\footnote{A.~M. Gleason, \emph{J.~Math.~Mech.} \textbf{6}, 885 (1957). The operator $\rho$ is the \emph{density operator}, whose theory is built in the chapter on composite systems; it is named here once, as the theorem requires it, and used no further in this chapter. The pure states of this book are the rank-1 case, $\rho = \ket{\psi}\bra{\psi}$, for which $\tr(\rho P) = \braket{\psi|P|\psi}$ --- the Born rule \eqref{eq:pvm-born} recovered.} where $\tr$ denotes the \textbf{trace}, the sum of the diagonal matrix elements in any orthonormal basis --- a sum whose value is independent of the basis chosen. This is Gleason's theorem of 1957, the uniqueness result signposted in the preceding chapter's discussion of the Born rule (Section~\ref{sec:born}), now statable because the language of projections it requires is on the page: the geometry of the state space leaves no freedom in the probability rule beyond the choice of state itself. Its proof is long and belongs to the mathematical literature; its content is the deepest warrant this book has for the universality of the Born rule.
+
+\begin{note}
+    Marking consistency. The probability bookkeeping of this section applies to staged experiments in which the intermediate outcomes leave a which-way record: probabilities, not amplitudes, propagate from stage to stage, per the marking clause of Section~\ref{sec:alternatives}. It must not be confused with the coherent insertion of a basis into an amplitude, \eqref{eq:composition-law}, where no record exists and amplitudes combine. Coarse-graining a projection-valued measure --- ignoring which outcome occurred --- belongs to the marked case; recombining the alternatives so that no record survives belongs to the coherent case. The difference is physical, and the example below keeps the two apart at every stage.
+\end{note}
+
+The canonical projection-valued measure of this book is the sequential Stern--Gerlach bench of Chapter~1 (Figure~\ref{fig:sequential_sg}), and it exhibits every clause of the bookkeeping. The $z$-apparatus is the two-element measure $\{P_{+z}, P_{-z}\}$, with $P_{\pm z} = \ket{\pm z}\bra{\pm z}$. Blocking the $-z$ port and keeping the $+z$ beam is conditioning on an outcome: the selected ensemble is described by the updated state of Section~\ref{sec:filters}, and all later frequencies are computed from it. Letting both separated beams pass unresolved --- no port blocked, the deflection record intact --- is a different physical arrangement: a non-selective $z$-measurement in the language of Section~\ref{sec:filters}. It is not the trivial measure. The two beams are marked alternatives --- the which-way record exists in the world, whether or not anyone reads it --- so later questions see added probabilities, and the counts confirm the addition: an ensemble passed unresolved through the $z$-stage and then interrogated along $x$ splits fifty-fifty, exactly the sum of the two branches' separate statistics, with no interference between them.
+
+The trivial measure $\{I\}$ is reserved for the genuinely record-free arrangement: the two beams coherently recombined, the separation undone before any which-way trace survives --- or no magnet present at all. Then there is one outcome, answered with certainty, and the state proceeds unchanged. The distinction is quantitative, and the full $z$--$x$--$z$ chain makes it sharp. Compute the final $z$-counts of the three-stage arrangement in two independent ways. By the update theorem of Section~\ref{sec:filters}: the first $z$-stage returns $+z$ with certainty; the $x$-stage returns $\pm x$ with probabilities $\tfrac12$ each, leaving the conditional states $\ket{\pm x}$; the final $z$-stage prices each branch at $\bigl|\braket{+z|\pm x}\bigr|^2 = \tfrac12$, so the recapture probability is $\tfrac12\cdot\tfrac12 + \tfrac12\cdot\tfrac12 = \tfrac12$. By the projector products of Section~\ref{sec:projectors}: the probability of a history is the squared norm of the corresponding operator chain applied to the initial state,
+\begin{linenomath}
+    \begin{equation}
+        \bigl\|P_{+z}P_{+x}\ket{+z}\bigr\|^2
+        = \bigl|\braket{+z|+x}\bigr|^2\bigl|\braket{+x|+z}\bigr|^2
+        = \frac14 ,
+    \end{equation}
+\end{linenomath}
+each of the four histories carrying probability $1/4$, and the two histories ending at $+z$ summing to $1/2$. The two computations agree, as they must --- the update theorem and the projector chain are one rule in two notations --- and both rely on the marking clause at the intermediate stage: the $x$-outcomes are recorded alternatives, and it is their probabilities that propagate. Formally, ignoring the $x$-outcome is the non-selective $x$-measurement; its branch projectors sum to the identity as operators, $P_{+x} + P_{-x} = I$, but the physical operation is not the identity, for the branches are marked. ``The $x$-question was asked and its answer ignored'' and ``the $x$-question was never asked'' are different experiments with different counts --- one-half recapture in the first, perfect recapture in the second --- and the difference between them is precisely the bookkeeping this section exists to keep.
+
+A projection-valued measure knows \emph{which} alternatives occur and with what probabilities, but a physical quantity carries more than a list of alternatives: its outcomes are \emph{numbers} --- deflections, dial readings, fringe positions. Attaching numerical readings to the outcomes of a measure turns statistics into expectation values, and compresses the whole measure into a single operator. That is the next section's construction.
+
+\section{Observables: Numerical Labels and Expectation Values}
+\label{sec:observables}
+
+A projection-valued measure, in the sense of Section~\ref{sec:pvm}, knows \emph{which} alternatives an experiment resolves and with what frequencies they occur. A physical quantity carries one more piece of structure: every outcome comes with a \emph{number} --- a deflection on a scale, a dial reading, a fringe position. Attaching numbers to outcomes turns the bookkeeping of complete questions into statistics.
+
+An \textbf{observable} is an ideal experiment whose outcomes are labeled by real numbers $a_1,a_2,\dots$, one instrument reading per alternative. We take the non-degenerate case first: the readings are all distinct, and the experiment's projectors are the rank-1 filters $P_n$ of Sections~\ref{sec:filters}--\ref{sec:projectors}, one ray per reading. The degenerate case, in which a single reading labels a whole subspace of alternatives, is taken up in Section~\ref{sec:compatible}.
+
+Repeat the experiment on an ensemble of identically prepared systems and record the numbers. The frequencies $p_n=\braket{\psi|P_n|\psi}=|\braket{e_n|\psi}|^2$ are the Born frequencies of the experiment (Sections~\ref{sec:born} and~\ref{sec:pvm}, \eqref{eq:pvm-born}), and the long-run mean of the recorded readings is their weighted average,
+\begin{linenomath}
+\begin{equation}
+    \langle a\rangle_\psi=\sum_n a_n\,p_n .
+    \label{eq:expectation-frequency}
+\end{equation}
+\end{linenomath}
+This is an ensemble statement in the sense of Section~\ref{sec:born}: $\langle a\rangle_\psi$ is a property of the preparation, not of any single run, and it is measured by repeating the experiment, not by refining one. The scatter of the recorded numbers around the mean is measured by the \textbf{variance},
+\begin{linenomath}
+\begin{equation}
+    \sigma_a^2=\sum_n\bigl(a_n-\langle a\rangle_\psi\bigr)^2 p_n\;\geq\;0 ,
+\end{equation}
+\end{linenomath}
+a sum of nonnegative terms. A preparation is called \emph{sharp} for this experiment when $\sigma_a^2=0$: then every term vanishes separately, and since the readings are distinct, a single outcome $n_0$ must carry all the probability, $|\braket{e_{n_0}|\psi}|^2=1$. By the saturation clause of the Cauchy--Schwarz inequality \eqref{eq:cauchy-schwarz} --- equality holds if and only if the two states share a ray --- the state is then the ray of $\ket{e_{n_0}}$ itself. The variance vanishes if and only if the state lies in a single outcome's ray: the sharp preparations of an experiment are exactly its own alternatives, and every reading returned on such a preparation is the same number $a_{n_0}$.
+
+Frequencies and readings together determine the statistics completely, and the whole of it compresses into a single operator. Assemble readings and projectors into
+\begin{linenomath}
+\begin{equation}
+    A:=\sum_n a_n P_n .
+    \label{eq:spectral-decomposition}
+\end{equation}
+\end{linenomath}
+Bracketing with an arbitrary state and using $\braket{\psi|P_n|\psi}=p_n$ gives
+\begin{linenomath}
+\begin{equation}
+    \langle A\rangle_\psi:=\braket{\psi|A|\psi}
+    =\sum_n a_n\,\bigl|\braket{e_n|\psi}\bigr|^2
+    =\sum_n a_n\,p_n
+    =\langle a\rangle_\psi ,
+    \label{eq:expectation-operator}
+\end{equation}
+\end{linenomath}
+the ensemble mean \eqref{eq:expectation-frequency} read off as one matrix element. The notation on the left is fixed once and for all: $\langle A\rangle_\psi$ always means $\braket{\psi|A|\psi}$. In the experiment's own basis $\{\ket{e_n}\}$ the operator is diagonal, with the readings down the diagonal --- the matrix of an observable is its table of outcomes.
+
+The projector algebra of Section~\ref{sec:projectors} ($P_mP_n=\delta_{mn}P_n$, \eqref{eq:projector-algebra}) turns powers of $A$ into powers of the readings: $A^2=\sum_{m,n}a_ma_nP_mP_n=\sum_n a_n^2P_n$, and by induction $A^k=\sum_n a_n^kP_n$ for every power, so that every polynomial obeys $p(A)=\sum_n p(a_n)P_n$. The same formula serves as the definition of an arbitrary function of an observable,
+\begin{linenomath}
+\begin{equation}
+    f(A):=\sum_n f(a_n)\,P_n ,
+    \label{eq:function-of-observable}
+\end{equation}
+\end{linenomath}
+for any $f$ defined on the readings: apply the function to each dial mark and keep the projectors. In particular the variance takes the operator form
+\begin{linenomath}
+\begin{equation}
+    (\Delta A)^2:=\langle A^2\rangle_\psi-\langle A\rangle_\psi^2 ,
+    \label{eq:variance}
+\end{equation}
+\end{linenomath}
+The equality with $\sigma_a^2$ above is the expansion
+\begin{linenomath}
+\begin{equation}
+    \sigma_a^2 = \sum_n (a_n-\langle a\rangle_\psi)^2 p_n
+    = \sum_n\bigl(a_n^2-2a_n\langle a\rangle_\psi+\langle a\rangle_\psi^2\bigr)p_n
+    = \langle A^2\rangle_\psi - 2\langle A\rangle_\psi^2 + \langle A\rangle_\psi^2
+    = \langle A^2\rangle_\psi - \langle A\rangle_\psi^2 = (\Delta A)^2 ,
+\end{equation}
+\end{linenomath}
+using $\sum_n p_n=1$ and $\sum_n a_n p_n=\langle A\rangle_\psi$.
+
+Two honesty clauses attend the compression of an experiment into an operator. The first concerns convention. The assignment of numbers to outcomes is an instrument-maker's choice --- zeros, units, and scales are conventions: re-zeroing the scale shifts every reading, $a_n\mapsto a_n+c$, and with it the mean, while the projectors, the frequencies, and every physical prediction remain untouched. The PVM is the physics; the numerical labels are its bookkeeping. The second clause runs in the opposite direction and will be load-bearing in Section~\ref{sec:selfadjoint}: although one mean fixes nothing, the mean in \emph{every} state fixes the operator uniquely. The workhorse is the \textbf{polarization identity}, displayed here at its first use: for any operator $A$ and any pair of vectors,
+\begin{linenomath}
+\begin{equation}
+    \braket{\phi|A|\psi}
+    =\frac14\Bigl[
+        \braket{\psi+\phi|A|\psi+\phi}
+        -\braket{\psi-\phi|A|\psi-\phi}
+        +i\braket{\psi+i\phi|A|\psi+i\phi}
+        -i\braket{\psi-i\phi|A|\psi-i\phi}
+    \Bigr],
+    \label{eq:polarization}
+\end{equation}
+\end{linenomath}
+as expanding the right-hand side by linearity confirms:
+\begin{linenomath}
+\begin{align}
+    \braket{\psi\pm\phi|A|\psi\pm\phi}
+    &= \braket{\psi|A|\psi} + \braket{\phi|A|\phi} \pm \braket{\psi|A|\phi} \pm \braket{\phi|A|\psi},\\
+    \braket{\psi\pm i\phi|A|\psi\pm i\phi}
+    &= \braket{\psi|A|\psi} + \braket{\phi|A|\phi} \mp i\braket{\psi|A|\phi} \pm i\braket{\phi|A|\psi}.
+\end{align}
+\end{linenomath}
+The four-diagonal combination in \eqref{eq:polarization} then telescopes: the $\braket{\psi|A|\psi}$ and $\braket{\phi|A|\phi}$ terms cancel, the $\pm i\braket{\phi|A|\psi}$ terms cancel, and the surviving $\braket{\phi|A|\psi}$ contributions add to $4\braket{\phi|A|\psi}$. Every matrix element of $A$ is therefore a fixed linear combination of diagonal values $\braket{\chi|A|\chi}$; and the diagonal values on arbitrary vectors are fixed by the means on normalized states, since rescaling $\chi\mapsto c\chi$ rescales $\braket{\chi|A|\chi}$ by $|c|^2$. If two operators have the same mean in every state, their difference has vanishing diagonal values everywhere, hence vanishing matrix elements by \eqref{eq:polarization}: the operators coincide. The operative constraint is the quantifier --- \emph{every} state, not some states, and not an average over states. Section~\ref{sec:selfadjoint} will spend precisely this display.
+
+The spin component along an axis $\bm n$ makes the encoding concrete. Take the Stern--Gerlach apparatus of Chapter~1 (Section~\ref{sec:twostate}) rotated to the axis $\bm n$, with the two output ports carrying the readings $\pm1$ in units of $\hbar/2$. The observable is the difference of the two port projectors,
+\begin{linenomath}
+\begin{equation}
+    \sigma_{\bm n}:=P_{+\bm n}-P_{-\bm n},
+    \qquad
+    S_n=\frac{\hbar}{2}\,\sigma_{\bm n},
+    \label{eq:sigma-n-def}
+\end{equation}
+\end{linenomath}
+where $\ket{\pm\bm n}$ are the rotated alternatives of Chapter~2, \eqref{eq:spin-n}. Send in a beam prepared in $\ket{+z}$, and let $\theta$ be the polar angle of $\bm n$ relative to $z$. The half-angle law \eqref{eq:half-angle} --- recorded as an experimental fact of rotated magnets, its derivation owed to the chapter on angular momentum --- gives the port frequencies $p_+=\cos^2(\theta/2)$ and $p_-=\sin^2(\theta/2)$, and with readings $\pm1$ the mean is
+\begin{linenomath}
+\begin{equation}
+    \braket{+z|\sigma_{\bm n}|+z}
+    =\cos^2\frac{\theta}{2}-\sin^2\frac{\theta}{2}
+    =\cos\theta,
+    \qquad
+    \Delta\sigma_{\bm n}=\sin\theta .
+    \label{eq:spin-expectation}
+\end{equation}
+\end{linenomath}
+The spread follows from $\sigma_{\bm n}^2=P_{+\bm n}+P_{-\bm n}=I$ by the projector algebra, so $(\Delta\sigma_{\bm n})^2=1-\cos^2\theta$ by \eqref{eq:variance}. The mean traces the classical projection of a unit arrow along $\bm n$ onto the $z$-axis --- yet no classical arrow exists: a single atom returns only $\pm1$, and it is the ensemble of counts that imitates the projection, the moral of Chapter~1's two-state experiments (Section~\ref{sec:twostate}). The spread tells the complementary story: along the preparation axis ($\theta=0$) every atom returns $+1$ and the variance vanishes, the sharpness proved above; perpendicular to it ($\theta=\pi/2$) the ports fire equally, the mean vanishes, and the spread is maximal. The statistics of a turned magnet, computed end-to-end from Chapter~2's data.
+
+The construction of this section ran from experiment to operator: the PVM came first, and $A=\sum_na_nP_n$ was assembled from it. The arrow must now be reversed. Not every operator can be an observable's encoding --- which ones are, and why exactly the self-adjoint ones?
+
+\section{Why Self-Adjoint: Real Outcomes and the Spectral Theorem}
+\label{sec:selfadjoint}
+
+Section~\ref{sec:observables} assembled an operator from an experiment: alternatives first, then readings, then $A=\sum_na_nP_n$. This section reverses the arrow and asks which operators can arise this way. The answer comes in two theorems, and both are proved. The first shows that the reality of instrument readings forces a definite symmetry on the operator; the second --- the spectral theorem --- shows that every operator with that symmetry encodes an ideal experiment. Between them they close the observable concept.
+
+Every instrument reading is a real number, so the mean \eqref{eq:expectation-operator} of an observable is real in every state. This single experimental fact already fixes the symmetry:
+\begin{linenomath}
+\begin{equation}
+    \braket{\psi|A|\psi}\in\mathbb{R}\ \ \text{for every }\ket{\psi}
+    \qquad\Longleftrightarrow\qquad
+    A=A^\dagger ,
+    \label{eq:selfadjoint-reality}
+\end{equation}
+\end{linenomath}
+with the adjoint as defined in \eqref{eq:adjoint-def}. The proof is the polarization identity at work. If $A=A^\dagger$, then $\braket{\psi|A|\psi}^{*}=\braket{\psi|A^\dagger|\psi}=\braket{\psi|A|\psi}$, and the mean is real. Conversely, suppose the mean is real in every state. Then for every vector $\ket{\chi}$,
+\begin{linenomath}
+\begin{equation}
+    \braket{\chi|A^\dagger|\chi}
+    =\braket{\chi|A|\chi}^{*}
+    =\braket{\chi|A|\chi},
+\end{equation}
+\end{linenomath}
+so $A$ and $A^\dagger$ have identical diagonal values in every state; the polarization identity \eqref{eq:polarization} then gives $\braket{\phi|A^\dagger|\psi}=\braket{\phi|A|\psi}$ for every pair $\ket{\phi},\ket{\psi}$, which is to say $A^\dagger=A$. The operative constraint is again the quantifier: reality in \emph{every} state --- not in some states, and not on average over states. An operator whose mean happens to be real on a subset of preparations need not be self-adjoint, and encodes no observable of the present kind.
+
+An operator with $A=A^\dagger$ is called \textbf{self-adjoint}, or \textbf{Hermitian}. In finite dimension the two words coincide, and this book uses them interchangeably; where the distinction acquires content --- the continuous spectra previewed in Section~\ref{sec:continuous-spectra} --- only ``self-adjoint'' survives, and the present section says so once, here.
+
+The sharp preparations of Section~\ref{sec:observables} --- the states of zero variance, one per outcome ray --- appear on the operator side as the solutions of the \textbf{eigenvalue equation}
+\begin{linenomath}
+\begin{equation}
+    A\ket{a_n}=a_n\ket{a_n},
+    \label{eq:eigenproblem}
+\end{equation}
+\end{linenomath}
+where the number $a_n$ is an \emph{eigenvalue} and $\ket{a_n}\neq0$ an \emph{eigenvector} of $A$. Two properties follow from self-adjointness in one line each. First, eigenvalues are real: bracketing \eqref{eq:eigenproblem} with $\bra{a_n}$ gives
+\begin{linenomath}
+\begin{equation}
+    a_n\,\braket{a_n|a_n}=\braket{a_n|A|a_n}\in\mathbb{R}
+    \qquad\Longrightarrow\qquad
+    a_n\in\mathbb{R}.
+\end{equation}
+\end{linenomath}
+Second, eigenvectors of distinct eigenvalues are orthogonal: if $A\ket{a_m}=a_m\ket{a_m}$ and $A\ket{a_n}=a_n\ket{a_n}$, then
+\begin{linenomath}
+\begin{equation}
+    a_n\braket{a_m|a_n}
+    =\braket{a_m|A|a_n}
+    =\braket{A^\dagger a_m|a_n}
+    =a_m\braket{a_m|a_n}
+    \qquad\Longrightarrow\qquad
+    (a_m-a_n)\braket{a_m|a_n}=0 ,
+\end{equation}
+\end{linenomath}
+using the reality of $a_m$ in the third step, so $a_m\neq a_n$ forces $\braket{a_m|a_n}=0$. Eigen-readings are real and distinct readings are mutually exclusive --- the two facts an instrument requires of its dial.
+
+The converse is the structural theorem of the chapter.
+
+\medskip\noindent\textbf{Spectral theorem (finite-dimensional).} \emph{Every self-adjoint operator $A$ on a finite-dimensional Hilbert space $\mathcal H$ possesses an orthonormal basis of eigenvectors. Grouping the basis vectors by eigenvalue, $A$ takes the spectral form $A=\sum_\nu a_\nu P_\nu$, with $a_\nu$ its distinct real eigenvalues and $P_\nu$ the projector onto the $a_\nu$-eigenspace.}
+
+\medskip\noindent\emph{Proof.} By induction on $d=\dim\mathcal H$. For $d=1$ every nonzero vector is an eigenvector and there is nothing to prove. Let $d\geq2$. The characteristic polynomial $\chi_A(\lambda)=\det(\lambda I-A)$ is a polynomial of degree $d$, and by the fundamental theorem of algebra it has at least one root $a_1$.\footnote{This is the one analytic input of the proof; the fundamental theorem of algebra is proved in the algebra texts and is not derived here. Everything else is finite-dimensional linear algebra.} Then $\det(a_1I-A)=0$, so $a_1I-A$ annihilates some nonzero vector; normalized, that vector is an eigenvector $\ket{a_1}$ with eigenvalue $a_1$, and $a_1$ is real by the reality argument above. Let $W$ be the orthogonal complement of $\ket{a_1}$. The subspace $W$ is invariant under $A$: for $\ket{w}\in W$,
+\begin{linenomath}
+\begin{equation}
+    \braket{a_1|A|w}=\braket{A^\dagger a_1|w}=\braket{A a_1|w}=a_1\braket{a_1|w}=0 ,
+\end{equation}
+\end{linenomath}
+so $A\ket{w}\in W$. The restriction of $A$ to $W$ is self-adjoint on the $(d-1)$-dimensional space $W$, so by the induction hypothesis $W$ has an orthonormal basis of eigenvectors of $A$; adjoining $\ket{a_1}$ yields an orthonormal eigenbasis of $\mathcal H$. Collecting the basis vectors carrying the same eigenvalue $a_\nu$, their span is the $a_\nu$-eigenspace with projector $P_\nu$, and the expansion of $A$ in its own eigenbasis reads $A=\sum_\nu a_\nu P_\nu$. \hfill$\square$
+
+The physical reading of the theorem is the closure of the observable concept: the theory has \emph{no orphan operators}. Every self-adjoint operator $A$ is some ideal experiment's encoding --- its eigenbasis supplies the complete set of alternatives, its eigenvalues the readings, and Section~\ref{sec:observables}'s construction recovers the full statistics. Combined with \eqref{eq:selfadjoint-reality} the circle is closed: an ideal experiment with real labels yields a self-adjoint operator, and every self-adjoint operator yields an ideal experiment. The vocabulary is fixed accordingly: Hermitian, self-adjoint, and observable-encoding name one class of operators.
+
+Two honesty pointers bound the theorem's reach. First, the proof just given is finite-dimensional. In infinite dimension the spectral theorem survives, but at a price --- spectra become continuous, operators unbounded, and domain questions inseparable from statements; the honest development belongs to Appendix~A, and Section~\ref{sec:continuous-spectra} previews the physics in one labeled preview, no more. Second, the induction above is silent about multiplicity: when a root of $\chi_A$ repeats, the eigenspace $P_\nu$ has rank greater than one, a single outcome no longer selects a ray, and the same quantity can be resolved further by other questions. That is degeneracy, and it is the next section's subject.
+
+The two-state system exhibits the whole theorem at a glance, because there every self-adjoint operator can be diagonalized explicitly. A Hermitian $2\times2$ matrix has the form $\begin{pmatrix}\alpha&\beta\\\beta^{*}&\gamma\end{pmatrix}$ with $\alpha,\gamma$ real; writing $\alpha=a_0+a_z$, $\gamma=a_0-a_z$, and $\beta=a_x-ia_y$ parameterizes it as
+\begin{linenomath}
+\begin{equation}
+    A=a_0 I+a_x\sigma_x+a_y\sigma_y+a_z\sigma_z,
+    \qquad
+    a_0,a_x,a_y,a_z\in\mathbb{R},
+    \label{eq:hermitian-2d}
+\end{equation}
+\end{linenomath}
+in terms of three operators already earned. The first is $\sigma_z=P_{+z}-P_{-z}$, diagonal with entries $\pm1$. The second is $\sigma_x=P_{+x}-P_{-x}$, whose matrix is the arithmetic of Section~\ref{sec:projectors}'s polarization example, read through the identification $D\leftrightarrow\ket{+x}$, $A\leftrightarrow\ket{-x}$ recorded there. The third is constructed here: the $y$-magnet, whose alternatives are
+\begin{linenomath}
+\begin{equation}
+    \ket{\pm y}:=\frac{\ket{+z}\pm i\ket{-z}}{\sqrt2},
+\end{equation}
+\end{linenomath}
+the rotated states of \eqref{eq:spin-n} at polar angle $\theta=\pi/2$, azimuth $\varphi=\pi/2$ --- taken, like all of \eqref{eq:spin-n}, as experimental input --- and $\sigma_y:=P_{+y}-P_{-y}$. Complex amplitudes are not optional in this construction: no real equal-weight superposition of $\ket{+z}$ and $\ket{-z}$ remains equal-weight with respect to the $x$-alternatives as well --- the only real candidates are $\ket{\pm x}$ themselves, which the $x$-question prices $1$ and $0$ --- the necessity-of-$i$ computation of Section~\ref{sec:innerproduct} once again. As matrices in the $z$-basis,
+\begin{linenomath}
+\begin{equation}
+    \sigma_x=
+    \begin{pmatrix}
+        0&1\\
+        1&0
+    \end{pmatrix},
+    \qquad
+    \sigma_y=
+    \begin{pmatrix}
+        0&-i\\
+        i&0
+    \end{pmatrix},
+    \qquad
+    \sigma_z=
+    \begin{pmatrix}
+        1&0\\
+        0&-1
+    \end{pmatrix},
+\end{equation}
+\end{linenomath}
+the middle one from the spectral sum $\ket{+y}\!\bra{+y}-\ket{-y}\!\bra{-y}$.
+
+Diagonalizing \eqref{eq:hermitian-2d} is now explicit. Write $A=a_0I+\bm a\cdot\bm\sigma$ with $\bm a=(a_x,a_y,a_z)$ and $\bm a\cdot\bm\sigma:=a_x\sigma_x+a_y\sigma_y+a_z\sigma_z$. Expanding the square,
+\begin{linenomath}
+\begin{align}
+    (\bm a\cdot\bm\sigma)^2
+    &= (a_x\sigma_x+a_y\sigma_y+a_z\sigma_z)^2 \nonumber\\
+    &= a_x^2\sigma_x^2+a_y^2\sigma_y^2+a_z^2\sigma_z^2
+       + a_x a_y(\sigma_x\sigma_y+\sigma_y\sigma_x)
+       + a_y a_z(\sigma_y\sigma_z+\sigma_z\sigma_y)
+       + a_z a_x(\sigma_z\sigma_x+\sigma_x\sigma_z).
+\end{align}
+\end{linenomath}
+Each $\sigma_i^2=I$ from the projector algebra ($\sigma_i=P_{+i}-P_{-i}$, and $P_{+i}P_{-i}=0$ with $P_{+i}+P_{-i}=I$ gives the square $I$). The cross terms cancel in pairs: multiplying the $2\times2$ matrices displayed above verifies $\sigma_x\sigma_y+\sigma_y\sigma_x=0$, $\sigma_y\sigma_z+\sigma_z\sigma_y=0$, $\sigma_z\sigma_x+\sigma_x\sigma_z=0$. Hence $(\bm a\cdot\bm\sigma)^2=(a_x^2+a_y^2+a_z^2)I=|\bm a|^2 I$. An eigenvalue $\lambda$ of $\bm a\cdot\bm\sigma$ then obeys $\lambda^2=|\bm a|^2$; and since $\bm a\cdot\bm\sigma$ is traceless and, for $\bm a\neq0$, not a multiple of the identity, both signs occur. In the $z$-basis,
+\begin{linenomath}
+\begin{equation}
+    \bm a\cdot\bm\sigma=
+    \begin{pmatrix}
+        a_z & a_x-ia_y\\
+        a_x+ia_y & -a_z
+    \end{pmatrix}
+    =|\bm a|
+    \begin{pmatrix}
+        \cos\theta & e^{-i\varphi}\sin\theta\\
+        e^{i\varphi}\sin\theta & -\cos\theta
+    \end{pmatrix},
+\end{equation}
+\end{linenomath}
+where $(\theta,\varphi)$ are the polar angles of the unit vector $\bm n:=\bm a/|\bm a|$. Multiplying this matrix onto the column of $\ket{+\bm n}$ from \eqref{eq:spin-n}:
+\begin{linenomath}
+\begin{align}
+    (\bm a\cdot\bm\sigma)\ket{+\bm n}
+    &= |\bm a|
+    \begin{pmatrix}
+        \cos\theta & e^{-i\varphi}\sin\theta\\
+        e^{i\varphi}\sin\theta & -\cos\theta
+    \end{pmatrix}
+    \begin{pmatrix}
+        \cos\frac{\theta}{2}\\
+        e^{i\varphi}\sin\frac{\theta}{2}
+    \end{pmatrix}
+    = |\bm a|
+    \begin{pmatrix}
+        \cos\theta\cos\frac{\theta}{2}+\sin\theta\sin\frac{\theta}{2}\\
+        e^{i\varphi}(\sin\theta\cos\frac{\theta}{2}-\cos\theta\sin\frac{\theta}{2})
+    \end{pmatrix}\nonumber\\
+    &= |\bm a|
+    \begin{pmatrix}
+        \cos\frac{\theta}{2}\\
+        e^{i\varphi}\sin\frac{\theta}{2}
+    \end{pmatrix}
+    = +|\bm a|\,\ket{+\bm n},
+\end{align}
+\end{linenomath}
+using $\cos\theta\cos\frac{\theta}{2}+\sin\theta\sin\frac{\theta}{2}=\cos\frac{\theta}{2}$ and $\sin\theta\cos\frac{\theta}{2}-\cos\theta\sin\frac{\theta}{2}=\sin\frac{\theta}{2}$. The same multiplication for $\ket{-\bm n}$ yields $-|\bm a|\,\ket{-\bm n}$. The general two-state observable therefore has eigenvalues $a_0\pm|\bm a|$ and spectral decomposition
+\begin{linenomath}
+\begin{equation}
+    A=\bigl(a_0+|\bm a|\bigr)P_{+\bm n}+\bigl(a_0-|\bm a|\bigr)P_{-\bm n} .
+\end{equation}
+\end{linenomath}
+The spectral data --- an axis $\bm n$ and two readings $a_0\pm|\bm a|$ --- \emph{are} the operator: every Hermitian operator on $\mathbb C^2$ is a Stern--Gerlach magnet with a zero-shifted dial, and ``Hermitian operators encode spectral data'' is here made literal. The honesty clause of Chapter~2 stands unchanged: the half-angle form \eqref{eq:spin-n} of the eigenstates remains an experimental input, and its derivation is a debt owed to the rotation theory of the chapter on angular momentum. Nothing in this example is rotation theory; it is $2\times2$ arithmetic read through the spectral theorem.
+
+The advantage of the self-adjointness theorems is closure. The observable concept, built inductively from filters and counters, now exhausts its subject: real readings force $A=A^\dagger$, the spectral theorem guarantees that every such $A$ is an ideal experiment, and no further structure --- no hidden label, no privileged basis --- is either needed or permitted. Its limitation is twofold. The proof is finite-dimensional, and the continuum case must be re-earned with the analytic care deferred to Appendix~A. And the theorem treats one observable at a time: it certifies each question separately and says nothing about when two questions can be asked together. When eigenvalues repeat, a single question no longer exhausts the alternatives, and resolving the degeneracy needs several questions at once --- questions that must fit together. Whether they do is the subject of the next section.
+
+\section{Degeneracy and Compatible Observables}
+\label{sec:compatible}
+
+The spectral theorem of Section~\ref{sec:selfadjoint} grouped repeated eigenvalues into a single clause of the sum: when the characteristic polynomial has a repeated root $a_\nu$, its eigenspace $\mathcal H_\nu$ has dimension $d_\nu>1$, and the observable reads
+\begin{linenomath}
+\begin{equation}
+    A=\sum_\nu a_\nu P_\nu,
+    \qquad
+    \operatorname{rank}P_\nu=d_\nu\geq1 ,
+    \label{eq:spectral-degenerate}
+\end{equation}
+\end{linenomath}
+with $P_\nu$ the projector onto $\mathcal H_\nu$. Such an eigenvalue is called \textbf{degenerate}. A degenerate outcome does not select a ray; it selects a subspace. The instrument's dial cannot tell the vectors of $\mathcal H_\nu$ apart, although its mutually orthogonal vectors are perfectly distinguishable in the sense of Chapter~2 (orthogonal states, \eqref{eq:orthogonality-iff}): a finer experiment exists in principle, and the present one has simply not resolved it. Two questions then force themselves. What is the state after a degenerate outcome? And when can a second observable resolve what the first leaves unresolved? The first is answered by a new axiom --- the measurement postulate's one genuinely new clause. The second is the theory of compatible observables.
+
+Section~\ref{sec:filters} proved the update rule for sharp questions: conditional on a non-degenerate outcome, the state is the outcome's ray (\eqref{eq:state-update}, proved from repeatability, the Born rule, and the saturation clause of \eqref{eq:cauchy-schwarz}). For a degenerate outcome repeatability still constrains, but no longer determines, the conditional state, and the gap is closed by stipulation. We record it as the third measurement axiom.
+
+\medskip\noindent\textbf{Axiom M3 (the L\"uders update).} \emph{Conditional on the outcome $\nu$ of an ideal measurement, whose projector $P_\nu$ has any rank, the state updates as}
+\begin{linenomath}
+\begin{equation}
+    \ket{\psi}\;\longmapsto\;P_\nu\ket{\psi}
+    \qquad\text{(unnormalized);}
+    \qquad
+    \ket{\psi_\nu}=\frac{P_\nu\ket{\psi}}{\sqrt{p_\nu}},
+    \quad
+    p_\nu=\braket{\psi|P_\nu|\psi},
+    \label{eq:luders-update}
+\end{equation}
+\end{linenomath}
+\emph{with $p_\nu$ the probability of the outcome.} The probability is itself a computation, not an assumption: $p_\nu$ is the summed Born probability of the subspace's alternatives, $p_\nu=\sum_{n\in\nu}p_n=\braket{\psi|\sum_{n\in\nu}P_n|\psi}=\braket{\psi|P_\nu|\psi}$ by \eqref{eq:pvm-born} and the coarse-graining of Section~\ref{sec:pvm}. For a rank-1 projector, $P_\nu\ket{\psi}=\ket{e_\nu}\!\braket{e_\nu|\psi}$, and \eqref{eq:luders-update} reproduces the proved update of Section~\ref{sec:filters}; the axiom's new content is entirely in the higher-rank case.
+
+\begin{note}[Honesty bookkeeping: what is proved and what is axiomatic here]
+Repeatability alone forces the conditional state to lie \emph{within} the $\nu$-subspace, by the same certainty-plus-saturation logic as Section~\ref{sec:filters}: an immediate re-interrogation with the question $\{P_\nu,\,I-P_\nu\}$ must return $\nu$ with certainty, so the conditional state $\ket{\chi}$ obeys $\braket{\chi|I-P_\nu|\chi}=0$, and the positivity of the norm forces $(I-P_\nu)\ket{\chi}=0$, i.e.\ $\ket{\chi}\in\mathcal H_\nu$. But repeatability does \emph{not} fix the state within $\mathcal H_\nu$: any vector of the subspace re-passes the $\nu$-test with certainty. The L\"uders rule adds the genuinely new clause that the ideal filter preserves the incoming state's relative amplitudes \emph{inside} the subspace --- it resolves $\nu$ without re-preparing within $\nu$. This is the minimally-disturbing idealization, and it is named as one: real instruments may do more, and an outcome may re-prepare the subspace state entirely. Section~\ref{sec:filters}'s bookkeeping of selective and non-selective measurements consumed only the rank-1 theorem; the compatibility definition below, and every later degenerate-outcome update in this book, consume the present axiom.
+\end{note}
+
+Two observables $A$ and $B$ are called \textbf{compatible} when a $B$-measurement after an $A$-measurement never disturbs $A$'s outcomes: for every input state, every $A$-outcome $\nu$, and every $B$-outcome $\mu$ that may follow, an immediate re-test of $A$ returns $\nu$ with certainty. This is repeatability across questions, read off sequential filters; for degenerate $A$, the update rule \eqref{eq:luders-update} is exactly what ``after'' and ``re-test'' mean --- the state goes from $P_\nu^A\ket{\psi}$ to $P_\mu^B P_\nu^A\ket{\psi}$, and the re-test interrogates the latter. Compatibility is decidable by the algebra of the two operators alone, through the \textbf{commutator}, defined here at its first printing:
+\begin{linenomath}
+\begin{equation}
+    [A,B]:=AB-BA .
+    \label{eq:commutator-def}
+\end{equation}
+\end{linenomath}
+It enters as the compatibility diagnostic; its physics --- the arithmetic of filter order --- is developed in Section~\ref{sec:commutators}.
+
+\medskip\noindent\textbf{Compatibility theorem (finite-dimensional).} \emph{For self-adjoint $A$ and $B$ on a finite-dimensional $\mathcal H$, the following are equivalent:}
+\begin{linenomath}
+\begin{equation}
+    \text{$A$ and $B$ compatible}
+    \;\Longleftrightarrow\;
+    \text{common orthonormal eigenbasis}
+    \;\Longleftrightarrow\;
+    [A,B]=0 .
+    \label{eq:common-eigenbasis}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\emph{Proof.} Write $A=\sum_\nu a_\nu P_\nu^A$ and $B=\sum_\mu b_\mu P_\mu^B$ in spectral form, with eigenspaces $\mathcal H_\nu^A$ and $\mathcal H_\mu^B$.
+
+\emph{(i) Common eigenbasis $\Rightarrow$ non-disturbance.} Let $\{\ket{k}\}$ be a common orthonormal eigenbasis, $A\ket{k}=\alpha_k\ket{k}$, $B\ket{k}=\beta_k\ket{k}$. After an $A$-outcome $\nu$ the state lies in $\mathcal H_\nu^A$, the span of those $\ket{k}$ with $\alpha_k=a_\nu$. Each $B$-projector $P_\mu^B$ is a sum of rank-1 projectors $\ket{k}\!\bra{k}$ selected by $\beta_k=b_\mu$, and each $\ket{k}\!\bra{k}$ maps every common eigenvector either to itself or to zero; hence $P_\mu^B$ maps $\mathcal H_\nu^A$ into itself. The post-$B$ state $P_\mu^BP_\nu^A\ket{\psi}$ therefore remains in $\mathcal H_\nu^A$, and an immediate re-test of $A$ returns $\nu$ with certainty, for every input state and every $\mu$.
+
+\emph{(ii) Non-disturbance $\Rightarrow$ common eigenbasis.} Suppose compatibility holds, and take any $\ket{\psi}\in\mathcal H_\nu^A$ --- an $A$-preparation returning $\nu$ with certainty. After any $B$-outcome $\mu$, non-disturbance demands that an $A$ re-test still return $\nu$ with certainty, so by the certainty argument of the note above, $P_\mu^B\ket{\psi}\in\mathcal H_\nu^A$. Every $B$-projector thus maps every $A$-eigenspace into itself. A two-line lemma turns this invariance into commutation of the projectors: since $P_\mu^BP_\nu^A\ket{\psi}$ already lies in $\mathcal H_\nu^A$ for every $\ket{\psi}$, one has $P_\nu^AP_\mu^BP_\nu^A=P_\mu^BP_\nu^A$; taking the adjoint of this equality gives $P_\nu^AP_\mu^BP_\nu^A=P_\nu^AP_\mu^B$, and comparing the two,
+\begin{linenomath}
+\begin{equation}
+    \bigl[P_\nu^A,P_\mu^B\bigr]=0
+    \qquad\text{for all }\nu,\mu .
+\end{equation}
+\end{linenomath} Now $B=\sum_\mu b_\mu P_\mu^B$ leaves each $\mathcal H_\nu^A$ invariant, and its restriction to $\mathcal H_\nu^A$ is self-adjoint there; by the spectral theorem of Section~\ref{sec:selfadjoint}, $\mathcal H_\nu^A$ carries an orthonormal basis of eigenvectors of $B$, each of which is automatically an eigenvector of $A$ with eigenvalue $a_\nu$. Assembling these bases over all $\nu$ yields a common orthonormal eigenbasis of $\mathcal H$.
+
+\emph{(iii) The commutator clause.} If the spectral projectors commute, then
+\begin{linenomath}
+\begin{equation}
+    [A,B]=\sum_{\nu,\mu}a_\nu b_\mu\,\bigl[P_\nu^A,P_\mu^B\bigr]=0 ,
+\end{equation}
+\end{linenomath}
+since each operator is the spectral sum of its projectors. Conversely, if $[A,B]=0$, then for $\ket{\psi}\in\mathcal H_\nu^A$,
+\begin{linenomath}
+\begin{equation}
+    A\bigl(B\ket{\psi}\bigr)=BA\ket{\psi}=a_\nu\,B\ket{\psi},
+\end{equation}
+\end{linenomath}
+so $B\ket{\psi}\in\mathcal H_\nu^A$: the same invariance as in step (ii), and the same spectral-theorem argument diagonalizes $B$ within each $A$-eigenspace, producing a common eigenbasis. The three clauses of \eqref{eq:common-eigenbasis} are therefore equivalent. \hfill$\square$
+
+The theorem's laboratory content is that compatible observables refine one another. Measuring $A$ and then $B$ is one compound experiment whose outcomes are the pairs $(a_\nu,b_\mu)$; neither stage disturbs the other, and the joint question is sharper than either question alone. The endpoint of such refinement is a set $\{A,B,\dots\}$ of mutually commuting observables whose common eigenspaces are all one-dimensional --- a \textbf{complete set of commuting observables} (CSCO). The joint outcome then labels a ray uniquely:
+\begin{linenomath}
+\begin{equation}
+    A\ket{a_\nu,b_\mu,\dots}=a_\nu\ket{a_\nu,b_\mu,\dots},
+    \qquad
+    B\ket{a_\nu,b_\mu,\dots}=b_\mu\ket{a_\nu,b_\mu,\dots},
+    \quad\dots
+    \label{eq:csco-joint}
+\end{equation}
+\end{linenomath}
+and the readings $(a_\nu,b_\mu,\dots)$ are a complete experimental address of the state: the most refined preparation the system allows. This completes Chapter~2's dimension-as-count story (Section~\ref{sec:bases}): the number of joint outcomes of a CSCO --- the size of the most refined question --- is the dimension of $\mathcal H$, now counted by resolving power rather than by orthogonality alone.
+
+\begin{note}[Product-form caution]
+No tensor products appear in this chapter. Every example in this section lives in a single degree of freedom, or in a \emph{direct sum} of internal sectors in the sense of Chapter~2's superselection remark (Section~\ref{sec:rays}): sectors added, never factors multiplied. Composite systems, entanglement, and the tensor product belong to the chapter on composite systems and entanglement; nothing here depends on them.
+\end{note}
+
+The CSCO idea is exhibited by an atom carrying two long-lived internal spin-$\tfrac12$ doublets --- a ground doublet and a metastable doublet whose magnetic responses differ, i.e.\ whose Land\'e factors are unequal. The internal state space is the four-dimensional \emph{direct sum} $\mathcal H=\mathcal H_g\oplus\mathcal H_m$ of the two doublet spaces --- explicitly a sum, not a product, in the sense of the note above. Denote the $S_z$-eigenstates within the doublets by $\ket{g,\pm}$ and $\ket{m,\pm}$, with eigenvalues $\pm\hbar/2$. A first inhomogeneous magnetic field separates the two manifolds: it realizes the ``which-doublet'' observable $M$, each of whose eigenvalues is twofold degenerate. A second Stern--Gerlach stage, applied within each emerging beam, resolves $S_z$, whose eigenvalues are likewise twofold degenerate --- one alternative per manifold. In the basis $(\ket{g,+},\ket{g,-},\ket{m,+},\ket{m,-})$ both observables are diagonal,
+\begin{linenomath}
+\begin{equation}
+    M=\operatorname{diag}(m_g,m_g,m_m,m_m),
+    \qquad
+    S_z=\frac{\hbar}{2}\operatorname{diag}(1,-1,1,-1),
+\end{equation}
+\end{linenomath}
+and because both are diagonal in the same basis their commutator vanishes: $M S_z=S_z M=\operatorname{diag}(m_g\frac{\hbar}{2}, -m_g\frac{\hbar}{2}, m_m\frac{\hbar}{2}, -m_m\frac{\hbar}{2})$, so $[M,S_z]=0$. Neither question alone is complete: the $M$-outcome $g$ leaves the two-dimensional eigenspace spanned by $\ket{g,\pm}$, and the $S_z$-outcome $+\hbar/2$ leaves the span of $\ket{g,+}$ and $\ket{m,+}$. Jointly they resolve four rays: the common eigenspaces of $M$ and $S_z$ are the one-dimensional spans of $\ket{g,+},\ket{g,-},\ket{m,+},\ket{m,-}$, so $\{M,S_z\}$ is a CSCO, and a joint reading such as $(m_g,+\hbar/2)$ fixes the state uniquely.
+
+The same physics appears in a single suitably chosen gradient. Because the two doublets respond to the field with nonzero Land\'e factors of different magnitudes, the four states $\ket{g,\pm},\ket{m,\pm}$ carry four distinct magnetic responses, and one inhomogeneous field separates the beam into four spots --- the common refinement of both questions at once, possible precisely because the questions commute. The sequential reading is the compatibility theorem on the bench: an $M$-filter selecting the ground manifold, followed by an $S_z$-filter selecting $+$, followed by an $M$ re-test returns $g$ with certainty, for the $S_z$-stage acts within the $M$-eigenspace it inherits. The example is schematic, and is meant to be: the two doublets and their differing magnetic response are stipulated at the level of an idealized atom, with no species identified and no atomic-structure theory spent. The staged $M$-filter is likewise an idealized selector: no single magnetic gradient separates the two manifolds with $S_z$ unresolved, for the force on each state is proportional to $g\,m_j$ and splits every doublet symmetrically; a real realization must address the manifolds selectively, for instance by optical shelving.
+
+Compatibility is the exception, not the rule. The generic pair of questions does not fit together, and the commutator \eqref{eq:commutator-def} --- introduced above as a diagnostic --- measures exactly how much. That measurement is the next section's work.
+
+\section{Commutators and Incompatible Experiments}
+\label{sec:commutators}
+
+The compatibility theorem of Section~\ref{sec:compatible} pronounces a verdict --- a pair of observables either admits a common eigenbasis or it does not --- but a verdict is not yet a measure. The experiments of the historical chapter showed that the failure has a magnitude: a diagonal polarizer inserted between horizontal and vertical passes half the photons where crossed polarizers passed none, and an $x$-magnet inserted between two $z$-magnets restores counts that the $z$-pair alone had extinguished (Section~\ref{sec:twostate}). The quantity that carries this magnitude is already on the page. It is the commutator, defined in Section~\ref{sec:compatible} where the compatibility theorem first needed it (\eqref{eq:commutator-def}); this section elevates it from a diagnostic to the quantitative measure of incompatibility, and discharges with it one of the oldest unpaid debts of the book's kinematics.
+
+The algebra of the commutator is read off its definition \eqref{eq:commutator-def} by expansion:
+\begin{linenomath}
+\begin{align}
+    [A,B] &= AB - BA = -(BA - AB) = -[B,A],\\
+    [A,\alpha B + \beta C] &= A(\alpha B+\beta C) - (\alpha B+\beta C)A
+                           = \alpha AB + \beta AC - \alpha BA - \beta CA
+                           = \alpha[A,B] + \beta[A,C],\\
+    [A,BC] &= A(BC) - (BC)A = ABC - BCA
+            = ABC - BAC + BAC - BCA
+            = (AB - BA)C + B(AC - CA)
+            = [A,B]C + B[A,C].
+\end{align}
+\end{linenomath}
+To summarize:
+\begin{linenomath}
+    \begin{equation}
+        [A,B] = -[B,A],
+        \qquad
+        [A,\,\alpha B + \beta C] = \alpha\,[A,B] + \beta\,[A,C],
+        \qquad
+        [A,BC] = [A,B]\,C + B\,[A,C] .
+        \label{eq:commutator-algebra}
+    \end{equation}
+\end{linenomath}
+One structural fact will be spent in the next section. For self-adjoint $A$ and $B$ the commutator is anti-self-adjoint,
+\begin{linenomath}
+    \begin{equation}
+        [A,B]^\dagger = (AB - BA)^\dagger = B^\dagger A^\dagger - A^\dagger B^\dagger = BA - AB = -[A,B]
+        \qquad (A = A^\dagger,\ B = B^\dagger),
+        \label{eq:commutator-adjoint}
+    \end{equation}
+\end{linenomath}
+so that $i[A,B]$ is again self-adjoint: the commutator of two observables is not an observable, but $i$ times it is, and its expectation value in every state is real. This is the fact that Section~\ref{sec:uncertainty} turns into the uncertainty relations.
+
+With the commutator, the fourth kinematical requirement of the historical chapter (Section~\ref{subsec:why-kinematics}) --- \emph{the order of physical operations matters} --- receives its kinematical repayment. Successive measurements compose as operator products (Section~\ref{sec:projectors}): ``the $A$-question, then the $B$-question'' acts on a state as the product $BA$, and the same questions in the opposite order as $AB$. The difference of the two experiment orders is therefore the single operator $AB - BA = [A,B]$: noncommutation is the arithmetic of filter order. What the sequential polarizers and the sequential Stern--Gerlach magnets of the historical chapter exhibited on the bench (Section~\ref{sec:twostate}) is now a computation --- where the commutator vanishes the two orders agree and the questions refine one another (Section~\ref{sec:compatible}), and where it does not, no preparation can serve both orders alike. The repayment is deliberately partial. The kinematical share of the requirement --- operations compose noncommutatively, and operator multiplication \emph{is} that composition --- is hereby closed; the dynamical share, the order-sensitive composition of transformations and of time evolution, remains the evolution chapter's debt, declared open here as it was at the close of the states chapter (Section~\ref{sec:ch2summary}).
+
+The historically first instance of the algebra predates the formalism itself. The matrix mechanics of the historical chapter was built on the rule that observable data multiply noncommutatively, and on the canonical relation deduced from the correspondence with classical mechanics (Section~\ref{subsec:matrix}), which in the language of this chapter reads
+\begin{linenomath}
+    \begin{equation}
+        [Q,P] = i\hbar\,I .
+        \label{eq:canonical-commutator}
+    \end{equation}
+\end{linenomath}
+The relation is \emph{named} here, not built: the physical theory of the position and momentum operators --- their definitions, their domains, and the sense in which no finite-dimensional pair can obey the relation --- belongs to the preview of Section~\ref{sec:continuous-spectra} and to the chapter on operator methods and representations. What this section keeps is the identification itself: the canonical commutator is the historically first measured incompatibility, and Section~\ref{sec:uncertainty} will read its uncertainty relation off it directly.
+
+The two-state system exhibits the whole structure in miniature. Section~\ref{sec:projectors} computed the polarization-filter algebra and recorded the identification $H \leftrightarrow \ket{+z}$, $V \leftrightarrow \ket{-z}$, $D \leftrightarrow \ket{+x}$, $A \leftrightarrow \ket{-x}$; with it, the matrix of $\sigma_x = P_{+x} - P_{-x}$ is already on the page, $\sigma_z = P_{+z} - P_{-z}$ is the observable of Section~\ref{sec:observables} (\eqref{eq:sigma-n-def}), and $\sigma_y$ is the operator constructed in Section~\ref{sec:selfadjoint} with eigenstates $(\ket{+z} \pm i\ket{-z})/\sqrt{2}$. Direct multiplication then gives
+\begin{linenomath}
+    \begin{equation}
+        [\sigma_z, \sigma_x]
+        = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+        - \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+        = \begin{pmatrix} 0 & 2 \\ -2 & 0 \end{pmatrix}
+        = 2i\,\sigma_y .
+        \label{eq:sigma-commutator}
+    \end{equation}
+\end{linenomath}
+The physical content of \eqref{eq:sigma-commutator} is the difference of two benches. The product $P_{+x}P_{+z}$ is ``$z$-filter, then $x$-filter''; the product $P_{+z}P_{+x}$ is the same questions in the opposite order; and their difference acting on a state \emph{is} the commutator $[P_{+x},P_{+z}]$ at work --- the same order-sensitivity as \eqref{eq:sigma-commutator}, in arithmetic. The $z$--$x$--$z$ recapture probability of the historical chapter (Figure~\ref{fig:sequential_sg}) is the norm of such a chain: $P_{+z}P_{+x}\ket{+z} = \ket{+z}\braket{+z|+x}\braket{+x|+z} = \tfrac{1}{2}\ket{+z}$, whose squared norm $1/4$ is the probability of the history $({+z} \to {+x} \to {+z})$; the ${-x}$ branch contributes another $1/4$, and the recapture probability $1/2$ is recovered from operator arithmetic alone, with no fresh appeal to the bench. The two remaining products of the cycle, by the same multiplication,
+\begin{linenomath}
+\begin{equation}
+    [\sigma_x,\sigma_y]
+    = \begin{pmatrix}0&1\\1&0\end{pmatrix}\!\begin{pmatrix}0&-i\\i&0\end{pmatrix}
+      -\begin{pmatrix}0&-i\\i&0\end{pmatrix}\!\begin{pmatrix}0&1\\1&0\end{pmatrix}
+    = \begin{pmatrix}i&0\\0&-i\end{pmatrix} - \begin{pmatrix}-i&0\\0&i\end{pmatrix}
+    = 2i\sigma_z,
+\end{equation}
+\end{linenomath}
+and $[\sigma_y,\sigma_z]=2i\sigma_x$ by the identical computation with the cyclic permutation $(x,y,z)\mapsto(y,z,x)$; the three relations together are the complete incompatibility structure of the two-state system, every two-state commutator being a linear combination of them. Their deeper meaning, as the algebra of the rotation group, is a debt of the chapter on angular momentum; no rotation theory is used or claimed here.
+
+One conceptual remark is permitted before the quantitative work begins. That mutually exclusive experimental arrangements --- this magnet orientation or that one, never both at once --- can each be required for a complete account of the same system is the doctrine Bohr announced at Como under the name of complementarity, in the historical setting recorded by the historical chapter (Section~\ref{subsec:djv-formalism}). Noncommutativity is its precise kinematical form: the arrangements exclude one another because their operators do not commute, and the commutator measures how strongly. This book develops no philosophy beyond that pointer, for the physics of the doctrine is quantitative: noncommutativity casts a shadow on the statistics, a shadow in which no state can be sharp for both questions at once. That shadow is the next section.
+
+\section{Uncertainty Relations from Noncommutativity}
+\label{sec:uncertainty}
+
+Section~\ref{sec:commutators} closed with a qualitative claim: where $[A,B] \neq 0$, no preparation can serve both questions alike. This section makes the claim quantitative. The tool is the variance of Section~\ref{sec:observables} (\eqref{eq:variance}), restated for the occasion in operator form: with $\langle A\rangle_\psi := \braket{\psi|A|\psi}$ (\eqref{eq:expectation-operator}), the spread of the $A$-histogram on an ensemble prepared in $\ket{\psi}$ is
+\begin{linenomath}
+    \begin{equation}
+        (\Delta A)^2 = \bigl\langle\bigl(A - \langle A\rangle_\psi\bigr)^2\bigr\rangle_\psi
+        = \bigl\|\bigl(A - \langle A\rangle_\psi\bigr)\ket{\psi}\bigr\|^2 ,
+    \end{equation}
+\end{linenomath}
+the squared norm of a vector --- and it is this norm form that admits the Cauchy--Schwarz inequality admitted in the states chapter (\eqref{eq:cauchy-schwarz}).
+
+\textbf{Theorem (Robertson).} \emph{For self-adjoint $A$, $B$ and any state $\ket{\psi}$,}
+\begin{linenomath}
+    \begin{equation}
+        \Delta A\,\Delta B \;\geq\; \frac{1}{2}\,\bigl|\langle[A,B]\rangle_\psi\bigr| .
+        \label{eq:robertson}
+    \end{equation}
+\end{linenomath}
+The proof is three lines. Write $A' := A - \langle A\rangle_\psi\,I$ and $B' := B - \langle B\rangle_\psi\,I$; both are self-adjoint, and $(\Delta A)^2 = \|A'\ket{\psi}\|^2$, $(\Delta B)^2 = \|B'\ket{\psi}\|^2$. The Cauchy--Schwarz inequality (\eqref{eq:cauchy-schwarz}), applied to the two vectors $A'\ket{\psi}$ and $B'\ket{\psi}$, gives
+\begin{linenomath}
+    \begin{equation}
+        (\Delta A)^2\,(\Delta B)^2
+        = \|A'\ket{\psi}\|^2\,\|B'\ket{\psi}\|^2
+        \;\geq\; \bigl|\braket{\psi|A'B'|\psi}\bigr|^2 .
+    \end{equation}
+\end{linenomath}
+The expectation on the right decomposes into its Hermitian and anti-Hermitian parts,
+\begin{linenomath}
+    \begin{equation}
+        \langle A'B'\rangle_\psi
+        = \frac{1}{2}\,\bigl\langle A'B' + B'A' \bigr\rangle_\psi
+        + \frac{1}{2}\,\bigl\langle [A,B] \bigr\rangle_\psi ,
+    \end{equation}
+\end{linenomath}
+where $[A',B'] = [A,B]$ has been used; the first term is real and the second, by the anti-self-adjointness of the commutator (Section~\ref{sec:commutators}), is purely imaginary. The modulus therefore splits,
+\begin{linenomath}
+    \begin{equation}
+        \bigl|\langle A'B'\rangle_\psi\bigr|^2
+        = \frac{1}{4}\,\bigl\langle A'B' + B'A' \bigr\rangle_\psi^{\,2}
+        + \frac{1}{4}\,\bigl|\langle[A,B]\rangle_\psi\bigr|^2
+        \;\geq\; \frac{1}{4}\,\bigl|\langle[A,B]\rangle_\psi\bigr|^2 ,
+    \end{equation}
+\end{linenomath}
+and the square root of the two displays is \eqref{eq:robertson}.\footnote{The displayed algebra is finite-dimensional, or formal: for unbounded operators the vectors $A'\ket{\psi}$ and $B'\ket{\psi}$ must exist, and the products $AB$ and $BA$ must share a domain on which the decomposition runs. The rigorous statement is deferred to Appendix~A.} The discarded term is information, not waste: retaining it sharpens \eqref{eq:robertson} to $(\Delta A)^2(\Delta B)^2 \geq \tfrac{1}{4}\langle A'B' + B'A'\rangle_\psi^2 + \tfrac{1}{4}|\langle[A,B]\rangle_\psi|^2$, in which the covariance of the two observables cooperates with their commutator.\footnote{The strengthening is Schr\"odinger's: E.~Schr\"odinger, \emph{Sitzungsber. Preuss. Akad. Wiss. Phys.-Math. Kl.} \textbf{19}, 296 (1930); the relation \eqref{eq:robertson} itself was proved in this generality by H.~P.~Robertson, \emph{Phys. Rev.} \textbf{34}, 163 (1929).} In the examples of this chapter the covariance term vanishes, and \eqref{eq:robertson} is the operative bound.
+
+The operational reading of \eqref{eq:robertson} is exact and austere. The quantities $\Delta A$ and $\Delta B$ are ensemble spreads --- the widths of the two histograms accumulated when the $A$-question and the $B$-question are put, in separate runs, to members of an identically prepared ensemble, in the ensemble discipline of Section~\ref{sec:filters}. The inequality is a statement about those two histograms, state by state: whenever $\langle[A,B]\rangle_\psi \neq 0$, no preparation in the state $\ket{\psi}$ makes both distributions narrow. It is not a statement about the errors of single measurements, nor about one apparatus disturbing another, nor about any individual event; such stories may be told as heuristics, and the theorem needs none of them.
+
+The two-state system gives the first instance. From the cyclic commutators of Section~\ref{sec:commutators} (\eqref{eq:sigma-commutator} and its cycle),
+\begin{linenomath}
+    \begin{equation}
+        \Delta\sigma_x\,\Delta\sigma_z \;\geq\; \bigl|\langle\sigma_y\rangle_\psi\bigr| .
+    \end{equation}
+\end{linenomath}
+In the state $\ket{+z}$ the right side vanishes, and the inequality permits exactly what Section~\ref{sec:observables} computed (\eqref{eq:spin-expectation}): the $z$-question is sharp, $\Delta\sigma_z = 0$, while the $x$-question is maximally spread, $\Delta\sigma_x = 1$ --- one component certain, the other maximally uncertain, and the bound silent because the state has no $y$-inclination. In a state tilted toward the $y$-axis the right side is nonzero, and both perpendicular spreads must pay for it. The lesson is general: the bound is state-dependent, and where the mean commutator vanishes it simply falls silent.
+
+For the canonical pair of Section~\ref{sec:commutators}, $[Q,P] = i\hbar\,I$, the mean commutator is state-independent, and \eqref{eq:robertson} reads
+\begin{linenomath}
+    \begin{equation}
+        \Delta x\,\Delta p \;\geq\; \frac{\hbar}{2} .
+        \label{eq:xp-robertson}
+    \end{equation}
+\end{linenomath}
+This is stated as the formal consequence of the canonical commutator. The rigorous meaning of $\Delta x$ and $\Delta p$ --- for the unbounded position and momentum operators, with their domains and their non-normalizable eigenstates --- is deferred to Appendix~A and to the chapter on operator methods and representations. The physics of \eqref{eq:xp-robertson}, however, can be exhibited now, quantitatively, on a bench the book has already built.
+
+The relation entered physics in 1927, announced together with the doctrine of complementarity in the synthesis whose setting the historical chapter records (Section~\ref{subsec:djv-formalism}); its historical heuristic companion was Heisenberg's microscope thought experiment, in which the position of an electron is resolved by scattered light and the recoil of the scattering disturbs the momentum.\footnote{W.~Heisenberg, \emph{Z.~Phys.} \textbf{43}, 172 (1927).} That argument is named here, not used: it needs scattering kinematics and a model of instrumental disturbance, neither of which this chapter has built --- and the theorem above needs neither. The chapter's quantitative example is not scattering but diffraction, where the uncertainty physics is read off a single measured envelope.
+
+A single slit of width $a$ realizes the physics directly. The slit is a position filter: it transmits only amplitudes localized in its interval, the continuum's version of a projector --- the interval projectors made precise in Section~\ref{sec:continuous-spectra}. A particle that has passed the slit therefore carries a transverse position prepared to a width $\Delta x \sim a$. Its far-field amplitude on a screen at distance $L$ is the aperture integral of the states chapter (\eqref{eq:aperture}),
+\begin{linenomath}
+    \begin{equation}
+        A(x) \propto \int_{-a/2}^{a/2} e^{ikx'x/L}\,\dd x' = \frac{2L}{kx}\sin\frac{kax}{2L} ,
+    \end{equation}
+\end{linenomath}
+whose intensity envelope first vanishes at $kax/2L = \pi$, that is, at the transverse wave number $k_x = kx/L = 2\pi/a$. Reading the momentum scale off the envelope with de Broglie's relation $p = h/\lambda$ (Section~\ref{subsec:debroglie}), the transverse momentum distribution reaches its first zero at $p_x = \hbar k_x = h/a$: the slit has prepared a momentum spread $\Delta p_x \sim h/a$. The product of the two widths is
+\begin{linenomath}
+    \begin{equation}
+        \Delta x\,\Delta p_x \;\sim\; a\cdot\frac{h}{a} \;=\; h ,
+    \end{equation}
+\end{linenomath}
+the uncertainty physics of \eqref{eq:xp-robertson} read off the diffraction envelope, with the aperture width cancelling out of the product: narrowing the slit buys its position definition with a proportionally broader momentum envelope.
+
+The honesty clause of this example is mandatory, and it concerns the meaning of the word \emph{width}. The envelope is proportional to $\operatorname{sinc}^2(kax/2L)$, and that distribution has \emph{no finite second moment}: the integral $\int x^2\,\operatorname{sinc}^2(\alpha x)\,\dd x$ diverges, so the standard deviation of the arrival positions does not exist, and the $\Delta p_x$ of the estimate is not a Robertson standard deviation. It is a width-to-first-minimum --- an operational width, whose numerical constant depends on the convention adopted --- exactly as $\Delta x \sim a$ is the width of the transmitting interval and not a standard deviation. The example therefore exhibits the physics of the uncertainty relation without pretending to saturate \eqref{eq:xp-robertson}; the precise saturation story, and the preparations that achieve it, belong to the chapter on operator methods and representations.
+
+The advantage of the Robertson relation is its generality together with its austerity: one algebraic line --- noncommutativity, filtered through the admitted Cauchy--Schwarz theorem --- quantifies the incompatibility of every pair of questions, for every state, with no model of any instrument. Its limitations are written into its form. The bound is state-dependent and falls silent exactly where the mean commutator vanishes, as the spin instance showed; it constrains ensemble spreads and says nothing about single events or single devices; and for the pair on which it matters most, position and momentum, its rigorous content owes Appendix~A an analysis of unbounded operators and their domains. The relation is the exact quantitative shadow of noncommutativity --- and a shadow, by its nature, is not the object.
+
+The canonical pair's alternatives are continuous, and the example has just spent them: the slit was called a projector onto an interval and the momentum a de Broglie scale, both honestly but neither formally. What, exactly, becomes of the measurement theory when the alternatives form a continuum? The answer is a preview --- labeled, bounded, and tied to Appendix~A --- and it is the next section.
+
+\section{The Continuous Spectrum: an Honest Preview}
+\label{sec:continuous-spectra}
+
+Everything proved so far lives where the alternatives can be counted. The diffraction physics of Section~\ref{sec:uncertainty} has already spent a continuum: the slit prepared a position, the screen registered one, and both were spoken of honestly but informally. This section is the chapter's one labeled preview of the continuous case. It states what the measurement theory becomes when the alternatives form a continuum; it uses only the shorthand the states chapter has already licensed; and it assigns its two honest debts in advance --- rigor to Appendix~A, physics to the chapter on operator methods and representations. Nothing later in the book will silently reuse more than is exhibited here.
+
+The mechanism is already built; it only needs to be re-read as measurement. In the states chapter, $N$ illuminated slits fused into a continuous aperture as $N \to \infty$ with the aperture held fixed (\eqref{eq:nslit}, \eqref{eq:aperture}): each slit was one alternative, and the fusion replaced the sum over alternatives by an integral. Measurement-theoretically, each slit was a rank-1 alternative with its projector, and the fused continuum therefore assigns a projector not to a point but to an \emph{interval}:
+\begin{linenomath}
+    \begin{equation}
+        P_I = \int_I \ket{x}\bra{x}\,\dd x ,
+        \label{eq:interval-projector}
+    \end{equation}
+\end{linenomath}
+written with the states chapter's $\delta$-normalization shorthand (\eqref{eq:delta-normalization}). The family of all such $P_I$ is a projection-valued measure on the line, in exactly the sense of Section~\ref{sec:pvm} with sums replaced by integrals: $P_\emptyset = 0$; $P_{\mathbb{R}} = I$, formally the continuum composition law (\eqref{eq:continuum-composition}); and $P_{I \cup J} = P_I + P_J$ for disjoint intervals, since integrals add over disjoint domains.
+
+\begin{note}
+The warning of the states chapter stands verbatim (\eqref{eq:delta-normalization} and the note attached to it there): the ket $\ket{x}$ is \emph{not} a vector of $\mathcal{H}$ --- its formal norm diverges, and no convention repairs the defect --- and \eqref{eq:interval-projector} is a calculus whose honest justification, the rigged Hilbert space, is Appendix~A's debt. Every statement made with the shorthand can be re-expressed, at the price of some care, among the genuine vectors of $L^2(\mathbb{R})$ (\eqref{eq:l2}).
+\end{note}
+
+The position measurement is now a computation. For a state with wave function $\psi(x) = \braket{x|\psi}$ (\eqref{eq:wavefunction}), the probability that the position registration falls in the interval $I$ is the expectation of its projector,
+\begin{linenomath}
+    \begin{equation}
+        p(I) = \braket{\psi|P_I|\psi} = \int_I |\psi(x)|^2\,\dd x ,
+        \label{eq:position-born}
+    \end{equation}
+\end{linenomath}
+which is Born's 1926 rule (Section~\ref{subsec:born-probability}) --- announced in the historical chapter as an interpretation of the wave function --- recovered here as the expectation of the interval projectors: the continuum's instance of the Born rule in projection-valued-measure language (\eqref{eq:pvm-born}). The mean position is the expectation of the same measure,
+\begin{linenomath}
+    \begin{equation}
+        \langle x\rangle_\psi = \int_{-\infty}^{+\infty} x\,|\psi(x)|^2\,\dd x ,
+        \label{eq:position-expectation}
+    \end{equation}
+\end{linenomath}
+and the whole statistic compresses, formally, into the symbol $(X\psi)(x) = x\,\psi(x)$, the \emph{position operator}. The name carries its status on its face: $X$ is unbounded, acts only on a domain within $L^2(\mathbb{R})$, and possesses no eigenvectors in $\mathcal{H}$ at all.\footnote{These are precisely the features --- unboundedness, domains, continuous spectra --- that the infinite-dimensional spectral theorem of Appendix~A is built to handle; the finite-dimensional theorem of Section~\ref{sec:selfadjoint} proves nothing about $X$.} In this chapter, accordingly, $X$ remains exactly what the shorthand licenses: a labeled compression of the interval projection-valued measure, not an operator in the developed sense of Sections~\ref{sec:projectors}--\ref{sec:selfadjoint}.
+
+Momentum is named, not built. De Broglie's relation (Section~\ref{subsec:debroglie}) singles out the plane waves $e^{ipx/\hbar}$ as the candidates for momentum-sharp states; but such a wave has divergent norm --- an exercise of the states chapter computes it directly (Section~\ref{sec:hilbert}) --- so the momentum-sharp candidates are no more vectors of $\mathcal{H}$ than $\ket{x}$ is. The momentum operator, and with it the canonical commutator's proper home, is the representations chapter's debt; the relation $[Q,P] = i\hbar\,I$ itself was named, not built, in Section~\ref{sec:commutators}.
+
+It is worth listing, as the states chapter did for its own continuum, what the fusion of alternatives preserves and what it breaks. \emph{Surviving}, with sums systematically replaced by integrals: the projection-valued-measure language of Section~\ref{sec:pvm} --- the projectors $P_\Omega$, coarse-graining, the Born rule (\eqref{eq:pvm-born}); the spectral decomposition of Section~\ref{sec:observables}, whose continuum form underlies \eqref{eq:interval-projector}; expectation values and variances, as above. \emph{Broken}: the eigenkets --- $\ket{x} \notin \mathcal{H}$, and the eigenvalue equation $X\ket{x} = x\ket{x}$ (\eqref{eq:eigenproblem}) has no normalizable solutions; and with the eigenkets goes the finite-dimensional spectral theorem itself, whose honest infinite-dimensional successor --- projection-valued measures on $\mathbb{R}$, unbounded self-adjoint operators, their domains --- is Appendix~A's debt, as Section~\ref{sec:selfadjoint} declared.
+
+The diffraction screen of Section~\ref{sec:uncertainty} is the continuum's first instrument, and it is already built. Each bin $I$ of the screen's surface is an interval alternative, and the counts accumulated in it realize $P_I$: run by run, the histogram of arrivals converges to the distribution
+\begin{linenomath}
+    \begin{equation}
+        |\psi_{\mathrm{screen}}(x)|^2 \propto \operatorname{sinc}^2\!\left(\frac{kax}{2L}\right) ,
+    \end{equation}
+\end{linenomath}
+the squared aperture amplitude of the states chapter (\eqref{eq:aperture}) --- the chapter's flagship example recycled as the continuous measure's first measurement. The cumulative counts up to the position $x$ evaluate the same measure on a half-line,
+\begin{linenomath}
+    \begin{equation}
+        F(x) = \int_{-\infty}^{x} |\psi_{\mathrm{screen}}(x')|^2\,\dd x' ,
+    \end{equation}
+\end{linenomath}
+and the family $\{F(x)\}$ is the cumulative distribution of that measure --- its expectation on the preparation --- read out directly, bin by bin, on the bench.
+
+The measurement theory is complete, the continuum honestly included: what the finite theory proved, the preview states, and what the preview cannot prove, it owes by name. It remains to collect the axioms in one place, to balance the ledger of debts, and to name the question that measurement theory itself cannot answer.
+
+\section{The Measurement Axioms: Summary and Open Debts}
+\label{sec:ch3summary}
+
+The construction of this chapter is complete, and its content compresses into five statements. As with the states chapter, each is an axiom in the formal sense and an experimental report in the operational one --- with one exception, honestly labeled: the higher-rank update of Section~\ref{sec:compatible} is the chapter's single genuinely new axiom, and it says so in its place.
+\begin{enumerate}
+    \item[\textbf{(M1)}] \textbf{Ideal measurement.} An ideal measurement is a complete set of mutually exclusive alternatives realized as a reproducible filter: an immediate re-interrogation of a selected output returns the same outcome with certainty (Section~\ref{sec:filters}). \emph{Warrant:} the re-tested beams of the sequential experiments --- a $\ket{+z}$-selected beam re-asked the $z$-question answers $+z$ with certainty (Figure~\ref{fig:sequential_sg}).
+    \item[\textbf{(M2)}] \textbf{Outcome probabilities.} The outcome $n$ of an ideal measurement on the state $\ket{\psi}$ occurs with probability $p_n = \braket{\psi|P_n|\psi}$, the expectation of the outcome's projector (Sections~\ref{sec:filters}--\ref{sec:pvm}; \eqref{eq:pvm-born}). \emph{Warrant:} the Born rule of the states chapter (\eqref{eq:born-rule}), of which this is the restatement in projector language.
+    \item[\textbf{(M3)}] \textbf{State update.} Conditional on a non-degenerate outcome $n$, the state is the ray of $\ket{e_n}$ --- a \emph{theorem}, proved from repeatability, the Born rule, and the saturation clause of the Cauchy--Schwarz inequality (\eqref{eq:state-update}, Section~\ref{sec:filters}). Conditional on a degenerate outcome $\nu$ with projector $P_\nu$, the state updates as $\ket{\psi} \mapsto P_\nu\ket{\psi}$, renormalized (\eqref{eq:luders-update}, Section~\ref{sec:compatible}): the L\"uders rule, the measurement postulate's one genuinely new axiom, adopted exactly where repeatability stops forcing the answer. \emph{Warrant:} repeatability forces the conditional state into the outcome's subspace; the preservation of the incoming relative amplitudes within it is the minimally-disturbing idealization, named as one.
+    \item[\textbf{(M4)}] \textbf{Observables.} An observable is a projection-valued measure whose outcomes carry real numerical labels --- equivalently, a self-adjoint operator $A = \sum_n a_n P_n$ (\eqref{eq:spectral-decomposition}); in finite dimension every self-adjoint operator is the spectral encoding of an ideal experiment, and the instrument readings are its eigenvalues (Sections~\ref{sec:observables}--\ref{sec:selfadjoint}). \emph{Warrant:} instrument readings are real numbers, and reality in every state forces $A = A^\dagger$ (\eqref{eq:selfadjoint-reality}); the spectral theorem then leaves no orphan operators.
+    \item[\textbf{(M5)}] \textbf{Compatibility.} Two observables are compatible --- each question undisturbed by the other --- if and only if they possess a common orthonormal eigenbasis, if and only if their commutator vanishes (\eqref{eq:common-eigenbasis}, Section~\ref{sec:compatible}); the quantitative shadow of incompatibility is the Robertson bound $\Delta A\,\Delta B \geq \tfrac{1}{2}|\langle[A,B]\rangle_\psi|$ (\eqref{eq:robertson}, Section~\ref{sec:uncertainty}). \emph{Warrant:} the staged-filter experiments, and the Cauchy--Schwarz theorem admitted in the states chapter.
+\end{enumerate}
+
+The chapter's integration of experiment and formalism is collected, in lieu of a new example, in Table~\ref{tab:ch3-dictionary}, which adds the operator rows to the experiment--formalism dictionary of the states chapter (Table~\ref{tab:ch2-dictionary}).
+\begin{table}[htbp!]
+    \centering
+    \caption{The experiment--formalism dictionary, continued: the operator rows of this chapter, extending Table~\ref{tab:ch2-dictionary}.}
+    \label{tab:ch3-dictionary}
+    \begin{tabular}{ll}
+        \toprule
+        Experimental notion & Formal object \\
+        \midrule
+        A reproducible filter & a projector \\
+        A complete experimental question & a projection-valued measure \\
+        A numerical instrument & a self-adjoint operator \\
+        An instrument reading & an eigenvalue \\
+        A sharp preparation & an eigenstate \\
+        Joint refinability of two questions & a vanishing commutator \\
+        Irreducible joint spread & the Robertson bound \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The mainline duty is a ledger of debts, and it must now be stated plainly. \emph{Repaid:} the four measurement debts of the states chapter --- the operator reading of the completeness shorthand (\eqref{eq:completeness-shorthand}), discharged as the resolution of identity (\eqref{eq:resolution-identity}, Section~\ref{sec:projectors}); the measurement postulate proper, discharged as the filter definition and the rank-1 update theorem of Section~\ref{sec:filters} together with the L\"uders axiom of Section~\ref{sec:compatible}; the Gleason signpost, stated in projector language in Section~\ref{sec:pvm}; and the uncertainty relations, proved from the admitted Cauchy--Schwarz theorem in Section~\ref{sec:uncertainty}. Repaid also are two older debts of the historical chapter: requirement (iv), the order-sensitivity of physical operations (Section~\ref{subsec:why-kinematics}), discharged kinematically in Sections~\ref{sec:projectors} and~\ref{sec:commutators} --- successive processes compose as operator products, and noncommutation is the arithmetic of filter order --- and the matrix-mechanics debt (Section~\ref{subsec:matrix}), discharged as the commutator theory of Section~\ref{sec:commutators}. \emph{Planted, and declared openly:} unitary relabelings, and the exit question below, to the chapter on evolution; the canonical pair's physical theory --- position and momentum as operators, their domains, the commutator's proper home --- to the chapter on operator methods and representations, with the preview of Section~\ref{sec:continuous-spectra}; the rotational meaning of the two-state commutator algebra, to the chapter on angular momentum; density operators, Gleason's $\rho$, the bookkeeping of non-selective measurement, and the measurement problem, to the chapter on composite systems; spectral rigor for the continuum, to Appendix~A. The dynamical share of requirement (iv) remains, as declared in Section~\ref{sec:commutators}, the evolution chapter's.
+
+An observable is a self-adjoint operator, and a measurement is a projector's work. But the theory so far speaks only of interrogations: a preparation, then a question, then an answer. Between two measurements the counters are silent --- and the silence is an experimental fact with content, for interrogating identically prepared ensembles after different waiting times does not answer as ``nothing happened'' would predict: the next experiment's counts depend on the delay. Yet no axiom given so far contains the waiting time. What law governs the state between measurements? That is the theory of evolution, and it is the next chapter.
+
+\begin{problemset}
+\item ($\star$) (Section~\ref{sec:filters}) A Stern--Gerlach $z$--$x$--$z$ chain (Figure~\ref{fig:sequential_sg}) is fed with atoms prepared in $\ket{+z}$. Apply the rank-1 update theorem of Section~\ref{sec:filters} stage by stage: after the $x$-stage, and again after the final $z$-stage, write the conditional state for each recorded outcome. Enumerate the four outcome histories $({\pm x}\text{ then }{\pm z})$, compute the probability of each as a product of stage probabilities, and verify that the four joint probabilities sum to one. Show that the final counts are $+z$ and $-z$ in equal shares $1/2$, whichever $x$-outcome was recorded --- the $x$-selection has re-prepared the state.
+
+\item ($\star$) (Section~\ref{sec:projectors}) Using the $\mathbb{C}^2$ columns of the states chapter, write the polarization projectors $P_D = \ket{D}\bra{D}$ and $P_A = \ket{A}\bra{A}$ as explicit $2\times2$ matrices in the $H/V$ basis, where $\ket{D} = (\ket{H}+\ket{V})/\sqrt{2}$ and $\ket{A} = (\ket{H}-\ket{V})/\sqrt{2}$. Verify idempotence $P_D^2 = P_D$, mutual exclusivity $P_D P_A = 0$, and completeness $P_D + P_A = I$ by direct multiplication. Compute $\|P_V P_D P_H\ket{H}\|^2$ and compare with the value $1/4$ measured for the polarizer chain of the historical chapter (Section~\ref{sec:twostate}).
+
+\item ($\star\star$) (Section~\ref{sec:pvm}) A spin-$1$ Stern--Gerlach apparatus has three outcomes, with projectors $P_+ = \operatorname{diag}(1,0,0)$, $P_0 = \operatorname{diag}(0,1,0)$, $P_- = \operatorname{diag}(0,0,1)$ in the basis $\{\ket{+1},\ket{0},\ket{-1}\}$. (a) Verify the projection-valued-measure axioms of Section~\ref{sec:pvm} for the family $\{P_+,P_0,P_-\}$. (b) Coarse-grain to the two-outcome measure $\{P_+ + P_-,\ P_0\}$, and state in one sentence which experimental question it asks. (c) For the state $(1,1,1)^{T}/\sqrt{3}$, compute all outcome probabilities in both the fine and the coarse measure, and verify consistency: the coarse outcome ``$\pm$'' must carry probability $2/3$, the sum of its two fine constituents, and the total probability must remain one throughout.
+
+\item ($\star\star$) (Section~\ref{sec:observables}) \emph{Take the half-angle law as given} (\eqref{eq:half-angle}, experimental input). A spin-$\tfrac{1}{2}$ system is prepared in the state
+\begin{linenomath}
+    \begin{equation}
+        \ket{\psi} = \cos\frac{\theta'}{2}\,\ket{+z} + e^{i\varphi'}\sin\frac{\theta'}{2}\,\ket{-z} ,
+    \end{equation}
+\end{linenomath}
+and interrogated along the axis $\bm{n}$ with polar angles $(\theta,\varphi)$, using the observable $\sigma_{\bm n} = P_{+\bm n} - P_{-\bm n}$ (\eqref{eq:sigma-n-def}) and the rotated basis $\ket{\pm\bm n}$ of the states chapter (\eqref{eq:spin-n}). (a) Compute $\langle\sigma_{\bm n}\rangle_\psi$ and $\Delta\sigma_{\bm n}$ as functions of $(\theta,\varphi)$ and $(\theta',\varphi')$. (b) Show that $\Delta\sigma_{\bm n} = 0$ exactly when $\bm n$ coincides with the preparation axis $(\theta',\varphi')$, and interpret: along which axis is the preparation sharp, and along which axis is the spread maximal?
+
+\item ($\star\star$) (Section~\ref{sec:selfadjoint}) Let $A = (\sigma_x + \sigma_z)/\sqrt{2}$, with $\sigma_x, \sigma_z$ the $2\times2$ matrices of Sections~\ref{sec:projectors} and~\ref{sec:observables}. (a) Diagonalize $A$ explicitly: find its eigenvalues and its eigenbasis, expressed in the $z$-basis. (b) The spectral theorem of Section~\ref{sec:selfadjoint} promises that $A$ encodes a Stern--Gerlach axis: identify the axis $\bm{n}$, and verify by direct multiplication that $A = (+1)\,P_{+\bm n} + (-1)\,P_{-\bm n}$ with $P_{\pm\bm n} = \ket{\pm\bm n}\bra{\pm\bm n}$. (c) Generalize: for $A = \bm{a}\cdot\bm{\sigma} := a_x\sigma_x + a_y\sigma_y + a_z\sigma_z$ with real coefficients, show that the eigenvalues are $\pm|\bm{a}|$.
+
+\item ($\star\star\star$) (Section~\ref{sec:compatible}) In the two-doublet atom of Section~\ref{sec:compatible}'s example, the state space is the four-dimensional \emph{direct sum} of a ground doublet and a metastable doublet, with basis $\{\ket{g,+},\ket{g,-},\ket{m,+},\ket{m,-}\}$ ordered by manifold and by $z$-component within each manifold. (a) Write the which-manifold observable $M$ (eigenvalue $+1$ on the ground doublet, $-1$ on the metastable doublet) and the $z$-component $S_z$ (eigenvalues $\pm\hbar/2$ within each doublet) as diagonal $4\times4$ matrices, and show by direct multiplication that $[M,S_z] = 0$. (b) List the four common eigenrays and their joint labels. (c) Exhibit an observable $B'$ --- a diagonal matrix of your choice --- that commutes with $M$ yet fails to resolve the within-manifold degeneracy. (d) State precisely, in terms of the dimensions of the common eigenspaces, why $\{M,S_z\}$ is a complete set of commuting observables and $\{M,B'\}$ is not.
+
+\item ($\star\star\star$) (Sections~\ref{sec:commutators} and~\ref{sec:uncertainty}) Let $\ket{+\bm n_0}$ be the spin state sharp along the unit vector $\bm n_0 = (n_x,n_y,n_z)$, for which $\langle\sigma_i\rangle = n_i$ and $\Delta\sigma_i = \sqrt{1-n_i^2}$. (a) Using the cyclic commutators of Section~\ref{sec:commutators} (\eqref{eq:sigma-commutator} and its cycle), compute $\langle[\sigma_i,\sigma_j]\rangle$ for all three pairs. (b) Verify each Robertson inequality (\eqref{eq:robertson}) explicitly; the identity $(1-n_x^2)(1-n_z^2) = n_y^2 + n_x^2 n_z^2$, and its permutations, may be useful. (c) Identify the states and the pairs for which the inequality is saturated \emph{trivially}, with vanishing right side, and state what that means physically: when is the bound silent, and when is it informative?
+
+\item ($\star\star\star$) (Sections~\ref{sec:uncertainty} and~\ref{sec:continuous-spectra}) The far-field amplitude behind a slit of width $a$ is the aperture integral (\eqref{eq:aperture}),
+\begin{linenomath}
+    \begin{equation}
+        A(x) \propto \frac{2L}{kx}\sin\frac{kax}{2L} ,
+    \end{equation}
+\end{linenomath}
+with $k = 2\pi/\lambda$ and $L$ the screen distance. (a) Locate the first minimum $x_1$ of the intensity envelope. (b) Convert $x_1$ to a transverse momentum via de Broglie's relation $p = h/\lambda$ (Section~\ref{subsec:debroglie}); taking the momentum to first minimum as the operational spread $\Delta p_x$, show that $a\,\Delta p_x = h$, with the numerical constant displayed explicitly. (c) Show that the second moment $\int x^2\,|A(x)|^2\,\dd x$ of the sinc$^2$ envelope diverges, and explain in one paragraph why the Robertson standard deviation of Section~\ref{sec:uncertainty} is therefore not the operative width in this estimate --- and why the estimate is nonetheless physically meaningful.
+\end{problemset}
+

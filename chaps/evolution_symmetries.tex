@@ -1,0 +1,986 @@
+\chapter{Evolution Operators, Symmetries, and Conservation Laws}
+
+\begin{note}
+    This chapter is deductive in character. Taking the state-space axioms of Chapter~2 and the measurement axioms of Chapter~3 as established input, it adds exactly one new axiom --- the evolution postulate --- and derives its consequences: the Schr\"odinger equation as the postulate's theorem-form, the spectral resolution of the evolution operator, two exact two-state dynamics (spin precession and magnetic resonance), the time-ordered exponential for driven systems, symmetry transformations and Wigner's theorem, continuous symmetries treated as Lie groups, the Galilean group with its algebra derived and its central charge exhibited, the special status of time, conservation laws with good quantum numbers and selection rules, and the discrete symmetries of space and time. Two deep theorems (Stone's and Wigner's) are stated without proof and cited with pointers to the literature; everything provable with the machinery at hand is proved. It presupposes nothing beyond Chapters~2 and~3.
+\end{note}
+
+The preceding chapter closed with a question it had proved its own axioms cannot answer (Section~\ref{sec:ch3summary}):
+\begin{quote}
+    An observable is a self-adjoint operator, and a measurement is a projector's work. But the theory so far speaks only of interrogations: a preparation, then a question, then an answer. Between two measurements the counters are silent --- and the silence is an experimental fact with content, for interrogating identically prepared ensembles after different waiting times does not answer as ``nothing happened'' would predict: the next experiment's counts depend on the delay. Yet no axiom given so far contains the waiting time. What law governs the state between measurements? That is the theory of evolution, and it is the next chapter.
+\end{quote}
+This chapter is that theory.
+
+The register of the answer differs from that of the first three chapters, and the difference is the book's, not merely the chapter's. Chapters~1--3 were inductive: from the crises of the old quantum theory and from the two-state experiments they distilled the state-space axioms (S1)--(S5) and the measurement axioms (M1)--(M5), admitting no formal object that had not first been earned on a bench. With those axioms in hand the book enters its second phase, in which the axioms are input and the theorems are output. Exactly one new axiom is added --- the evolution postulate of Section~\ref{sec:evolution-postulate} --- and everything else in the chapter is either proved from it and its predecessors, or cited honestly with the proof pointed to. Deduction does not mean detachment from the bench: by the charter of this phase, every section still lands on a measurable quantity --- precession and resonance frequencies, survival and beat laws, selection rules and degeneracies, and one phase between two orders of moving a system that no counter has yet exhibited.
+
+The question is as old as the theory, and the shape of its answer was glimpsed at the theory's birth. Heisenberg's transition quantities of 1925 oscillated at the Bohr frequencies by construction, because the observed spectral lines demanded it (Section~\ref{subsec:matrix}); Schr\"odinger's wave equation of 1926, a controlled guess in Chapter~1's accounting, supplied a law of motion in one representation; and the distinction drawn there between kinematics and dynamics --- kinematics fixes what kind of object a state is and what questions may be asked of it, while dynamics says how the state evolves in time (Section~\ref{subsec:why-kinematics}) --- is exactly the border this chapter crosses. Wigner and Weyl brought the theory of group representations into quantum mechanics within a few years, preparing the modern understanding of symmetry that Chapter~1 deferred to a later chapter (Section~\ref{subsec:djv-formalism}). This is that chapter as well: the law of waiting and the theory of symmetry turn out to be one subject, because evolution is the model continuous family of transformations.
+
+The route is deductive, but the landings are experimental. Section~\ref{sec:evolution-postulate} states the evolution postulate and proves its infinitesimal form; Section~\ref{sec:stationary-states} resolves the evolution operator into the spectrum of its generator and identifies what the eigenvalues physically are; Sections~\ref{sec:spin-precession} and~\ref{sec:time-ordered} solve the two-state dynamics exactly, first for a static field and then for a driven one, repaying the oldest two-state debt of the book, the Stern--Gerlach spin of Chapter~1. The chapter then turns to the transformations whose theory evolution completes: symmetry transformations, classified by Wigner's theorem (Section~\ref{sec:symmetry-transformations}); continuous symmetry families, recognized as Lie groups (Section~\ref{sec:lie-groups}); the Galilean group as the central worked example, with mass emerging as a central, superselected charge (Section~\ref{sec:galilean-group}); and the special status of time (Section~\ref{sec:time-status}). The harvest follows: conservation laws, good quantum numbers, degeneracy, and selection rules (Section~\ref{sec:conservation}); parity and time reversal (Section~\ref{sec:discrete-symmetries}); and at the exit, the ledger balanced and the next chapters' questions named (Section~\ref{sec:ch4summary}).
+
+\section{Between Interrogations: the Evolution Postulate}
+\label{sec:evolution-postulate}
+
+The question is now posed with all its machinery in place. A system is prepared in the state $\ket{\psi(0)}$ at time $t = 0$; it is then left alone; at time $t$ it is interrogated. The counters of that interrogation depend on the delay --- that is the experimental content of the preceding chapter's exit question --- so the preparation and the delay together fix a state $\ket{\psi(t)}$, and waiting defines a map $\ket{\psi(0)} \mapsto \ket{\psi(t)}$. What can be said about that map a priori, before any particular system is studied? Four clauses, each a bench report with its operative constraint named, fix its form completely; and the form they fix is this chapter's single new axiom.
+
+(i)~\emph{Linearity.} Between the preparation and the interrogation no record exists anywhere in the world of which alternative the system took --- that is what ``left alone'' means. By the marking clause of Chapter~2 (Section~\ref{sec:alternatives}), alternatives that leave no record combine by amplitudes, and amplitudes add: a superposition of preparations must evolve into the corresponding superposition of evolved states. The map of waiting is therefore a linear map on $\mathcal{H}$. The operative constraint is the absence of a record; where a record exists, the experiment is an interrogation and the law of this section does not apply to it.
+
+(ii)~\emph{Unitarity.} At any delay, any complete question may be asked, and its outcome probabilities must sum to one: for every projection-valued measure, $\sum_n \braket{\psi(t)|P_n|\psi(t)} = \braket{\psi(t)|\psi(t)}$ by the Born rule \eqref{eq:pvm-born} and the resolution of identity \eqref{eq:resolution-identity}. The map of waiting therefore preserves the norm of every state. A linear map that preserves the norm of every vector preserves every inner product --- inner products are fixed linear combinations of norms, by the polarization identity \eqref{eq:polarization} --- and is therefore unitary \eqref{eq:unitary-def}. One loophole must be closed honestly, and it is closed inside the axiom itself. Probability sums alone would also permit an \emph{antilinear} norm-preserving map, of which complex conjugation in a fixed basis is the prototype. The composition law of clause (iv) below excludes the loophole: it gives $U(t) = U(t/2)\,U(t/2)$, so every member of the family is a square, and the square of \emph{either} norm-preserving kind is linear --- conjugating the scalars twice restores them. Hence every $U(t)$ is linear, hence unitary. The antilinear possibility is genuine physics, not a pedant's scruple: it returns exactly once in this book, where the reversal of motion forces it (Section~\ref{sec:discrete-symmetries}), and its classification theorem is Wigner's (Section~\ref{sec:symmetry-transformations}).
+
+(iii)~\emph{Continuity.} The delayed counts vary continuously with the delay: no frequency has ever been observed to jump as a waiting time is dialed through any value. In the theory's language, $U(t)\ket{\psi}$ approaches $\ket{\psi}$ as $t \to 0$, for every prepared state --- strong continuity.
+
+(iv)~\emph{Composition.} Waiting $s$ and then waiting $t$ is one way of waiting $s + t$, so $U(t+s) = U(t)\,U(s)$; and the law of waiting does not depend on when the preparation happened --- the homogeneity of time --- so one and the same family $U(t)$ serves at every epoch, with $U(0) = I$. It is this clause that makes the family a \emph{one-parameter group}: composition is addition of the parameter. The vocabulary is Section~\ref{sec:lie-groups}'s; the fact is the bench's.
+
+None of these clauses is a theorem, and this section does not pretend otherwise: each is a plausibility argument whose operative constraint has been named, and together they fix the form of the law. That form we now postulate.
+
+\medskip\noindent\textbf{Axiom D1 (evolution between interrogations).} \emph{Between a preparation and the next interrogation, the state of an isolated system is carried by a family of linear operators $U(t)$, one for each waiting time:}
+\begin{linenomath}
+    \begin{equation}
+        \ket{\psi(t)} = U(t)\,\ket{\psi(0)}, \qquad U(t+s) = U(t)\,U(s), \qquad U(0) = I, \qquad U(t)^\dagger\,U(t) = I,
+        \label{eq:evolution-axiom}
+    \end{equation}
+\end{linenomath}
+\emph{with the family strongly continuous in $t$.}
+
+The axiom's whole content is infinitesimal: a family obeying the composition law is determined by its behavior at $t = 0$, and the object sitting there is the theory's first generator. In finite dimension the statement is elementary. A continuous unitary family is differentiable; differentiating $U(t)^\dagger U(t) = I$ at $t = 0$ gives $U'(0)^\dagger = -U'(0)$, so the operator $i\hbar\,U'(0)$ equals its adjoint. In the general case the differentiability itself is deep, and its theorem is cited, not proved.
+
+\medskip\noindent\textbf{Theorem (Stone, stated without proof).} \emph{Every strongly continuous one-parameter unitary family \eqref{eq:evolution-axiom} has a unique self-adjoint generator $H$:}
+\begin{linenomath}
+    \begin{equation}
+        U(t) = e^{-iHt/\hbar}, \qquad H := i\hbar\left.\frac{\dd U}{\dd t}\right|_{t=0},
+        \label{eq:generator-def}
+    \end{equation}
+\end{linenomath}
+\emph{where the exponential is the function $e^{-ixt/\hbar}$ of the observable $H$ in the sense of Chapter~3's function-of-an-observable rule \eqref{eq:function-of-observable}.}\footnote{M.~H. Stone, \emph{Ann. of Math.}~\textbf{33}, 643 (1932). For unbounded $H$ the exponential is defined through the spectral resolution, and the domain questions it raises belong to Appendix~A; the spectral reading of the display is made explicit in Section~\ref{sec:stationary-states}.} The insertion of $\hbar$ is, at this stage, dimensional only: $U'(0)$ is a rate, with units of inverse time, and multiplication by the quantum of action gives the generator the \emph{units} of energy. Whether the generator \emph{is} the energy observable is a physical question, not settled by a choice of units; it is earned in Section~\ref{sec:stationary-states}.
+
+\medskip\noindent\textbf{Theorem (Schr\"odinger equation; the theorem-form of D1).} \emph{Every state evolving by \textup{(D1)} obeys}
+\begin{linenomath}
+    \begin{equation}
+        i\hbar\,\frac{\dd}{\dd t}\ket{\psi(t)} = H\,\ket{\psi(t)},
+        \label{eq:schroedinger}
+    \end{equation}
+\end{linenomath}
+\emph{with $H$ the generator \eqref{eq:generator-def}.} The proof is one line of calculus on the family law:
+\begin{linenomath}
+    \begin{equation*}
+        \frac{\dd U}{\dd t}\bigg|_{t} = \lim_{\varepsilon\to 0}\frac{U(t+\varepsilon) - U(t)}{\varepsilon} = \lim_{\varepsilon\to 0}\frac{U(\varepsilon) - I}{\varepsilon}\,U(t) = U'(0)\,U(t) = -\frac{i}{\hbar}\,H\,U(t),
+    \end{equation*}
+\end{linenomath}
+and applying both sides to $\ket{\psi(0)}$ gives \eqref{eq:schroedinger}. The equation is therefore honestly labeled: it is not a new axiom but the infinitesimal register of (D1), and the two say one thing. In finite dimension the loop closes elementarily, without Stone's theorem: the equation $i\hbar\,\dd U/\dd t = HU$ with $U(0) = I$ has the unique solution $U(t) = e^{-iHt/\hbar}$, as differentiation of the exponential series shows at once. The generator $H$ is called the \textbf{Hamiltonian} of the system. The name is so far only a name; its physical reading as the energy is earned by the Bohr-frequency identification of Section~\ref{sec:stationary-states} and sealed by the time-translation analysis of Sections~\ref{sec:galilean-group} and~\ref{sec:time-status}.
+
+The equation has stood in this book twice before, and both appearances are now discharged. Chapter~1 recorded Schr\"odinger's wave equation of 1926 as a controlled guess, and its equivalence section recorded the component law $i\hbar\,\dot c_m = \sum_n H_{mn} c_n$ of matrix mechanics (Section~\ref{subsec:equivalence}). What \eqref{eq:schroedinger} adds is deductive status: the law of motion is proved from (D1), abstract and representation-free --- no longer a guess, and no longer tied to any representation. Its wave-mechanical specialization remains the next chapter's.
+
+One operational remark belongs to this section, stated once and not developed. Throughout this chapter, $t$ is the experimenter's waiting time, read from the laboratory clock: a parameter of the description, not an observable of the system --- no counter registers it. The structural consequences of that status (there is no time operator, and the Hamiltonian's role is dual) are analyzed in Section~\ref{sec:time-status}.
+
+\begin{note}
+Two laws, two jurisdictions. Between a preparation and the next interrogation, the state obeys (D1) alone: the evolution is continuous, deterministic, and reversible. At an interrogation, the measurement axioms (M1)--(M5) take over: the outcomes are random with Born-rule frequencies, and the conditional state is the L\"uders update \eqref{eq:luders-update} --- discontinuous and irreversible. The joint protocol of the theory is: evolve by \eqref{eq:schroedinger} between interrogations; update by \eqref{eq:luders-update} at one. Which physical event constitutes an interrogation --- when nature applies the second clause rather than the first --- the formalism does not say; that is the measurement problem, and it belongs to the chapter on composite systems.
+\end{note}
+
+The theorem's first consequence is a survival law, and it is measurable. Ask the simplest delayed question of all: is the system still in the state in which it was prepared? The survival amplitude is expanded from the exponential series of \eqref{eq:generator-def}:
+\begin{linenomath}
+    \begin{equation*}
+        \begin{aligned}
+            \braket{\psi(0)|\psi(t)}
+            &= \braket{\psi(0)|e^{-iHt/\hbar}|\psi(0)}
+             = \braket{\psi(0)|\Bigl(I - \frac{i}{\hbar}Ht - \frac{1}{2\hbar^2}H^2t^2 + O(t^3)\Bigr)|\psi(0)} \\[4pt]
+            &= 1 - \frac{i}{\hbar}\langle H\rangle_\psi\,t - \frac{1}{2\hbar^2}\langle H^2\rangle_\psi\,t^2 + O(t^3) .
+        \end{aligned}
+    \end{equation*}
+\end{linenomath}
+For the squared modulus, set $a := \frac{t}{\hbar}\langle H\rangle_\psi$ and $b := \frac{t^2}{2\hbar^2}\langle H^2\rangle_\psi$, so that $\braket{\psi(0)|\psi(t)} = 1 - ia - b + O(t^3)$. Then
+\begin{linenomath}
+    \begin{equation*}
+        \begin{aligned}
+            P(t) := \bigl|\braket{\psi(0)|\psi(t)}\bigr|^2
+            &= |1 - ia - b|^2 + O(t^4)
+             = (1 - b)^2 + a^2 + O(t^4) \\
+            &= 1 - 2b + a^2 + O(t^4)
+             = 1 - \frac{t^2}{\hbar^2}\langle H^2\rangle_\psi + \frac{t^2}{\hbar^2}\langle H\rangle_\psi^2 + O(t^4)
+             = 1 - \frac{t^2}{\hbar^2}\bigl(\langle H^2\rangle_\psi - \langle H\rangle_\psi^2\bigr) + O(t^4) .
+        \end{aligned}
+    \end{equation*}
+\end{linenomath}
+Collecting the variance via \eqref{eq:variance}:
+\begin{linenomath}
+    \begin{equation}
+        \braket{\psi(0)|\psi(t)} = 1 - \frac{i}{\hbar}\langle H\rangle_\psi\,t - \frac{t^2}{2\hbar^2}\langle H^2\rangle_\psi + O(t^3), \qquad P(t) = 1 - \frac{(\Delta H)^2}{\hbar^2}\,t^2 + O(t^4),
+        \label{eq:quadratic-survival}
+    \end{equation}
+\end{linenomath}
+with $(\Delta H)^2 := \langle H^2\rangle_\psi - \langle H\rangle_\psi^2$ the generator's variance \eqref{eq:variance} in the prepared state. Two readings of the display are experimental. First, no survival curve ever begins linearly: every decay starts flat, with a curvature set by the spread of the preparation over the generator's eigenvalues. Second, the flatness is exploitable: re-interrogating the survival question $n$ times at intervals $t/n$ returns the survival probability $P(t/n)^n \simeq \bigl(1 - (\Delta H)^2 t^2/\hbar^2 n^2\bigr)^n \longrightarrow 1$ as $n \to \infty$ --- watched sufficiently often, the state ceases to change. This is the \emph{quantum Zeno effect}, named once and not developed further.\footnote{B.~Misra and E.~C.~G.~Sudarshan, \emph{J. Math. Phys.}~\textbf{18}, 756 (1977).}
+
+The advantage of (D1) is its economy: a single axiom carries the entire dynamics of the theory, and every clause of it is a bench report --- linearity from the absence of records between interrogations, unitarity from the freedom to ask any complete question at any delay, continuity from the smooth drift of the counts, composition from the homogeneity of time. Its limitation is equally sharp: the postulate says \emph{that} a self-adjoint generator exists, never \emph{which} generator a given system has. The Hamiltonian is physical input, identified case by case; the two-state instances of Sections~\ref{sec:spin-precession} and~\ref{sec:time-ordered} are phenomenological identifications, measured rather than derived, and Section~\ref{sec:galilean-group} will show how far symmetry alone can carry the generator of a free system.
+
+The generator is in hand, but its eigenvalues are so far anonymous numbers: the theorem provides the operator, not their physical reading. What those eigenvalues \emph{are} --- and how the whole evolution decomposes into them --- is the spectral resolution of $U(t)$, the subject of the next section.
+
+\section{Stationary States and the Spectral Resolution of $U(t)$}
+\label{sec:stationary-states}
+
+The evolution postulate hands us a self-adjoint generator, and Chapter~3 hands us the language to read it: by the spectral theorem \eqref{eq:eigenproblem}, $H$ resolves into eigenvalues and projectors, $H = \sum_n E_n\,P_n$ \eqref{eq:spectral-decomposition}, with the degenerate form \eqref{eq:spectral-degenerate} when levels repeat. This section solves the evolution postulate in that language --- and in the solution discovers what the eigenvalues physically are.
+
+The exponential of \eqref{eq:generator-def} is the function $e^{-ixt/\hbar}$ of the observable $H$, in the sense of Chapter~3's function-of-an-observable rule \eqref{eq:function-of-observable}:
+\begin{linenomath}
+    \begin{equation}
+        U(t) = e^{-iHt/\hbar} := \sum_n e^{-iE_n t/\hbar}\,P_n .
+        \label{eq:evolution-operator}
+    \end{equation}
+\end{linenomath}
+That this family satisfies every clause of (D1) is a computation with the projector algebra \eqref{eq:projector-algebra}: orthogonality $P_m P_n = 0$ ($m \neq n$) collapses the double sum in $U(t)U(s)$ to $\sum_n e^{-iE_n(t+s)/\hbar}P_n = U(t+s)$; idempotence and the resolution of identity \eqref{eq:resolution-identity} give $U(0) = \sum_n P_n = I$; and the reality of the $E_n$ gives $U(t)^\dagger U(t) = \sum_n P_n = I$. Term-by-term differentiation gives $i\hbar\,\dd U/\dd t = \sum_n E_n e^{-iE_n t/\hbar}P_n = H\,U(t)$, the Schr\"odinger equation \eqref{eq:schroedinger}. In finite dimension nothing further is needed; the convergence questions of the infinite case are Appendix~A's.\footnote{For an unbounded $H$ the sum is replaced by an integral over the spectrum, and the differentiability statements hold on the generator's domain; see Appendix~A.}
+
+An eigenray of the generator evolves by a phase and nothing more, and a general preparation decomposes into such eigenrays:
+\begin{linenomath}
+    \begin{equation}
+        \ket{e_n(t)} = e^{-iE_n t/\hbar}\ket{e_n}, \qquad \ket{\psi(t)} = \sum_n c_n\,e^{-iE_n t/\hbar}\ket{e_n}, \qquad c_n = \braket{e_n|\psi(0)} .
+        \label{eq:stationary-phase}
+    \end{equation}
+\end{linenomath}
+By the ray theorem (Section~\ref{sec:rays}), a state changed only by a phase is the same state: a preparation sharp in the generator is physically unchanged by waiting, and every interrogation answers at time $t$ exactly as it answered at time $0$. Such eigenrays are called \emph{stationary states}. (They are eigenrays of $H$; no wave functions are involved or needed.) All the time dependence of a general state lives in the \emph{relative} phases $e^{-i(E_m - E_n)t/\hbar}$ of its stationary components.
+
+Insert the expansion into the expectation of any fixed operator $A$:
+\begin{linenomath}
+    \begin{equation}
+        \langle A\rangle(t) = \braket{\psi(t)|A|\psi(t)} = \sum_{m,n} c_m^{*}c_n\,e^{i(E_m - E_n)t/\hbar}\,\braket{e_m|A|e_n} .
+        \label{eq:bohr-frequencies}
+    \end{equation}
+\end{linenomath}
+Every time dependence of every expectation value is a sum of oscillations at the frequencies $\omega_{mn} := (E_m - E_n)/\hbar$ --- the \emph{Bohr frequencies} of the generator. This is exactly the time dependence Heisenberg imposed on his transition quantities in 1925, because the observed spectral lines come at such differences (Section~\ref{subsec:matrix}); here it is not imposed but derived, the dynamical repayment of that debt. And the empirical warrant Heisenberg had --- the combination principle, that spectral lines are differences of terms (Section~\ref{subsec:matrix}) --- is now turned into an identification, stated with its register made plain: \textbf{the eigenvalues of the generator are the energy levels of the system, and the generator $H$ is the energy observable.} The identification is physical, not definitional; its structural sealing --- time translation exhibited as the evolution family's place among the spacetime symmetries --- is the work of Sections~\ref{sec:galilean-group} and~\ref{sec:time-status}. Stationary states are now named honestly: they are the energy-sharp preparations.
+
+One clause of \eqref{eq:bohr-frequencies} deserves isolating at once: an operator with no matrix elements between distinct eigenrays, $\braket{e_m|A|e_n} = 0$ for $m \neq n$, has a constant expectation in every state. Which operators these are, and why, is the conservation theorem of Section~\ref{sec:conservation}.
+
+The two-state case computes the display end to end, and it is the book's first exact dynamics. The general two-state generator is Chapter~3's \eqref{eq:hermitian-2d}: $H = a_0\,I + \bm a\cdot\bm\sigma$, with eigenvalues $E_\pm = a_0 \pm |\bm a|$ and eigenrays the spin alternatives along $\pm\hat{\bm a}$. Take $\hat{\bm a} = \hat{\bm z}$ and prepare the state $\ket{+x} = (\ket{+z} + \ket{-z})/\sqrt{2}$ of Chapter~1's two-state grammar (Section~\ref{sec:twostate}). The state decomposes into the two stationary rays,
+\begin{linenomath}
+    \begin{equation*}
+        \ket{\psi(t)} = \frac{1}{\sqrt{2}}\Bigl(e^{-i(a_0+|\bm a|)t/\hbar}\ket{+z} + e^{-i(a_0-|\bm a|)t/\hbar}\ket{-z}\Bigr),
+    \end{equation*}
+\end{linenomath}
+and every expectation with off-diagonal content oscillates at the single Bohr frequency $\omega = (E_+ - E_-)/\hbar = 2|\bm a|/\hbar$:
+\begin{linenomath}
+    \begin{equation*}
+        \langle\sigma_x\rangle(t)
+        = \braket{\psi(t)|\sigma_x|\psi(t)}
+        = \frac{1}{2}\Bigl(e^{i\omega t}\braket{+z|\sigma_x|-z} + e^{-i\omega t}\braket{-z|\sigma_x|+z}\Bigr)
+        = \frac{1}{2}\bigl(e^{i\omega t} + e^{-i\omega t}\bigr)
+        = \cos\omega t,
+    \end{equation*}
+\end{linenomath}
+using $\sigma_x\ket{\pm z} = \ket{\mp z}$ from the Pauli algebra of Chapter~3 \eqref{eq:sigma-commutator}; a complete oscillation of the ensemble's answer between the $+x$ and $-x$ alternatives. Two measurables of this kind carry names. The intensity modulation of a radiating ensemble whose atoms are coherently excited into a superposition of two nearby levels is the \emph{quantum beat}, read off at the Bohr frequency of the pair. And Ramsey's separated-field method --- two short interrogations bracketing a free wait --- reads the accumulated relative phase directly, the working principle of atomic frequency standards. The overall rate $a_0/\hbar$ appears in no count: a common phase is unobservable (Section~\ref{sec:rays}), and only eigenvalue \emph{differences} are measured --- the combination principle again, now a theorem-clause of the evolution law.
+
+The beat was abstract: $a_0$ and $\bm a$ were numbers without an apparatus. The oldest two-state system of this book --- the spin of the Stern--Gerlach benches --- realizes it literally when a magnetic field does the driving. That realization, solved exactly, is next.
+
+\section{Spin in a Magnetic Field: Precession Solved Exactly}
+\label{sec:spin-precession}
+
+The Stern--Gerlach benches of Chapter~1 (Section~\ref{sec:twostate}, Figure~\ref{fig:stern_gerlach}) gave this book its first two-state system, and Pauli's two-valuedness gave the electron its spin (Section~\ref{subsec:spin}). The debt recorded then comes due now in its dynamical share: what does a spin \emph{do} between interrogations? In a static magnetic field the answer is exact, and it is this chapter's flagship computation.
+
+A spin carries a magnetic moment $\bm\mu = \gamma\,\bm S$, with $\bm S = (\hbar/2)\,\bm\sigma$ the spin operator of Chapter~3 \eqref{eq:sigma-n-def} and $\gamma$ the particle's gyromagnetic ratio --- a measured constant of the particle, known from the Stern--Gerlach deflection itself and read with precision by the resonance of Section~\ref{sec:time-ordered}. The coupling to a field $\bm B = B\bm n$ is $H = -\bm\mu\cdot\bm B$:
+\begin{linenomath}
+    \begin{equation*}
+        H = -\gamma\,\bm B\cdot\bm S = -\frac{\gamma\hbar B}{2}\,(\bm n\cdot\bm\sigma) =: \frac{\hbar\omega}{2}\,(\bm n\cdot\bm\sigma), \qquad \omega := -\gamma B .
+    \end{equation*}
+\end{linenomath}
+The identification is phenomenological in the sense of Section~\ref{sec:evolution-postulate}'s limitation: the form of the generator is measured, not derived. The Larmor frequency $\omega$ carries the sign of $-\gamma$ (the electron's $\gamma$ is negative, its $\omega$ positive); the sign fixes only the sense of the precession, and $|\omega|$ is what the bench measures.
+
+The evolution operator follows in closed form. The Pauli algebra recorded with \eqref{eq:hermitian-2d} gives $(\bm n\cdot\bm\sigma)^2 = I$, so the exponential series splits into its even and odd powers, the two subseries being those of the cosine and the sine:
+\begin{linenomath}
+    \begin{equation}
+        U(t) = e^{-i\omega t\,(\bm n\cdot\bm\sigma)/2} = \cos\frac{\omega t}{2}\,I - i\,\sin\frac{\omega t}{2}\,(\bm n\cdot\bm\sigma) .
+        \label{eq:larmor-evolution}
+    \end{equation}
+\end{linenomath}
+
+Choose the field along $z$ and expand the state as $a\ket{+z} + b\ket{-z}$, with $a,b$ the complex coefficients at $t=0$. By \eqref{eq:larmor-evolution} with $\bm n = \hat{\bm z}$,
+\begin{linenomath}
+    \begin{equation*}
+        U(t) = \cos\frac{\omega t}{2}\,I - i\,\sin\frac{\omega t}{2}\,\sigma_z
+        = \begin{pmatrix}
+            e^{-i\omega t/2} & 0 \\[2pt] 0 & e^{+i\omega t/2}
+        \end{pmatrix},
+    \end{equation*}
+\end{linenomath}
+so the two components evolve as $a(t) = a\,e^{-i\omega t/2}$ and $b(t) = b\,e^{+i\omega t/2}$. Now form the combination that extracts the off-diagonal content:
+\begin{linenomath}
+    \begin{equation*}
+        \langle\sigma_x\rangle(t) + i\langle\sigma_y\rangle(t)
+        = \braket{\psi(t)|(\sigma_x + i\sigma_y)|\psi(t)}
+        = \begin{pmatrix} a(t)^{*} & b(t)^{*} \end{pmatrix}
+          \begin{pmatrix} 0 & 2 \\ 0 & 0 \end{pmatrix}
+          \begin{pmatrix} a(t) \\ b(t) \end{pmatrix}
+        = 2\,a(t)^{*}b(t) .
+    \end{equation*}
+\end{linenomath}
+Inserting the evolved coefficients,
+\begin{linenomath}
+    \begin{equation*}
+        \langle\sigma_x\rangle(t) + i\langle\sigma_y\rangle(t)
+        = 2\,(a^{*}e^{+i\omega t/2})(b\,e^{+i\omega t/2})
+        = 2a^{*}b\,e^{+i\omega t}
+        = \bigl(\langle\sigma_x\rangle(0) + i\langle\sigma_y\rangle(0)\bigr)\,e^{+i\omega t},
+    \end{equation*}
+\end{linenomath}
+and the conjugate combination gives the minus sign. Meanwhile $\langle\sigma_z\rangle(t) = |a(t)|^{2} - |b(t)|^{2} = |a|^{2} - |b|^{2} = \langle\sigma_z\rangle(0)$, since the phases cancel in each squared modulus. For the $+x$ recapture, with $\ket{\psi(0)} = \ket{+x} = (\ket{+z}+\ket{-z})/\sqrt{2}$ we have $a=b=1/\sqrt{2}$, so $a(t) = e^{-i\omega t/2}/\sqrt{2}$, $b(t) = e^{+i\omega t/2}/\sqrt{2}$, and
+\begin{linenomath}
+    \begin{equation*}
+        P_{+x\to+x}(t) = \bigl|\braket{+x|\psi(t)}\bigr|^{2}
+        = \Bigl|\frac{1}{\sqrt{2}}\bigl(a(t)+b(t)\bigr)\Bigr|^{2}
+        = \frac{1}{4}\,\bigl|e^{-i\omega t/2}+e^{+i\omega t/2}\bigr|^{2}
+        = \cos^{2}\frac{\omega t}{2} .
+    \end{equation*}
+\end{linenomath}
+Collecting the results:
+\begin{linenomath}
+    \begin{equation}
+        \langle\sigma_x\rangle(t) \pm i\,\langle\sigma_y\rangle(t) = e^{\pm i\omega t}\bigl(\langle\sigma_x\rangle(0) \pm i\,\langle\sigma_y\rangle(0)\bigr), \qquad \langle\sigma_z\rangle(t) = \langle\sigma_z\rangle(0); \qquad P_{+x\,\to\,+x}(t) = \cos^2\frac{\omega t}{2} .
+        \label{eq:precession}
+    \end{equation}
+\end{linenomath}
+The expectation vector rotates about the field axis at the rate $\omega$ with its $z$-component frozen --- Larmor precession. The third clause is the exit question of Chapter~3 (Section~\ref{sec:ch3summary}) turned into a number: a $\ket{+x}$ beam, left to wait in the field and then re-interrogated along $x$, answers $+x$ with a frequency $\cos^2(\omega t/2)$ that oscillates between one and zero, although nothing was recorded in between.
+
+\begin{note}
+The motion of the expectation vector has an evident geometric reading: the arrow $(\langle\sigma_x\rangle, \langle\sigma_y\rangle, \langle\sigma_z\rangle)$ rotates about the field axis. The reading is correct, but this section has used no rotation theory: every display above is $2\times 2$ matrix arithmetic. The identification of that arithmetic with the geometry of rotations is a theorem of Sections~\ref{sec:lie-groups} and~\ref{sec:galilean-group}, not an assumption of this one.
+\end{note}
+
+One full period of the precession returns the state with a sign:
+\begin{linenomath}
+    \begin{equation}
+        U(2\pi/\omega) = \cos\pi\,I - i\,\sin\pi\,(\bm n\cdot\bm\sigma) = -I .
+        \label{eq:spinor-sign}
+    \end{equation}
+\end{linenomath}
+By the ray theorem (Section~\ref{sec:rays}) the sign changes no count: after a full Larmor period every interrogation answers as it did before. Yet the $-1$ is not nothing. It is exactly the sign Chapter~2 recorded as an experimental fact of neutron interferometry (Section~\ref{sec:rays}): a rotation through $4\pi$, not $2\pi$, is required to return a spin-$\tfrac12$ state to itself. And the precession operator $e^{-i\theta\,(\bm n\cdot\bm\sigma)/2}$ has precisely the form of a rotation representative acting on the two-state system --- angle $\theta$ about the axis $\bm n$, with the characteristic half-angle. That Larmor precession \emph{is} a rotation of the spin state is named here; it is earned where the rotation generators are derived (Section~\ref{sec:galilean-group}), and its full interpretation remains the angular-momentum chapter's declared debt.
+
+The measurable landing of the computation is the precession frequency itself. Magnetic resonance --- Rabi's molecular-beam method\footnote{I.~I.~Rabi, \emph{Phys. Rev.}~\textbf{51}, 652 (1937). The method's exact theory is the driven problem of Section~\ref{sec:time-ordered}.} --- reads $\omega$ against a known field and hence measures $|\gamma|$; the magnetic moments of the electron, the proton, and the nuclei are known to their many digits by this route.
+
+A static field precesses the spin; an oscillating field can flip it. Flips driven on demand need the evolution operator for a time-dependent Hamiltonian --- the one place the postulate (D1) requires generalizing. That generalization, and the exact solution of the resonance problem it buys, are next.
+
+\section{Time-Dependent Hamiltonians: the Time-Ordered Exponential}
+\label{sec:time-ordered}
+
+The postulate (D1) governs an isolated system, whose law of waiting carries no clock of its own. A driven system --- a spin in a field that the experimenter sweeps, an atom in a switched pulse --- has its dynamics prescribed from outside: the Hamiltonian itself depends on time, $H = H(t)$. The generalization of the law of evolution is immediate to state, and its solution form is this section's first business.
+
+\medskip\noindent\textbf{The generalized evolution law.} \emph{For a driven system the postulate \textup{(D1)} is generalized in the only way the drive allows: the evolution is a two-parameter family of unitary operators $U(t, t_0)$ obeying}
+\begin{linenomath}
+    \begin{equation}
+        i\hbar\,\frac{\dd}{\dd t}U(t, t_0) = H(t)\,U(t, t_0), \qquad U(t_0, t_0) = I,
+        \label{eq:schroedinger-timedep}
+    \end{equation}
+\end{linenomath}
+\emph{with $\ket{\psi(t)} = U(t, t_0)\,\ket{\psi(t_0)}$ between interrogations.} The composition law survives, but only in its two-time form:
+\begin{linenomath}
+    \begin{equation*}
+        U(t_2, t_0) = U(t_2, t_1)\,U(t_1, t_0), \qquad U(t, t_0)^{-1} = U(t_0, t) = U(t, t_0)^\dagger .
+    \end{equation*}
+\end{linenomath}
+What is given up is the homogeneity of time: $U(t, t_0)$ depends on both times, not on their difference, because the law itself differs from epoch to epoch. With homogeneity goes energy conservation --- a driven system exchanges energy with its drive; the precise statement is Section~\ref{sec:conservation}'s.
+
+When the Hamiltonian commutes with itself at different times, $[H(t), H(t')] = 0$, the solution of \eqref{eq:schroedinger-timedep} is the ordinary exponential of the integrated generator, $U(t, t_0) = \exp\!\bigl(-\frac{i}{\hbar}\int_{t_0}^{t}H(t')\,\dd t'\bigr)$, as differentiation shows at once (Exercise~4 of this chapter). In general it is not: $H(t_1)$ and $H(t_2)$ need not commute, and the order in which the infinitesimal evolutions are applied matters --- the order-sensitivity of Chapter~1's fourth requirement now \emph{inside} the dynamics itself. The solution keeps the order explicit. The differential equation with its initial condition is one integral equation,
+\begin{linenomath}
+    \begin{equation*}
+        U(t, t_0) = I - \frac{i}{\hbar}\int_{t_0}^{t} H(t')\,U(t', t_0)\,\dd t',
+    \end{equation*}
+\end{linenomath}
+and iterating it into itself --- replacing $U(t', t_0)$ under the integral by the whole right-hand side, and repeating --- generates a series of nested integrals in which the times are ordered $t_1 \geq t_2 \geq \cdots \geq t_n$ by construction. That series \emph{defines} the time-ordered exponential:
+\begin{linenomath}
+    \begin{equation}
+        \begin{split}
+            U(t, t_0) &= T\exp\!\biggl(-\frac{i}{\hbar}\int_{t_0}^{t}H(t')\,\dd t'\biggr) \\
+            &:= I + \sum_{n=1}^{\infty}\biggl(-\frac{i}{\hbar}\biggr)^{n}\!\int_{t_0}^{t}\!\dd t_1\!\int_{t_0}^{t_1}\!\dd t_2\;\cdots\!\int_{t_0}^{t_{n-1}}\!\dd t_n\,H(t_1)\,H(t_2)\cdots H(t_n) .
+        \end{split}
+        \label{eq:time-ordered-exp}
+    \end{equation}
+\end{linenomath}
+The symbol $T$ (time-ordering) is an instruction: in every operator product, the factors stand with later times to the left. The nested-integral series on the right --- the \emph{Dyson series} --- is the definition's content; its existence and convergence for bounded $H(t)$ are matters for Appendix~A.\footnote{On a finite interval with $\|H(t)\|$ bounded, the $n$-th term is bounded by $(\sup\|H\|\,(t-t_0)/\hbar)^n/n!$ and the series converges in norm; the unbounded cases are Appendix~A's.}
+
+One pointer, and no more, belongs here. Truncated after its first nontrivial term, the series \eqref{eq:time-ordered-exp} \emph{is} time-dependent perturbation theory, and its first-order amplitude is the seed of Fermi's golden rule --- the later chapter's repayment of Chapter~1's debt of the Einstein coefficients (Section~\ref{subsec:einsteinAB}). No truncation is made here; this chapter's driven problem is solved exactly.
+
+The driven two-state system is that problem, and it carries the oldest two-state hardware of the book to its precision form. Take the static field of Section~\ref{sec:spin-precession} along $z$ and add a transverse field rotating circularly in the $x$--$y$ plane, $\bm B_1(t) = B_1(\cos\omega t, \sin\omega t, 0)$; with the same moment-coupling as before, $\omega_0 := -\gamma B_0$ and $\omega_1 := -\gamma B_1$, the Hamiltonian is
+\begin{linenomath}
+    \begin{equation*}
+        H(t) = \frac{\hbar\omega_0}{2}\,\sigma_z + \frac{\hbar\omega_1}{2}\bigl(\cos\omega t\,\sigma_x + \sin\omega t\,\sigma_y\bigr) .
+    \end{equation*}
+\end{linenomath}
+The time dependence is removed by a relabeling: describe the state against a question that has itself been rotated through the angle $\omega t$ about $z$,
+\begin{linenomath}
+    \begin{equation*}
+        \ket{\tilde\psi(t)} := e^{i\omega t\,\sigma_z/2}\ket{\psi(t)} .
+    \end{equation*}
+\end{linenomath}
+Two conjugation identities do the work. From $e^{i\theta\sigma_z/2} = \cos(\theta/2)I + i\sin(\theta/2)\sigma_z$ and the Pauli algebra \eqref{eq:sigma-commutator}:
+\begin{linenomath}
+    \begin{align*}
+        e^{i\theta\sigma_z/2}\,\sigma_x\,e^{-i\theta\sigma_z/2}
+        &= \bigl(\cos\tfrac{\theta}{2}\,I + i\sin\tfrac{\theta}{2}\,\sigma_z\bigr)\,\sigma_x\,
+           \bigl(\cos\tfrac{\theta}{2}\,I - i\sin\tfrac{\theta}{2}\,\sigma_z\bigr) \\
+        &= \cos^{2}\tfrac{\theta}{2}\,\sigma_x
+           - i\cos\tfrac{\theta}{2}\sin\tfrac{\theta}{2}\,\sigma_x\sigma_z
+           + i\cos\tfrac{\theta}{2}\sin\tfrac{\theta}{2}\,\sigma_z\sigma_x
+           + \sin^{2}\tfrac{\theta}{2}\,\sigma_z\sigma_x\sigma_z .
+    \end{align*}
+\end{linenomath}
+Using $\sigma_x\sigma_z = -i\sigma_y$, $\sigma_z\sigma_x = i\sigma_y$, and $\sigma_z\sigma_x\sigma_z = \sigma_z(i\sigma_y) = i\sigma_z\sigma_y = i(-i\sigma_x) = -\sigma_x$ (from $\sigma_z\sigma_y = -i\sigma_x$), the four terms become
+\begin{linenomath}
+    \begin{equation*}
+        \cos^{2}\tfrac{\theta}{2}\,\sigma_x
+        - \cos\tfrac{\theta}{2}\sin\tfrac{\theta}{2}\,\sigma_y
+        - \cos\tfrac{\theta}{2}\sin\tfrac{\theta}{2}\,\sigma_y
+        - \sin^{2}\tfrac{\theta}{2}\,\sigma_x
+        = (\cos^{2}\tfrac{\theta}{2}-\sin^{2}\tfrac{\theta}{2})\sigma_x
+          - 2\cos\tfrac{\theta}{2}\sin\tfrac{\theta}{2}\,\sigma_y
+        = \cos\theta\,\sigma_x - \sin\theta\,\sigma_y .
+    \end{equation*}
+\end{linenomath}
+The second identity follows by the same arithmetic with $\sigma_y$ in place of $\sigma_x$; the result is recorded together:
+\begin{linenomath}
+    \begin{align*}
+        e^{i\theta\sigma_z/2}\,\sigma_x\,e^{-i\theta\sigma_z/2}
+        &= \cos\theta\,\sigma_x - \sin\theta\,\sigma_y, \\
+        e^{i\theta\sigma_z/2}\,\sigma_y\,e^{-i\theta\sigma_z/2}
+        &= \sin\theta\,\sigma_x + \cos\theta\,\sigma_y,
+    \end{align*}
+\end{linenomath}
+with $\theta=\omega t$, hence
+\begin{linenomath}
+    \begin{equation*}
+        e^{i\omega t\sigma_z/2}\bigl(\cos\omega t\,\sigma_x + \sin\omega t\,\sigma_y\bigr)e^{-i\omega t\sigma_z/2}
+        = \cos\omega t(\cos\omega t\,\sigma_x - \sin\omega t\,\sigma_y)
+          + \sin\omega t(\sin\omega t\,\sigma_x + \cos\omega t\,\sigma_y)
+        = \sigma_x,
+    \end{equation*}
+\end{linenomath}
+and $e^{i\omega t\sigma_z/2}\,\sigma_z\,e^{-i\omega t\sigma_z/2} = \sigma_z$ trivially since $\sigma_z$ commutes with itself.
+
+Substituting $\ket{\psi(t)} = e^{-i\omega t\sigma_z/2}\ket{\tilde\psi(t)}$ into the Schr\"odinger equation \eqref{eq:schroedinger}:
+\begin{linenomath}
+    \begin{equation*}
+        i\hbar\,\frac{\dd}{\dd t}\bigl(e^{-i\omega t\sigma_z/2}\ket{\tilde\psi(t)}\bigr)
+        = H(t)\,e^{-i\omega t\sigma_z/2}\ket{\tilde\psi(t)} .
+    \end{equation*}
+\end{linenomath}
+The left side carries two contributions --- the derivative of the exponential and the derivative of $\ket{\tilde\psi(t)}$:
+\begin{linenomath}
+    \begin{equation*}
+        i\hbar\Bigl(-\frac{i\omega}{2}\sigma_z\Bigr)e^{-i\omega t\sigma_z/2}\ket{\tilde\psi(t)}
+        + i\hbar\,e^{-i\omega t\sigma_z/2}\,\frac{\dd}{\dd t}\ket{\tilde\psi(t)}
+        = H(t)\,e^{-i\omega t\sigma_z/2}\ket{\tilde\psi(t)} .
+    \end{equation*}
+\end{linenomath}
+Multiplying from the left by $e^{i\omega t\sigma_z/2}$ and rearranging:
+\begin{linenomath}
+    \begin{equation*}
+        i\hbar\,\frac{\dd}{\dd t}\ket{\tilde\psi(t)}
+        = e^{i\omega t\sigma_z/2}H(t)e^{-i\omega t\sigma_z/2}\ket{\tilde\psi(t)}
+          - \frac{\hbar\omega}{2}\,\sigma_z\ket{\tilde\psi(t)} .
+    \end{equation*}
+\end{linenomath}
+The conjugated Hamiltonian expands with the identities above. The static $z$-term $(\hbar\omega_0/2)\sigma_z$ commutes with $e^{i\omega t\sigma_z/2}$ and is unchanged; the drive term $(\hbar\omega_1/2)(\cos\omega t\,\sigma_x + \sin\omega t\,\sigma_y)$ conjugates to $(\hbar\omega_1/2)\,\sigma_x$ by the line following \eqref{eq:sigma-commutator}. Defining $\delta := \omega - \omega_0$:
+\begin{linenomath}
+    \begin{equation*}
+        i\hbar\,\frac{\dd}{\dd t}\ket{\tilde\psi(t)} = H_{\mathrm{eff}}\ket{\tilde\psi(t)}, \qquad H_{\mathrm{eff}} = \frac{\hbar\omega_1}{2}\,\sigma_x - \frac{\hbar\delta}{2}\,\sigma_z .
+    \end{equation*}
+\end{linenomath}
+The problem is reduced to the static one of Section~\ref{sec:spin-precession}: an effective field with Larmor rate $\sqrt{\omega_1^2 + \delta^2}$. Set $\Omega := \sqrt{\omega_1^2 + \delta^2}$ and write $H_{\mathrm{eff}} = \frac{\hbar\Omega}{2}\,(\hat{\bm n}_{\mathrm{eff}}\!\cdot\!\bm\sigma)$ with $\hat{\bm n}_{\mathrm{eff}} = (\omega_1/\Omega,\,0,\,-\delta/\Omega)$. The evolution in the rotating frame is, by \eqref{eq:larmor-evolution},
+\begin{linenomath}
+    \begin{equation*}
+        \widetilde{U}(t) = e^{-iH_{\mathrm{eff}}t/\hbar}
+        = \cos\frac{\Omega t}{2}\,I
+          - i\sin\frac{\Omega t}{2}\,(\hat{\bm n}_{\mathrm{eff}}\!\cdot\!\bm\sigma)
+        = \begin{pmatrix}
+            \cos\frac{\Omega t}{2} + i\frac{\delta}{\Omega}\sin\frac{\Omega t}{2}
+            & -i\frac{\omega_1}{\Omega}\sin\frac{\Omega t}{2} \\[6pt]
+            -i\frac{\omega_1}{\Omega}\sin\frac{\Omega t}{2}
+            & \cos\frac{\Omega t}{2} - i\frac{\delta}{\Omega}\sin\frac{\Omega t}{2}
+        \end{pmatrix}.
+    \end{equation*}
+\end{linenomath}
+For the initial state $\ket{+z}$, the rotating-frame state is $\ket{\tilde\psi(t)} = \widetilde{U}(t)\ket{+z}$, whose lower component reads $-i(\omega_1/\Omega)\sin(\Omega t/2)$. The physical state is $\ket{\psi(t)} = e^{-i\omega t\sigma_z/2}\ket{\tilde\psi(t)}$, so the $\ket{-z}$ component acquires only the phase $e^{+i\omega t/2}$ from the relabeling. Squaring,
+\begin{linenomath}
+    \begin{equation*}
+        P_{+\to-}(t) = \bigl|\braket{-z|\psi(t)}\bigr|^{2}
+        = \bigl|e^{+i\omega t/2}\bigr|^{2}\,
+          \Bigl|-i\frac{\omega_1}{\Omega}\sin\frac{\Omega t}{2}\Bigr|^{2}
+        = \frac{\omega_1^2}{\Omega^{2}}\,\sin^{2}\frac{\Omega t}{2} .
+    \end{equation*}
+\end{linenomath}
+The detuning $\delta$ measures how far the drive sits from resonance:
+\begin{linenomath}
+    \begin{equation}
+        P_{+\,\to\,-}(t) = \frac{\omega_1^2}{\omega_1^2 + \delta^2}\,\sin^2\!\Bigl(\frac{1}{2}\sqrt{\omega_1^2 + \delta^2}\;t\Bigr), \qquad \delta = \omega - \omega_0 .
+        \label{eq:rabi-formula}
+    \end{equation}
+\end{linenomath}
+The relabeling contributed only a phase to the $\ket{-z}$ amplitude, invisible in the probability.
+This is the \emph{Rabi formula}, exact. At exact resonance ($\delta = 0$) the spin flips with certainty after a time $\pi/\omega_1$, and oscillates between the two alternatives at the rate $\omega_1$; off resonance the transfer is incomplete, with peak height $\omega_1^2/(\omega_1^2 + \delta^2)$. Swept in $\omega$, the flip probability traces a resonance curve peaked at $\omega = \omega_0$ with a width set by $\omega_1$: the curve reads $|\omega_0| = |\gamma| B_0$ directly, and with it the particle's magnetic moment. This is the working principle of the precision moment measurements named in Section~\ref{sec:spin-precession}.
+
+Two honesty clauses attach to the example. First, the laboratory drive is usually a field oscillating along a fixed line, $B_1\cos\omega t$; such a field decomposes into two counter-rotating circular components, and the solution above is exact for the circular drive. The standard treatment of a linear drive keeps the component rotating near the spin's precession sense and drops the counter-rotating one --- the \emph{rotating-wave approximation}, named here as what it is. Second, the drive has been treated as a prescribed classical function of time; its own dynamics and back-action belong to a fuller theory.
+
+\begin{note}
+The substitution $\ket{\psi(t)} \mapsto e^{i\omega t\sigma_z/2}\ket{\psi(t)}$ used above is Chapter~3's instantaneous relabeling (Section~\ref{sec:projectors}) applied at each instant: the same state, described against a question rotated through the angle $\omega t$ about $z$. It is not a new law of evolution, and it is not a picture of dynamics --- the operator-carried reading of evolution is the next chapter's subject, flagged at this chapter's exit (Section~\ref{sec:ch4summary}).
+\end{note}
+
+Evolution --- static or driven --- is one distinguished continuous family of relabelings. But relabelings, and their active cousins, form a far larger class: the transformations that leave the physics of a system invariant. Classifying what quantum mechanics permits there is the theory of symmetry, and its foundation theorem is Wigner's --- the next section.
+
+\section{Symmetry Transformations: Active, Passive, and Wigner's Theorem}
+\label{sec:symmetry-transformations}
+
+The evolution operator of Section~\ref{sec:evolution-postulate} carries the state through time while preserving every transition probability. Probability preservation is a far broader notion, and it deserves a name of its own. An invertible map $T$ that assigns to every preparation a transformed preparation is called a \textbf{symmetry transformation} when it preserves every Born-rule overlap:
+\begin{linenomath}
+    \begin{equation}
+        \bigl|\braket{T\phi\,|\,T\psi}\bigr| = \bigl|\braket{\phi|\psi}\bigr|
+        \label{eq:symmetry-def}
+    \end{equation}
+\end{linenomath}
+for every pair of states. The definition is stated on rays, not on vectors, because the Born rule \eqref{eq:born-rule} is the whole empirical content of the theory: two transformations that agree on every ray are the same transformation, and the arena is the projective space of Section~\ref{sec:rays}, whose invariance \eqref{eq:ray-invariance} is built into the definition itself.
+
+Two readings of such a map must be distinguished, for they share one operator but not one meaning. In the \emph{passive} reading the system stands still and the question is moved: the same preparation is described against a rotated apparatus, and the two descriptions are related by the overlap matrix of the two bases (\eqref{eq:overlap}, \eqref{eq:overlap-unitary}) --- the relabelings of the measurement chapter, read here as the passive case of symmetry. In the \emph{active} reading the question stands still and the system is carried to a new physical situation: the beam is translated, the preparation is rotated, the laboratory waits. The Stern--Gerlach bench of Chapter~1 exhibits the unity (Figure~\ref{fig:stern_gerlach}): rotating the magnet and rotating the beam's preparation by the same angle are one transformation, and the measured overlaps are identical in the two readings.
+
+Wigner's theorem states that the definition \eqref{eq:symmetry-def} exhausts its own solutions.
+
+\medskip\noindent\textbf{Theorem (Wigner, stated without proof).}\footnote{E.~Wigner, \emph{Gruppentheorie und ihre Anwendung auf die Quantenmechanik der Atomspektren} (1931); a modern proof is V.~Bargmann, \emph{J.~Math.~Phys.} \textbf{5}, 862 (1964). The historical setting was recalled in Section~\ref{subsec:djv-formalism}.} \emph{Every symmetry transformation \eqref{eq:symmetry-def} is induced by an operator $U$ on $\mathcal{H}$, unique up to an overall phase, and $U$ is either \textbf{unitary} \eqref{eq:unitary-def} or \textbf{antiunitary}:}
+\begin{linenomath}
+    \begin{equation}
+        \braket{U\phi\,|\,U\psi} = \braket{\phi|\psi}\ \ \text{(unitary)}, \qquad\text{or}\qquad \braket{U\phi\,|\,U\psi} = \braket{\psi|\phi}\ \ \text{(antiunitary)} .
+        \label{eq:wigner}
+    \end{equation}
+\end{linenomath}
+The prototype of the second branch is complex conjugation in a fixed basis, denoted $K_0$:
+\begin{linenomath}
+    \begin{equation}
+        \braket{K_0\phi\,|\,K_0\psi} = \braket{\psi|\phi}
+        \label{eq:antiunitary-def}
+    \end{equation}
+\end{linenomath}
+The dichotomy is exercised at once on the two-state system. Let $K_0$ conjugate the components of a vector in the $z$-basis: it is antilinear by construction, $K_0(\alpha\ket{\psi})=\alpha^{*}K_0\ket{\psi}$; direct $2\times2$ arithmetic verifies $\braket{K_0\phi\,|\,K_0\psi}=\braket{\psi|\phi}$ and $K_0^2=I$; and every two-state probability is preserved. Complex conjugation is an antiunitary symmetry of $\mathbb{CP}^1$, in arithmetic. Its geometric content on the two-state system is read off in Exercise~5; its physical identification --- which operation of reversal it implements --- is deferred to the rotation theory of the angular-momentum chapter.
+
+Two structural remarks carry the chapter forward. First, the theorem's conclusion is an operator \emph{up to a phase}; consequently a \emph{group} of symmetry transformations is represented on states only up to phase, with a composition law of the form $U(g)U(g')=e^{i\xi(g,g')}U(gg')$. That phase freedom, trivial for a single transformation, is load-bearing for families: it is what the next section names a ray representative, and what the Galilean section spends on the algebra's center. Second, symmetry transformations compose, and the composition is order-sensitive: they form a group. The fourth kinematical requirement of Chapter~1 (Section~\ref{subsec:why-kinematics}) receives here its dynamical repayment --- the kinematical share, the order-sensitive product of given operators (Section~\ref{sec:commutators}), is completed by the transformation law itself and by the composition of the evolution family of Section~\ref{sec:evolution-postulate}.
+
+The advantage of Wigner's theorem is its exhaustiveness: every invariance of the theory is an operator, and the two cases are the whole story. Its limitation is existential: which symmetries a given system \emph{has} is physics, not theorem --- that is the work of the following sections --- and the antiunitary branch carries exactly one physical occupant, which we meet at the chapter's end. Wigner says every symmetry is an operator, up to a phase. The symmetries that come in continuous families say much more: their composition law, differentiated once, hands each family an observable, and differentiated twice, an algebra. The chapter's own $U(t)$ has been such a family since Section~\ref{sec:evolution-postulate}.
+
+\section{Continuous Symmetries as Lie Groups}
+\label{sec:lie-groups}
+
+The families of transformations met so far share one law. Waiting twice is waiting once: $U(t_1)U(t_2)=U(t_1+t_2)$, the composition clause of the evolution postulate. Translating twice in one direction is translating once: $T(a_1)T(a_2)=T(a_1+a_2)$. Rotating twice about one axis is rotating once. A continuous family of transformations whose parameter composes by addition,
+\begin{linenomath}
+    \begin{equation}
+        U(s_1)\,U(s_2) = U(s_1+s_2),
+        \label{eq:one-parameter-subgroup}
+    \end{equation}
+\end{linenomath}
+is called a \textbf{one-parameter subgroup}, and a family of transformations whose labels compose smoothly is called a \textbf{Lie group}. Smoothness is used here in the operational sense of the evolution postulate: small changes of the parameter give near-identical statistics on every preparation.\footnote{The systematic theory of Lie groups and Lie algebras is collected in Appendix~B; this section earns the four notions it needs --- one-parameter subgroups, the exponential map, generators, structure constants --- from families already on the page.}
+
+Stone's theorem, stated for the evolution family in Section~\ref{sec:evolution-postulate}, applies to every one-parameter subgroup of unitaries: there exists a self-adjoint operator $G$ with
+\begin{linenomath}
+    \begin{equation}
+        U(s) = e^{-isG/\hbar}
+        = I - \frac{i}{\hbar}\,sG + O(s^2),
+        \label{eq:infinitesimal-generator}
+    \end{equation}
+\end{linenomath}
+the \textbf{exponential map}, and $G$ is called the family's \textbf{generator}. Since the generator is self-adjoint, it is an observable of the theory of the measurement chapter (\eqref{eq:selfadjoint-reality}, \eqref{eq:eigenproblem}): every continuous symmetry family carries its own measurable quantity, and no operator in this chapter is an orphan. The three families of nonrelativistic physics complete the correspondence:
+\begin{linenomath}
+    \begin{equation}
+        T(\bm a) = e^{-i\bm a\cdot\bm P/\hbar},
+        \qquad
+        U(t) = e^{-itH/\hbar},
+        \qquad
+        R_{\bm n}(\theta) = e^{-i\theta J_n/\hbar},
+        \label{eq:generator-correspondence}
+    \end{equation}
+\end{linenomath}
+translations generated by the momentum $\bm P$, time translations by the energy $H$ (the identification of Section~\ref{sec:stationary-states}, whose structural analysis is Section~\ref{sec:time-status}'s), rotations by the angular momentum $J_n$ about the axis $\bm n$. Momentum's name is earned as energy's was: by correspondence with the classical generator of translations, by de Broglie's relation (Section~\ref{subsec:debroglie}), and by the diffraction bench of the measurement chapter (Section~\ref{sec:uncertainty}), which is the momentum meter of this book; the position-representation form of $\bm P$ is the representations chapter's debt, not this one's.
+
+For a family of several parameters, composition of different subgroups need not commute, and the failure is measurable. Let $U_\varepsilon=e^{-i\varepsilon G_1/\hbar}$ and $V_\varepsilon=e^{-i\varepsilon G_2/\hbar}$ be two one-parameter subgroups of one group, and form the group commutator $U_\varepsilon V_\varepsilon U_\varepsilon^{-1}V_\varepsilon^{-1}$. Set $A=-iG_1/\hbar$, $B=-iG_2/\hbar$. Expanding each factor to second order by \eqref{eq:infinitesimal-generator}:
+\begin{linenomath}
+    \begin{align*}
+        e^{\varepsilon A} &= I + \varepsilon A + \tfrac{1}{2}\varepsilon^{2}A^{2} + O(\varepsilon^{3}), &
+        e^{\varepsilon B} &= I + \varepsilon B + \tfrac{1}{2}\varepsilon^{2}B^{2} + O(\varepsilon^{3}),\\
+        e^{-\varepsilon A} &= I - \varepsilon A + \tfrac{1}{2}\varepsilon^{2}A^{2} + O(\varepsilon^{3}), &
+        e^{-\varepsilon B} &= I - \varepsilon B + \tfrac{1}{2}\varepsilon^{2}B^{2} + O(\varepsilon^{3}) .
+    \end{align*}
+\end{linenomath}
+Multiply the first pair and the second pair, keeping terms through order $\varepsilon^{2}$:
+\begin{linenomath}
+    \begin{align*}
+        e^{\varepsilon A}e^{\varepsilon B}
+        &= I + \varepsilon(A+B) + \varepsilon^{2}\bigl(\tfrac{1}{2}A^{2} + AB + \tfrac{1}{2}B^{2}\bigr) + O(\varepsilon^{3}),\\
+        e^{-\varepsilon A}e^{-\varepsilon B}
+        &= I - \varepsilon(A+B) + \varepsilon^{2}\bigl(\tfrac{1}{2}A^{2} + AB + \tfrac{1}{2}B^{2}\bigr) + O(\varepsilon^{3}) .
+    \end{align*}
+\end{linenomath}
+Now multiply the two products, again retaining terms through $\varepsilon^{2}$:
+\begin{linenomath}
+    \begin{align*}
+        e^{\varepsilon A}e^{\varepsilon B}e^{-\varepsilon A}e^{-\varepsilon B}
+        &= \bigl[I + \varepsilon(A+B) + \varepsilon^{2}S\bigr]\,
+           \bigl[I - \varepsilon(A+B) + \varepsilon^{2}S\bigr] + O(\varepsilon^{3})
+           \qquad\bigl(S := \tfrac{1}{2}A^{2}+AB+\tfrac{1}{2}B^{2}\bigr)\\
+        &= I + \cancel{\varepsilon(A+B)} - \cancel{\varepsilon(A+B)}
+           + \varepsilon^{2}\bigl(2S - (A+B)^{2}\bigr) + O(\varepsilon^{3}) .
+    \end{align*}
+\end{linenomath}
+Since $2S = A^{2} + 2AB + B^{2}$ and $(A+B)^{2} = A^{2} + AB + BA + B^{2}$, their difference is $2S - (A+B)^{2} = AB - BA = [A,B]$. Hence
+\begin{linenomath}
+    \begin{equation}
+        e^{\varepsilon A}e^{\varepsilon B}e^{-\varepsilon A}e^{-\varepsilon B}
+        = I + \varepsilon^{2}[A,B] + O(\varepsilon^{3}),
+        \label{eq:lie-bracket}
+    \end{equation}
+\end{linenomath}
+with $A=-iG_1/\hbar$, $B=-iG_2/\hbar$. The operator commutator of the generators is the infinitesimal shadow of the group's noncommutation, and it is in principle measurable by composing the transformations in both orders on the bench. Since the group commutator is again an element of the group, the brackets of the generators must close among themselves:
+\begin{linenomath}
+    \begin{equation}
+        [G_a,G_b] = i\hbar\sum_c f_{abc}\,G_c,
+        \label{eq:structure-constants}
+    \end{equation}
+\end{linenomath}
+where the numbers $f_{abc}$ are the group's \textbf{structure constants} --- properties of its composition law, not new physics.
+
+The bench decides one case and the representatives compute another. Translations of the Stern--Gerlach bench in two perpendicular directions, performed in either order, return identical statistics for every preparation: the translation family commutes, $[P_x,P_y]=0$, and path-independence of translation \emph{is} the vanishing commutator. Rotations of the two-state system do not commute, and the instance has been on the page since the measurement chapter: $[\sigma_x,\sigma_y]=2i\sigma_z$ \eqref{eq:sigma-commutator}, the bracket of the two-state rotation family closing on a third generator, with structure constant $f_{xyz}=2$ in $\sigma$-units read off a $2\times2$ multiplication. One group's constants are decided on the bench; another's are computed from its representatives; the full spacetime family of the next section is treated by exactly this pattern.
+
+One freedom remains to be named before the walk through that family. By Wigner's up-to-a-phase conclusion (Section~\ref{sec:symmetry-transformations}), a group's action on \emph{states} is a family of unitaries obeying
+\begin{linenomath}
+    \begin{equation}
+        U(g)\,U(g') = e^{i\xi(g,g')}\,U(gg'),
+        \label{eq:ray-representative}
+    \end{equation}
+\end{linenomath}
+a \textbf{ray representative} of the group. The phase $\xi$ is freedom inherited from the ray theorem \eqref{eq:ray-invariance}: each representative is defined only up to its own phase, and the composition law inherits the ambiguity. When $\xi$ can be absorbed by rephasing every representative, the representative is true; when it cannot, the generators' brackets are allowed to close on a multiple of the identity --- a \emph{central} charge. That possibility is the door, and the Galilean group walks through it.
+
+A continuous symmetry family, in this language, is no longer an unstructured bag of operators: its law is the composition rule, its observable content is the generator list, and its noncommutation is compressed into a finite table of structure constants. Which families nature uses is physics, not language. One group above all organizes nonrelativistic physics, the transformations of space and time themselves: translations, rotations, boosts, and waiting. Its algebra, derived from the representatives, carries a surprise in its center.
+
+\section{The Galilean Group and its Algebra}
+\label{sec:galilean-group}
+
+The group is the Galilean group, and its ten one-parameter subgroups are on the page or within reach: space translations $T(\bm a)$ (three), time translations $U(t)$ (one, the chapter's own), rotations $R_{\bm n}(\theta)$ (three, named since Section~\ref{sec:lie-groups}), and the \textbf{boosts} $B(\bm v)$ (three): a boost carries the system to a copy moving with velocity $\bm v$ relative to the original --- or, in the passive reading of Section~\ref{sec:symmetry-transformations}, describes the same system from a uniformly moving frame. The empirical warrant is the Galilean relativity of the bench: experiments performed in a uniformly moving laboratory return the same statistics. This is the classical inheritance of the theory, and its range of validity is this book's domain.
+
+The composition law is exhibited where it matters. Translations compose by addition. A rotation conjugates a translation into the rotated translation,
+\begin{linenomath}
+    \begin{equation}
+        R\,T(\bm a)\,R^{-1} = T(R\bm a),
+        \label{eq:rotation-translation-conjugation}
+    \end{equation}
+\end{linenomath}
+which is not an axiom but a derivation from what rotation does to a displacement --- the classical input, read off the structure of space itself. Boosts and translations compose with a phase at ray level, derived below.
+
+The Lie algebra is now derived from the unitary ray representatives, bracket by bracket, by the construction of Section~\ref{sec:lie-groups}. The result is
+\begin{linenomath}
+    \begin{equation}
+    \begin{gathered}
+        \relax [P_i,P_j] = 0,\qquad
+        [J_i,J_j] = i\hbar\,\epsilon_{ijk}J_k,\qquad
+        [J_i,P_j] = i\hbar\,\epsilon_{ijk}P_k,\qquad
+        [J_i,K_j] = i\hbar\,\epsilon_{ijk}K_k,\\
+        [K_i,K_j] = 0,\qquad
+        [P_i,H] = 0,\qquad
+        [J_i,H] = 0,\qquad
+        [K_i,H] = -i\hbar P_i,
+    \end{gathered}
+    \label{eq:galilei-algebra}
+    \end{equation}
+\end{linenomath}
+together with the center, to which we turn separately. Each entry is treated below, bracket by bracket.
+
+\emph{Translations commute:} $[P_i,P_j]=0$ is the bench fact of Section~\ref{sec:lie-groups} --- translations of a system in two perpendicular directions, performed in either order, return identical statistics for every preparation. \textbf{Stated/cited without proof.}
+
+\emph{The rotation algebra:} $[J_i,J_j]=i\hbar\epsilon_{ijk}J_k$ is the rotation family's own composition law; it is \textbf{stated/cited without proof} --- the structure constants of rotations, whose two-state shadow $[\sigma_x,\sigma_y]=2i\sigma_z$ has been on the page since the measurement chapter (\eqref{eq:sigma-commutator}). The full spectral harvest belongs to the angular-momentum chapter.
+
+\emph{Momentum is a vector under rotations:} $[J_i,P_j]=i\hbar\epsilon_{ijk}P_k$ is derived from the conjugation display \eqref{eq:rotation-translation-conjugation}. Set $R = e^{-i\theta J_n/\hbar}$ with infinitesimal $\theta$ and $T(\bm a) = e^{-i\bm a\cdot\bm P/\hbar}$:
+\begin{linenomath}
+    \begin{align*}
+        R\,T(\bm a)\,R^{-1}
+        &= \bigl(I - \tfrac{i\theta}{\hbar}J_n + O(\theta^{2})\bigr)\,
+           \bigl(I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P + O(a^{2})\bigr)\,
+           \bigl(I + \tfrac{i\theta}{\hbar}J_n + O(\theta^{2})\bigr) \\
+        &= I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P
+           - \tfrac{\theta}{\hbar^{2}}\bigl(J_n(\bm a\!\cdot\!\bm P) - (\bm a\!\cdot\!\bm P)J_n\bigr) + O(\theta^{2},a^{2}) \\
+        &= I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P - \tfrac{\theta}{\hbar^{2}}\,a_j\,[J_n,P_j] + O(\theta^{2},a^{2}) .
+    \end{align*}
+\end{linenomath}
+The right side of \eqref{eq:rotation-translation-conjugation} is $T(R\bm a) = I - \frac{i}{\hbar}(R\bm a)_k P_k + O(a^{2})$. For an infinitesimal rotation by angle $\theta$ about $\hat{\bm n}$, $(R\bm a)_k = a_k + \theta\,\epsilon_{k n j}\,a_j + O(\theta^{2})$. Hence
+\begin{linenomath}
+    \begin{equation*}
+        T(R\bm a) = I - \tfrac{i}{\hbar}\bigl(a_k + \theta\,\epsilon_{k n j}\,a_j\bigr)P_k + O(\theta^{2},a^{2})
+        = I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P - \tfrac{i\theta}{\hbar}\,\epsilon_{k n j}\,a_j P_k + O(\theta^{2},a^{2}) .
+    \end{equation*}
+\end{linenomath}
+Equating the $O(\theta)$ terms of the two sides, $-\frac{1}{\hbar^{2}}a_j[J_n,P_j] = -\frac{i}{\hbar}\epsilon_{k n j}\,a_j P_k$. Since this holds for all $\bm a$, $[J_n,P_j] = i\hbar\,\epsilon_{k n j}P_k = i\hbar\,\epsilon_{n j k}P_k$.
+
+\emph{Boost generators transform as vectors:} $[J_i,K_j]=i\hbar\epsilon_{ijk}K_k$. The same conjugation argument applies to $B(\bm v) = e^{-i\bm v\cdot\bm K/\hbar}$ under rotations, with the classical input that a boosted frame rotated is a rotation of the boosted frame: $R\,B(\bm v)\,R^{-1} = B(R\bm v)$. The expansion is identical to the momentum case with $\bm K$ in place of $\bm P$ and yields the bracket above. \textbf{The derivation is structurally identical to the preceding one.}
+
+\emph{Boosts commute:} $[K_i,K_j]=0$. \textbf{Stated/cited without proof:} composition of two Galilean boosts is a single boost by the vector sum of the velocities --- a kinematic fact of Galilean relativity.
+
+\emph{Space-translation invariance:} $[P_i,H]=0$. The homogeneity of space means that translating a prepared system and then waiting, and waiting and then translating, return the same final state: $T(\bm a)U(t) = U(t)T(\bm a)$ for all $\bm a,t$. Expanding each side to first order in $\bm a$ and $t$ via $T(\bm a) = I - i\bm a\!\cdot\!\bm P/\hbar + O(a^{2})$ and $U(t) = I - iHt/\hbar + O(t^{2})$ gives $(I - i\bm a\!\cdot\!\bm P/\hbar)(I - iHt/\hbar) = (I - iHt/\hbar)(I - i\bm a\!\cdot\!\bm P/\hbar) + O(a^{2},t^{2})$, from which the $O(at)$ terms yield $(\bm a\!\cdot\!\bm P)H = H(\bm a\!\cdot\!\bm P)$, i.e.\ $[P_i,H]=0$. \textbf{Stated/cited without proof:} the physical assumption is the invariance of the law of waiting under spatial translation.
+
+\emph{Rotation invariance:} $[J_i,H]=0$. The same argument from $R\,U(t) = U(t)R$ for all rotations and all $t$, with the physical assumption that the law of waiting is isotropic. \textbf{Stated/cited without proof.}
+
+\emph{Boost--Hamiltonian bracket:} $[K_i,H]=-i\hbar P_i$. \textbf{Stated/cited without proof:} this bracket encodes the Galilean transformation of energy --- in a boosted frame the energy acquires a contribution from the momentum, and the sign convention is fixed by the package \eqref{eq:boost-momentum-shift} stated below.
+
+The center is
+\begin{linenomath}
+    \begin{equation}
+        [P_i,K_j] = +i\hbar\,\delta_{ij}\,M,
+        \qquad
+        [M,\,\text{every generator}] = 0.
+        \label{eq:central-extension}
+    \end{equation}
+\end{linenomath}
+That a center is possible at all is the ray freedom made algebraic: the representatives are ray representatives \eqref{eq:ray-representative}, so brackets may close on a phase times the identity --- the ambiguity of \eqref{eq:ray-invariance} inherited by the algebra. We fix the sign convention once: with $B(\bm v)=e^{-i\bm v\cdot\bm K/\hbar}$ implementing the active boost
+\begin{linenomath}
+    \begin{equation}
+        B(\bm v)^\dagger\,\bm P\,B(\bm v) = \bm P + M\bm v,
+        \label{eq:boost-momentum-shift}
+    \end{equation}
+\end{linenomath}
+the signs of $[P_i,K_j]=+i\hbar\delta_{ij}M$, of $[K_i,H]=-i\hbar P_i$, and of the phase below are mutually consistent; the structural facts --- centrality, the phase's existence, and what they forbid --- are independent of the convention.
+
+The central bracket integrates to a phase. Since $M$ commutes with every generator, the commutator $[-i\bm a\!\cdot\!\bm P/\hbar,\,-i\bm v\!\cdot\!\bm K/\hbar]$ is central --- it commutes with both generators, so all higher BCH commutators vanish. Set $A=-i\bm a\!\cdot\!\bm P/\hbar$, $B=-i\bm v\!\cdot\!\bm K/\hbar$:
+\begin{linenomath}
+    \begin{equation*}
+        [A,B] = \Bigl(-\frac{i}{\hbar}\Bigr)^{2} a_i v_j\,[P_i,K_j]
+              = -\frac{1}{\hbar^{2}}\,a_i v_j\,(i\hbar\,\delta_{ij}M)
+              = -\frac{i}{\hbar}\,M\,\bm a\!\cdot\!\bm v,
+    \end{equation*}
+\end{linenomath}
+which commutes with $A$ and with $B$. For such a central commutator the Baker--Campbell--Hausdorff series truncates: $e^{A}e^{B}=e^{A+B+[A,B]/2}$.\footnote{The identity $e^{A}e^{B}=e^{B}e^{A}e^{[A,B]}$ when $[A,B]$ is central is verified in Exercise~7(a) by series expansion; the display form $e^{A}e^{B}=e^{A+B+[A,B]/2}$ follows by commuting $e^{B}$ past $e^{A}$ in $e^{B}e^{A}e^{[A,B]}$ and absorbing the central factor.} Hence
+\begin{linenomath}
+    \begin{equation*}
+        e^{A}e^{B}=e^{-iM\bm a\cdot\bm v/2\hbar}\,e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar},
+        \qquad
+        e^{B}e^{A}=e^{+iM\bm a\cdot\bm v/2\hbar}\,e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar}.
+    \end{equation*}
+\end{linenomath}
+Eliminating the common factor $e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar}$,
+\begin{linenomath}
+    \begin{equation}
+        T(\bm a)\,B(\bm v) = e^{-iM\bm a\cdot\bm v/\hbar}\,B(\bm v)\,T(\bm a).
+        \label{eq:boost-translation-phase}
+    \end{equation}
+\end{linenomath}
+Translate-then-boost differs from boost-then-translate by a phase proportional to the mass. The physical reading takes two paragraphs. First, $M$ is the \textbf{mass}: the one Galilean invariant carried by every elementary system, identified by the classical correspondence of the boost action $\bm P\mapsto\bm P+M\bm v$ --- the generator of boosts is the mass-weighted position, and the mass is the central charge of the spacetime algebra. Second, \textbf{Bargmann's remark}.\footnote{V.~Bargmann, \emph{Ann.~Math.} \textbf{59}, 1 (1954).} In a superposition of two different masses the phase of \eqref{eq:boost-translation-phase} would be a \emph{relative}, and therefore observable, phase --- yet no experiment exhibits interference across mass sectors. The consistent reading is that such superpositions do not occur: mass is a \emph{superselected} charge. The states chapter noted that between certain sectors relative phases are never observable (Section~\ref{sec:rays}); here that clause receives its first derived instance and its mechanism --- superselection lives in the central charge of a ray-represented symmetry group. The instances named there, integer versus half-integer angular momentum and charge, are reaffirmed as the angular-momentum chapter's and field theory's; the present section repays the Galilean share, and the ledger is updated, not closed.
+
+The two greatest of the Galilean charges are treated in detail. The \emph{action on states}: $T(\bm a)$ translates the state's position label, the translated state's statistics against a fixed question differing by the displacement; $R_{\bm n}(\theta)$ rotates it, and the spin-$\tfrac12$ instance is computed --- the precession operator $e^{-i\theta\sigma_z/2}$ of Section~\ref{sec:spin-precession} \emph{is} the $z$-rotation representative on the spin state, its half-angle $\theta/2$ flagged once more as the angular-momentum chapter's lesson. The \emph{commutation from structure}: the vector character of $\bm P$ and the $\sigma$-shadow of $\bm J$ are displayed in \eqref{eq:galilei-algebra}; the \emph{spectrum} of $\bm J$ --- its eigenvalues and multiplets --- is deliberately not derived here, being the angular-momentum chapter's harvest. \emph{Momentum's observable content}: the diffraction bench of the measurement chapter (Section~\ref{sec:uncertainty}) measures the distribution of $\bm P$; its sharp values are non-normalizable labels in the sense of the continuous preview (Section~\ref{sec:continuous-spectra}); its position-representation form belongs to the representations chapter. \emph{Conservation under invariance}: named here, proved in Section~\ref{sec:conservation} --- $[P_i,H]=0$ gives momentum conservation, $[J_i,H]=0$ gives angular momentum conservation for centrally symmetric dynamics, the hydrogen preview whose spectrum repays Balmer in the angular-momentum chapter.
+
+The algebra even fixes the free dynamics' shape. From \eqref{eq:galilei-algebra} and \eqref{eq:central-extension}:
+\begin{linenomath}
+    \begin{equation*}
+        \begin{aligned}
+            \bigl[K_i,\,H - \tfrac{\bm P^{2}}{2M}\bigr]
+            &= [K_i,H] - \tfrac{1}{2M}\bigl([K_i,P_j]P_j + P_j[K_i,P_j]\bigr) \\
+            &= -i\hbar P_i - \tfrac{1}{2M}\bigl((-i\hbar\delta_{ij}M)P_j + P_j(-i\hbar\delta_{ij}M)\bigr) \\
+            &= -i\hbar P_i + \tfrac{i\hbar}{2M}(P_i + P_i) = 0 .
+        \end{aligned}
+    \end{equation*}
+\end{linenomath}
+The same quantity commutes with $\bm P$ (trivially, since $[P_i,P_j]=0$ and $[P_i,H]=0$) and with $\bm J$ (by rotation-invariance of the scalar $\bm P^{2}$). For an elementary system, with no internal degrees exercised, a central quantity is a constant, and
+\begin{linenomath}
+    \begin{equation}
+        H = \frac{\bm P^2}{2M} + E_{\mathrm{int}}.
+        \label{eq:free-hamiltonian}
+    \end{equation}
+\end{linenomath}
+This is stated honestly: it is the most general time-translation generator compatible with the Galilei algebra for a free elementary system --- symmetry fixing the \emph{shape} of the free dynamics, not deriving any force law.
+
+The internal two-state systems of this book make the boost's two faces concrete. Spin and polarization are \emph{internal}: the Galilean boost representative factors, acting on the motional state and as the identity on the internal $\mathbb C^2$ --- a boost does not turn a spin. A boosted qubit is the same qubit described from a moving frame: pure relabeling, no precession. The nontrivial content is the motional phase: $T(\bm a)B(\bm v)\ket{\psi}$ and $B(\bm v)T(\bm a)\ket{\psi}$ differ by $e^{-iM\bm a\cdot\bm v/\hbar}$ --- unobservable on a single mass sector by the ray theorem, would-be observable across a mass superposition. That arithmetic is what forces Bargmann's clause. The phase's interferometric realization, species-dependent fringe shifts, is named and not developed; the point here is the algebra's center and what it forbids.
+
+The advantage of the Galilean analysis is compression: the whole spacetime kinematics of nonrelativistic quantum mechanics fits in one algebra, with mass emerging as its central charge, and the superselection of mass exhibited as the reading that the center forces --- the extension derived, its consistent reading named, for the first time in this book. Its limitation is its domain: the group is the \emph{nonrelativistic} kinematics.\footnote{In the relativistic upgrade the boosts cease to commute, $[K_i,K_j]\sim-i\epsilon_{ijk}J_k/c^2$, spin mixes with boosts, and the Thomas precession of the historical chapter is the first symptom. This book does not develop the Lorentz group.} One generator of the family, however, stands apart from all the others already within the domain. $P$, $J$, $K$ are symmetry charges whose families may or may not leave the dynamics invariant; $H$ is the dynamics. The asymmetry is not accidental --- it is what time \emph{is} in this theory, and it deserves a section of its own.
+
+\section{The Special Status of Time}
+\label{sec:time-status}
+
+The Galilean census of Section~\ref{sec:galilean-group} placed ten generators side by side, and one of them does not belong to the company it keeps. Translations, rotations, and boosts are operations the experimenter may perform or refrain from performing: their generators $\bm P$, $\bm J$, $\bm K$ are symmetry charges, and whether the dynamics respects them is a question of fact, settled case by case by the bracket $[G,H]$ of the next section. Waiting is not such an operation. The time-translation subgroup is not a candidate symmetry of the evolution law; by Axiom~(D1) (\eqref{eq:evolution-axiom}) it \emph{is} the evolution law. This section draws the structural consequences of that asymmetry, and so repays with its full analysis the operational remark of Section~\ref{sec:evolution-postulate}: that $t$ is the reading of the laboratory clock, the experimenter's waiting time, never an observable of the system.
+
+\textbf{The dual role of $H$.} In the Galilei algebra \eqref{eq:galilei-algebra}, $H$ appears as the generator of the time-translation subgroup, one row of brackets among many. But its place in the theory is double in a way no other generator shares: $H$ generates time translations, and the family it generates \emph{is} the dynamics. To ask whether the evolution is invariant under time translation is to ask whether $[H,H] = 0$, which is a tautology; time translation asks no invariance question because it is the law whose invariance is elsewhere being asked about. The contrast with the pure symmetry charges is threefold. \emph{Parameter versus coordinate:} $t$ labels the waiting between a preparation and an interrogation; in this book's nonrelativistic theory it is not a reading drawn from the system, and no state is sharp in it. \emph{Generator of the law versus generators of transformations:} $\bm P$, $\bm J$, $\bm K$ generate physical operations whose invariance status is an open, physical question; $H$'s family is the law itself. \emph{Conservation by tautology versus conservation by symmetry:} momentum conservation, where it holds, reports a translation invariance of $H$; energy conservation reports nothing beyond the homogeneity of time already postulated with (D1) --- a tautological shadow that the conservation theorem of Section~\ref{sec:conservation} recovers and elevates into the general principle.
+
+The book's own two-state arena makes the dual role literal, and then exhibits, in arithmetic, the obstruction that bars time from the ledger of observables. On the spin bench of Section~\ref{sec:spin-precession}, the single operator $H = (\hbar\omega/2)\,\sigma_z$ is at once the energy observable --- eigenvalues $\pm\hbar\omega/2$, whose difference is the Bohr frequency identified in Section~\ref{sec:stationary-states} --- and the generator of waiting, whose exponential precesses every transverse polarization (\eqref{eq:larmor-evolution}). The same matrix does both jobs; that is the dual role made concrete. Against it, a charge such as $\sigma_x$ is a question: $[\sigma_x,H] \neq 0$, and the answer is read off the motion of $\langle\sigma_x\rangle$ computed in Section~\ref{sec:spin-precession}.
+
+\textbf{No time operator.} If $t$ were an observable of the system, there would be a self-adjoint operator $T$ reading it, canonically conjugate to the energy in the sense of the canonical pair named in the measurement chapter (\eqref{eq:canonical-commutator}, cited by name):
+\begin{linenomath}
+    \begin{equation}
+        [T,H] = i\hbar\,I \;\Longrightarrow\; \tr[T,H] = 0 \;\neq\; i\hbar\,\dim\mathcal{H} .
+        \label{eq:no-time-operator}
+    \end{equation}
+\end{linenomath}
+In finite dimension the obstruction is the displayed line of arithmetic and nothing more: the trace of a commutator vanishes, and no dimension makes zero equal to $i\hbar\,\dim\mathcal{H}$. The two-state instance is immediate --- for $H = (\hbar\omega/2)\,\sigma_z$, or for any $2\times2$ matrix whatever, taking traces of both sides of $[T,H] = i\hbar\,I$ pits $0$ against $2i\hbar$. The general obstruction is spectral rather than arithmetic, and it is named here, not developed.\footnote{W.~Pauli, \emph{Die allgemeinen Prinzipien der Wellenmechanik}, in \emph{Handbuch der Physik}, vol.~24/1 (Springer, 1933): a $T$ with $[T,H] = i\hbar\,I$ would generate rigid translations of the energy, making $H$ unitarily equivalent to $H + \epsilon\,I$ for every real $\epsilon$ and thereby spreading its spectrum over the whole real line --- against the boundedness below of every stable system's energy. The spectral and domain questions on which the argument turns for unbounded $H$ are deferred to Appendix~A.}
+
+\begin{note}[Two registers, kept apart]
+    The obstruction \eqref{eq:no-time-operator} is exact arithmetic on the finite arena of this book's models; Pauli's argument is a statement about the spectra of realistic, infinite-dimensional systems. They are different proofs of one conclusion, and this book keeps them in different registers: the displayed line is a theorem, the footnote a literature pointer whose rigor belongs to Appendix~A. What neither register permits is the conclusion's evasion: there is no time operator, in any dimension.
+\end{note}
+
+\textbf{The time--energy uncertainty relation.} The frequently quoted $\Delta E\,\Delta t \gtrsim \hbar/2$ is not a Robertson relation between two spreads of a state, and the machinery of Section~\ref{sec:uncertainty} cannot make it one: the Robertson bound \eqref{eq:robertson} prices the ensemble widths of two observables, and there is no time width of a state, $t$ being a parameter --- the formal status of $\Delta x\,\Delta p$ (\eqref{eq:xp-robertson}) has no temporal analog. The relation's precise content is kinetic: the energy width of a preparation sets the rate of the state's own change. For any observable $A$, the timescale $\tau_A := \Delta A\,/\,\bigl|\dd\langle A\rangle_\psi/\dd t\bigr|$ obeys $\Delta E\,\tau_A \geq \hbar/2$, with $\Delta E$ the energy spread of the state.\footnote{L.~Mandelstam and I.~Tamm, \emph{J. Phys. (USSR)} \textbf{9}, 249 (1945). The argument applies the Robertson relation \eqref{eq:robertson} to the pair $(H,A)$ and converts the commutator into a rate through the expectation-value equation of motion \eqref{eq:expectation-eom}; the full derivation, with its honesty clause, is this chapter's Exercise~9.} A preparation of narrow energy spread changes slowly; the decay widths of unstable states --- the natural widths of the spectral lines of the historical chapter's spectroscopy --- are the same content read from the other side, and their rate theory belongs to the chapter on perturbation methods. What the relation does not say is that a measurement of time carries an uncertainty; there is no such measurement, and no such reading is endorsed here.
+
+Symmetries of the question rearrange the description; symmetries of the dynamics --- generators that commute with $H$, in the language now earned --- freeze quantities. That freezing, computed for every Galilean charge at once, is the conservation law, and it is the next section.
+
+\section{Conservation Laws, Good Quantum Numbers, and Degeneracy}
+\label{sec:conservation}
+
+Section~\ref{sec:time-status} separated the generators that ask a question --- may this family be performed without changing the dynamics? --- from the one generator that is the dynamics. This section answers the question, once for every generator, and then reads the answer against the Galilean census of Section~\ref{sec:galilean-group}. The instrument is the equation of motion of expectation values.
+
+\textbf{The expectation-value equation of motion.} Let $A$ be any fixed operator and $\ket{\psi(t)}$ any state evolving under Axiom~(D1). Differentiating the sandwich $\braket{\psi(t)|A|\psi(t)}$,
+\begin{linenomath}
+    \begin{align}
+        \frac{\dd}{\dd t}\braket{\psi|A|\psi}
+        &= \Bigl(\frac{\dd}{\dd t}\bra{\psi}\Bigr)A\ket{\psi}
+           + \bra{\psi}A\Bigl(\frac{\dd}{\dd t}\ket{\psi}\Bigr) \nonumber\\
+        &= \Bigl(\frac{i}{\hbar}\bra{\psi}H\Bigr)A\ket{\psi}
+           + \bra{\psi}A\Bigl(-\frac{i}{\hbar}H\ket{\psi}\Bigr) \nonumber\\
+        &= \frac{i}{\hbar}\bra{\psi}(HA - AH)\ket{\psi}
+         = \frac{i}{\hbar}\braket{\psi|[H,A]|\psi},
+    \end{align}
+\end{linenomath}
+hence
+\begin{linenomath}
+    \begin{equation}
+        \frac{\dd}{\dd t}\,\langle A\rangle_\psi \;=\; \frac{i}{\hbar}\,\bigl\langle [H,A] \bigr\rangle_\psi
+        \qquad (A\ \text{fixed}) .
+        \label{eq:expectation-eom}
+    \end{equation}
+\end{linenomath}
+The rate of change of every ensemble mean is priced by one commutator. The statement concerns expectation values --- a fixed operator between evolving states. Arithmetically the same display admits a second reading, in which $U^\dagger(t)\,A\,U(t)$ is taken to evolve in the state's stead; that reading is the next chapter's, and the ambiguity it opens is registered at this chapter's exit (Section~\ref{sec:ch4summary}) --- nothing here depends on it. One clause is named for completeness: an operator carrying its own explicit time dependence, $A = A(t)$, contributes the additional term $\langle\partial A/\partial t\rangle_\psi$; the instruments of this chapter are fixed, and the clause will not be used.
+
+\textbf{Theorem (conservation).} \emph{For a self-adjoint generator $G$,}
+\begin{linenomath}
+    \begin{equation}
+        [G,H] = 0
+        \;\Longleftrightarrow\;
+        \frac{\dd}{\dd t}\,\langle G\rangle_\psi = 0 \ \ \text{in every state } \ket{\psi} .
+        \label{eq:conservation-theorem}
+    \end{equation}
+\end{linenomath}
+The forward direction is \eqref{eq:expectation-eom} read off: a vanishing commutator makes the right side zero. For the converse, suppose the mean is constant in every state; then $\langle[H,G]\rangle_\psi = 0$ in every state. The operator $i[H,G]$ is self-adjoint by the anti-self-adjointness of the commutator (\eqref{eq:commutator-adjoint}), and a self-adjoint operator whose diagonal values vanish in \emph{every} state vanishes as an operator, by the polarization identity of the measurement chapter (\eqref{eq:polarization}) --- the operative constraint is the quantifier: conservation on some subfamily of preparations would force nothing. The theorem's content is in fact distributional, stronger than the constancy of a mean. If $[G,H] = 0$, the compatibility theorem (\eqref{eq:common-eigenbasis}) hands $G$ and $H$ a common eigenbasis, in which the evolution operator \eqref{eq:evolution-operator} is diagonal; every amplitude against a $G$-eigenray therefore changes only by a phase,
+\begin{linenomath}
+    \begin{equation}
+        \bigl|\braket{g|\psi(t)}\bigr|^2 = \bigl|\braket{g|\psi(0)}\bigr|^2 ,
+        \label{eq:conservation-distributional}
+    \end{equation}
+\end{linenomath}
+and the whole statistics of $G$ --- every moment, every outcome probability --- is conserved, not merely its average.
+
+\textbf{The Galilean reading.} Read against the algebra \eqref{eq:galilei-algebra}, the theorem is a census of the conserved quantities of nonrelativistic physics, generator by generator. Translation invariance of the law of waiting, $[P_i,H] = 0$, is momentum conservation --- the free law of Section~\ref{sec:galilean-group}, with the free generator \eqref{eq:free-hamiltonian} its paradigm. Rotation invariance, $[J_i,H] = 0$, is angular momentum conservation --- the symmetry of central problems, whose spectroscopic harvest, the hydrogen atom behind the historical chapter's Balmer terms, is the angular-momentum chapter's to reap. Time independence is energy conservation, the tautological case of Section~\ref{sec:time-status}: the homogeneity of time is its mother.\footnote{The general principle --- to each continuous symmetry of the dynamics, one conserved quantity --- is Noether's theorem of 1918, proved there for classical action principles. In this book's quantum setting its content is precisely the conservation theorem proved above; the classical variational theory is named, not developed.} The boost stands apart: its bracket $[K_i,H] = -i\hbar P_i$ never vanishes, so boosts furnish no conserved charge; their symmetry content survives only for the free system, where a boost carries motions to motions, and interactions destroy even that.
+
+\textbf{Good quantum numbers.} The eigenvalues of a conserved $G$ are permanent labels: a preparation addressed by $g$ keeps that address under every waiting. A complete set of commuting observables containing $H$ (\eqref{eq:csco-joint}) therefore addresses every state by quantities that either set its phase rate --- the energy --- or never change at all. Such addresses are the \textbf{good quantum numbers}; the permanence of the label is the conservation theorem, and its precision as an address is the measurement chapter's completeness.
+
+\textbf{Theorem (degeneracy).} \emph{If $[G,H] = 0$, every eigenspace of $H$ is invariant under $G$; if $G$ does not act as a scalar within an eigenspace, that level is degenerate.} The proof is one line: for $H\ket{E} = E\ket{E}$,
+\begin{linenomath}
+    \begin{equation}
+        H\,\bigl(G\ket{E}\bigr) = G\,H\ket{E} = E\,\bigl(G\ket{E}\bigr) ,
+        \label{eq:degeneracy-invariance}
+    \end{equation}
+\end{linenomath}
+so $G$ maps each level into itself; within a non-degenerate level every operator is a scalar, hence a non-scalar restriction forces the level to have dimension greater than one. A corollary is worth naming: two conserved generators \emph{whose restrictions to a level fail to commute} --- equivalently, whose commutator does not annihilate the level --- force that level to be degenerate, since on a one-dimensional space the restrictions would be scalars and scalars commute. The Galilean instance is immediate: a rotation-invariant $H$ inherits the rotation family's noncommutation \eqref{eq:galilei-algebra} wherever the generators fail to commute within a level; the classification of the multiplets so forced is the angular-momentum chapter's harvest, flagged here and not built.
+
+\textbf{Theorem (selection rule).} \emph{If $[A,G] = 0$, then $\braket{g'|A|g} = 0$ whenever $g' \neq g$ are distinct eigenvalues of $G$:}
+\begin{linenomath}
+    \begin{equation}
+        (g - g')\,\braket{g'|A|g} = \braket{g'|[A,G]|g} = 0
+        \;\Longrightarrow\;
+        \braket{g'|A|g} = 0 \qquad (g' \neq g) .
+        \label{eq:selection-rule}
+    \end{equation}
+\end{linenomath}
+One line, and it is the engine of spectroscopy: an operator that respects a conserved charge connects no states that differ in it. The parity instance is proved in Section~\ref{sec:discrete-symmetries}; the angular-momentum rules belong to the angular-momentum chapter; the rates of the transitions the rule allows belong to the chapter on perturbation methods.
+
+The theorem pair is exhibited on hardware the book already owns. The two-doublet atom of the measurement chapter (Section~\ref{sec:compatible}) carries a which-manifold observable --- renamed here in prose, to keep it clear of the Galilean central charge --- that commutes with the internal Hamiltonian. The manifold label is therefore a good quantum number: no internal evolution moves population between the doublets, and the metastable doublet's long life \emph{is} a selection rule --- decay awaits a coupling that fails to commute with the manifold observable, the coupling to the radiation field whose theory belongs to later chapters and is named here as the mechanism, not developed. The degeneracy theorem is read off the same bench: in zero field the internal Hamiltonian is spin-independent, so every spin component is conserved, and since the components fail to commute within each level's spin space, each manifold's level is at least twofold --- the doublets themselves. Metastable lifetimes and forbidden lines, measured in every spectroscopic laboratory, are symmetry bookkeeping.
+
+The conservation machinery is continuous-symmetry machinery, keyed to the Lie families of Sections~\ref{sec:lie-groups} and~\ref{sec:galilean-group}. Its discrete cousins --- the inversion of space and the reversal of motion --- belong to the same spacetime group in its disconnected pieces, and they are no less measurable. They close the chapter's construction, next.
+
+\section{Discrete Symmetries: Parity and Time Reversal}
+\label{sec:discrete-symmetries}
+
+The spacetime group also has disconnected pieces --- transformations no parameter dials continuously to zero --- and two of them belong to the main line of physics: the inversion of space and the reversal of motion. They are no less measurable than their continuous cousins; each carries a selection rule, and one of them is this book's single consumer of Wigner's antiunitary branch (Section~\ref{sec:symmetry-transformations}).
+
+\medskip\noindent\textbf{Parity.} Space inversion is a symmetry transformation in the sense of \eqref{eq:symmetry-def}: a ray map preserving every transition probability, and therefore, by Wigner's theorem, an operator on $\mathcal{H}$ from one of the two branches. It is realized unitarily --- nothing in the inversion of space compels the conjugation of $i$, and the compulsion that does arise for the reversal of motion is the second half of this section, where the contrast will do honest work. Two inversions restore the original situation, so the square of the inversion operator is the identity up to a phase, which the freedom of \eqref{eq:ray-invariance} absorbs; the parity operator can therefore be chosen with
+\begin{linenomath}
+    \begin{equation}
+        \Pi^\dagger = \Pi, \qquad \Pi^2 = I, \qquad \text{eigenvalues}\ \pm 1 ,
+        \label{eq:parity-def}
+    \end{equation}
+\end{linenomath}
+both self-adjoint and unitary, an observable in its own right. Its eigenstates are the even states ($\Pi\ket{\psi} = +\ket{\psi}$) and the odd states ($\Pi\ket{\psi} = -\ket{\psi}$). For the interactions of this book's main line, space inversion leaves the dynamics invariant, $[\Pi,H] = 0$, and parity is a good quantum number in the sense of Section~\ref{sec:conservation}.\footnote{The rule of parity entered spectroscopy before the concept: O.~Laporte distilled from the iron arc in 1924 the empirical law that spectral lines fall into two classes connected only across, never within; E.~Wigner explained the law in 1927 by introducing the parity quantum number --- the first concrete fruit of the symmetry theory of Section~\ref{sec:symmetry-transformations}.}\footnote{Parity is not a universal symmetry: the weak interactions violate it (T.~D.~Lee and C.~N.~Yang, 1956; C.~S.~Wu and collaborators, 1957). That physics lies outside this book's main line, and this footnote is its only mention.}
+
+Operators are classified by the same conjugation: $A$ is even or odd according as
+\begin{linenomath}
+    \begin{equation}
+        \Pi A \Pi = +A \qquad\text{or}\qquad \Pi A \Pi = -A .
+        \label{eq:operator-parity}
+    \end{equation}
+\end{linenomath}
+Physical instances are named, not built: the position operator and the electric dipole are odd --- their operator theory belongs to the chapters on operator methods and on perturbation theory.
+
+\textbf{Theorem (the parity selection rule).} \emph{For odd $A$, the matrix elements within either parity sector vanish:}
+\begin{linenomath}
+    \begin{equation}
+        \Pi A \Pi = -A
+        \;\Longrightarrow\;
+        \braket{\mathrm{even}|A|\mathrm{even}} = \braket{\mathrm{odd}|A|\mathrm{odd}} = 0 .
+        \label{eq:parity-selection}
+    \end{equation}
+\end{linenomath}
+The proof is two insertions of $\Pi^2 = I$. For even $\ket{e}$, $\ket{e'}$: $\braket{e|A|e'} = \braket{e|\Pi\,(\Pi A \Pi)\,\Pi|e'} = (+1)(-1)(+1)\,\braket{e|A|e'}$, hence zero; for odd $\ket{o}$, $\ket{o'}$ the same display comes out with $(-1)(-1)(-1) = -1$, hence zero again. This is Laporte's rule: dipole transitions connect states of opposite parity only, and the spectra of parity-invariant systems divide into the allowed and the forbidden. The rates of the allowed transitions belong to the chapter on perturbation methods.
+
+The rule is read off arithmetic on a two-sector model. Let the state space be the direct sum of an even and an odd sector --- the direct-sum license of Section~\ref{sec:compatible} --- with $\Pi = \operatorname{diag}(+I,-I)$ by blocks. Then $[\Pi,H] = 0$ holds exactly when $H$ is block-diagonal: parity conservation forbids the dynamics itself from mixing the sectors. Even operators are block-diagonal, odd operators off-block-diagonal; a dipole-like operator has only the off-diagonal blocks, and the selection rule \eqref{eq:parity-selection} is the matrix shape read aloud: within a sector every such element is a zero block, across sectors it may live. A spectrum with lines only between the sectors is the arithmetic shadow of Laporte's rule --- allowed and forbidden lines as two shapes of matrix.
+
+\medskip\noindent\textbf{Time reversal.} The reversal of motion is defined operationally: the ray map that exchanges every motion with its reverse, carrying an evolving state to the state that evolves as the film run backward --- sending the family $U(t)$ to $U(-t)$ --- while leaving a time-reversal-invariant Hamiltonian unchanged. The implementing operator $\Theta$ must therefore satisfy, for all $t$,
+\begin{linenomath}
+    \begin{equation}
+        \Theta\,e^{-iHt/\hbar}\,\Theta^{-1} = e^{+iHt/\hbar}
+        \;\Longrightarrow\;
+        \text{unitary } \Theta:\ \Theta H \Theta^{-1} = -H ;
+        \qquad
+        \text{antiunitary } \Theta:\ \Theta H \Theta^{-1} = H ,
+        \label{eq:time-reversal-def}
+    \end{equation}
+\end{linenomath}
+Differentiating both sides of $\Theta\,e^{-iHt/\hbar}\,\Theta^{-1} = e^{+iHt/\hbar}$ at $t=0$:
+\begin{linenomath}
+    \begin{equation*}
+        \Theta\,\Bigl(-\frac{i}{\hbar}H\Bigr)\,\Theta^{-1}
+        = \Bigl.\frac{\dd}{\dd t}\,e^{+iHt/\hbar}\Bigr|_{t=0}
+        = \frac{i}{\hbar}H .
+    \end{equation*}
+\end{linenomath}
+Multiplying through by $i\hbar$ yields $\Theta H \Theta^{-1} = -\,\Theta i \Theta^{-1} H$. Now invoke Wigner's dichotomy (\eqref{eq:wigner}). If $\Theta$ is unitary, $\Theta i \Theta^{-1} = i$, so $\Theta H \Theta^{-1} = -iH/i = -H$. If $\Theta$ is antiunitary, $\Theta i \Theta^{-1} = -i$ (by \eqref{eq:antiunitary-def}), so $\Theta H \Theta^{-1} = -(-i)H/i = H$.
+
+The unitary branch $\Theta H \Theta^{-1} = -H$ forces the spectrum of $H$ to be unitarily equivalent to its reflection through zero; realistic systems, whose energies are bounded below and not above, admit no such equivalence, and the branch is rejected. The antiunitary branch $\Theta H \Theta^{-1} = H$ requires exactly time-reversal invariance of the Hamiltonian, and nothing pathological. The choice is forced once for all systems: one law of motion-reversal must cover the spin bench and the atom alike.
+
+\begin{note}[The honesty of the finite arena]
+    On this book's two-state toys the spectral objection to the unitary branch is vacuous: the spectrum of $H = (\hbar\omega/2)\,\sigma_z$ is symmetric under reflection through zero, and unitary candidates exist ($\sigma_x$ conjugates $H$ to $-H$). The antiunitarity of time reversal is therefore not proved by the toys; it is forced by the demand that one law cover every system, the realistic ones included, and seconded by the kinematical argument below. The toys illustrate the conclusion; the universe forces it.
+\end{note}
+
+Kinematics independently seconds the same branch. A motion reversed keeps its positions and reverses its momenta: $\Theta X_i \Theta^{-1} = X_i$, $\Theta P_i \Theta^{-1} = -P_i$. Conjugating the canonical commutator named in the measurement chapter (\eqref{eq:canonical-commutator}, cited by name --- its construction belongs to the chapter on operator methods) then yields $[X_i, -P_j] = -i\hbar\,\delta_{ij}I$ on the operator side and $\Theta\,(i\hbar\,\delta_{ij}I)\,\Theta^{-1}$ on the scalar side, which agree only if $\Theta i \Theta^{-1} = -i$. Note also the consonance with Section~\ref{sec:time-status}: $\Theta$ acts on the sign of the \emph{parameter}, not on any coordinate of the system --- there is no time operator for it to conjugate.
+
+The antiunitary algebra of Section~\ref{sec:symmetry-transformations} now earns its keep. The square $\Theta^2$ is a symmetry realized unitarily --- the square of either Wigner branch is unitary --- and, differing from the identity by nothing measurable, it acts as a phase; two cases exhaust the possibilities,
+\begin{linenomath}
+    \begin{equation}
+        \Theta^2 = \pm I ,
+        \label{eq:theta-squared}
+    \end{equation}
+\end{linenomath}
+stated here without proof. Which case a system realizes is rotation theory: for half-integer spin, $\Theta^2 = -I$ --- the time-reversal twin of the spinor sign \eqref{eq:spinor-sign}, whose reason belongs to the angular-momentum chapter and is flagged as its debt, with this chapter's rotation algebra \eqref{eq:galilei-algebra} on the page but its spectrum still unbuilt.
+
+\textbf{Kramers degeneracy.} \emph{If $\Theta^2 = -I$, every energy eigenstate of a time-reversal-invariant Hamiltonian is at least twofold degenerate.} The argument is two lines from the antiunitary rule \eqref{eq:antiunitary-def}: applied with $\Theta\psi$ in the first slot,
+\begin{linenomath}
+    \begin{equation}
+        \Theta^2 = -I
+        \;\Longrightarrow\;
+        \braket{\psi|\Theta\psi} = \braket{\Theta^2\psi|\Theta\psi} = -\braket{\psi|\Theta\psi}
+        \;\Longrightarrow\;
+        \braket{\psi|\Theta\psi} = 0 ,
+        \label{eq:kramers}
+    \end{equation}
+\end{linenomath}
+so $\Theta\ket{\psi}$ is orthogonal to $\ket{\psi}$ --- not a phase times it --- while $\Theta H \Theta^{-1} = H$ makes it an eigenstate with the same eigenvalue. The theorem's content is physical: no time-reversal-invariant perturbation can split a Kramers pair. Electric fields are even under motion reversal and magnetic fields odd --- their sources are charges at rest and charges in motion, the classical input named --- so electrostatic environments of arbitrary complexity leave the doublet intact.\footnote{H.~A.~Kramers, 1930. The degeneracy is exact: its proof needs no knowledge of the Hamiltonian's details, only its invariance under the reversal of motion.}
+
+The pair is on the bench. For the spin-$1/2$ doublet $\{\ket{+z},\ket{-z}\}$, time reversal exchanges the partners up to phase, $\Theta\ket{+z} \propto \ket{-z}$ --- the precise phases are rotation theory and belong to the angular-momentum chapter. In zero field the doublet is a Kramers pair, degenerate in every time-reversal-invariant environment; the resonance bench of Section~\ref{sec:time-ordered} registers the fact as an absence --- at zero field there is no line to split --- and a resonance line appears only when the $T$-odd field is switched on. The Stern--Gerlach magnet's splitting (Figure~\ref{fig:stern_gerlach}) is consistent with the theorem only because the field is odd under motion reversal --- its currents run backward when the film does --- and the theory of that splitting, the Zeeman effect, is named as a preview of the angular-momentum chapter.
+
+The advantage of the discrete symmetries is their economy: they are the spacetime group's disconnected pieces, and parity is the simplest selection-rule engine in physics --- two sectors, one sign, and a spectroscopy of allowed and forbidden lines. Time reversal is the subtlest symmetry of the chapter: the only antiunitary one, a transformation whose square, not itself, carries the deepest physics. The limitation of this section's account is that the spin content of that square, $\Theta^2 = -I$ for half-integer spin, is declared and not derived: its proof is the representation theory of rotations, owed to the angular-momentum chapter together with the rest of the rotation spectrum.
+
+The chapter's construction is complete: one new axiom, two cited theorems, one derived algebra, and a column of proved ones. It remains to collect the principles, balance the ledger, and name what the evolution operator itself has left ambiguous.
+
+\section{The Evolution Postulate and the Symmetry Principles: Summary and Open Debts}
+\label{sec:ch4summary}
+
+The chapter's content compresses into one new axiom and five symmetry principles. The bookkeeping of honesty is restated with them: postulated, (D1) alone; cited without proof, Stone's theorem and Wigner's theorem; everything else --- the Schr\"odinger equation, the spectral resolution of $U(t)$, the Lie bracket, the Galilei algebra and its central extension, the boost--translation phase, the conservation, degeneracy, and selection theorems, the parity rule, the Kramers argument --- proved.
+\begin{enumerate}
+    \item[\textbf{(D1)}] \textbf{Evolution.} Between interrogations the state is carried by a continuous one-parameter unitary family, $\ket{\psi(t)} = U(t)\ket{\psi(0)}$ with $U(t+s) = U(t)U(s)$ and $U(0) = I$ (\eqref{eq:evolution-axiom}, Section~\ref{sec:evolution-postulate}); the Schr\"odinger equation is its proved theorem-form with $H$ the self-adjoint generator (\eqref{eq:schroedinger}), and the time-ordered exponential its generalization to time-dependent laws (\eqref{eq:time-ordered-exp}, Section~\ref{sec:time-ordered}).
+    \item[\textbf{(S1)}] \textbf{Symmetry.} A symmetry transformation is a probability-preserving ray map (\eqref{eq:symmetry-def}), realized by a unitary or antiunitary operator unique up to a phase --- Wigner's theorem, cited (Section~\ref{sec:symmetry-transformations}).
+    \item[\textbf{(S2)}] \textbf{Continuous symmetries.} A continuous symmetry family is a Lie group: its one-parameter subgroups are exponentials of self-adjoint generators (\eqref{eq:infinitesimal-generator}); the generators' brackets are the infinitesimal shadow of the family's composition and close with the structure constants (\eqref{eq:structure-constants}); on states the group acts by ray representatives (\eqref{eq:ray-representative}) (Section~\ref{sec:lie-groups}).
+    \item[\textbf{(S3)}] \textbf{Spacetime symmetry.} The spacetime symmetry of nonrelativistic states is the Galilean group, whose algebra, derived from the ray representatives, carries the mass as a central charge (\eqref{eq:galilei-algebra}, \eqref{eq:central-extension}); the boost--translation phase \eqref{eq:boost-translation-phase} then forces mass superselection as the consistent reading, given the empirical absence of interference across mass sectors (Section~\ref{sec:galilean-group}).
+    \item[\textbf{(S4)}] \textbf{Time.} Time is the evolution parameter, not an observable: $H$'s role is dual, and no time operator exists (\eqref{eq:no-time-operator}, Section~\ref{sec:time-status}).
+    \item[\textbf{(S5)}] \textbf{Conservation.} A generator is conserved exactly when it commutes with $H$ (\eqref{eq:conservation-theorem}), with good quantum numbers, symmetry-forced degeneracy, and selection rules as its fruits (\eqref{eq:selection-rule}, Section~\ref{sec:conservation}); parity and time reversal are the discrete instances (Section~\ref{sec:discrete-symmetries}).
+\end{enumerate}
+
+The chapter's integration of experiment and formalism is collected, in lieu of a new example, in Table~\ref{tab:ch4-dictionary}, which adds the transformation rows to the experiment--formalism dictionary of the states and measurement chapters (Tables~\ref{tab:ch2-dictionary} and~\ref{tab:ch3-dictionary}).
+\begin{table}[htbp!]
+    \centering
+    \caption{The experiment--formalism dictionary, third installment: the transformation rows of this chapter, extending Tables~\ref{tab:ch2-dictionary} and~\ref{tab:ch3-dictionary}.}
+    \label{tab:ch4-dictionary}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{ll}
+        \toprule
+        Experimental notion & Formal object \\
+        \midrule
+        Waiting between interrogations & a one-parameter unitary family \\
+        The law of waiting & the self-adjoint generator $H$ \\
+        A symmetry & a unitary or antiunitary operator, up to a phase \\
+        A continuous symmetry & a one-parameter subgroup, exponential of a generator \\
+        The composition law of a symmetry family & the structure constants \\
+        The spacetime symmetry of nonrelativistic states & the Galilean group \\
+        Mass & the central charge of the Galilei algebra (superselected) \\
+        Time & the evolution parameter --- not an observable \\
+        A conserved quantity & a generator with $[G,H] = 0$ \\
+        A forbidden transition & a selection rule \\
+        Space inversion & the parity operator $\Pi$ \\
+        Reversal of motion & the antiunitary time reversal $\Theta$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The mainline duty is the ledger, and it must be stated plainly. \emph{Repaid here:} the measurement chapter's exit question --- the law of the state between measurements --- as Axiom~(D1) and its theorem-form (Section~\ref{sec:evolution-postulate}); the two-families flag of the measurement chapter, as the model continuous family of relabelings and their classification (Sections~\ref{sec:evolution-postulate}, \ref{sec:symmetry-transformations}, \ref{sec:lie-groups}); the overlap-matrix seed of the states chapter, as the passive case of symmetry (Section~\ref{sec:symmetry-transformations}); the dynamical share of the historical chapter's fourth requirement (Section~\ref{subsec:why-kinematics}) --- order-sensitive composition of transformations --- as the family law, the group law, and the bracket; the Stern--Gerlach debt, this chapter's share, as spin precession and magnetic resonance (Sections~\ref{sec:spin-precession} and~\ref{sec:time-ordered}); the Bohr-frequency time dependence of 1925 (Section~\ref{subsec:matrix}), derived as \eqref{eq:bohr-frequencies}; the historical chapter's controlled guess of 1926, its abstract share, as the theorem \eqref{eq:schroedinger}; the Wigner--Weyl pointer of the historical chapter (Section~\ref{subsec:djv-formalism}), as the symmetry theory of Sections~\ref{sec:symmetry-transformations}--\ref{sec:galilean-group}; and the states chapter's superselection clause, its Galilean share (Section~\ref{sec:rays}): the central extension derived (\eqref{eq:central-extension}), its mechanism identified in the phase freedom of ray representatives, and the superselection reading named with its empirical warrant, the absence of observed interference across mass sectors --- while the two instances the states chapter named remain the angular-momentum chapter's and field theory's. \emph{Planted, and declared openly:} the pictures of evolution and the operator reading of the equation of motion, position and momentum as operators with the canonical commutator built, wave functions and propagators, to the next chapter; the rotation spectrum --- ladder operators, eigenvalues and multiplets, the half-angle law, the spinor sign's interpretation, $\Theta^2 = -1$ for half-integer spin, and the angular-momentum share of superselection --- to the chapter on angular momentum, whose inheritance is now precise: the algebra is derived here (\eqref{eq:galilei-algebra}), the spectrum is owed there; the truncation of the time-ordered series, transition rates, and the dipole physics behind Laporte's rule, to the chapter on perturbation methods; the proofs of Stone and Wigner and the domains of unbounded generators, to Appendix~A; group-theory systematics, to Appendix~B; parity violation, outside the main line, one footnote spent in Section~\ref{sec:discrete-symmetries}; the relativistic contrast, one footnote spent in Section~\ref{sec:galilean-group}.
+
+One number, two readings. A fixed observable's expectation in an evolving state, $\braket{\psi(t)|A|\psi(t)} = \braket{\psi(0)|U^\dagger(t)AU(t)|\psi(0)}$, can be computed in two ways: carry the evolution on the state --- this chapter's choice --- or carry it on the operator, $U^\dagger(t)AU(t)$, with the state standing still. Every count of every experiment is indifferent to the choice; yet the second reading re-reads this chapter's every equation, and in it the commutator $[H,A]$, not the state, carries the motion. Which of the two is the dynamics --- and must a physical law have a unique answer to that question? That is the theory of pictures, and it is the next chapter. The rotation family, whose algebra this chapter has derived among the Galilean brackets, must then be built in its own right: its spectra, its representations, and the half-angle law it has owed us since the states chapter --- the chapter after next.
+
+\begin{problemset}
+\item ($\star$) (Section~\ref{sec:evolution-postulate}) Family-law drill. For $H = (\hbar\omega/2)\,\sigma_z$, exponentiate $U(t) = e^{-iHt/\hbar}$ directly via $\sigma_z^2 = I$, obtaining $U(t) = \cos(\omega t/2)\,I - i\,\sin(\omega t/2)\,\sigma_z$. Verify by explicit multiplication: $U^\dagger(t)\,U(t) = I$; $U(0) = I$; $U(t+s) = U(t)\,U(s)$; $U(-t) = U^\dagger(t)$. Verify the Schr\"odinger equation \eqref{eq:schroedinger} by differentiating $U(t)\ket{\psi(0)}$ for an arbitrary initial state.
+
+\item ($\star$) (Section~\ref{sec:stationary-states}) Stationary phases and the Bohr beat. Let $H\ket{E_{1,2}} = E_{1,2}\ket{E_{1,2}}$ with $E_2 > E_1$, and prepare $\ket{\psi(0)} = (\ket{E_1} + \ket{E_2})/\sqrt{2}$. (a) Write $\ket{\psi(t)}$ using \eqref{eq:stationary-phase}. (b) Show that the survival probability is $\cos^2(\omega t/2)$ with $\hbar\omega = E_2 - E_1$. (c) Show that $\langle A\rangle(t)$ is constant for every energy-diagonal $A$, and oscillates at the Bohr frequency $\omega$ for $A = \ket{E_1}\bra{E_2} + \ket{E_2}\bra{E_1}$, confirming the expansion \eqref{eq:bohr-frequencies}. (d) State in one sentence why only eigenvalue \emph{differences} of $H$ are observable (the ray theorem, Section~\ref{sec:rays}).
+
+\item ($\star\star$) (Section~\ref{sec:spin-precession}) Larmor precession. Take $H = (\hbar\omega/2)\,\sigma_z$ with the initial state $\ket{+x}$. (a) Compute $\ket{\psi(t)}$ from \eqref{eq:larmor-evolution}. (b) Compute $\langle\sigma_x\rangle(t)$, $\langle\sigma_y\rangle(t)$, $\langle\sigma_z\rangle(t)$ and verify the precession \eqref{eq:precession}. (c) Evaluate the $+x$-recapture probability at $t = \pi/\omega$ and at $t = 2\pi/\omega$. (d) Show that $\ket{\psi(2\pi/\omega)} = -\ket{+x}$, and state, invoking the ray theorem (Section~\ref{sec:rays}), why the sign changes no count of any experiment --- the $4\pi$ return of \eqref{eq:spinor-sign}, whose rotational interpretation belongs to the chapter on angular momentum.
+
+\item ($\star\star$) (Section~\ref{sec:time-ordered}) Time ordering exercised. (a) For $H(t) = f(t)\,H_0$ with a fixed $H_0$, show that the time-ordered exponential \eqref{eq:time-ordered-exp} reduces to
+\begin{linenomath}
+    \begin{equation}
+        U(t,0) = \exp\!\Bigl(-\frac{i}{\hbar}\,H_0\!\int_0^t f(t')\,\dd t'\Bigr) ,
+    \end{equation}
+\end{linenomath}
+and verify the result by differentiation against \eqref{eq:schroedinger-timedep}. (b) For the piecewise-constant two-state drive --- $H_1 = (\hbar\omega_1/2)\,\sigma_x$ for $0 < t < \tau$, then $H_2 = (\hbar\omega_2/2)\,\sigma_z$ for $\tau < t < 2\tau$ --- write $U(2\tau,0)$ as an ordered product of the two segment evolutions. For the input $\ket{+z}$, compute the $+x$-recapture probability $\bigl|\braket{+x|U(2\tau,0)|+z}\bigr|^2$ in \emph{both} orderings --- drive 1 then drive 2, and drive 2 then drive 1 --- and show that they differ:
+\begin{linenomath}
+    \begin{equation}
+        \frac{1}{2}\,\bigl(1 + \sin\omega_1\tau\,\sin\omega_2\tau\bigr)
+        \qquad\text{versus}\qquad
+        \frac{1}{2} .
+    \end{equation}
+\end{linenomath}
+Ordering inside the dynamics matters. (c) Show that the $+z$-survival probability does \emph{not} differ between the orderings --- both give $\cos^2(\omega_1\tau/2)$ --- and explain in one sentence why the $\sigma_z$ segment is invisible to that particular question: \emph{which} question one asks decides whether ordering shows.
+
+\item ($\star\star$) (Section~\ref{sec:symmetry-transformations}) The Wigner dichotomy in dimension two. Let $K_0$ be complex conjugation in the $z$-basis, $K_0(\alpha\ket{+z} + \beta\ket{-z}) = \alpha^*\ket{+z} + \beta^*\ket{-z}$. (a) Verify antilinearity, the antiunitary rule $\braket{K_0\phi|K_0\psi} = \braket{\psi|\phi}$ (\eqref{eq:antiunitary-def}), and $K_0^2 = I$. (b) Verify probability preservation on the pair $\ket{+z}$, $\ket{+x}$: $\bigl|\braket{K_0(+z)|K_0(+x)}\bigr|^2 = \bigl|\braket{+z|+x}\bigr|^2$. (c) Using the spin-$\bm n$ basis of the states chapter (\eqref{eq:spin-n}, experimental input), show that $K_0$ maps the ray of $\ket{+\bm n}$ with polar angles $(\theta,\varphi)$ to the ray with $(\theta,-\varphi)$.
+
+\item ($\star\star$) (Section~\ref{sec:lie-groups}) From the group commutator to the algebra bracket. (a) Prove
+\begin{linenomath}
+    \begin{equation}
+        e^{\varepsilon A}\,e^{\varepsilon B}\,e^{-\varepsilon A}\,e^{-\varepsilon B} = I + \varepsilon^2\,[A,B] + O(\varepsilon^3)
+    \end{equation}
+\end{linenomath}
+by series expansion through second order (the commutator algebra \eqref{eq:commutator-algebra} may be cited) --- the content of \eqref{eq:lie-bracket}. (b) Interpret in one sentence: the group commutator measures the bracket of the generators. (c) Compute both sides at order $\varepsilon^2$ for $A = -i\sigma_x/2$, $B = -i\sigma_y/2$, and identify the structure constant of the two-state rotation family (in $\sigma$-units, from \eqref{eq:sigma-commutator}); state in one sentence what vanishes instead for two perpendicular spatial translations.
+
+\item ($\star\star$) (Section~\ref{sec:galilean-group}) The Galilean center. Take $[P_i,K_j] = +i\hbar\,\delta_{ij}\,M$ with $M$ central (\eqref{eq:central-extension}). (a) Prove the central Baker--Campbell--Hausdorff identity
+\begin{linenomath}
+    \begin{equation}
+        e^{A}e^{B} = e^{B}e^{A}e^{[A,B]}
+        \qquad\text{when } [A,B] \text{ commutes with } A \text{ and with } B ,
+    \end{equation}
+\end{linenomath}
+by series expansion or by the differential method (either, stated). (b) Apply it to $T(\bm a) = e^{-i\bm a\cdot\bm P/\hbar}$ and $B(\bm v) = e^{-i\bm v\cdot\bm K/\hbar}$ to derive the boost--translation phase \eqref{eq:boost-translation-phase},
+\begin{linenomath}
+    \begin{equation}
+        T(\bm a)\,B(\bm v) = e^{-iM\bm a\cdot\bm v/\hbar}\,B(\bm v)\,T(\bm a) .
+    \end{equation}
+\end{linenomath}
+Watch the signs: they work out \emph{with} the stated package. (c) Explain in one paragraph why the phase is unobservable within a single mass sector (the ray theorem, Section~\ref{sec:rays}) yet forbids coherent superpositions of different masses --- Bargmann's superselection reading of Section~\ref{sec:galilean-group}, connecting to the superselection clause of the states chapter (Section~\ref{sec:rays}).
+
+\item ($\star\star$) (Section~\ref{sec:conservation}) Conservation computed. Let $H = (\hbar\omega/2)\,\sigma_z$. (a) Verify $[\sigma_z,H] = 0$ and show, via the equation of motion \eqref{eq:expectation-eom}, that $\langle\sigma_z\rangle$ is constant for \emph{any} initial state. (b) Compute
+\begin{linenomath}
+    \begin{equation}
+        \frac{\dd}{\dd t}\langle\sigma_x\rangle = -\omega\,\langle\sigma_y\rangle,
+        \qquad
+        \frac{\dd}{\dd t}\langle\sigma_y\rangle = \omega\,\langle\sigma_x\rangle
+    \end{equation}
+\end{linenomath}
+from \eqref{eq:expectation-eom} and \eqref{eq:sigma-commutator}, and check the result against the precession of Exercise~3. (c) Exhibit one state with $\dd\langle\sigma_x\rangle/\dd t \neq 0$ --- a non-commuting generator is not conserved, in numbers.
+
+\item ($\star\star\star$) (Section~\ref{sec:time-status}, with the Robertson relation \eqref{eq:robertson}) The status of time, honestly handled. (a) \emph{The obstruction:} show that no $2\times2$ matrix $T$ can satisfy $[T,H] = i\hbar\,I$ (take traces of both sides); state in one sentence what extra input the general argument needs (a bounded-below energy spectrum --- the Pauli footnote of Section~\ref{sec:time-status}). (b) \emph{The relation that does exist:} apply the Robertson relation to the pair $(H,A)$ and use the equation of motion \eqref{eq:expectation-eom} to derive
+\begin{linenomath}
+    \begin{equation}
+        \Delta E\,\Delta A \;\geq\; \frac{\hbar}{2}\,\Bigl|\frac{\dd\langle A\rangle}{\dd t}\Bigr| ;
+    \end{equation}
+\end{linenomath}
+define the timescale $\tau_A := \Delta A\,/\,\bigl|\dd\langle A\rangle/\dd t\bigr|$ and conclude $\Delta E\,\tau_A \geq \hbar/2$. Compute $\tau_{\sigma_x}$ for the precessing state of Exercise~3. (c) \emph{Honesty clause:} explain in one paragraph why (b) is \emph{not} a Robertson relation for a ``time operator'' --- $t$ is a parameter, not an observable, and $\tau_A$ is a timescale defined by the state and the observable jointly (the Mandelstam--Tamm reading, footnote of Section~\ref{sec:time-status}).
+
+\item ($\star\star\star$) (Section~\ref{sec:discrete-symmetries}) Discrete symmetries in arithmetic. (a) \emph{Parity:} with $\Pi = \sigma_z$ on $\mathbb{C}^2$, classify $\sigma_x$, $\sigma_y$, $\sigma_z$, $I$ by operator parity (\eqref{eq:parity-def}); verify $\braket{\pm z|A|\pm z} = 0$ for every odd $A$ (the selection rule \eqref{eq:parity-selection}) and exhibit a nonzero even--odd matrix element. (b) \emph{Kramers:} given antiunitary $\Theta$ with $\Theta^2 = -I$, prove $\braket{\psi|\Theta\psi} = 0$ in two lines from the antiunitary rule \eqref{eq:antiunitary-def} (\eqref{eq:kramers}); then verify the abstract argument on the doublet $\{\ket{+z},\ket{-z}\}$ with $\Theta = i\sigma_y K_0$ --- check $\Theta^2 = -I$ and $\Theta\ket{+z} \propto \ket{-z}$. (The rotation reading of $i\sigma_y K_0$ belongs to the chapter on angular momentum: one honesty sentence.)
+\end{problemset}

@@ -1,0 +1,889 @@
+\chapter{Operator Methods, Pictures and Representations}
+
+\begin{note}
+    This chapter is deductive in character and adds no new axiom. Taking the state-space axioms of Chapter~2, the measurement axioms of Chapter~3, and the evolution postulate of Chapter~4 as established input, it derives: the three pictures of evolution and their equivalence; the position and momentum representations, with the momentum operator's form derived from the translation generator and the canonical commutator computed at last; Ehrenfest's theorem and the classical limit of narrow states; the harmonic oscillator solved by ladder operators, zero-point energy included; coherent states; the forced oscillator solved exactly in the interaction picture; and the free-particle propagator with the spreading of the wave packet. Displays built on the continuum labels $\ket{x}$ and $\ket{p}$ are formal in the licensed-shorthand sense of the states and measurement chapters (\eqref{eq:delta-normalization}, Section~\ref{sec:continuous-spectra}); the rigor behind them is Appendix~A's standing debt, flagged at first use and not argued here. Two theorems are cited without proof --- Stone's theorem, already the evolution chapter's, and the Wintner--Wielandt theorem, named at its point of use --- and certain convergence facts of the continuum displays are footnoted rather than argued; everything provable with the machinery at hand is proved.
+\end{note}
+
+The preceding chapter closed with a question it deliberately did not answer (Section~\ref{sec:ch4summary}):
+\begin{quote}
+    One number, two readings. A fixed observable's expectation in an evolving state, $\braket{\psi(t)|A|\psi(t)} = \braket{\psi(0)|U^\dagger(t)AU(t)|\psi(0)}$, can be computed in two ways: carry the evolution on the state --- this chapter's choice --- or carry it on the operator, $U^\dagger(t)AU(t)$, with the state standing still. Every count of every experiment is indifferent to the choice; yet the second reading re-reads this chapter's every equation, and in it the commutator $[H,A]$, not the state, carries the motion. Which of the two is the dynamics --- and must a physical law have a unique answer to that question? That is the theory of pictures, and it is the next chapter. \ldots
+\end{quote}
+This chapter is that theory. Its first two sections answer the question --- Sections~\ref{sec:schroedinger-heisenberg-pictures} and~\ref{sec:interaction-picture} build the three pictures, Schr\"odinger's, Heisenberg's, and Dirac's interaction picture, and prove their equivalence --- and the honest answer is the chapter's thesis: the dynamics is what every picture agrees on. Pictures are to time dependence what representations are to state content: choices of description, with the physics in the intersection.
+
+The question is as old as the theory's two births. Heisenberg's mechanics of 1925 carried the time on its transition quantities, which oscillated at the observed Bohr frequencies by construction (Section~\ref{subsec:matrix}); Schr\"odinger's wave mechanics of 1926 carried it on the state, in the historical chapter's account; and the equivalence demonstrated that same year (Section~\ref{subsec:equivalence}) taught the lesson this chapter spends: matrix and wave mechanics were two coordinate systems for one structure, and no experimental count ever preferred one. The states chapter's fifth requirement --- the state is none of its representations (Section~\ref{subsec:why-kinematics}) --- is the kinematical half of that lesson; the pictures question is its dynamical half.
+
+A matching debt waits in the kinematics itself. The measurement chapter's continuum preview named the position operator, the momentum operator, and the canonical commutator $[Q,P] = i\hbar\,I$ without building any of the three (\eqref{eq:canonical-commutator}, Section~\ref{sec:continuous-spectra}): the position and momentum labels of the diffraction bench have had no operators behind them. Sections~\ref{sec:position-representation} and~\ref{sec:momentum-representation} build them --- $X$ as multiplication, $P$ from the translation generator of the evolution chapter (\eqref{eq:generator-correspondence}), the commutator computed from the representations --- and repay with them the historical chapter's matter-wave debt (Section~\ref{subsec:debroglie}): de Broglie's wave appears as a theorem of the representation theory, not as a premise.
+
+With the canonical pair in hand, the book's two oldest promissory notes fall due. Planck's oscillator quantization of 1900, the historical chapter's account of the black-body law, is repaid in Section~\ref{sec:harmonic-oscillator}, where the discreteness postulated for material resonators is derived and corrected by the zero-point energy; de Broglie's wave packet is repaid in Section~\ref{sec:propagator}, where the free evolution of a localized state is computed exactly. Between the two repayments the machinery is exercised: the classical limit made a theorem about narrow states (Section~\ref{sec:ehrenfest}) and about large excitation (Section~\ref{sec:coherent-states}), and a driven oscillator solved exactly in the interaction picture (Section~\ref{sec:forced-oscillator}). The landings remain the bench's, by the charter of this phase of the book: vibrational spectra and their selection rule, resonant energy uptake against static-drive oscillation, and time-of-flight momentum distributions. The summary of Section~\ref{sec:ch5summary} then balances the ledger and hands the operator triad --- generators, commutators, ladders --- to the rotation family.
+
+\section{One Number, Two Readings: the Schr\"odinger and Heisenberg Pictures}
+\label{sec:schroedinger-heisenberg-pictures}
+
+The question quoted at this chapter's opening is answered here for the systems to which the evolution postulate applies directly: an isolated system, its Hamiltonian time-independent, its evolution the one-parameter family of \eqref{eq:evolution-axiom}. The register in which the evolution chapter worked --- the state carried by the family, $\ket{\psi(t)} = U(t)\ket{\psi(0)}$, and every observable a fixed operator --- is called the \textbf{Schr\"odinger picture}. The name honors the reading of 1926; the alternative reading is the older of the two. Heisenberg's mechanics of 1925 carried the time on the observables, its transition quantities oscillating at the Bohr frequencies because the spectral lines demanded it (Section~\ref{subsec:matrix}); the states-carry-time reading arrived with wave mechanics the following year. The 1926 demonstration that the two mechanics are one (Section~\ref{subsec:equivalence}) taught that two coordinate systems can house a single structure --- and this section is that lesson's dynamical face, proved now from the evolution postulate rather than inferred from data.
+
+Form, from any fixed operator $A$ of the Schr\"odinger picture, the one-parameter family
+\begin{linenomath}
+    \begin{equation}
+        A_H(t) := U^\dagger(t)\,A\,U(t),
+        \label{eq:heisenberg-operator}
+    \end{equation}
+\end{linenomath}
+with the states frozen at their prepared values, $\ket{\psi_H} := \ket{\psi(0)}$. This is the \textbf{Heisenberg picture}: the evolution is carried on the observables, and the state stands still. One operator deserves immediate remark. The generator commutes with its own exponential, $[H, U(t)] = 0$ by \eqref{eq:generator-def} --- the exponential is a function of $H$ in the sense of \eqref{eq:function-of-observable} --- so $H_H = H$: the Hamiltonian is picture-free, one operator with the same form in both registers.
+
+\medskip\noindent\textbf{Theorem (the Heisenberg equation of motion).} \emph{Every Heisenberg-picture operator \eqref{eq:heisenberg-operator} obeys}
+\begin{linenomath}
+    \begin{equation}
+        \frac{\dd A_H}{\dd t} = \frac{i}{\hbar}\,[H, A_H] + \Bigl(\frac{\partial A}{\partial t}\Bigr)_H .
+        \label{eq:heisenberg-eom}
+    \end{equation}
+\end{linenomath}
+The proof is two lines from \eqref{eq:schroedinger} and its adjoint. Applied to an arbitrary prepared state, the theorem-form of the evolution postulate gives $\dd U/\dd t = -(i/\hbar)\,HU$ and $\dd U^\dagger/\dd t = +(i/\hbar)\,U^\dagger H$; differentiating the definition,
+\begin{linenomath}
+    \begin{equation*}
+        \frac{\dd A_H}{\dd t} = \frac{i}{\hbar}\,U^\dagger H A\,U - \frac{i}{\hbar}\,U^\dagger A H\,U = \frac{i}{\hbar}\,\bigl(HA_H - A_HH\bigr),
+    \end{equation*}
+\end{linenomath}
+using $[H, U] = 0$. The last term of \eqref{eq:heisenberg-eom} is the explicit-dependence clause: an operator carrying its own time dependence, $A = A(t)$, contributes $(\partial A/\partial t)_H := U^\dagger(\partial A/\partial t)U$; the instruments of this chapter are fixed operators, and the clause will not be used --- the same clause was named and dismissed at \eqref{eq:expectation-eom}. The sign is the evolution chapter's: taking the expectation of \eqref{eq:heisenberg-eom} in the frozen state reproduces the expectation-value equation \eqref{eq:expectation-eom} exactly.
+
+\medskip\noindent\textbf{Theorem (picture equivalence).} \emph{For any two states and any operator,}
+\begin{linenomath}
+    \begin{equation}
+        \braket{\phi(t)|A|\psi(t)} = \braket{\phi(0)|U^\dagger(t)\,A\,U(t)|\psi(0)} = \braket{\phi(0)|A_H(t)|\psi(0)} .
+        \label{eq:picture-invariance}
+    \end{equation}
+\end{linenomath}
+Every matrix element is one number with two readings; hence every transition probability by the Born rule \eqref{eq:born-rule}, every expectation value \eqref{eq:expectation-operator}, every count of every experiment is picture-independent. Sandwiched between stationary states (\eqref{eq:stationary-phase}), the Heisenberg operator's matrix elements read
+\begin{linenomath}
+    \begin{equation*}
+        \braket{e_m|A_H(t)|e_n} = e^{i(E_m - E_n)t/\hbar}\,\braket{e_m|A|e_n},
+    \end{equation*}
+\end{linenomath}
+the Bohr-frequency expansion \eqref{eq:bohr-frequencies} recovered in the operator register: Heisenberg's imposed time dependence of 1925 is now the definition's shadow, derived where it was postulated.
+
+The equivalence is exhibited on the book's exact two-state dynamics. For the static-field spin of Section~\ref{sec:spin-precession}, $H = (\hbar\omega/2)\,\sigma_z$ with the evolution operator \eqref{eq:larmor-evolution}, the transverse components carried by the operator are
+\begin{linenomath}
+    \begin{equation*}
+        \sigma_{x,H}(t) = \cos\omega t\;\sigma_x - \sin\omega t\;\sigma_y, \qquad \sigma_{y,H}(t) = \sin\omega t\;\sigma_x + \cos\omega t\;\sigma_y, \qquad \sigma_{z,H}(t) = \sigma_z,
+    \end{equation*}
+\end{linenomath}
+stated here and verified in Exercise~1 by two routes: direct conjugation with \eqref{eq:larmor-evolution} and reduction by the Pauli algebra \eqref{eq:sigma-commutator}, and integration of the Heisenberg equation of motion \eqref{eq:heisenberg-eom}.\footnote{The explicit Pauli-algebra reduction and the integration of the coupled differential equations are supplied in Exercise~1; the verification is deferred to the problem set.} The count check is the point: in the state prepared along $+x$,
+\begin{linenomath}
+    \begin{equation*}
+        \braket{+x|\sigma_{x,H}(t)|+x} = \cos\omega t,
+    \end{equation*}
+\end{linenomath}
+the same cosine the evolution chapter extracted from the evolving state (\eqref{eq:precession}) --- the same count from both bookkeepings, in arithmetic.
+
+The equivalence theorem answers the exit question in its own terms. No experiment decides between the pictures, because the pictures differ only in where the evolution is written down; the invariant content --- the matrix elements between states --- is the dynamics. ``Which of the two is the dynamics?'' is therefore a question about the description, not about the physics, and a physical law need not have a unique answer to it: the two readings are one law. Pictures are to time dependence what representations are to state content --- the states chapter's fifth requirement, that the state is none of its representations (Section~\ref{subsec:why-kinematics}), has its dynamical twin: the dynamics is none of its pictures.
+
+The advantage of the Heisenberg picture is structural: it puts the motion where classical mechanics puts it, on the observables, so that the classical-limit theorem of Section~\ref{sec:ehrenfest} is natural in this register, and conserved quantities are literally time-independent operators --- the conservation theorem \eqref{eq:conservation-theorem} re-read: $[G, H] = 0$ if and only if $G_H$ is constant. Its limitation is practical. For a time-dependent law $H(t)$ the operator equation is rarely simpler than the state's, for the conjugated Hamiltonian $U^\dagger H(t)\,U$ is no longer $H(t)$ itself, and the equation must be built from the time-ordered family of Section~\ref{sec:time-ordered}. The picture that earns its keep on driven problems is the next section's.
+
+The split of the motion between state and operator has been all-or-nothing here: one register carries it wholly on the state, the other wholly on the observables. A driven problem wants a partial split --- the solved part of the law carried one way, the unsolved drive the other. That partial split is Dirac's picture, and it is the working register of the rest of physics.
+
+\section{Splitting the Motion: the Interaction Picture}
+\label{sec:interaction-picture}
+
+A driven system splits its law into a solved part and a remainder: $H(t) = H_0 + V(t)$, with $H_0$ time-independent and its evolution family $U_0(t) := e^{-iH_0t/\hbar}$ known. The reference time is $t = 0$ throughout; at a general reference time $t_0$ the same definitions stand with $U_0(t, t_0) := e^{-iH_0(t-t_0)/\hbar}$. The \textbf{interaction picture} --- Dirac's, from the transformation theory of 1926\footnote{P.~A.~M.~Dirac, \emph{Proc.~R.~Soc.~Lond.~A}~\textbf{112}, 661 (1926).} --- carries the solved part of the motion on the operators and leaves only the remainder to the state:
+\begin{linenomath}
+    \begin{equation}
+        \ket{\psi_I(t)} := U_0^\dagger(t)\,\ket{\psi(t)}, \qquad A_I(t) := U_0^\dagger(t)\,A\,U_0(t) .
+        \label{eq:interaction-state}
+    \end{equation}
+\end{linenomath}
+The split interpolates between the two pictures of Section~\ref{sec:schroedinger-heisenberg-pictures}, and both reductions check: with $V = 0$ the state stands still and the operators carry all of $H_0$'s motion --- the Heisenberg register of the solved system; with $H_0 = 0$ the operators stand still and the state carries everything --- the Schr\"odinger register.
+
+\medskip\noindent\textbf{Theorem (the interaction equation of motion).} \emph{The interaction state obeys}
+\begin{linenomath}
+    \begin{equation}
+        i\hbar\,\frac{\dd}{\dd t}\ket{\psi_I(t)} = V_I(t)\,\ket{\psi_I(t)}, \qquad V_I(t) := U_0^\dagger(t)\,V(t)\,U_0(t) .
+        \label{eq:interaction-eom}
+    \end{equation}
+\end{linenomath}
+The proof is two lines from the generalized evolution law \eqref{eq:schroedinger-timedep}. Since $U_0$ is a function of $H_0$ (\eqref{eq:function-of-observable}), one has $\dd U_0^\dagger/\dd t = (i/\hbar)\,U_0^\dagger H_0$; differentiating the definition,
+\begin{linenomath}
+    \begin{equation*}
+        i\hbar\,\frac{\dd}{\dd t}\ket{\psi_I(t)} = -U_0^\dagger H_0\ket{\psi(t)} + U_0^\dagger\bigl(H_0 + V(t)\bigr)\ket{\psi(t)} = U_0^\dagger V(t)\,U_0(t)\;U_0^\dagger(t)\ket{\psi(t)},
+    \end{equation*}
+\end{linenomath}
+which is \eqref{eq:interaction-eom}. The drive, and only the drive, moves the interaction state: switch $V$ off and $\ket{\psi_I}$ stands still.
+
+The interaction state is carried between interrogations by a two-parameter family $U_I(t, t_0)$, which obeys the evolution chapter's law \eqref{eq:schroedinger-timedep} with generator $V_I(t)$; its solution is the time-ordered exponential of $V_I$ --- the Dyson series \eqref{eq:time-ordered-exp} re-read in the interaction register --- and the full evolution factors as $U(t, t_0) = U_0(t, t_0)\,U_I(t, t_0)$. Every count is likewise interaction-picture-independent: $\braket{\phi(t)|A|\psi(t)} = \braket{\phi_I(t)|A_I(t)|\psi_I(t)}$ by the unitarity of $U_0(t)$, inserting $U_0U_0^\dagger = I$ twice. With Section~\ref{sec:schroedinger-heisenberg-pictures} this completes the equivalence of the three pictures: three bookkeepings of one invariant content.
+
+One pointer, contractual, and no more. Truncated after its first nontrivial term, the interaction-picture series \emph{is} time-dependent perturbation theory --- the later chapter's theory, and its repayment route of the historical chapter's debt of the Einstein coefficients (Section~\ref{subsec:einsteinAB}). Nothing is truncated in this chapter: Section~\ref{sec:forced-oscillator} will sum the series exactly for a drive whose commutator is central, and the exact solution will stand as the benchmark for the later approximations.
+
+The interaction picture also discharges a flag the evolution chapter planted. Its rotating relabeling of the resonance problem was flagged there, in a note, as the measurement chapter's instantaneous relabeling applied continuously --- ``not a picture of dynamics'' (Section~\ref{sec:time-ordered}). The tool was on the page; the concept --- the bookkeeping split of the motion --- was not. It is on the page now. Take the circularly driven spin of that section and choose the solved part at the \emph{drive} frequency, $H_0 = (\hbar\omega/2)\,\sigma_z$. The choice is legitimate: $H_0$ need only be solved, and the static $z$-field is solved in Section~\ref{sec:spin-precession}. The remainder's interaction form is
+\begin{linenomath}
+    \begin{equation*}
+        V_I(t) = U_0^\dagger(t)\,\bigl(H(t) - H_0\bigr)\,U_0(t) = \frac{\hbar\omega_1}{2}\,\sigma_x - \frac{\hbar\delta}{2}\,\sigma_z, \qquad \delta = \omega - \omega_0,
+    \end{equation*}
+\end{linenomath}
+static at every detuning --- resonance, $\delta = 0$, merely makes it purely transverse. This is the effective generator $H_{\mathrm{eff}}$ of Section~\ref{sec:time-ordered}: the relabeled state of that section \emph{is} the interaction state of this one, and its static-generator equation is \eqref{eq:interaction-eom} of this system. The Rabi oscillation \eqref{eq:rabi-formula} is thereby re-read, not redone: the interaction state rotates under a static generator at the rate $\sqrt{\omega_1^2 + \delta^2}$, fully transferred between the alternatives on resonance, partially off it --- one computation, both bookkeepings, and no new solution claimed.
+
+The pictures are three bookkeepings of one motion --- abstract, representation-free, complete. But the measurement chapter left a matching kinematical debt: the position and momentum labels of its continuum preview (Section~\ref{sec:continuous-spectra}) still have no operators behind them. Building those operators is the next two sections' work, and it begins where the evolution chapter left its own promissory note: the translation generator of \eqref{eq:generator-correspondence}.
+
+\section{The Position Representation: Wave Functions and the Form of Momentum}
+\label{sec:position-representation}
+
+The continuum shorthand of the states and measurement chapters is licensed machinery, recalled by citation: the wave function $\psi(x) = \braket{x|\psi}$ (\eqref{eq:wavefunction}), the $\delta$-normalization $\braket{x|x'} = \delta(x - x')$ (\eqref{eq:delta-normalization}), the genuine vectors the square-integrable functions of $L^2(\mathbb{R})$ (\eqref{eq:l2}). Its operator content is one display, the continuum resolution of identity:
+\begin{linenomath}
+    \begin{equation}
+        \int_{-\infty}^{+\infty}\!\dd x\,\ket{x}\bra{x} = I .
+        \label{eq:position-resolution}
+    \end{equation}
+\end{linenomath}
+This is the operator reading of the continuum composition law \eqref{eq:continuum-composition} and the continuum sibling of the measurement chapter's resolution \eqref{eq:resolution-identity}: applied to a ket it returns the wave function, and sandwiched between $\bra{x}$ and $\ket{x'}$ it returns the $\delta$-shorthand itself.
+
+\begin{note}
+The warning of the states and measurement chapters stands verbatim a second time (\eqref{eq:delta-normalization} and the note attached to it there, recycled at Section~\ref{sec:continuous-spectra}): the ket $\ket{x}$ is \emph{not} a vector of $\mathcal{H}$ --- its formal norm diverges, and no convention repairs the defect --- and the continuum displays of this chapter are a calculus whose honest justification, the rigged Hilbert space, is Appendix~A's debt. Every statement made with the shorthand can be re-expressed, at the price of some care, among the genuine vectors of $L^2(\mathbb{R})$ (\eqref{eq:l2}).
+\end{note}
+
+The interval projectors of the measurement chapter (\eqref{eq:interval-projector}) priced the position statistics without supplying an operator. The operator is now built:
+\begin{linenomath}
+    \begin{equation}
+        (X\psi)(x) := x\,\psi(x), \qquad\text{that is,}\qquad \bra{x}X\ket{\psi} = x\,\braket{x|\psi} .
+        \label{eq:x-multiplication}
+    \end{equation}
+\end{linenomath}
+The position observable is multiplication by the label. Its expectation is the first moment of the position Born rule, $\langle x\rangle_\psi = \int\!x\,|\psi(x)|^2\,\dd x$ (\eqref{eq:position-expectation}, itself the expectation of the interval measure \eqref{eq:position-born}); and $X$ is self-adjoint on its domain --- multiplication by a real function --- the domain being the wave functions with $x\,\psi$ still square-integrable. Unboundedness and domains are the preview's honesty, standing as stated in Section~\ref{sec:continuous-spectra}; their rigorous theory is Appendix~A's, pointed to once here.
+
+The evolution chapter built translations as operators, $T(a) = e^{-iaP/\hbar}$ with $P$ the self-adjoint translation generator (\eqref{eq:generator-correspondence}, \eqref{eq:infinitesimal-generator}), acting on states by translating the position label (Section~\ref{sec:galilean-group}) --- and it left the position-representation form of that generator as this chapter's debt. The action is a shift of the argument: actively translating a preparation by $a$ carries a wave function peaked at $x_0$ to one peaked at $x_0 + a$, so
+\begin{linenomath}
+    \begin{equation}
+        \bigl(T(a)\psi\bigr)(x) = \psi(x - a) .
+        \label{eq:translation-action}
+    \end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Theorem (the position-representation form of momentum).} \emph{On wave functions in its domain, the translation generator acts as}
+\begin{linenomath}
+    \begin{equation}
+        (P\psi)(x) = -i\hbar\,\frac{\dd\psi}{\dd x} .
+        \label{eq:momentum-generator}
+    \end{equation}
+\end{linenomath}
+The proof is a differentiation of the family at $a = 0$. On one side, the exponential map \eqref{eq:infinitesimal-generator} gives $T(a) = I - (ia/\hbar)\,P + O(a^2)$, so $\bigl(T(a)\psi\bigr)(x) = \psi(x) - (ia/\hbar)\,(P\psi)(x) + O(a^2)$; on the other, \eqref{eq:translation-action} gives $\psi(x - a) = \psi(x) - a\,\dd\psi/\dd x + O(a^2)$. Matching the terms linear in $a$ yields \eqref{eq:momentum-generator}.
+
+The derivation route is contractual, and it is stated plainly. The input is the Galilean generator correspondence --- translations are exponentials of the momentum, earned in the evolution chapter from the translation symmetry of the bench (\eqref{eq:generator-correspondence}, Section~\ref{sec:lie-groups}); the output is the position-representation form of $P$. De Broglie's wave is nowhere an input: it is the next section's theorem, not this section's premise. Schr\"odinger's correspondence guess of 1926, recorded in the historical chapter's account of wave mechanics, stands as this result's anticipation --- history, not derivation.
+
+One remark on status. The operator $-i\hbar\,\dd/\dd x$ is the derivative's self-adjoint face on the line's arena: integration by parts on square-integrable functions leaves no boundary term, and the domain questions this one-sentence gloss hides are Appendix~A's, as flagged in the note above. With the generator's form derived, the evolution chapter's census is completed in this representation: $P$ generates translations of the position label exactly as $H$ generates waiting, and the diffraction bench's momentum measurement (Section~\ref{sec:uncertainty}) now has a built observable behind it.
+
+The abstract parity operator of the evolution chapter (\eqref{eq:parity-def}) acts on wave functions as $(\Pi\psi)(x) = \psi(-x)$: the even and odd functions are its eigenspaces of eigenvalue $\pm 1$. The position operator is odd under it, $\Pi\,X\,\Pi = -X$ --- multiplication by $x$ changes sign when the argument is reflected --- as is every odd power of $X$. Laporte's rule (\eqref{eq:parity-selection}) is thereby an integral computation. For any even state,
+\begin{linenomath}
+    \begin{equation*}
+        \braket{\psi_{\mathrm{even}}|X|\psi_{\mathrm{even}}} = \int_{-\infty}^{+\infty} x\,|\psi_{\mathrm{even}}(x)|^2\,\dd x = 0,
+    \end{equation*}
+\end{linenomath}
+the integrand odd on a symmetric line. The abstract selection theorem is made concrete, and its next cashing is already planted: the oscillator eigenfunctions of Section~\ref{sec:harmonic-oscillator} alternate in parity.
+
+$X$ and $P$ are now both operators, but the position label is only half the continuum: the plane waves $e^{ipx/\hbar}$ --- momentum's candidates since the measurement chapter named them (Section~\ref{sec:continuous-spectra}) --- are still unbuilt. Building them is building the momentum representation, and with it the canonical commutator's proper home.
+
+\section{The Momentum Representation and the Canonical Commutator, Built at Last}
+\label{sec:momentum-representation}
+
+Momentum, built in the last section as an operator, has its formal eigenvalue equation $P\ket{p} = p\ket{p}$ --- formal in the sense of the note of Section~\ref{sec:position-representation}: $\ket{p}$ is no more a vector of $\mathcal{H}$ than $\ket{x}$ is. Read in the position representation, with $\braket{x|p}$ the eigenfunction, \eqref{eq:momentum-generator} makes it an elementary differential equation,
+\begin{linenomath}
+    \begin{equation*}
+        -i\hbar\,\frac{\dd}{\dd x}\braket{x|p} = p\,\braket{x|p},
+        \qquad\text{whence}\qquad
+        \braket{x|p} = C\,e^{ipx/\hbar} .
+    \end{equation*}
+\end{linenomath}
+The constant is fixed by the shorthand's own discipline. The continuum composition law \eqref{eq:continuum-composition} gives $\braket{p|p'} = |C|^2\!\displaystyle\int\!e^{i(p'-p)x/\hbar}\,\dd x = 2\pi\hbar\,|C|^2\,\delta(p - p')$, and imposing the $\delta$-normalization $\braket{p|p'} = \delta(p - p')$ of \eqref{eq:delta-normalization}, with the conventional phase, yields
+\begin{linenomath}
+    \begin{equation}
+        \braket{x|p} = \frac{1}{\sqrt{2\pi\hbar}}\;e^{ipx/\hbar} .
+        \label{eq:debroglie-wave}
+    \end{equation}
+\end{linenomath}
+The repayment is stated plainly. De Broglie's relation of 1924 assigned to every momentum a wave (Section~\ref{subsec:debroglie}); the measurement chapter named the plane waves the momentum-sharp candidates and built nothing further (Section~\ref{sec:continuous-spectra}). Here the wave is a theorem of the representation theory --- the momentum eigenfunction, non-normalizable exactly as the measurement chapter warned, so that momentum-sharp preparations are idealizations exactly as position-sharp ones are. The hypothesis of 1924 is repaid, not assumed.
+
+Every state now has its second face. The \textbf{momentum representative} of $\ket{\psi}$ is its amplitude against the momentum eigenkets, and \eqref{eq:debroglie-wave} makes the transform explicit:
+\begin{linenomath}
+    \begin{equation}
+        \begin{split}
+            &\varphi(p) := \braket{p|\psi} = \frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{+\infty}\!e^{-ipx/\hbar}\,\psi(x)\,\dd x, \qquad \psi(x) = \frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{+\infty}\!e^{ipx/\hbar}\,\varphi(p)\,\dd p, \\
+            &(P\varphi)(p) = p\,\varphi(p), \qquad (X\varphi)(p) = +i\hbar\,\frac{\dd\varphi}{\dd p} .
+        \end{split}
+        \label{eq:momentum-representation}
+    \end{equation}
+\end{linenomath}
+The first clause is the Fourier transform; the second is the eigenvalue equation in its own representation; the third follows by differentiating under the integral, since $x\,e^{-ipx/\hbar} = i\hbar\,(\partial/\partial p)\,e^{-ipx/\hbar}$ --- the signs checked against the transform. The two representations are dual faces of one arena, and Parseval's identity \eqref{eq:parseval} re-reads as the norm preservation of the transform: $\int\!|\psi(x)|^2\,\dd x = \int\!|\varphi(p)|^2\,\dd p$.
+
+The machinery's first instrument is already on the bench. The single slit of the states and measurement chapters (\eqref{eq:aperture}; the estimate of Section~\ref{sec:uncertainty}) prepares a box wave function of width $a$, normalized on its interval; its momentum amplitude is the box's Fourier transform by \eqref{eq:momentum-representation},
+\begin{linenomath}
+    \begin{equation*}
+        \varphi(p) = \sqrt{\frac{a}{2\pi\hbar}}\;\frac{\sin(pa/2\hbar)}{pa/2\hbar} \;\propto\; \operatorname{sinc}\!\Bigl(\frac{pa}{2\hbar}\Bigr) .
+    \end{equation*}
+\end{linenomath}
+The aperture amplitude of the states chapter is thereby recognized as a Fourier transform --- the exponent of the aperture integral \eqref{eq:aperture} is $ip_xx'/\hbar$ with $p_x = \hbar kx/L$, the arrival coordinate reading the transverse momentum --- and the screen's $\operatorname{sinc}^2$ histogram behind the slit (Section~\ref{sec:continuous-spectra}) is $|\varphi(p_x)|^2$ mapped to position: the diffraction bench is the book's first momentum meter. The width product is re-estimated with the honesty clause intact: the $\operatorname{sinc}^2$ distribution has no finite second moment --- the box's cusps are the culprit --- so no Robertson variance is quoted for it; the width-to-first-zero estimate gives $\Delta x\,\Delta p_x \sim a\cdot(h/a) = h$, the measurement chapter's estimate (Section~\ref{sec:uncertainty}) recovered, not improved upon.
+
+One convention before the peak. The symbols $Q$ and $X$ name one observable: $Q$ is the canonical position operator in abstract statements, $X$ its position-representation face; the notation reports which register is speaking.
+
+\medskip\noindent\textbf{Theorem (the canonical commutator, built).} \emph{On the common domain of $Q$ and $P$,}
+\begin{linenomath}
+    \begin{equation}
+        [Q, P] = i\hbar\,I .
+        \label{eq:canonical-commutator-built}
+    \end{equation}
+\end{linenomath}
+The proof is one direct computation in the position representation. For any $\psi$ in the common domain, \eqref{eq:x-multiplication} and \eqref{eq:momentum-generator} give $(QP\psi)(x) = -i\hbar\,x\,\dd\psi/\dd x$ and $(PQ\psi)(x) = -i\hbar\,\dfrac{\dd}{\dd x}\bigl(x\,\psi(x)\bigr) = -i\hbar\,\psi(x) - i\hbar\,x\,\dd\psi/\dd x$; the difference is $i\hbar\,\psi(x)$.
+
+The register is stated contractually. The measurement chapter \emph{named} the 1925 relation without building it (\eqref{eq:canonical-commutator}), in a finite arena that could not house it; the same relation is now \emph{computed} from the representations just built --- its proper home, discharging the debt the measurement chapter declared (Section~\ref{sec:continuous-spectra}). Downstream, the relation as physics is cited from here.
+
+\begin{note}
+The pair's unboundedness comes in two registers, kept apart. \emph{Finite-dimensional, displayed and exact:} in any finite dimension the trace of a commutator vanishes, so
+\begin{linenomath}
+    \begin{equation}
+        \tr[Q, P] = 0 \neq i\hbar\,\dim\mathcal{H},
+        \label{eq:trace-obstruction}
+    \end{equation}
+\end{linenomath}
+and no matrices realize the canonical pair --- the one-line arithmetic of the evolution chapter's no-time-operator display \eqref{eq:no-time-operator}, recycled. This alone explains why the measurement chapter's finite arena could only name the relation. \emph{General, cited and not proved:} the pair admits no realization by \emph{bounded} operators on any Hilbert space --- the Wintner--Wielandt theorem,\footnote{A.~Wintner, \emph{Phys.~Rev.}~\textbf{71}, 738 (1947); H.~Wielandt, \emph{Math.~Ann.}~\textbf{121}, 21 (1949). The rigorous statements, with the domain theory they presuppose, are Appendix~A's.} cited here as a fact, with Appendix~A pointed to at this point of use. The infinite-dimensional arena with unbounded operators is thereby forced, not chosen. The displayed trace argument carries the finite-dimensional claim only; the bounded claim never rests on the display.
+\end{note}
+
+The pair also has a bounded register, exact and free of domain caveats. With the exponentials $U(a) := e^{-iaP/\hbar}$ and $V(b) := e^{-ibQ/\hbar}$, the translation action \eqref{eq:translation-action} and multiplication by a phase give, computed in either order,
+\begin{linenomath}
+    \begin{equation}
+        U(a)\,V(b) = e^{iab/\hbar}\,V(b)\,U(a),
+        \label{eq:weyl-relations}
+    \end{equation}
+\end{linenomath}
+the \emph{Weyl relation}: exponentiating tames what the commutator leaves wild. The display is read off the representations in one line, $e^{-ib(x-a)/\hbar} = e^{iab/\hbar}\,e^{-ibx/\hbar}$; its rigorous content, like the pair's, is Appendix~A's.
+
+With $[Q, P]$ computed, the canonical uncertainty relation \eqref{eq:xp-robertson} is Robertson's corollary \eqref{eq:robertson} applied to built operators: $\Delta x\,\Delta p \geq \hbar/2$, with the variance \eqref{eq:variance} of observables that now exist --- its rigor register, unbounded operators and their domains, unchanged and still Appendix~A's. Which states saturate the bound? The question is planted here and answered three times in what follows: the oscillator's ground state (Section~\ref{sec:harmonic-oscillator}), every coherent state (Section~\ref{sec:coherent-states}), and the Gaussian packet at its release (Section~\ref{sec:propagator}).
+
+The advantage of the representation theory is that the continuum is now machinery: position and momentum are operators, their commutator is computed, de Broglie's wave is a theorem, and the Fourier transform moves every problem between its two natural descriptions --- the whole kinematics of wave mechanics deduced from the symmetry input of the evolution chapter. Its limitation is honesty's price: the eigenkets are not vectors, the operators are unbounded and defined only on domains, and the rigorous justification --- the rigged Hilbert space and the infinite-dimensional spectral theorem --- is delegated to Appendix~A, not discharged here.
+
+With $[Q, P] = i\hbar\,I$ built, the abstract dynamics of the evolution chapter can be specialized to mechanical systems: $H = P^2/2m + V(Q)$, the free generator \eqref{eq:free-hamiltonian} plus a potential. Its equation of motion for the means is one commutator away --- and it reads like Newton.
+
+\section{Ehrenfest's Theorem and the Classical Limit}
+\label{sec:ehrenfest}
+
+The canonical commutator \eqref{eq:canonical-commutator-built} of Section~\ref{sec:momentum-representation} is built, and the abstract dynamics of the evolution chapter can now be specialized to mechanics: one particle on the line, with Hamiltonian $H = P^2/2m + V(Q)$ --- the Galilei-compatible free generator \eqref{eq:free-hamiltonian} of the evolution chapter, plus a potential. Its equation of motion for the means is one commutator away, and it reads like Newton's. This section computes it, and then prices the difference between it and Newton's equation itself: the price is the honest content of the classical limit.
+
+\textbf{The commutator rules.} One identity does all the work. From \eqref{eq:canonical-commutator-built} and the derivation property of the commutator (\eqref{eq:commutator-algebra}), induction on the monomials gives $[Q,P^{n+1}] = [Q,P]\,P^n + P\,[Q,P^n] = i\hbar\,(n+1)\,P^n$ and, by the same token, $[P,Q^n] = -i\hbar\,n\,Q^{n-1}$; linearity extends the rules to polynomials, and the series of an analytic function extends them further (the series acts on the common domain of the unbounded pair --- the domain questions are Appendix A's, as flagged since Section~\ref{sec:position-representation}). The result is the pair of rules
+\begin{linenomath}
+    \begin{equation}
+        [Q,\,F(P)] = i\hbar\,F'(P),
+        \qquad
+        [P,\,G(Q)] = -i\hbar\,G'(Q),
+        \label{eq:qp-commutator-rules}
+    \end{equation}
+\end{linenomath}
+with the instances $[Q,P^2] = 2i\hbar P$ and $[P,Q^n] = -i\hbar n\,Q^{n-1}$ exhibited for use below (Exercise~4 of this chapter rehearses the induction).
+
+\textbf{Ehrenfest's theorem.} The Heisenberg equation of motion \eqref{eq:heisenberg-eom} is applied to the fixed operators $Q$ and $P$, so the explicit-dependence term is absent. Conjugation by $U(t)$ preserves commutators --- $[A_H,B_H]=U^\dagger[A,B]U$ --- and $[H,U]=0$ (the Hamiltonian is time-independent) gives $H_H=H$; therefore $[H,Q_H]=U^\dagger[H,Q]U$ and $[H,P_H]=U^\dagger[H,P]U$. With $H=P^2/2m+V(Q)$, the commutators are
+\begin{linenomath}
+    \begin{align*}
+        [H,Q] &= \Bigl[\frac{P^2}{2m}+V(Q),\,Q\Bigr]
+               = \frac{1}{2m}[P^2,Q]
+               = \frac{1}{2m}\bigl(P[P,Q]+[P,Q]P\bigr)
+               = -\frac{i\hbar}{m}P,\\[4pt]
+        [H,P] &= \Bigl[\frac{P^2}{2m}+V(Q),\,P\Bigr]
+               = [V(Q),P]
+               = i\hbar\,V'(Q),
+    \end{align*}
+\end{linenomath}
+using \eqref{eq:qp-commutator-rules} in the last equality of each line. Inserting these into \eqref{eq:heisenberg-eom}:
+\begin{linenomath}
+    \begin{equation}
+        \frac{\dd Q_H}{\dd t} = \frac{i}{\hbar}\,U^\dagger\Bigl(-\frac{i\hbar}{m}P\Bigr)U = \frac{P_H}{m},
+        \qquad
+        \frac{\dd P_H}{\dd t} = \frac{i}{\hbar}\,U^\dagger\bigl(i\hbar\,V'(Q)\bigr)U = -V'(Q_H).
+    \end{equation}
+\end{linenomath}
+This is Newton's \emph{form}, held by the operators themselves. Taking means in the frozen state --- which, by picture-invariance \eqref{eq:picture-invariance}, is the mean in the evolved state --- gives the theorem's working form,\footnote{P.~Ehrenfest, \emph{Z.~Phys.} \textbf{45}, 455 (1927). Ehrenfest's question was precisely the classical one: under what conditions does the mean of a wave-mechanical description follow the classical trajectory?}
+\begin{linenomath}
+    \begin{equation}
+        \frac{\dd\langle Q\rangle}{\dd t} = \frac{\langle P\rangle}{m},
+        \qquad
+        \frac{\dd\langle P\rangle}{\dd t} = -\bigl\langle V'(Q)\bigr\rangle,
+        \qquad\text{i.e.}\qquad
+        m\,\frac{\dd^2\langle Q\rangle}{\dd t^2} = -\bigl\langle V'(Q)\bigr\rangle.
+        \label{eq:ehrenfest}
+    \end{equation}
+\end{linenomath}
+The same two equations follow from the expectation-value equation of motion of the evolution chapter (\eqref{eq:expectation-eom}) applied to $Q$ and $P$ --- one arithmetic, two bookkeepings, as Section~\ref{sec:schroedinger-heisenberg-pictures} taught.
+
+\textbf{The correction, priced.} The mean does \emph{not} in general follow Newton's equation, for $\langle V'(Q)\rangle \neq V'(\langle Q\rangle)$. The failure is computable. Expand $V'(Q)$ in a Taylor series about the mean position $\langle Q\rangle$:
+\begin{linenomath}
+    \begin{equation*}
+        V'(Q) = V'(\langle Q\rangle) + V''(\langle Q\rangle)\,(Q-\langle Q\rangle) + \frac{1}{2}V'''(\langle Q\rangle)\,(Q-\langle Q\rangle)^2 + \cdots .
+    \end{equation*}
+\end{linenomath}
+Taking the expectation value term by term, the linear term vanishes because $\langle Q-\langle Q\rangle\rangle = 0$, and the quadratic term is $\tfrac12 V'''(\langle Q\rangle)\,(\Delta x)^2$ by the definition of the variance \eqref{eq:variance}; higher-order terms involve higher central moments. The result is
+\begin{linenomath}
+    \begin{equation}
+        \bigl\langle V'(Q)\bigr\rangle = V'(\langle Q\rangle) + \frac{1}{2}\,V'''(\langle Q\rangle)\,(\Delta x)^2 + \cdots,
+        \label{eq:ehrenfest-correction}
+    \end{equation}
+\end{linenomath}
+with $(\Delta x)^2 := \bigl\langle\bigl(Q - \langle Q\rangle\bigr)^2\bigr\rangle$ the position spread. Newton's equation for the mean is therefore exact in the limit of \emph{narrow states}: states whose width is small on the scale over which the force varies. This is the classical limit as a theorem --- the historical chapter's correspondence principle repaid in arithmetic, not invoked as a plea: classical mechanics is the theory of means of narrow packets, and the quantum correction is priced per state by $V'''(\Delta x)^2$. No $\hbar \to 0$ argument enters anywhere in this chapter --- the semiclassical machinery belongs to the path-integral chapter, named here once and not used. And the register is one of two: narrow states here, large excitation in Section~\ref{sec:coherent-states}; the two are distinct theorems and are not to be conflated.
+
+Two forces make the point exact, and both are cashed later in this chapter. The free particle has $V' = 0$: the means move inertially in every state --- the plant of Section~\ref{sec:propagator}. The harmonic oscillator, $V = \tfrac12 m\omega^2 Q^2$, has $V'$ \emph{linear}: then $\langle V'(Q)\rangle = V'(\langle Q\rangle)$ exactly, in any state however broad, and the mean obeys $m\,\dd^2\langle Q\rangle/\dd t^2 = -m\omega^2\,\langle Q\rangle$ --- every mean, however wild the state, executes the classical oscillation (the riding means of Sections~\ref{sec:harmonic-oscillator} and~\ref{sec:coherent-states} are promised here). The contrast with an anharmonic force isolates what the classical limit needs. For the quartic potential $V = \lambda Q^4$, the force is cubic, $V''' = 24\lambda Q$, and \eqref{eq:ehrenfest-correction} reads
+\begin{linenomath}
+    \begin{equation}
+        \bigl\langle V'(Q)\bigr\rangle = 4\lambda\,\langle Q\rangle^3 + 12\lambda\,\langle Q\rangle\,(\Delta x)^2 + \cdots,
+    \end{equation}
+\end{linenomath}
+the correction $12\lambda\,\langle Q\rangle(\Delta x)^2 = \tfrac12 V'''(\langle Q\rangle)\,(\Delta x)^2$ being an anharmonicity-driven departure of the mean from the naive classical trajectory, priced per state (the Taylor series of a cubic closes: the omitted remainder is the third central moment, vanishing for symmetric packets; Exercise~4 of this chapter recomputes both instances). Linearity of the force, or narrowness of the state: the classical description of a mean requires one of the two, and \eqref{eq:ehrenfest-correction} says exactly how much of either.
+
+The oscillator has now appeared twice: as the system whose means are exactly classical, and --- since the historical chapter's black-body account --- as the theory's oldest debt. Both call for its exact solution, and the canonical commutator just built is the whole input. The solution is algebraic, and it is next.
+
+\section{The Harmonic Oscillator by Ladder Operators}
+\label{sec:harmonic-oscillator}
+
+The quadratic potential now receives its exact solution, and the theory repays its oldest debt in the same stroke. The system is the one-dimensional oscillator,
+\begin{linenomath}
+    \begin{equation}
+        H = \frac{P^2}{2m} + \frac{1}{2}\,m\omega^2 Q^2,
+    \end{equation}
+\end{linenomath}
+and the whole solution --- spectrum, eigenstates, selection rule --- follows from the canonical commutator \eqref{eq:canonical-commutator-built} alone. Classically, the Hamiltonian factorizes: $p^2/2m + m\omega^2 q^2/2 = (m\omega/2)\,(q - ip/m\omega)\,(q + ip/m\omega)$. Quantum mechanically the two factors fail to commute, and the failure is exactly the physics: it will prove to be the zero-point energy.
+
+\textbf{The ladder operators.} Form the dimensionless pair
+\begin{linenomath}
+    \begin{equation}
+        \begin{split}
+            &a := \sqrt{\frac{m\omega}{2\hbar}}\,\Bigl(Q + \frac{iP}{m\omega}\Bigr),
+            \qquad
+            a^\dagger := \sqrt{\frac{m\omega}{2\hbar}}\,\Bigl(Q - \frac{iP}{m\omega}\Bigr), \\
+            &Q = \sqrt{\frac{\hbar}{2m\omega}}\,\bigl(a + a^\dagger\bigr),
+            \qquad
+            P = -i\sqrt{\frac{m\omega\hbar}{2}}\,\bigl(a - a^\dagger\bigr),
+        \end{split}
+        \label{eq:ladder-def}
+    \end{equation}
+\end{linenomath}
+the last two inverting the first two. Neither is self-adjoint: $a$ is not an observable, and nothing spectral will be claimed for it. Their commutator follows from the definitions and \eqref{eq:canonical-commutator-built}:
+\begin{linenomath}
+    \begin{equation*}
+        \bigl[a,a^\dagger\bigr]
+        = \frac{m\omega}{2\hbar}\Bigl[Q+\frac{iP}{m\omega},\,Q-\frac{iP}{m\omega}\Bigr]
+        = \frac{m\omega}{2\hbar}\Bigl(-\frac{i}{m\omega}[Q,P]+\frac{i}{m\omega}[P,Q]\Bigr)
+        = \frac{m\omega}{2\hbar}\cdot\frac{2\hbar}{m\omega}=I.
+    \end{equation*}
+\end{linenomath}
+Substituting the inverse forms of \eqref{eq:ladder-def} into $H=P^2/2m+\tfrac12 m\omega^2Q^2$,
+\begin{linenomath}
+    \begin{equation*}
+        \begin{split}
+            \frac{P^2}{2m}
+            &= -\frac{\hbar\omega}{4}(a-a^\dagger)^2
+             = -\frac{\hbar\omega}{4}\bigl(a^2-aa^\dagger-a^\dagger a+(a^\dagger)^2\bigr),\\[2pt]
+            \frac{1}{2}m\omega^2Q^2
+            &= \frac{\hbar\omega}{4}(a+a^\dagger)^2
+             = \frac{\hbar\omega}{4}\bigl(a^2+aa^\dagger+a^\dagger a+(a^\dagger)^2\bigr),
+        \end{split}
+    \end{equation*}
+\end{linenomath}
+and adding the two lines, the $a^2$ and $(a^\dagger)^2$ terms cancel while $aa^\dagger+a^\dagger a=2a^\dagger a+I$ from the commutator just proved; therefore
+\begin{linenomath}
+    \begin{equation}
+        \bigl[a,a^\dagger\bigr] = I,
+        \qquad
+        N := a^\dagger a,
+        \qquad
+        H = \hbar\omega\,\Bigl(N + \frac{1}{2}\Bigr),
+        \label{eq:ladder-algebra}
+    \end{equation}
+\end{linenomath}
+the $1/2$ being the price of noncommutation, computed, not postulated.
+
+\textbf{Theorem (the oscillator spectrum).} \emph{The eigenvalues of $N$ are $n = 0, 1, 2, \ldots$, and the energies are $E_n = \hbar\omega\,(n + \tfrac12)$.} The proof is the chapter's peak of economy. From $[a,a^\dagger]=I$ and the derivation property of the commutator (\eqref{eq:commutator-algebra}),
+\begin{linenomath}
+    \begin{align*}
+        [N,a] &= [a^\dagger a,\,a] = a^\dagger[a,a] + [a^\dagger,a]\,a = 0 + (-I)a = -a,\\
+        \bigl[N,a^\dagger\bigr] &= [a^\dagger a,\,a^\dagger] = a^\dagger[a,a^\dagger] + [a^\dagger,a^\dagger]\,a = a^\dagger I + 0 = +a^\dagger.
+    \end{align*}
+\end{linenomath}
+These are the number-ladder commutators,
+\begin{linenomath}
+    \begin{equation}
+        [N,a] = -a,
+        \qquad
+        \bigl[N,a^\dagger\bigr] = +a^\dagger.
+        \label{eq:number-ladder-commutators}
+    \end{equation}
+\end{linenomath}
+First, $N$ is positive: $\braket{\psi|N|\psi} = \|\,a\ket{\psi}\|^2 \geq 0$ for every state, so no eigenvalue is negative. Second, if $N\ket{\nu} = \nu\ket{\nu}$ on a normalized state, then $a\ket{\nu}$ --- when nonzero --- is an eigenstate with eigenvalue $\nu - 1$, and its squared norm is $\braket{\nu|a^\dagger a|\nu} = \nu$. Descent by repeated application of $a$ would eventually produce a negative eigenvalue, contradicting positivity, unless it terminates; termination forces $\nu$ to be a nonnegative integer $n$ and forces the existence of a state $\ket{0}$ with $a\ket{0} = 0$. Ascent by $a^\dagger$ is unobstructed. Hence
+\begin{linenomath}
+    \begin{equation}
+        N\ket{n} = n\ket{n},
+        \qquad n = 0, 1, 2, \ldots;
+        \qquad
+        E_n = \hbar\omega\,\Bigl(n + \frac{1}{2}\Bigr).
+        \label{eq:number-spectrum}
+    \end{equation}
+\end{linenomath}
+
+\textbf{The Planck repayment.} The discreteness that Planck postulated in 1900 for the material resonators of his black-body theory --- the historical chapter's account --- is here \emph{derived}, and corrected by the zero-point energy $\hbar\omega/2$ he did not have; Einstein's 1907 quantum solid, the historical chapter's specific-heat formula, is the physical anchor that makes the repayment physics rather than form: those resonators and that solid are exactly this section's material systems, and the material share of the Planck debt is repaid in full. What this algebra does not touch is the radiation field: the field-mode, light-quantum share of the debt --- Einstein's photon of 1905 --- belongs to the field-quantization chapter, and no sentence here claims it. Nor does the zero-point shift disturb Planck's spectrum: only level differences enter the exchange frequencies (\eqref{eq:bohr-frequencies}), and a uniform shift of every level is invisible to them.
+
+\textbf{The ladder actions.} With phases fixed by the standard convention, the norm computation above gives
+\begin{linenomath}
+    \begin{equation}
+        a\ket{n} = \sqrt{n}\,\ket{n-1},
+        \qquad
+        a^\dagger\ket{n} = \sqrt{n+1}\,\ket{n+1},
+        \label{eq:ladder-action}
+    \end{equation}
+\end{linenomath}
+from $\braket{n|aa^\dagger|n} = n+1$ and its adjoint; every eigenstate is built from the ground state, $\ket{n} = (a^\dagger)^n/\sqrt{n!}\,\ket{0}$ (Exercise~5 of this chapter constructs the first few). The operator $N$ counts excitations of one mode; the vocabulary of creation and annihilation is earned by these actions --- its many-mode, particle-number reading is the field-quantization chapter's, planted here in one sentence and used no further.
+
+\textbf{The ground state: the uncertainty floor.} The condition $a\ket{0} = 0$, read in the position representation of Section~\ref{sec:position-representation} with $P$ as the derivative \eqref{eq:momentum-generator}, is an ordinary differential equation solved at sight (the licensed shorthand of that section; the Gaussian it yields is an honest square-integrable function):
+\begin{linenomath}
+    \begin{equation}
+        \Bigl(x + \frac{\hbar}{m\omega}\,\frac{\dd}{\dd x}\Bigr)\,\psi_0(x) = 0,
+        \qquad
+        \psi_0(x) = \Bigl(\frac{m\omega}{\pi\hbar}\Bigr)^{\!1/4}\,e^{-m\omega x^2/2\hbar}.
+        \label{eq:oscillator-ground}
+    \end{equation}
+\end{linenomath}
+The uncertainty product in $\ket{0}$ follows from the ladder algebra without any integration. From $Q=\sqrt{\hbar/2m\omega}\,(a+a^\dagger)$ and $P=-i\sqrt{m\omega\hbar/2}\,(a-a^\dagger)$, one computes
+\begin{linenomath}
+    \begin{align*}
+        \langle 0|Q|0\rangle &= 0, &
+        \langle 0|Q^2|0\rangle &= \frac{\hbar}{2m\omega}\langle 0|(a+a^\dagger)^2|0\rangle
+        = \frac{\hbar}{2m\omega}\langle 0|aa^\dagger|0\rangle
+        = \frac{\hbar}{2m\omega}\langle 0|(N+I)|0\rangle
+        = \frac{\hbar}{2m\omega},\\[4pt]
+        \langle 0|P|0\rangle &= 0, &
+        \langle 0|P^2|0\rangle &= \frac{m\omega\hbar}{2}\langle 0|(a-a^\dagger)^2|0\rangle
+        = \frac{m\omega\hbar}{2}\langle 0|aa^\dagger|0\rangle
+        = \frac{m\omega\hbar}{2},
+    \end{align*}
+\end{linenomath}
+since $a\ket{0}=0$ removes every term in which $a$ acts first. Hence $(\Delta Q)^2=\hbar/2m\omega$, $(\Delta P)^2=m\omega\hbar/2$, and
+\begin{linenomath}
+    \begin{equation*}
+        \Delta Q\,\Delta P = \frac{\hbar}{2}\ \ \text{in }\ket{0},
+    \end{equation*}
+\end{linenomath}
+normalized, unique up to a phase. The statistics of the excited states are as direct (Exercise~6 of this chapter):
+\begin{linenomath}
+    \begin{equation}
+        (\Delta Q)^2 = \frac{\hbar}{m\omega}\,\Bigl(n + \frac{1}{2}\Bigr),
+        \qquad
+        (\Delta P)^2 = m\omega\hbar\,\Bigl(n + \frac{1}{2}\Bigr),
+        \qquad
+        \Delta Q\,\Delta P = \Bigl(n + \frac{1}{2}\Bigr)\hbar \geq \frac{\hbar}{2},
+    \end{equation}
+\end{linenomath}
+with equality only for $n = 0$: the ground state saturates the canonical uncertainty relation \eqref{eq:xp-robertson} --- the measurement chapter's saturation question, which states reach the floor, answered a first time.\footnote{E.~H.~Kennard, \emph{Z.~Phys.} \textbf{44}, 326 (1927): the Gaussian ground state was the first state shown to attain the bound.} The zero-point energy is that floor read energetically: confinement forbids rest, and even at zero temperature the oscillator holds $\langle H\rangle = \hbar\omega/2$, half kinetic, half potential.
+
+\textbf{The eigenfunctions.} Applying $(a^\dagger)^n$ to the Gaussian generates the excited wave functions: Hermite polynomials in $\sqrt{m\omega/\hbar}\,x$, times the same Gaussian.\footnote{Hermite's polynomials $H_n$, defined by the generating function $e^{2\xi s - s^2} = \sum_n H_n(\xi)\,s^n/n!$; no properties beyond parity are needed in this chapter.} Their defining symmetry is read off the algebra: $Q$ and $P$ are both odd under the parity operator of the evolution chapter (\eqref{eq:parity-def}), so $a^\dagger$ is odd, the Gaussian ground state is even, and the eigenfunctions alternate, $\Pi\psi_n = (-1)^n\,\psi_n$ --- the position-representation parity calculus of Section~\ref{sec:position-representation}'s example, cashed.
+
+\textbf{The dipole selection rule.} The position operator connects only neighboring levels. Reading $Q$ off \eqref{eq:ladder-def} and applying \eqref{eq:ladder-action},
+\begin{linenomath}
+    \begin{equation}
+        \braket{n'|Q|n} = \sqrt{\frac{\hbar}{2m\omega}}\,\Bigl(\sqrt{n+1}\,\delta_{n',\,n+1} + \sqrt{n}\,\delta_{n',\,n-1}\Bigr),
+        \label{eq:oscillator-selection}
+    \end{equation}
+\end{linenomath}
+so vibrational absorption and emission obey $\Delta n = \pm 1$ --- an instance of the evolution chapter's selection-rule engine (\eqref{eq:selection-rule}), and consistent with its Laporte rule (\eqref{eq:parity-selection}): $Q$ is odd, and the allowed neighbors carry opposite parity, exactly as the alternation demands. The rates of the transitions the rule allows belong to the chapter on perturbation methods; the rule itself is exact here. One consequence is registered for the next section: $\braket{n|Q|n} = 0$ --- the number states have no mean motion at all.
+
+The rule is measured, routinely, in molecular spectroscopy. A diatomic molecule's relative coordinate near its equilibrium separation is an oscillator --- the harmonic register of a Morse-type potential, named and not developed --- and the model predicts an equally spaced ladder with the $\Delta n = \pm 1$ rule: one dominant vibrational line per neighboring pair, at the ladder spacing $\omega$. The hydrogen chloride fundamental band near $3.46\,\mu\mathrm{m}$ is the standard instance, infrared-active exactly because the molecular dipole rides on $Q$.\footnote{The vibrational spectroscopy of diatomic molecules is among the most quantitative fields of experimental physics; the single dominant band and its isotopic splitting are the harmonic model's first two entries, the anharmonic corrections being the Morse register's business.} On isotopic substitution --- $\mathrm{H}^{35}\mathrm{Cl}$ against $\mathrm{H}^{37}\mathrm{Cl}$ --- the line splits into an isotopic doublet, spaced by the reduced-mass scaling $\omega \propto \mu^{-1/2}$: the ladder spacing measured as a frequency, with the zero-point motion registered as the band's lower edge, no transition beginning below $E_0$.
+
+The advantage of the ladder solution is its completeness from one commutator: spectrum, eigenstates, and selection rule fall out algebraically, with no differential equation solved --- the wave-mechanical twin of this solution, Schr\"odinger's 1926 oscillator of the historical chapter's account, is the same physics in the position representation. Its limitation is its specialty: the algebra is keyed to the quadratic potential. The quartic oscillator of Section~\ref{sec:ehrenfest} admits no ladders, and its treatment waits on the approximation methods of a later chapter.
+
+The number states are the oscillator's stationary bookkeepings: sharp in energy, and wildly non-classical in their means, since $\langle Q\rangle = 0$ at all times in every $\ket{n}$. Yet Section~\ref{sec:ehrenfest} proved that for this force the mean obeys Newton's equation exactly --- so states must exist whose means ride the classical orbit. They do: they are the eigenstates of $a$ itself, and the ladder machinery just built constructs them in one line.
+
+\section{Coherent States: the Oscillator's Classical Limit}
+\label{sec:coherent-states}
+
+The number states answered the spectral question, and their means stand still: $\braket{n|Q|n} = 0$ at all times. The classical question is sharper: which states of the oscillator move the way a classical oscillator moves? Section~\ref{sec:ehrenfest} proved that for the quadratic force the mean of \emph{any} state obeys Newton's equation exactly; the states that fill out the classical register are the eigenstates of the annihilation operator itself, and the ladder algebra of Section~\ref{sec:harmonic-oscillator} constructs them in one line. The register is stated as the construction proceeds: $a$ is not self-adjoint, its eigenstates form no spectral basis, and what the family is instead --- an overcomplete set of genuine, normalizable states --- is part of the answer.
+
+\textbf{The displacement operator.} For any complex number $\alpha$, form
+\begin{linenomath}
+    \begin{equation}
+        D(\alpha) := e^{\alpha a^\dagger - \alpha^{*} a},
+        \qquad
+        D^\dagger(\alpha)\,a\,D(\alpha) = a + \alpha\,I.
+        \label{eq:displacement-operator}
+    \end{equation}
+\end{linenomath}
+The operator is unitary, its exponent being anti-self-adjoint (the adjoint arithmetic of \eqref{eq:commutator-adjoint}). The shift law is one line: the commutator $[\,a,\ \alpha a^\dagger - \alpha^{*}a\,] = \alpha\,I$ is a $c$-number, so the Hadamard series for the conjugation closes at its first term --- the central-bracket arithmetic of Exercise~7 of the evolution chapter (Section~\ref{sec:galilean-group}).
+
+\textbf{The coherent state.} Define $\ket{\alpha} := D(\alpha)\ket{0}$: the ground state, displaced. It is an eigenstate of $a$, since $a\ket{\alpha} = D(\alpha)\,\bigl(D^\dagger(\alpha)\,a\,D(\alpha)\bigr)\ket{0} = D(\alpha)\,(a + \alpha)\ket{0} = \alpha\ket{\alpha}$ by $a\ket{0} = 0$. Its content in number states follows from disentangling the displacement operator. Set $A:=\alpha a^\dagger$ and $B:=-\alpha^{*}a$; then $[A,B]=-\lvert\alpha\rvert^2[a^\dagger,a]=\lvert\alpha\rvert^2 I$, which commutes with both $A$ and $B$. The central Baker--Campbell--Hausdorff identity of Exercise~7 of the evolution chapter (Section~\ref{sec:galilean-group}) --- when $[A,[A,B]]=[B,[A,B]]=0$, one has $e^{A+B}=e^{-[A,B]/2}e^{A}e^{B}$ --- gives
+\begin{linenomath}
+    \begin{equation*}
+        D(\alpha) = e^{\alpha a^\dagger - \alpha^{*} a}
+        = e^{-\lvert\alpha\rvert^2/2}\;e^{\alpha a^\dagger}\,e^{-\alpha^{*} a}.
+    \end{equation*}
+\end{linenomath}
+Now $e^{-\alpha^{*} a}\ket{0} = \ket{0}$ because every term beyond the first in its series contains $a\ket{0}=0$. Expanding the remaining exponential and using $\ket{n} = (a^\dagger)^n/\sqrt{n!}\,\ket{0}$ of \eqref{eq:ladder-action}:
+\begin{linenomath}
+    \begin{equation}
+        \ket{\alpha} := D(\alpha)\ket{0} = e^{-|\alpha|^2/2}\,\sum_{n=0}^{\infty}\,\frac{\alpha^n}{\sqrt{n!}}\,\ket{n},
+        \qquad
+        a\ket{\alpha} = \alpha\ket{\alpha},
+        \qquad
+        P(n) = e^{-|\alpha|^2}\,\frac{|\alpha|^{2n}}{n!}.
+        \label{eq:coherent-state}
+    \end{equation}
+\end{linenomath}
+The number content is a Poisson distribution: $\langle N\rangle = |\alpha|^2$ with spread $\Delta N = |\alpha|$, so the relative number fluctuation is $1/|\alpha|$. Two honesty clauses. First, the series converges in norm, $\sum_n |\alpha|^{2n}/n! = e^{|\alpha|^2} < \infty$: coherent states are genuine vectors of the Hilbert space, not shorthand objects like $\ket{x}$ and $\ket{p}$. Second, the eigenstate property carries no spectral-theorem reading: $a$ is not an observable, and the family is not an eigenbasis but something richer, as the end of the section shows.
+
+\textbf{Minimum uncertainty at every excitation.} The displacement shifts means, not fluctuations. Conjugating $Q$ and $P$ of \eqref{eq:ladder-def} by $D(\alpha)$, using the shift law $D^\dagger(\alpha)\,a\,D(\alpha)=a+\alpha I$ of \eqref{eq:displacement-operator} and its adjoint $D^\dagger(\alpha)\,a^\dagger D(\alpha)=a^\dagger+\alpha^{*}I$, gives
+\begin{linenomath}
+    \begin{equation*}
+        D^\dagger(\alpha)\,Q\,D(\alpha)
+        = \sqrt{\frac{\hbar}{2m\omega}}\,\bigl(D^\dagger a D + D^\dagger a^\dagger D\bigr)
+        = Q + \sqrt{\frac{\hbar}{2m\omega}}\,(\alpha+\alpha^{*})\,I,
+    \end{equation*}
+\end{linenomath}
+\begin{linenomath}
+    \begin{equation*}
+        D^\dagger(\alpha)\,P\,D(\alpha)
+        = -i\sqrt{\frac{m\omega\hbar}{2}}\,\bigl(D^\dagger a D - D^\dagger a^\dagger D\bigr)
+        = P - i\sqrt{\frac{m\omega\hbar}{2}}\,(\alpha-\alpha^{*})\,I,
+    \end{equation*}
+\end{linenomath}
+so each operator is shifted by a $c$-number; the variances, which subtract the mean, are unchanged from the ground state's. Hence the spreads of $\ket{\alpha}$ are the ground state's,
+\begin{linenomath}
+    \begin{equation}
+        \Delta Q = \sqrt{\frac{\hbar}{2m\omega}},
+        \qquad
+        \Delta P = \sqrt{\frac{m\omega\hbar}{2}},
+        \qquad
+        \Delta Q\,\Delta P = \frac{\hbar}{2}
+        \qquad\text{for every }\alpha,
+    \end{equation}
+\end{linenomath}
+--- saturation of the canonical relation \eqref{eq:xp-robertson} at every excitation, the measurement chapter's saturation question answered a second time (the computation is Exercise~7 of this chapter). The ground state of Section~\ref{sec:harmonic-oscillator} is the member $\alpha = 0$.
+
+\textbf{The classical orbit.} Under the oscillator's evolution each $\ket{n}$ gains its stationary phase (\eqref{eq:stationary-phase}), with $E_n$ of \eqref{eq:number-spectrum}, and the family closes on itself:
+\begin{linenomath}
+    \begin{equation}
+        \ket{\alpha(t)} = e^{-i\omega t/2}\,\ket{\alpha e^{-i\omega t}},
+        \qquad
+        \langle Q\rangle(t) = \sqrt{\frac{2\hbar}{m\omega}}\;|\alpha|\,\cos\bigl(\omega t - \arg\alpha\bigr).
+        \label{eq:coherent-evolution}
+    \end{equation}
+\end{linenomath}
+The prefactor phase is the zero-point phase, common to every state of the family and unobservable by the ray theorem (Section~\ref{sec:rays}); what remains is a coherent state whose amplitude rotates uniformly in the complex plane. The means ride the classical ellipse --- $\langle P\rangle(t) = m\,\dd\langle Q\rangle/\dd t$, as \eqref{eq:ehrenfest} demands --- and Section~\ref{sec:ehrenfest}'s promise is cashed in full: the exact Ehrenfest motion of the quadratic potential, embodied by one family of states. And the fluctuations do not grow with the excitation: $\Delta Q$ is fixed while the orbit's amplitude scales as $|\alpha|$, so the relative noise $\Delta Q/\langle Q\rangle_{\max}$ falls as $1/|\alpha|$. At large $|\alpha|$ the state's mean is indistinguishable from a classical oscillator's motion, with quantum noise one part in $|\alpha|$: \emph{the classical limit as large excitation}, a theorem --- the chapter's second classical register, distinct from Section~\ref{sec:ehrenfest}'s narrow states.
+
+\textbf{Overcompleteness.} Distinct coherent states are never orthogonal. From the expansion \eqref{eq:coherent-state},
+\begin{linenomath}
+    \begin{equation}
+        \braket{\alpha|\beta} = e^{-(|\alpha|^2+|\beta|^2)/2 \,+\, \alpha^{*}\beta},
+        \qquad
+        \bigl|\braket{\alpha|\beta}\bigr|^2 = e^{-|\alpha-\beta|^2},
+        \label{eq:coherent-overlap}
+    \end{equation}
+\end{linenomath}
+an overlap that never vanishes, however far apart $\alpha$ and $\beta$ move. The family is overcomplete: it resolves the identity,
+\begin{linenomath}
+    \begin{equation}
+        \frac{1}{\pi}\int\!\dd^2\alpha\,\ket{\alpha}\bra{\alpha} = I,
+        \label{eq:coherent-resolution}
+    \end{equation}
+\end{linenomath}
+stated here; the verification on the number basis is the starred part of Exercise~7 of this chapter --- a basis richer than a basis, and the section's answer to what replaces a spectral basis for a non-self-adjoint operator.
+
+The physical reading is stated with its boundary. These states are the oscillator's classical register embodied, not invoked: a means-carrying, minimum-noise family, manufactured from the ground state by displacement. Laser light is the celebrated approximate realization --- the construction is Schr\"odinger's, the field reading Glauber's\footnote{E.~Schr\"odinger, \emph{Naturwissenschaften} \textbf{14}, 664 (1926): the non-spreading oscillator packets; R.~J.~Glauber, \emph{Phys.~Rev.} \textbf{131}, 2766 (1963): the coherent states of the radiation field.} --- but the modes of the radiation field are the field-quantization chapter's system, not this one's: the register here is one mechanical oscillator, and no field claim is made.
+
+Coherent states answer which states behave classically. A sharper question follows: how does one \emph{make} one? Drive the oscillator. A prescribed classical current couples to $a + a^\dagger$, its interaction-picture commutator is central --- and the exact evolution is precisely a displacement operator. The construction of a coherent state from the vacuum by a classical drive is the interaction picture's first exact triumph, and it is next (Section~\ref{sec:forced-oscillator}).
+
+\section{The Forced Oscillator: an Exact Solution in the Interaction Picture}
+\label{sec:forced-oscillator}
+
+Nature's own answer to the question Section~\ref{sec:coherent-states} has just posed --- how to \emph{make} a coherent state --- is the oldest trick of spectroscopy: drive the oscillator. Couple it to a prescribed external force, let the force act for a while, and ask what state the oscillator is left in. The interaction picture of Section~\ref{sec:interaction-picture} was built for exactly this problem, and here it collects its one contracted payment of the chapter: an exact solution, with nothing truncated and nothing left over.
+
+\medskip\noindent\textbf{The model.} Take the oscillator of Section~\ref{sec:harmonic-oscillator} and add a linear coupling to a prescribed classical drive $f(t)$, a real function with the units of a frequency:
+\begin{linenomath}
+    \begin{equation*}
+        H(t) = \hbar\omega\Bigl(N + \frac12\Bigr) - \hbar f(t)\,\bigl(a + a^\dagger\bigr) =: H_0 + V(t) .
+    \end{equation*}
+\end{linenomath}
+The split is the interaction picture's own: $H_0 = \hbar\omega(N + \tfrac12)$ is the solved part, with its spectrum \eqref{eq:number-spectrum}, and $V(t) = -\hbar f(t)(a + a^\dagger)$ is the drive --- proportional to the position operator by \eqref{eq:ladder-def}, a force in the everyday sense, pushing the oscillator's coordinate. The honesty clause of the driven spin stands here unchanged.
+
+\begin{note}
+The drive $f(t)$ is prescribed, not dynamical: its own equation of motion, and the oscillator's back-action on its source, are not modeled. This is the same idealization the evolution chapter made for its driven two-state system (Section~\ref{sec:time-ordered}); the theory of the drive's own quanta belongs to the field chapter.
+\end{note}
+
+\medskip\noindent\textbf{The interaction register.} In the interaction picture of \eqref{eq:interaction-state} the operators carry the free motion and the state carries only the drive's. The annihilation operator's free motion is one line of arithmetic from $[N, a] = -a$: differentiating $a_I(t) = U_0^\dagger(t)\,a\,U_0(t)$ gives $\dd a_I/\dd t = (i/\hbar)\,U_0^\dagger\,[H_0, a]\,U_0 = -i\omega\,a_I$, hence $a_I(t) = a\,e^{-i\omega t}$, and the drive reads
+\begin{linenomath}
+    \begin{equation}
+        V_I(t) = -\hbar f(t)\,\bigl(a\,e^{-i\omega t} + a^\dagger e^{i\omega t}\bigr) .
+        \label{eq:interaction-drive}
+    \end{equation}
+\end{linenomath}
+The interaction state $\ket{\psi_I(t)}$ obeys the interaction equation of motion \eqref{eq:interaction-eom} with this generator, and its evolution is the time-ordered exponential of $V_I$ --- the evolution chapter's Dyson series \eqref{eq:time-ordered-exp}, which this section now sums exactly.
+
+\medskip\noindent\textbf{The exact solution.} The drive's commutator at two times is a $c$-number. From \eqref{eq:interaction-drive} and $[a, a^\dagger] = I$ of \eqref{eq:ladder-algebra},
+\begin{linenomath}
+    \begin{equation}
+        \bigl[V_I(t), V_I(t')\bigr]
+        = \hbar^2 f(t)f(t')\,\bigl(e^{-i\omega(t-t')} - e^{+i\omega(t-t')}\bigr)\,I
+        = -2i\hbar^2 f(t)f(t')\,\sin\bigl[\omega(t-t')\bigr]\,I ,
+        \label{eq:drive-commutator}
+    \end{equation}
+\end{linenomath}
+central: it commutes with every operator of the problem. Centrality is the whole mechanism of what follows.
+
+\begin{note}
+The Magnus expansion --- the representation of the time-ordered exponential as $U_I(t,0)=e^{\Omega(t)}$ with $\Omega(t)=\sum_{k=1}^{\infty}\Omega_k(t)$, where each $\Omega_k$ is a $k$-fold nested commutator of $V_I$ at different times --- is \textbf{named, not built} in this chapter; its explicit form is a theorem of the theory of linear differential equations.\footnote{W.~Magnus, \emph{Commun.~Pure Appl.~Math.}~\textbf{7}, 649 (1954). The expansion's first two terms, which are the only terms needed here, are displayed below; the proof that the series closes at $k=2$ when $[V_I(t_1),V_I(t_2)]$ is central is supplied in the text.} Here only its first two terms are required and their forms are stated.
+\end{note}
+
+The first term is the integrated generator,
+\begin{linenomath}
+    \begin{equation*}
+        \Omega_1(t) = -\frac{i}{\hbar}\int_0^t V_I(t')\,\dd t'
+        = i\int_0^t f(t')\bigl(a\,e^{-i\omega t'} + a^\dagger e^{i\omega t'}\bigr)\,\dd t'
+        = a\cdot i\!\int_0^t\!f(t')\,e^{-i\omega t'}\dd t'
+          + a^\dagger\cdot i\!\int_0^t\!f(t')\,e^{i\omega t'}\dd t' .
+    \end{equation*}
+\end{linenomath}
+With $\beta(t):=i\int_0^t f(t')e^{i\omega t'}\dd t'$ one has $\beta(t)^{*}=-i\int_0^t f(t')e^{-i\omega t'}\dd t'$, so the first integral is $-\beta(t)^{*}$ and the second is $\beta(t)$; therefore
+\begin{linenomath}
+    \begin{equation*}
+        \Omega_1(t) = \beta(t)\,a^\dagger - \beta(t)^{*}\,a,
+        \qquad
+        \beta(t) = i\int_0^t f(t')\,e^{i\omega t'}\,\dd t' .
+    \end{equation*}
+\end{linenomath}
+The second term contains the two-time commutator,
+\begin{linenomath}
+    \begin{equation*}
+        \Omega_2(t) = \frac12\Bigl(-\frac{i}{\hbar}\Bigr)^2\!\int_0^t\!\dd t_1\!\int_0^{t_1}\!\dd t_2\,\bigl[V_I(t_1), V_I(t_2)\bigr] = i\,\Phi(t)\,I ,
+    \end{equation*}
+\end{linenomath}
+with $\Phi(t)$ a real phase --- the double integral of the drive's two-time product against $\sin[\omega(t_1 - t_2)]$, its explicit form Exercise~8's. The exponent $\Omega_1$ is precisely the exponent of the displacement operator \eqref{eq:displacement-operator}, and $\Omega_2$ is a phase times the identity. Summing the two terms,
+\begin{linenomath}
+    \begin{equation}
+        U_I(t, 0) = e^{i\Phi(t)}\,D\bigl(\beta(t)\bigr),
+        \qquad
+        \beta(t) = i\int_0^t f(t')\,e^{i\omega t'}\,\dd t' .
+        \label{eq:displacement-solution}
+    \end{equation}
+\end{linenomath}
+This is the content of the section: the time-ordered series \eqref{eq:time-ordered-exp} summed exactly --- the Magnus expansion closing at its second term by centrality, the central Baker--Campbell--Hausdorff arithmetic of Exercise~7 of the evolution chapter (Section~\ref{sec:galilean-group}) doing the work. A ground-state start ends exactly in a coherent state:
+\begin{linenomath}
+    \begin{equation*}
+        U_I(t, 0)\ket{0} = e^{i\Phi(t)}\,D\bigl(\beta(t)\bigr)\ket{0} = e^{i\Phi(t)}\,\ket{\beta(t)} ,
+    \end{equation*}
+\end{linenomath}
+by \eqref{eq:coherent-state} --- Section~\ref{sec:coherent-states}'s family, manufactured from the vacuum by a classical current. The phase $\Phi(t)$ is global and changes no count (the ray theorem, Section~\ref{sec:rays}); the displacement $\beta(t)$ is the whole physical answer.
+
+\medskip\noindent\textbf{Energy uptake.} The excitation the drive has purchased is the coherent state's Poisson mean of \eqref{eq:coherent-state}, $\langle N\rangle(t) = |\beta(t)|^2$; in energy units the oscillator has absorbed
+\begin{linenomath}
+    \begin{equation}
+        \Delta E(t) = \hbar\omega\,\langle N\rangle(t) = \hbar\omega\,|\beta(t)|^2 ,
+        \qquad\text{static drive:}\quad
+        |\beta(t)|^2 = \Bigl(\frac{2f_0}{\omega}\Bigr)^{\!2}\sin^2\frac{\omega t}{2} .
+        \label{eq:forced-energy}
+    \end{equation}
+\end{linenomath}
+The classical correspondence is exact here: a classical oscillator driven by the same force law gains precisely $\hbar\omega\,|\beta(t)|^2$ --- the quantum mean is the classical energy, and for $|\beta| \gg 1$ the coherent state embodies it in Section~\ref{sec:coherent-states}'s large-excitation register.
+
+\medskip\noindent\textbf{The resonance structure.} The displacement $\beta(t) = i\int_0^t f(t')\,e^{i\omega t'}\dd t'$ reads one Fourier component of the drive: the component at the oscillator's own frequency. Two drives make the contrast measurable. A \emph{static} force, $f(t) = f_0$, gives $\beta(t) = (f_0/\omega)(e^{i\omega t} - 1)$, the bounded oscillation of \eqref{eq:forced-energy}: the oscillator borrows energy from a constant force and hands it back, once per period, the excitation never exceeding $(2f_0/\omega)^2$. A \emph{resonant} drive, $f(t) = f_1\cos\omega t$, feeds the oscillator at its own frequency:
+\begin{linenomath}
+    \begin{equation*}
+        \beta(t) = \frac{if_1}{2}\,\Bigl(t + \frac{e^{2i\omega t} - 1}{2i\omega}\Bigr),
+        \qquad
+        |\beta(t)| \simeq \frac{f_1 t}{2}\quad (t \gg \omega^{-1}) ,
+    \end{equation*}
+\end{linenomath}
+linear growth of the displacement, hence quadratic growth of the energy, $\langle N\rangle \simeq f_1^2 t^2/4$, the oscillating second term falling ever further behind the secular first. The oscillator absorbs energy only from the drive's resonant Fourier component --- the resonance criterion of every classical driven oscillator, recovered here as exact quantum arithmetic, with the uptake \eqref{eq:forced-energy} as its measurable.
+
+One honesty paragraph, and it is the boundary of the chapter. Nothing in the derivation was truncated: the time-ordered series was summed to all orders, and it summed because the drive's commutator is central. The same series, truncated, is the time-dependent perturbation theory of a later chapter --- and the exact solution \eqref{eq:displacement-solution} is the benchmark against which that chapter's approximations will be checked.
+
+The oscillator complex is complete: spectrum, classical states, and exact driven dynamics. One debt of the historical chapter remains outstanding --- de Broglie's packet itself: a free particle, localized, released, and watched as it moves. Its exact evolution needs the evolution operator read in the position representation: the propagator.
+
+\section{The Propagator: the Free Particle and the Spreading Packet}
+\label{sec:propagator}
+
+The debt just named is de Broglie's wave packet itself (Section~\ref{subsec:debroglie}): a free particle, prepared localized, and released. The evolution operator of the evolution chapter is in hand; what the question needs is that operator read in the position representation of Sections~\ref{sec:position-representation} and~\ref{sec:momentum-representation}. Read so, evolution is an integral kernel, and the kernel is this section's object.
+
+\medskip\noindent\textbf{The propagator.} Insert the continuum resolution of identity \eqref{eq:position-resolution} into the evolution law $\ket{\psi(t)} = U(t)\ket{\psi(0)}$ and take the position component \eqref{eq:wavefunction} of both sides:
+\begin{linenomath}
+    \begin{equation}
+        \psi(x, t) = \int\!\dd x'\,K(x, t; x', 0)\,\psi(x', 0),
+        \qquad
+        K(x, t; x', 0) := \braket{x|U(t)|x'} .
+        \label{eq:propagator-def}
+    \end{equation}
+\end{linenomath}
+The kernel $K$ is the transition amplitude to register the particle at $x$ at time $t$, given that it was prepared at $x'$ at time $0$; the states chapter's continuum composition law \eqref{eq:continuum-composition} is its mother, and the position Born rule \eqref{eq:position-born} gives its first reading: $|K(x, t; x', 0)|^2$ is the probability density of the arrival, per unit length. As $t \to 0$ the evolution becomes the identity and $K(x, t; x', 0) \to \delta(x - x')$ in the shorthand sense of \eqref{eq:delta-normalization}. Like every display built on $\ket{x}$, the kernel lives in the licensed-shorthand register; the rigor questions are Appendix~A's.
+
+\medskip\noindent\textbf{The composition property.} The family law of the evolution operator, $U(t) = U(t - t')\,U(t')$ from \eqref{eq:evolution-axiom}, read between position labels with a resolution of identity inserted, is a composition property of the kernel:
+\begin{linenomath}
+    \begin{equation}
+        K(x, t; x', 0) = \int\!\dd x''\,K(x, t; x'', t')\,K(x'', t'; x', 0) .
+        \label{eq:propagator-composition}
+    \end{equation}
+\end{linenomath}
+Waiting decomposes over the intermediate position: the amplitude to go from $x'$ to $x$ is the amplitude to go by way of $x''$, summed over all intermediate positions --- the composition principles of the states chapter, exercised on a continuous family of alternatives. This is an operator fact, nothing more: the one-parameter family law re-read in the position representation. It is also a seed. Decomposing the wait into ever more, ever shorter steps, with a resolution of identity inserted at every step, is the germ from which the path-integral chapter will grow its construction.\footnote{R.~P.~Feynman, \emph{Rev. Mod. Phys.}~\textbf{20}, 367 (1948). The construction itself --- the short-time kernels and their composition, the classical action as the phase --- belongs to that later chapter; none of it is used here.} No slicing, no Lagrangian: here the composition property is exactly what \eqref{eq:propagator-composition} says, and it is earned already.
+
+\medskip\noindent\textbf{The free kernel.} For the free particle the generator is the evolution chapter's $H = \bm P^2/2M + E_{\mathrm{int}}$ \eqref{eq:free-hamiltonian}, specialized to one structureless particle of mass $m$ on the line, $H = P^2/2m$ (the constant internal energy contributes only an overall phase, dropped by the ray theorem of Section~\ref{sec:rays}). Momentum commutes with $H$, so it is conserved \eqref{eq:conservation-theorem}, and the free evolution is trivial in the momentum representation of Section~\ref{sec:momentum-representation}: each momentum component merely accumulates its phase,
+\begin{linenomath}
+    \begin{equation*}
+        \varphi(p, t) = e^{-ip^2 t/2m\hbar}\,\varphi(p, 0) .
+    \end{equation*}
+\end{linenomath}
+The kernel follows by the Fourier machinery of \eqref{eq:momentum-representation} and the momentum eigenfunctions \eqref{eq:debroglie-wave}: inserting the momentum resolution into \eqref{eq:propagator-def},
+\begin{linenomath}
+    \begin{equation}
+        K_0(x, t; x', 0)
+        = \frac{1}{2\pi\hbar}\int\!\dd p\; e^{ip(x-x')/\hbar}\,e^{-ip^2 t/2m\hbar}
+        = \frac{1}{2\pi\hbar}\int\!\dd p\; \exp\!\Bigl[-\frac{it}{2m\hbar}\,p^2 + \frac{i(x-x')}{\hbar}\,p\Bigr] .
+    \end{equation}
+\end{linenomath}
+Completing the square in the exponent,
+\begin{linenomath}
+    \begin{equation*}
+        -\frac{it}{2m\hbar}\,p^2 + \frac{i(x-x')}{\hbar}\,p
+        = -\frac{it}{2m\hbar}\Bigl[p - \frac{m(x-x')}{t}\Bigr]^2
+        + \frac{im(x-x')^2}{2\hbar t} ,
+    \end{equation*}
+\end{linenomath}
+and shifting the integration variable $p \mapsto p + m(x-x')/t$, the Gaussian integration (with the convergence factor of the footnote) yields $\sqrt{2\pi m\hbar/it}$; assembling the prefactors,
+\begin{linenomath}
+    \begin{equation}
+        K_0(x, t; x', 0)
+        = \sqrt{\frac{m}{2\pi i\hbar t}}\;\exp\!\Bigl(\frac{im(x-x')^2}{2\hbar t}\Bigr) .
+        \label{eq:free-propagator}
+    \end{equation}
+\end{linenomath}
+The Gaussian integral is Fresnel's; its conditional convergence is handled honestly with a convergence factor, removed after the integration.\footnote{With the factor $e^{-\varepsilon p^2}$ the integral is the elementary Gaussian $\int e^{-\alpha p^2 + \gamma p}\dd p = \sqrt{\pi/\alpha}\;e^{\gamma^2/4\alpha}$ at $\alpha = \varepsilon + it/2m\hbar$; the limit $\varepsilon \to 0^{+}$ exists and gives \eqref{eq:free-propagator}. The distributional footing of such oscillatory integrals is Appendix~A's.} With the free kernel, the evolution chapter's abstract free generator is cashed at last: \eqref{eq:free-hamiltonian}, named in the symmetry algebra, now has its position-representation face. One sentence belongs to a later chapter: the kernel's phase is the classical action of the straight path, $S = m(x - x')^2/2t$ --- named here, developed where the action principle is.
+
+\medskip\noindent\textbf{The Gaussian packet.} Prepare the minimum-uncertainty packet of the uncertainty floor, a Gaussian of width $\sigma$ carrying momentum $p_0$:
+\begin{linenomath}
+    \begin{equation*}
+        \psi(x, 0) = \frac{1}{(2\pi\sigma^2)^{1/4}}\,e^{-x^2/4\sigma^2}\,e^{ip_0 x/\hbar},
+        \qquad
+        \Delta x = \sigma, \quad \Delta p = \frac{\hbar}{2\sigma} ,
+    \end{equation*}
+\end{linenomath}
+saturating \eqref{eq:xp-robertson} at $t = 0$ --- the third and last cashing of the saturation story, after the oscillator's ground state \eqref{eq:oscillator-ground} and the coherent states of Section~\ref{sec:coherent-states}. The evolved wave function is the convolution
+\begin{linenomath}
+    \begin{equation*}
+        \psi(x, t) = \int_{-\infty}^{+\infty}\!\dd x'\,
+        \sqrt{\frac{m}{2\pi i\hbar t}}\,
+        \exp\!\Bigl(\frac{im(x-x')^2}{2\hbar t}\Bigr)\,
+        \frac{1}{(2\pi\sigma^2)^{1/4}}\,
+        e^{-x'^2/4\sigma^2}\,e^{ip_0 x'/\hbar}.
+    \end{equation*}
+\end{linenomath}
+Both factors are Gaussians; completing the square in $x'$ --- the exponent is quadratic, the cross term from the kernel's phase combining with the initial packet's Gaussian --- and performing the Gaussian integration gives
+\begin{linenomath}
+    \begin{equation*}
+        \psi(x,t)=\frac{1}{(2\pi\sigma(t)^2)^{1/4}}\,
+        \exp\!\Bigl(-\frac{(x-p_0 t/m)^2}{4\sigma(t)^2}\Bigr)\,
+        \exp\!\Bigl(\frac{i}{\hbar}\Bigl[p_0 x-\frac{p_0^2 t}{2m}
+        +\frac{\hbar^2 t\,(x-p_0 t/m)^2}{8m\sigma^2\sigma(t)^2}\Bigr]\Bigr),
+    \end{equation*}
+\end{linenomath}
+whence the probability density
+\begin{linenomath}
+    \begin{equation*}
+        |\psi(x, t)|^2 = \frac{1}{\sqrt{2\pi\,\sigma(t)^2}}\,\exp\!\Bigl(-\frac{(x - p_0 t/m)^2}{2\,\sigma(t)^2}\Bigr),
+        \qquad
+        \sigma(t)^2 = \sigma^2\Bigl(1 + \Bigl(\frac{\hbar t}{2m\sigma^2}\Bigr)^{\!2}\Bigr) .
+    \end{equation*}
+\end{linenomath}
+The center rides the classical trajectory, $\langle x\rangle(t) = p_0 t/m$ --- Ehrenfest's inertial law \eqref{eq:ehrenfest}, cashed --- and the width obeys the spreading law
+\begin{linenomath}
+    \begin{equation}
+        \Delta x(t)^2 = \sigma^2\Bigl(1 + \Bigl(\frac{\hbar t}{2m\sigma^2}\Bigr)^{\!2}\Bigr) = \sigma^2 + \Bigl(\frac{\Delta p}{m}\Bigr)^{\!2} t^2 .
+        \label{eq:packet-spreading}
+    \end{equation}
+\end{linenomath}
+The packet spreads \emph{ballistically}, at the velocity uncertainty $\Delta p/m$: the preparation's momentum spread is a spread of velocities, and the position spread it purchases grows linearly in time. The dispersion's origin is the kinetic law $E = p^2/2m$ itself, which gives each momentum component its own phase rate $p^2/2m\hbar$ in $\varphi(p, t)$; de Broglie's relations, derived as representation theory in Section~\ref{sec:momentum-representation}, are here doing dynamics.
+
+The honest verdict on de Broglie's hope must now be stated. A free packet cannot hold together. Spreading is unavoidable, and it is worse for the better-localized preparation: $\Delta p \propto 1/\sigma$, so the narrower the packet at release, the faster it disperses. The matter-wave packet is not a particle surrogate --- what holds the electron together in matter is exactly the binding this section lacks, the oscillator's restoring force of Section~\ref{sec:harmonic-oscillator} and the atom's of the next chapter. One further clause of honesty: the spreading packet ceases to saturate. Momentum is conserved, so $\Delta p$ stands at $\hbar/2\sigma$ forever, while $\Delta x$ grows; by \eqref{eq:packet-spreading} the product $\Delta x\,\Delta p$ exceeds $\hbar/2$ for every $t > 0$, the difference priced by a position--momentum correlation the free evolution manufactures (Exercise~9).
+
+\medskip\noindent\textbf{The far field: time of flight.} At late times the kernel's phase varies slowly across the initial packet's support, $e^{imx'^2/2\hbar t} \simeq 1$, and the convolution of \eqref{eq:propagator-def} collapses to a Fourier transform:
+\begin{linenomath}
+    \begin{equation}
+        \psi(x, t) \simeq \sqrt{\frac{m}{it}}\;e^{imx^2/2\hbar t}\,\varphi\Bigl(\frac{mx}{t}\Bigr)
+        \qquad (t\ \text{large}) .
+        \label{eq:far-field}
+    \end{equation}
+\end{linenomath}
+The long-time shape of the packet is a magnified image of its momentum distribution, $|\psi(x, t)|^2 \simeq (m/t)\,|\varphi(mx/t)|^2$: position at late times \emph{is} a momentum measurement, with the calibration $p = mx/t$. This is the working principle of time-of-flight spectroscopy: release the preparation --- a cold-atom cloud, a molecular beam --- let it fly, and read the arrival histogram at a distant detector as $|\varphi(p)|^2$. It is the momentum meter's second instrument, after the diffraction bench of Section~\ref{sec:momentum-representation}: the bench maps momentum to angle at a screen, time of flight maps it to arrival position; both read the same $|\varphi(p)|^2$, and the far-field form \eqref{eq:far-field} is the Fraunhofer kinship of the states chapter's aperture limit \eqref{eq:aperture} --- the far field shows the Fourier transform.
+
+The advantage of the propagator account is its completeness: the free evolution is fully explicit, kernel and packet in closed form, and de Broglie's picture of 1924 is made exact --- the wave repaid in Section~\ref{sec:momentum-representation}, the packet repaid here, spreading and all. Its limitation is the method's reach. The computation worked because momentum space made the free evolution trivial and Fourier analysis carried the result back; a potential re-entangles the two representations, and no such closed form exists for $K$ in general. The systematic treatment of that entanglement --- building the kernel for short times and composing by \eqref{eq:propagator-composition} --- is the path-integral chapter's construction, named here as a pointer and developed there.
+
+The debts are cashed: the pictures question answered, the representations built, Planck and de Broglie repaid, the classical limit theoremized. It remains to collect the principles, balance the ledger, and hand the operator triad --- generators, commutators, ladders --- to the family whose spectrum still owes us everything since the states chapter: the rotations.
+
+\section{Operator Methods, Pictures, and Representations: Summary and Open Debts}
+\label{sec:ch5summary}
+
+The chapter's work is done, and its content compresses into five principles. The bookkeeping of honesty is restated with them: postulated, nothing --- this chapter added no axiom to the theory; everything above was proved from the state-space axioms, the measurement axioms, and the evolution postulate, working inside the continuum shorthand licensed by the states and measurement chapters; cited without proof, Stone's theorem (already the evolution chapter's), the Wintner--Wielandt theorem named at its point of use, and the elementary convergence facts footnoted where they occur. The rigor ledger --- non-normalizable kets, unbounded operators and their domains, the spectral theorem of the infinite-dimensional arena --- stands where it has stood since the states chapter: to Appendix~A.
+
+\begin{enumerate}
+    \item[\textbf{(P1)}] \textbf{Pictures.} The dynamics of an isolated system admits three equivalent bookkeepings --- Schr\"odinger, Heisenberg, Dirac interaction --- and every matrix element, hence every count of every experiment, is picture-independent (\eqref{eq:picture-invariance}, Sections~\ref{sec:schroedinger-heisenberg-pictures} and~\ref{sec:interaction-picture}). The dynamics is what every picture agrees on.
+    \item[\textbf{(P2)}] \textbf{Representations.} The continuum's labels are operators: position is multiplication (\eqref{eq:x-multiplication}); momentum is $-i\hbar\,\dd/\dd x$, derived from the translation generator (\eqref{eq:momentum-generator}); their commutator is computed at last, $[Q,P] = i\hbar\,I$ (\eqref{eq:canonical-commutator-built}), necessarily unbounded and tamed in the bounded register by the Weyl relation (\eqref{eq:weyl-relations}) (Sections~\ref{sec:position-representation} and~\ref{sec:momentum-representation}).
+    \item[\textbf{(P3)}] \textbf{The classical limit.} Classical mechanics is recovered as two theorems, not a correspondence plea: the theory of means of narrow states, priced by the force's curvature (\eqref{eq:ehrenfest}, \eqref{eq:ehrenfest-correction}), and the theory of large excitation, its fluctuations one part in $|\alpha|$ (\eqref{eq:coherent-state}, \eqref{eq:coherent-evolution}) (Sections~\ref{sec:ehrenfest} and~\ref{sec:coherent-states}).
+    \item[\textbf{(P4)}] \textbf{The oscillator algebra.} One commutator gives the whole physics of the quadratic potential: the ladder pair and the excitation counter, the spectrum $E_n = \hbar\omega(n + \tfrac12)$ with its zero-point floor (\eqref{eq:ladder-algebra}, \eqref{eq:number-spectrum}, \eqref{eq:oscillator-ground}), the $\Delta n = \pm1$ vibrational rule (\eqref{eq:oscillator-selection}), and the displacement family with its exact driven dynamics (\eqref{eq:displacement-operator}, \eqref{eq:coherent-state}, \eqref{eq:displacement-solution}) (Sections~\ref{sec:harmonic-oscillator}--\ref{sec:forced-oscillator}).
+    \item[\textbf{(P5)}] \textbf{The propagator.} Evolution read in the position representation is a kernel, $K(x, t; x', 0) = \braket{x|U(t)|x'}$ (\eqref{eq:propagator-def}), composing over intermediate positions (\eqref{eq:propagator-composition}); the free kernel is in closed form (\eqref{eq:free-propagator}), and a released packet spreads ballistically (\eqref{eq:packet-spreading}), its late-time shape a momentum image (\eqref{eq:far-field}) (Section~\ref{sec:propagator}).
+\end{enumerate}
+
+The chapter's integration of experiment and formalism is collected, in lieu of a new example, in Table~\ref{tab:ch5-dictionary}, which adds the method rows to the experiment--formalism dictionary of the states, measurement, and evolution chapters (Tables~\ref{tab:ch2-dictionary}, \ref{tab:ch3-dictionary}, and~\ref{tab:ch4-dictionary}).
+
+\begin{table}[htbp!]
+    \centering
+    \caption{The experiment--formalism dictionary, fourth installment: the method rows of this chapter, extending Tables~\ref{tab:ch2-dictionary}, \ref{tab:ch3-dictionary}, and~\ref{tab:ch4-dictionary}.}
+    \label{tab:ch5-dictionary}
+    \begin{tabular}{ll}
+        \toprule
+        Experimental notion & Formal object \\
+        \midrule
+        The question of where the motion lives & a picture --- indifferent bookkeeping \\
+        A position label & the multiplication operator \\
+        A momentum & the translation generator $-i\hbar\,\dd/\dd x$ \\
+        A canonical pair & $[Q,P] = i\hbar\,I$ (unbounded, Weyl-tamed) \\
+        A quantum of vibration & $a^\dagger$ on $\ket{0}$ \\
+        A classical orbit & a coherent state $\ket{\alpha}$ \\
+        A classical drive & a displacement $D(\beta)$ \\
+        Waiting between two positions & the propagator kernel \\
+        A released packet & ballistic spreading \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The mainline duty is the ledger, and it must be stated plainly. \emph{Repaid here:} the evolution chapter's exit question --- the pictures of evolution --- answered as the three bookkeepings and their equivalence (Sections~\ref{sec:schroedinger-heisenberg-pictures}, \ref{sec:interaction-picture}), with the rotating relabeling of the resonance problem identified as an interaction-picture transformation; the continuum shorthand's physics --- wave functions, the position operator, the momentum operator's form, and the canonical commutator's proper home (Sections~\ref{sec:position-representation}, \ref{sec:momentum-representation}), with the saturation story of \eqref{eq:xp-robertson} cashed three times (Sections~\ref{sec:harmonic-oscillator}, \ref{sec:coherent-states}, \ref{sec:propagator}); the propagator and wave-packet debt of the states chapter (Section~\ref{sec:propagator}); the historical chapter's Planck debt, its material-oscillator share --- the discreteness the 1900 resonators postulated, derived with the zero-point correction (Section~\ref{sec:harmonic-oscillator}), the field share remaining the field chapter's; the de Broglie debt, the wave as theorem (Sections~\ref{sec:momentum-representation}, \ref{subsec:debroglie}) and the packet's exact spreading law (Section~\ref{sec:propagator}); the correspondence principle, theoremized in its two registers (Sections~\ref{sec:ehrenfest}, \ref{sec:coherent-states}); the 1926 equivalence, its dynamical face (Sections~\ref{sec:schroedinger-heisenberg-pictures}, \ref{subsec:equivalence}); and the evolution chapter's two named-not-built promissory notes, the position-representation form of $\bm P$ (Section~\ref{sec:position-representation}) and the abstract free Hamiltonian (Section~\ref{sec:propagator}). \emph{Planted, and declared openly:} the ladder template for the rotation spectrum, the position representation for orbital wave functions, and the central-potential problem, to the angular-momentum chapter; the interaction picture's truncation register, the exact driven solution \eqref{eq:displacement-solution} as its benchmark, and the dipole matrix elements \eqref{eq:oscillator-selection} whose rates are its business, to the chapter on perturbation methods; the composition property of the propagator \eqref{eq:propagator-composition}, the action phase of the free kernel \eqref{eq:free-propagator}, and the spreading packet as the dispersion its semiclassical theory must reproduce, to the path-integral chapter; the excitation counter as particle counter, the ladder pair as the creation--annihilation prototype, and coherent states as the classical-field register, to the field chapter; and the rigor ledger --- the rigged Hilbert space, $\delta$ as distribution, unbounded self-adjointness and domains --- to Appendix~A.
+
+The operator triad of this chapter --- a generator, its commutators, and the ladders they permit --- has been exercised on the line and on one mode. The rotation family's algebra is on the page since the evolution chapter, derived among the Galilean brackets; its spectrum is not: the eigenvalues, the ladders, the multiplets, and the half-angle law owed since the states chapter all remain unbuilt. The same three tools that built the oscillator's spectrum must now build the rotation family's. That is the theory of angular momentum, and it is the next chapter.
+
+\begin{problemset}
+\item ($\star$) (Section~\ref{sec:schroedinger-heisenberg-pictures}) Pictures drill. Take $H = (\hbar\omega/2)\,\sigma_z$. (a) Compute $\sigma_{x,H}(t) = U^\dagger(t)\,\sigma_x\,U(t)$ by direct conjugation with \eqref{eq:larmor-evolution}, obtaining $\sigma_{x,H}(t) = \cos\omega t\,\sigma_x - \sin\omega t\,\sigma_y$, and the companion $\sigma_{y,H}(t) = \cos\omega t\,\sigma_y + \sin\omega t\,\sigma_x$. (b) Verify the Heisenberg equation of motion \eqref{eq:heisenberg-eom} on this operator, $\dd\sigma_{x,H}/\dd t = (i/\hbar)[H, \sigma_{x,H}] = -\omega\,\sigma_{y,H}$, using \eqref{eq:sigma-commutator}. (c) Verify picture-invariance \eqref{eq:picture-invariance} in arithmetic: $\braket{+x|\sigma_{x,H}(t)|+x} = \cos\omega t$, reproducing the state-side precession \eqref{eq:precession}.
+
+\item ($\star$) (Section~\ref{sec:position-representation}) Representation drill. (a) From $(T(a)\psi)(x) = \psi(x - a)$ (\eqref{eq:translation-action}) and $T(a) = e^{-iaP/\hbar}$, derive $(P\psi)(x) = -i\hbar\,\dd\psi/\dd x$ by differentiating the family at $a = 0$. (b) Compute $[Q, P]\psi$ for a general $\psi$ in the common domain, recovering \eqref{eq:canonical-commutator-built}. (c) Verify that $\braket{x|p} = (2\pi\hbar)^{-1/2}e^{ipx/\hbar}$ (\eqref{eq:debroglie-wave}) solves the formal eigenvalue equation of $P$ with eigenvalue $p$, and that $\int\!\dd p\,\braket{x|p}\braket{p|x'} = \delta(x - x')$ --- the $\delta$-shorthand discipline of \eqref{eq:delta-normalization}.
+
+\item ($\star\star$) (Section~\ref{sec:momentum-representation}) The slit, honestly. Take the box wave function $\psi(x) = 1/\sqrt{a}$ on $[-a/2, a/2]$, zero outside. (a) Compute the momentum amplitude $\varphi(p) = \sqrt{a/2\pi\hbar}\,\operatorname{sinc}(pa/2\hbar)$, with $\operatorname{sinc} u := \sin u/u$, from \eqref{eq:momentum-representation}, and $|\varphi(p)|^2$. (b) Show that the second moment $\langle p^2\rangle$ diverges: $|\varphi(p)|^2$ decays only as $1/p^2$ --- the sinc$^2$ honesty clause of the measurement chapter's slit estimate (Section~\ref{sec:uncertainty}), whose width was always the width to the first zero. (c) Use the width-to-first-zero estimate to recover $\Delta x\,\Delta p \sim h$. (d) State in one sentence why the divergence does not violate the Robertson relation \eqref{eq:robertson}: the relation prices states in the common domain of the two operators, and the box's cusps are the culprit.
+
+\item ($\star\star$) (Section~\ref{sec:ehrenfest}) Ehrenfest computed. (a) From $[Q, P] = i\hbar\,I$ prove $[Q, P^2] = 2i\hbar P$ and $[P, Q^n] = -i\hbar\,nQ^{n-1}$ by induction (the rules \eqref{eq:qp-commutator-rules}). (b) Derive the two Ehrenfest equations \eqref{eq:ehrenfest} for $H = P^2/2m + V(Q)$ from the Heisenberg equation of motion \eqref{eq:heisenberg-eom}. (c) Show that for $V = \tfrac12 m\omega^2 Q^2$ the mean obeys $m\,\ddot{\langle Q\rangle} = -m\omega^2\langle Q\rangle$ in \emph{any} state. (d) For $V = \lambda Q^4$ compute the leading correction of \eqref{eq:ehrenfest-correction}, $\tfrac12 V'''(\langle Q\rangle)\,(\Delta x)^2 = 12\lambda\langle Q\rangle(\Delta x)^2$, and state in one sentence when the classical description of the mean fails.
+
+\item ($\star\star$) (Section~\ref{sec:harmonic-oscillator}) Ladder arithmetic. (a) From the definitions \eqref{eq:ladder-def}, using only \eqref{eq:canonical-commutator-built}, prove $[a, a^\dagger] = I$, $H = \hbar\omega(N + \tfrac12)$, $[N, a] = -a$, $[N, a^\dagger] = +a^\dagger$ (\eqref{eq:ladder-algebra}). (b) Hence show that $a^\dagger\ket{n}$ has $N$-eigenvalue $n + 1$ and squared norm $n + 1$ --- the ladder actions \eqref{eq:ladder-action}. (c) Construct $\ket{1}$ and $\ket{2}$ from $\ket{0}$. (d) Derive the ground-state Gaussian \eqref{eq:oscillator-ground} from $a\ket{0} = 0$ read in the position representation --- an ordinary differential equation in a single derivative --- including its normalization.
+
+\item ($\star\star$) (Section~\ref{sec:harmonic-oscillator}) Oscillator statistics. With $Q = \sqrt{\hbar/2m\omega}\,(a + a^\dagger)$ and $P = -i\sqrt{m\omega\hbar/2}\,(a - a^\dagger)$ from \eqref{eq:ladder-def}: (a) compute $\langle Q\rangle$, $\langle P\rangle$, $(\Delta Q)^2 = (\hbar/m\omega)(n + \tfrac12)$, $(\Delta P)^2 = (m\omega\hbar)(n + \tfrac12)$ in $\ket{n}$; (b) conclude $\Delta Q\,\Delta P = (n + \tfrac12)\hbar \geq \hbar/2$ with equality only for $n = 0$ --- the Robertson bound \eqref{eq:robertson} saturated by the ground state alone; (c) compute $\braket{n'|Q|n}$ and verify the $\Delta n = \pm1$ rule \eqref{eq:oscillator-selection}.
+
+\item ($\star\star\star$) (Section~\ref{sec:coherent-states}) Coherent-state BCH. (a) Prove $D^\dagger(\alpha)\,a\,D(\alpha) = a + \alpha\,I$ (\eqref{eq:displacement-operator}) by the central Baker--Campbell--Hausdorff identity of Exercise~7 of the evolution chapter (Section~\ref{sec:galilean-group}): $[\alpha a^\dagger - \alpha^{*}a,\, a] = -\alpha\,I$, central, and the series closes. (b) Hence $a\ket{\alpha} = \alpha\ket{\alpha}$. (c) Derive the number expansion of \eqref{eq:coherent-state} and the Poisson law $P(n) = e^{-|\alpha|^2}|\alpha|^{2n}/n!$ with $\langle N\rangle = |\alpha|^2$. (d) Compute $\Delta Q\,\Delta P = \hbar/2$ for arbitrary $\alpha$. (e) Show $|\braket{\alpha|\beta}|^2 = e^{-|\alpha - \beta|^2}$ (\eqref{eq:coherent-overlap}) --- distinct coherent states are never orthogonal. \emph{Starred:} verify the resolution of identity $(1/\pi)\int\!\dd^2\alpha\,\ket{\alpha}\bra{\alpha} = I$ by its matrix elements on the number basis.
+
+\item ($\star\star\star$) (Section~\ref{sec:forced-oscillator}) The forced oscillator, summed. Work with $V_I(t) = -\hbar f(t)(ae^{-i\omega t} + a^\dagger e^{i\omega t})$ (\eqref{eq:interaction-drive}). (a) Show
+\begin{linenomath}
+    \begin{equation*}
+        \bigl[V_I(t), V_I(t')\bigr] = -2i\hbar^2 f(t)f(t')\,\sin\bigl[\omega(t - t')\bigr]\,I ,
+    \end{equation*}
+\end{linenomath}
+a $c$-number. (b) Hence sum the time-ordered series \eqref{eq:time-ordered-exp} exactly --- the Magnus expansion closes at its second term by centrality --- obtaining $U_I(t, 0) = e^{i\Phi(t)}D\bigl(\beta(t)\bigr)$ (\eqref{eq:displacement-solution}) with
+\begin{linenomath}
+    \begin{equation*}
+        \beta(t) = i\int_0^t f(t')\,e^{i\omega t'}\,\dd t',
+        \qquad
+        \Phi(t) = \int_0^t\!\dd t_1\!\int_0^{t_1}\!\dd t_2\,f(t_1)f(t_2)\,\sin\bigl[\omega(t_1 - t_2)\bigr] ,
+    \end{equation*}
+\end{linenomath}
+the sign of $\Phi$ following the commutator's. (c) For a static force $f_0$ switched on at $t = 0$, compute $\beta(t) = (f_0/\omega)(e^{i\omega t} - 1)$ and $|\beta(t)|^2 = (2f_0/\omega)^2\sin^2(\omega t/2)$ (\eqref{eq:forced-energy}), and evaluate the phase, $\Phi(t) = (f_0/\omega)^2\,(\omega t - \sin\omega t)$, as a consistency check on the double integral. (d) For the resonant drive $f(t) = f_1\cos\omega t$, show $|\beta(t)| \simeq f_1 t/2$ at long times --- linear growth against the bounded static oscillation. (e) State in one sentence why no truncation was ever needed.
+
+\item ($\star\star\star$) (Section~\ref{sec:propagator}) The free packet. Start from the Gaussian preparation
+\begin{linenomath}
+    \begin{equation*}
+        \psi(x, 0) = (2\pi\sigma^2)^{-1/4}\,e^{-x^2/4\sigma^2}\,e^{ip_0 x/\hbar} .
+    \end{equation*}
+\end{linenomath}
+(a) Compute $\varphi(p, 0)$: a Gaussian centered at $p_0$ with $\Delta p = \hbar/2\sigma$. (b) Derive $\psi(x, t)$ by the Gaussian convolution with the free kernel \eqref{eq:free-propagator}; verify $\langle x\rangle(t) = p_0 t/m$ and the spreading law \eqref{eq:packet-spreading}, $\Delta x(t)^2 = \sigma^2 + (\Delta p\,t/m)^2$. (c) Compute the position--momentum covariance $\tfrac12\langle QP + PQ\rangle - \langle Q\rangle\langle P\rangle = \hbar^2 t/4m\sigma^2$ (Heisenberg-picture arithmetic: $Q_H(t) = Q + Pt/m$, $P_H(t) = P$), and conclude $(\Delta x\,\Delta p)^2 = (\hbar/2)^2 + \bigl(\hbar^2 t/4m\sigma^2\bigr)^2 > (\hbar/2)^2$ for $t > 0$ --- saturation lost, the correlation manufactured by the free evolution. (d) Verify the far-field form \eqref{eq:far-field} and state its time-of-flight reading in one sentence. (e) Confirm $K_0(x, t; x', 0) \to \delta(x - x')$ as $t \to 0$ by its action on a test packet.
+\end{problemset}

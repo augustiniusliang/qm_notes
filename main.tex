@@ -1,0 +1,98 @@
+\documentclass[lang=en,mode = fancy,black]{elegantbook}
+\usepackage[switch,mathlines]{lineno}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usetikzlibrary{patterns}
+\usepackage{braket}
+\setcounter{tocdepth}{3}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+\newcommand{\thermfrac}[3]{\left( \frac{\partial #1}{\partial #2} \right)_{#3}}
+\newcommand{\jacobian}[4]{\frac{\partial \left(#1, #2\right)}{\partial \left(#3, #4\right)}}
+\newcommand{\ppp}[2]{\frac{\partial #1}{\partial #2}}
+\linenumbers
+\title{量子力学笔记}
+\author{梁莫言}
+\institute{清华大学}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\nolinenumbers
+
+\begin{titlepage}
+    \vspace{70cm}
+    \begin{center}
+        \begin{flushright}
+        {\Large Notes on Quantum Mechanics} \\
+        {\textit{Augustin--Ignace des Rameaux Leung Mouk--yin} }
+        \vline
+    \end{flushright}
+    \vspace{20pt}
+    \begin{figure*}[htbp!]
+        \centering
+        \includegraphics[scale=0.4]{graphics/Richard_Feynman_Nobel.jpg}\\
+        {\large {Richard P. Feynman} }
+    \end{figure*}
+    \end{center}
+    
+    \newpage\pagestyle{empty}
+    \topskip0pt
+\vspace*{\fill}
+\textsc{Ubi eras quando ponebam fundamenta terræ ; 
+indica mihi, si habes intelligentiam.
+Quis posuit mensuras ejus, si nosti ; 
+vel quis tetendit super eam lineam ; Super quo bases illius solidatæ sunt ; 
+aut quis demisit lapidem angularem ejus, cum me laudarent simul astra matutina,
+et jubilarent omnes filii Dei ; Quis conclusit ostiis mare,
+quando erumpebat quasi de vulva procedens;cum ponerem nubem vestimentum ejus,
+et caligine illud quasi pannis infantiæ obvolverem ; 
+Circumdedi illud terminis meis,
+et posui vectem et ostia,
+et dixi: Usque huc venies, et non procedes amplius,
+et hic confringes tumentes fluctus tuos.
+Numquid post ortum tuum præcepisti diluculo,
+et ostendisti auroræ locum suum ; 
+Et tenuisti concutiens extrema terræ,
+et excussisti impios ex ea ; 
+Restituetur ut lutum signaculum,
+et stabit sicut vestimentum:
+auferetur ab impiis lux sua,
+et brachium excelsum confringetur.
+Numquid ingressus es profunda maris,
+et in novissimis abyssi deambulasti ; 
+Numquid apertæ sunt tibi portæ mortis,
+et ostia tenebrosa vidisti ; 
+Numquid considerasti latitudinem terræ ; 
+indica mihi, si nosti, omnia!}
+
+\vspace*{\fill}
+\end{titlepage}
+\tableofcontents
+\mainmatter
+\linenumbers
+\resetlinenumber
+\include{chaps/history_modern_qm}
+\include{chaps/hilbert_axiom}
+\include{chaps/measurement_operators_spectra}
+\include{chaps/evolution_symmetries}
+\include{chaps/sols_pics_reps}
+\include{chaps/ang_momentum}
+\include{chaps/composite_entanglement}
+\include{chaps/perturbation_scattering}
+\include{chaps/path_int}
+\include{chaps/sec_quant}
+
+\appendix
+\include{chaps/appendix_math}
+\include{chaps/appendix_groups}
+\include{chaps/appendix_units}
+\include{chaps/appendix_probability}
+
+\end{document}
+
