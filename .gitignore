@@ -41,6 +41,7 @@
 # Output files (comment out if you want to track PDFs)
 *.dvi
 *.ps
+*.xdv
 
 # !important.pdf  # Example: Keep specific PDF if needed
 

@@ -1,241 +1,833 @@
 \chapter{Group Theory Supplement}
 
 \begin{note}
-This appendix develops the Lie-group machinery that Chapter~4 deploys in physical argument and Chapter~6 harvests for angular momentum. The treatment is systematic --- definitions, lemmas, theorems with proofs sketched where they illuminate the physics --- but it is not a substitute for a dedicated text. The principal references are: B.~C.~Hall, \emph{Lie Groups, Lie Algebras, and Representations}, 2nd ed. (Springer, 2015); W.~K.~Tung, \emph{Group Theory in Physics} (World Scientific, 1985); and for the Racah algebra, A.~R.~Edmonds, \emph{Angular Momentum in Quantum Mechanics} (Princeton, 1957). The reader who needs the full proofs should consult those works; what follows supplies the definitions and the logical architecture that the main text's physical arguments rest on.
+This appendix develops the Lie-group machinery that Chapter~4 deploys in physical argument and Chapter~6 harvests for angular momentum. The treatment is systematic and, for the rotation group, complete: definitions, lemmas, and theorems with proofs where they illuminate the physics. The principal references are B.~C.~Hall, \emph{Lie Groups, Lie Algebras, and Representations}, 2nd ed. (Springer, 2015); W.-K.~Tung, \emph{Group Theory in Physics} (World Scientific, 1985); M.~Hamermesh, \emph{Group Theory and Its Application to Physical Problems} (Dover, 1989); and, for the Racah algebra, A.~R.~Edmonds, \emph{Angular Momentum in Quantum Mechanics} (Princeton, 1957) and D.~A.~Varshalovich, A.~N.~Moskalev \& V.~K.~Khersonskii, \emph{Quantum Theory of Angular Momentum} (World Scientific, 1988). The reader who needs the remaining proofs should consult those works; what follows supplies the definitions, the logical architecture, and the explicit formulae on which the main text's physical arguments rest.
 \end{note}
 
 \section{Lie Groups and Lie Algebras}
 \label{sec:appendix-lie-groups}
 
-\medskip\noindent\textbf{Definition (Lie group).} A \textbf{Lie group} $G$ is a group that is also a smooth manifold, such that the group operations (multiplication $G \times G \to G$ and inversion $G \to G$) are smooth maps. The dimension of the manifold is the \textbf{dimension} of the group.
+\medskip\noindent\textbf{Definition (Lie group).} A \textbf{Lie group} $G$ is a group that is also a smooth manifold, such that multiplication $G\times G\to G$, $(g_{1},g_{2})\mapsto g_{1}g_{2}$, and inversion $G\to G$, $g\mapsto g^{-1}$, are smooth maps. The dimension of the manifold is the \textbf{dimension} of the group. A \textbf{matrix Lie group} is a closed subgroup of $\mathrm{GL}(n,\mathbb{C})$; for such groups smoothness is automatic from the matrix entries, and the dimension is the number of independent real parameters.
 
-The main text's central examples are the Galilei group (10 parameters: 3 rotations, 3 boosts, 3 translations, 1 time translation) and the rotation group SO(3) (3 parameters: the Euler angles). For matrix groups --- closed subgroups of $\mathrm{GL}(n, \mathbb{C})$ --- smoothness is automatic from the matrix entries, and the dimension is the number of independent real parameters. SO(3) is the group of real $3 \times 3$ orthogonal matrices with determinant $+1$; SU(2) is the group of complex $2 \times 2$ unitary matrices with determinant $+1$.
-
-\medskip\noindent\textbf{Definition (Lie algebra).} The \textbf{Lie algebra} $\mathfrak{g}$ of a Lie group $G$ is the tangent space to $G$ at the identity element, equipped with the Lie bracket $[X, Y]$ derived from the group commutator. Concretely, for a matrix group, $\mathfrak{g}$ is the vector space of matrices $X$ such that $e^{tX} \in G$ for all real $t$, and the Lie bracket is the matrix commutator $[X, Y] = XY - YX$.
-
-The Lie algebra is a vector space of the same (real) dimension as the group. It captures the group's structure infinitesimally: every element of $G$ in the connected component of the identity can be written as $e^X$ for some $X \in \mathfrak{g}$, and the group multiplication law is encoded in the bracket through the Baker--Campbell--Hausdorff (BCH) formula:
+The main text's central examples are the Galilei group (10 parameters: 3 rotations, 3 boosts, 3 translations, 1 time translation) and the rotation group $\mathrm{SO}(3)$ (3 parameters: the Euler angles). The concrete matrix groups of this appendix are
 \begin{linenomath}
-    \begin{equation}
-        e^X e^Y = e^{X + Y + \frac{1}{2}[X,Y] + \frac{1}{12}[X,[X,Y]] - \frac{1}{12}[Y,[X,Y]] + \cdots}.
-        \label{eq:bch-formula}
-    \end{equation}
+\begin{align*}
+\mathrm{SO}(3) &= \{R\in\mathbb{R}^{3\times3}\mid R^{\mathsf T}R=I,\;\det R=+1\},\\
+\mathrm{SU}(2) &= \{U\in\mathbb{C}^{2\times2}\mid U^{\dagger}U=I,\;\det U=+1\}
+ = \{u_{0}I+i\bm u\!\cdot\!\bm\sigma\mid u_{0},\bm u\in\mathbb{R}^{4},\;u_{0}^{2}+|\bm u|^{2}=1\},
+\end{align*}
 \end{linenomath}
-Chapter~4's~\eqref{eq:lie-bracket} is the leading nontrivial term of this expansion.
+so $\mathrm{SU}(2)\cong S^{3}$ (the three-sphere) and is compact, connected, and simply connected; $\mathrm{SO}(3)$ is compact and connected but not simply connected (\S\ref{sec:appendix-covering}).
 
-\medskip\noindent\textbf{Definition (Exponential map).} The \textbf{exponential map} $\exp : \mathfrak{g} \to G$ sends $X \mapsto e^X$. For a matrix group, $e^X$ is the ordinary matrix exponential $\sum_{n=0}^\infty X^n/n!$. The exponential map is a local diffeomorphism near the identity: every group element sufficiently close to $e$ is $e^X$ for a unique small $X \in \mathfrak{g}$. Globally, the exponential map is surjective onto the connected component of the identity for compact groups (like SU(2)) but not in general (it fails for $\mathrm{SL}(2,\mathbb{R})$, an instance the main text does not need).
+\medskip\noindent\textbf{Definition (Lie algebra).} The \textbf{Lie algebra} $\mathfrak g$ of a Lie group $G$ is the tangent space to $G$ at the identity, equipped with the Lie bracket $[X,Y]$ derived from the group commutator. Concretely, for a matrix group, $\mathfrak g$ is the vector space of matrices $X$ such that $e^{tX}\in G$ for all real $t$, and the Lie bracket is the matrix commutator $[X,Y]=XY-YX$. The Lie algebra is a real vector space of the same dimension as the group; it captures the group's structure infinitesimally.
 
-\medskip\noindent\textbf{Structure constants.} Choose a basis $\{T_a\}_{a=1}^{\dim \mathfrak{g}}$ for the Lie algebra. The Lie bracket of any two basis elements is again in the algebra:
+For $\mathrm{SO}(3)$, $\mathfrak{so}(3)=\{X\in\mathbb{R}^{3\times3}\mid X^{\mathsf T}=-X\}$ (real antisymmetric matrices); for $\mathrm{SU}(2)$, $\mathfrak{su}(2)=\{X\in\mathbb{C}^{2\times2}\mid X^{\dagger}=-X,\;\tr X=0\}$ (traceless anti-Hermitian matrices). Their complexifications coincide: $\mathfrak{so}(3)_{\mathbb C}\cong\mathfrak{su}(2)_{\mathbb C}\cong\mathfrak{sl}(2,\mathbb C)$, the algebra of traceless $2\times2$ complex matrices. This is the algebraic reason a group and its cover share the same representation theory up to global issues (Section~\ref{sec:appendix-covering}).
+
+\medskip\noindent\textbf{Definition (Exponential map).} The \textbf{exponential map} $\exp:\mathfrak g\to G$ sends $X\mapsto e^{X}=\sum_{n=0}^{\infty}X^{n}/n!$. It is a local diffeomorphism near the identity: every group element close to $e$ is $e^{X}$ for a unique small $X\in\mathfrak g$. Globally, $\exp$ is surjective onto the connected component of the identity for \emph{compact} connected groups (in particular $\mathrm{SU}(2)$: every unitary is $e^{-i(\theta/2)\bm n\cdot\bm\sigma}$), but not in general --- it fails for $\mathrm{SL}(2,\mathbb R)$, an instance this book does not need.
+
+Group multiplication is encoded in the bracket through the Baker--Campbell--Hausdorff (BCH) formula:
 \begin{linenomath}
-    \begin{equation}
-        [T_a, T_b] = \sum_{c} f_{ab}{}^c\,T_c,
-        \label{eq:app-structure-constants}
-    \end{equation}
+\begin{equation}
+e^{X}e^{Y} = e^{X+Y+\frac{1}{2}[X,Y]+\frac{1}{12}[X,[X,Y]]-\frac{1}{12}[Y,[X,Y]]+\cdots},
+\label{eq:bch-formula}
+\end{equation}
 \end{linenomath}
-where the real numbers $f_{ab}{}^c$ are the \textbf{structure constants} of the algebra. They are antisymmetric in the first two indices ($f_{ab}{}^c = -f_{ba}{}^c$) and satisfy the Jacobi identity:
-\begin{linenomath}
-    \begin{equation}
-        \sum_{d} \bigl( f_{ab}{}^d f_{dc}{}^e + f_{bc}{}^d f_{da}{}^e + f_{ca}{}^d f_{db}{}^e \bigr) = 0,
-        \label{eq:jacobi-identity}
-    \end{equation}
-\end{linenomath}
-which is the algebraic shadow of the associativity of group multiplication.
+a series in iterated commutators that converges for small $X,Y$. Chapter~4's~\eqref{eq:lie-bracket} is the leading nontrivial term: the group commutator $e^{\varepsilon A}e^{\varepsilon B}e^{-\varepsilon A}e^{-\varepsilon B}=I+\varepsilon^{2}[A,B]+O(\varepsilon^{3})$ extracts the bracket as the infinitesimal shadow of the group's noncommutation. When $[X,Y]$ is central (commutes with both $X$ and $Y$) the series truncates to $e^{X}e^{Y}=e^{X+Y+\frac12[X,Y]}$ --- the identity used throughout Chapter~4's Galilean analysis.
 
-For the rotation group SO(3), the Lie algebra is $\mathfrak{so}(3)$ with basis $\{J_1, J_2, J_3\}$ and structure constants $[J_i, J_j] = i\hbar\epsilon_{ijk}J_k$. The factor $i\hbar$ in the quantum-mechanical convention reflects that the physical generators are self-adjoint operators (observables) representing the abstract algebra elements; the abstract algebra has structure constants $\epsilon_{ijk}$ without the $i\hbar$. The main text's~\eqref{eq:galilei-algebra} gives the complete Galilean algebra in the quantum convention. The distinction between the abstract algebra and its quantum representative is the content of representation theory.
+\medskip\noindent\textbf{Structure constants.} Choose a basis $\{T_{a}\}_{a=1}^{\dim\mathfrak g}$ for the Lie algebra. The bracket of two basis elements is again in the algebra:
+\begin{linenomath}
+\begin{equation}
+[T_{a},T_{b}]=\sum_{c}f_{ab}{}^{c}\,T_{c},
+\label{eq:app-structure-constants}
+\end{equation}
+\end{linenomath}
+where the real numbers $f_{ab}{}^{c}$ are the \textbf{structure constants}. They are antisymmetric in the first two indices, $f_{ab}{}^{c}=-f_{ba}{}^{c}$, and satisfy the \textbf{Jacobi identity}
+\begin{linenomath}
+\begin{equation}
+\sum_{d}\bigl(f_{ab}{}^{d}f_{dc}{}^{e}+f_{bc}{}^{d}f_{da}{}^{e}+f_{ca}{}^{d}f_{db}{}^{e}\bigr)=0,
+\label{eq:jacobi-identity}
+\end{equation}
+\end{linenomath}
+the algebraic shadow of the associativity of group multiplication. For $\mathfrak{so}(3)$ with the quantum-mechanical (self-adjoint) basis $J_{i}$, $[J_{i},J_{j}]=i\hbar\,\epsilon_{ijk}J_{k}$, so $f_{ij}{}^{k}=i\hbar\,\epsilon_{ijk}$ in the physicist's convention (the abstract algebra has $f_{ij}{}^{k}=\epsilon_{ijk}$); Chapter~4's~\eqref{eq:galilei-algebra} is the complete Galilean algebra in this convention.
+
+\medskip\noindent\textbf{The adjoint representation.} Every Lie algebra acts on itself by the bracket: the \textbf{adjoint representation} $\operatorname{ad}_{X}(Y):=[X,Y]$ is a Lie-algebra homomorphism $\operatorname{ad}:\mathfrak g\to\mathfrak{gl}(\mathfrak g)$. In a basis, $(\operatorname{ad}_{T_{a}})_{b}{}^{c}=f_{ab}{}^{c}$: the structure constants are the matrix elements of the adjoint representation. The Jacobi identity \eqref{eq:jacobi-identity} is precisely the statement that $\operatorname{ad}$ preserves the bracket. Exponentiating gives the \textbf{Ad} representation of the group on its algebra, $\operatorname{Ad}_{g}(X)=gXg^{-1}$ for a matrix group; the adjoint of $\mathrm{SU}(2)$ is the $j=1$ (vector) representation, and $\operatorname{Ad}:\mathrm{SU}(2)\to\mathrm{SO}(3)$ is the 2:1 covering map of \eqref{eq:su2-so3-homomorphism}.
+
+\medskip\noindent\textbf{The Killing form.} The bilinear form
+\begin{linenomath}
+\begin{equation}
+\kappa(X,Y):=\tr\bigl(\operatorname{ad}_{X}\operatorname{ad}_{Y}\bigr)
+=\sum_{a,b}f_{ab}{}^{a}\,f_{bc}{}^{d}\quad(\text{in a basis})
+\label{eq:killing-form}
+\end{equation}
+\end{linenomath}
+is the \textbf{Killing form}, an invariant symmetric bilinear form on $\mathfrak g$ ($\kappa([Z,X],Y)+\kappa(X,[Z,Y])=0$). \textbf{Cartan's criterion}: $\mathfrak g$ is semisimple (has no nonzero abelian ideal) iff $\kappa$ is nondegenerate. For $\mathfrak{so}(3)\cong\mathfrak{su}(2)$, $\kappa(T_{a},T_{b})\propto\delta_{ab}$ (negative definite in the anti-Hermitian convention), confirming semisimplicity; the Galilei algebra, which contains the abelian ideal of translations, is \emph{not} semisimple --- whence its central extension by mass (Chapter~4) is a nontrivial cohomological fact rather than a triviality.
+
+\medskip\noindent\textbf{Semisimple, solvable, reductive.} A Lie algebra is \textbf{solvable} if iterated brackets eventually vanish (the abelian algebra is the prototype); \textbf{semisimple} if it is a direct sum of simple nonabelian algebras; \textbf{reductive} if it is the direct sum of a semisimple and an abelian algebra. The Galilei algebra is reductive-with-extension (semisimple $\mathfrak{so}(3)$ plus abelian translations/boosts plus the central mass); the Poincar\'e and Lorentz algebras are semisimple up to translations. Representation theory is cleanest for semisimple algebras (complete reducibility, highest-weight classification); the nonsemisimple case requires the induced-representation machinery of Mackey, deployed in Chapter~4's construction of the Galilean unirreps.
 
 \section{Representations}
 \label{sec:appendix-representations}
 
-\medskip\noindent\textbf{Definition (Representation).} A \textbf{representation} of a Lie group $G$ on a vector space $V$ is a homomorphism $\Pi : G \to \mathrm{GL}(V)$: a smooth map such that $\Pi(g_1 g_2) = \Pi(g_1)\Pi(g_2)$ and $\Pi(e) = I$. The dimension of the representation is $\dim V$. A representation of a Lie algebra $\mathfrak{g}$ on $V$ is a Lie algebra homomorphism $\pi : \mathfrak{g} \to \mathfrak{gl}(V)$: a linear map such that $\pi([X,Y]) = [\pi(X), \pi(Y)]$.
+\medskip\noindent\textbf{Definition (Representation).} A \textbf{representation} of a Lie group $G$ on a vector space $V$ is a homomorphism $\Pi:G\to\mathrm{GL}(V)$: a smooth map with $\Pi(g_{1}g_{2})=\Pi(g_{1})\Pi(g_{2})$ and $\Pi(e)=I$. Its dimension is $\dim V$. A representation of a Lie algebra $\mathfrak g$ on $V$ is a Lie-algebra homomorphism $\pi:\mathfrak g\to\mathfrak{gl}(V)$: a linear map with $\pi([X,Y])=[\pi(X),\pi(Y)]$. For a matrix Lie group, the \textbf{defining representation} is the obvious one: $\mathrm{SO}(3)$ acts on $\mathbb R^{3}$ by matrix multiplication, $\mathrm{SU}(2)$ on $\mathbb C^{2}$. A group representation $\Pi$ induces an algebra representation $\pi(X)=\left.\frac{d}{dt}\Pi(e^{tX})\right|_{t=0}$; conversely $\Pi(e^{X})=e^{\pi(X)}$ when $\Pi$ exists.
 
-For a matrix group, the defining representation is the obvious one: $\mathrm{SO}(3)$ acts on $\mathbb{R}^3$ by matrix multiplication, $\mathrm{SU}(2)$ acts on $\mathbb{C}^2$. The quantum-mechanical state space carries a \textbf{unitary} representation: $V = \mathcal{H}$ and each $\Pi(g)$ is unitary on $\mathcal{H}$. By Stone's theorem (Appendix~\ref{sec:appendix-stone}), the one-parameter subgroups $t \mapsto \Pi(e^{tX})$ are generated by self-adjoint operators $\pi(X)$, and the Lie algebra representation $\pi$ produces the physical observables: momentum, angular momentum, energy.
+The quantum-mechanical state space carries a \textbf{unitary} representation: $V=\mathcal H$ and each $\Pi(g)$ is unitary. By Stone's theorem (Appendix~\ref{sec:appendix-stone}), the one-parameter subgroups $t\mapsto\Pi(e^{tX})$ are generated by self-adjoint operators $\pi(X)$, and the algebra representation $\pi$ produces the physical observables: momentum, angular momentum, energy. By Wigner's theorem the physical action is a \emph{projective} (ray) representation; the obstruction to making it a true representation is a cohomology class of the group, the content of Bargmann's theorem for the Galilei group (Chapter~4).
 
-\medskip\noindent\textbf{Definition (Irreducible representation).} A representation is \textbf{irreducible} if $V$ contains no nontrivial invariant subspace: the only subspaces $W \subseteq V$ such that $\Pi(g)W \subseteq W$ for all $g \in G$ are $\{0\}$ and $V$. Irreducible representations are abbreviated \textbf{irreps}.
+\medskip\noindent\textbf{Irreducibility and equivalence.} A representation is \textbf{irreducible} (an \textbf{irrep}) if $V$ has no nontrivial invariant subspace: the only $W\subseteq V$ with $\Pi(g)W\subseteq W$ for all $g$ are $\{0\}$ and $V$. Two representations $\Pi_{1},\Pi_{2}$ on $V_{1},V_{2}$ are \textbf{equivalent} if an invertible linear map $T:V_{1}\to V_{2}$ intertwines them, $T\Pi_{1}(g)=\Pi_{2}(g)T$ for all $g$. The irreps are the elementary building blocks: every finite-dimensional unitary representation of a compact group decomposes uniquely (up to order and equivalence) as a direct sum of irreps --- \textbf{complete reducibility}. The physical states of an elementary system (a particle of definite mass and spin) transform in an irrep of the symmetry group; the $(2j+1)$-dimensional multiplets of Chapter~6 are the irreps of $\mathrm{SU}(2)$.
 
-The irreps of a group are its elementary building blocks: every finite-dimensional unitary representation decomposes uniquely as a direct sum of irreps (complete reducibility, which holds for compact groups). The physical states of an elementary system --- a particle of definite mass and spin --- transform in an irrep of the symmetry group. The $(2j+1)$-dimensional multiplets of Chapter~6 are the irreps of SU(2).
+\medskip\noindent\textbf{Lemma (Schur's lemma).} \emph{Let $\Pi_{1},\Pi_{2}$ be irreducible representations of $G$ on $V_{1},V_{2}$, and let $T:V_{1}\to V_{2}$ satisfy $T\Pi_{1}(g)=\Pi_{2}(g)T$ for all $g\in G$ (an intertwining map). Then either $T=0$, or $T$ is an isomorphism (so $\Pi_{1},\Pi_{2}$ are equivalent). In particular, if $\Pi_{1}=\Pi_{2}=\Pi$ is a finite-dimensional complex irrep, then $T=\lambda I$ for some $\lambda\in\mathbb C$.}
 
-\medskip\noindent\textbf{Lemma (Schur's Lemma).} \emph{Let $\Pi_1$ and $\Pi_2$ be two irreducible representations of $G$ on vector spaces $V_1$ and $V_2$, and let $T : V_1 \to V_2$ be a linear map that intertwines the representations: $T \circ \Pi_1(g) = \Pi_2(g) \circ T$ for all $g \in G$. Then either $T = 0$, or $T$ is an isomorphism (so $\Pi_1$ and $\Pi_2$ are equivalent). In particular, if $\Pi_1 = \Pi_2$ is a finite-dimensional complex irrep, then $T = \lambda I$ for some scalar $\lambda \in \mathbb{C}$.}
+\emph{Proof.} The kernel $\ker T$ is invariant in $V_{1}$: if $Tv=0$, then $T(\Pi_{1}(g)v)=\Pi_{2}(g)(Tv)=0$. By irreducibility, $\ker T$ is $\{0\}$ or $V_{1}$. The image $\operatorname{im}T$ is invariant in $V_{2}$: if $w=Tv$, then $\Pi_{2}(g)w=\Pi_{2}(g)Tv=T(\Pi_{1}(g)v)\in\operatorname{im}T$. By irreducibility, $\operatorname{im}T$ is $\{0\}$ or $V_{2}$. If $T\neq0$ then $\ker T=\{0\}$ (injective) and $\operatorname{im}T=V_{2}$ (surjective), so $T$ is an isomorphism. For the second statement, let $\lambda$ be an eigenvalue of $T$ (which exists since $V_{1}$ is a finite-dimensional complex vector space). Then $T-\lambda I$ also intertwines $\Pi$ and has nontrivial kernel; by the first part $T-\lambda I=0$. $\hfill\blacksquare$
 
-\emph{Proof sketch.} The kernel $\ker T$ is an invariant subspace of $V_1$: if $Tv = 0$, then $T(\Pi_1(g)v) = \Pi_2(g)(Tv) = 0$. By irreducibility, $\ker T$ is either $\{0\}$ or $V_1$. Similarly, the image $\operatorname{im} T$ is invariant in $V_2$. If $T \neq 0$, then $\ker T = \{0\}$ (injective) and $\operatorname{im} T = V_2$ (surjective), so $T$ is an isomorphism. For the second statement, let $\lambda$ be any eigenvalue of $T$ (which exists because $V_1$ is a finite-dimensional complex vector space). Then $T - \lambda I$ also intertwines the representation and has a nontrivial kernel, so by the first part, $T - \lambda I = 0$. \hfill $\blacksquare$
+\medskip\noindent\textbf{Corollary (irreducibility of abelian groups).} Every finite-dimensional complex irrep of an abelian group is one-dimensional: each group element $g$ commutes with every other, so $\Pi(g)$ itself intertwines $\Pi$; by Schur, $\Pi(g)=\lambda(g)I$, and an irreducible space of scalar operators is one-dimensional. This is the group-theoretic root of the simultaneous-diagonalization structure of compatible observables (Chapter~3).
 
-Schur's lemma is the engine of the Wigner--Eckart theorem (Chapter~6, §6.7): the reduced matrix element is the scalar $\lambda$ that survives after the geometric (representation-theoretic) part is extracted. The orthogonality relations for matrix elements (the great orthogonality theorem below) are its global corollary.
+\medskip\noindent\textbf{Corollary (irreps are determined by their Casimirs).} If $C$ is a Casimir (an operator commuting with every $\pi(X)$), then in an irrep $C=\lambda I$ by Schur. The eigenvalue $\lambda$ labels the irrep: for $\mathrm{SU}(2)$, the single Casimir $J^{2}$ with eigenvalue $\hbar^{2}j(j+1)$ labels the $(2j+1)$-dimensional irrep (Section~\ref{sec:appendix-su2-reps}). For a semisimple algebra of rank $r$ there are $r$ independent Casimirs, and (for compact groups) their joint eigenvalues label the irreps.
 
-\medskip\noindent\textbf{Theorem (Great Orthogonality Theorem for compact groups; stated without proof).} \emph{Let $G$ be a compact Lie group with normalized Haar measure $\dd g$. Let $\Pi^{(\alpha)}$ and $\Pi^{(\beta)}$ be inequivalent irreducible unitary representations of $G$ with dimensions $d_\alpha$ and $d_\beta$. Then the matrix elements satisfy}
+\medskip\noindent\textbf{The Haar measure.} On a compact group $G$ there is a unique (up to scale) \textbf{Haar measure} $\dd g$ that is left- and right-invariant: $\int_{G}f(hg)\,\dd g=\int_{G}f(g)\,\dd g=\int_{G}f(gh)\,\dd g$ for all $h\in G$. It is normalized by $\int_{G}\dd g=1$. For $\mathrm{SO}(3)$ and $\mathrm{SU}(2)$ in Euler angles $(\alpha,\beta,\gamma)$,
 \begin{linenomath}
-    \begin{equation}
-        \int_G \Pi^{(\alpha)}_{ij}(g)^*\,\Pi^{(\beta)}_{kl}(g)\,\dd g = \frac{1}{d_\alpha}\,\delta_{\alpha\beta}\,\delta_{ik}\,\delta_{jl}.
-        \label{eq:great-orthogonality}
-    \end{equation}
+\begin{equation}
+\dd g=\frac{1}{8\pi^{2}}\,\sin\beta\,\dd\alpha\,\dd\beta\,\dd\gamma,\qquad
+\alpha\in[0,2\pi),\;\beta\in[0,\pi],\;\gamma\in[0,2\pi)\;(\text{or }[0,4\pi)\text{ for }\mathrm{SU}(2)),
+\label{eq:haar-su2}
+\end{equation}
+\end{linenomath}
+so $\int_{\mathrm{SU}(2)}\dd g=1$. The Haar measure makes $L^{2}(G)$ a Hilbert space and underwrites every orthogonality relation below.
+
+\medskip\noindent\textbf{Theorem (Great Orthogonality Theorem).} \emph{Let $G$ be compact with normalized Haar measure $\dd g$, and $\Pi^{(\alpha)},\Pi^{(\beta)}$ inequivalent irreducible unitary representations of dimensions $d_{\alpha},d_{\beta}$. Then}
+\begin{linenomath}
+\begin{equation}
+\int_{G}\Pi^{(\alpha)}_{ij}(g)^{*}\,\Pi^{(\beta)}_{kl}(g)\,\dd g
+=\frac{1}{d_{\alpha}}\,\delta_{\alpha\beta}\,\delta_{ik}\,\delta_{jl}.
+\label{eq:great-orthogonality}
+\end{equation}
 \end{linenomath}
 
-The proof is collected in Hall, Chapter~5. For the rotation group SO(3) (and its cover SU(2)), the Haar measure is $\dd g = (1/8\pi^2)\sin\beta\,\dd\alpha\,\dd\beta\,\dd\gamma$ in Euler angles, with $\alpha \in [0,2\pi)$, $\beta \in [0,\pi]$, $\gamma \in [0,2\pi)$ (doubled for SU(2)), and the theorem yields the orthogonality of the Wigner D-matrices stated in the next section.
+\emph{Proof sketch.} For any linear map $A:V_{\beta}\to V_{\alpha}$, the group-average $\bar A=\int_{G}\Pi^{(\alpha)}(g)\,A\,\Pi^{(\beta)}(g)^{-1}\,\dd g$ intertwines the two representations: $\Pi^{(\alpha)}(h)\bar A\,\Pi^{(\beta)}(h)^{-1}=\bar A$ by invariance of $\dd g$. By Schur's lemma, $\bar A=0$ if $\alpha,\beta$ are inequivalent, and $\bar A=\lambda(A)I$ if $\alpha=\beta$. Taking $A$ to be the elementary matrix $E_{jk}$ (1 in position $(j,k)$, 0 elsewhere) extracts $\int\Pi^{(\alpha)}_{ij}\Pi^{(\beta)*}_{kl}\,\dd g$; the proportionality constant $\lambda(A)$ is fixed by tracing, yielding $1/d_{\alpha}$. (Full proof in Hall, Ch.~5.) $\hfill\blacksquare$
+
+\medskip\noindent\textbf{The regular representation and Peter--Weyl.} The \textbf{(left) regular representation} $L$ of a compact group $G$ acts on $L^{2}(G)$ by $(L(h)f)(g)=f(h^{-1}g)$. It contains \emph{every} irrep: each irrep $\Pi^{(\alpha)}$ of dimension $d_{\alpha}$ appears in $L$ with multiplicity $d_{\alpha}$. The explicit decomposition is the \textbf{Peter--Weyl theorem}: the matrix elements $\Pi^{(\alpha)}_{ij}(g)$, as $\alpha$ ranges over irreps and $i,j$ over $1,\ldots,d_{\alpha}$, form a complete orthogonal basis of $L^{2}(G)$,
+\begin{linenomath}
+\begin{equation}
+L^{2}(G)=\widehat{\bigoplus_{\alpha}}\;V^{(\alpha)}\otimes V^{(\alpha)*},
+\qquad
+\|\Pi^{(\alpha)}_{ij}\|^{2}_{L^{2}}=\frac{1}{d_{\alpha}},
+\label{eq:peter-weyl}
+\end{equation}
+\end{linenomath}
+the Hilbert-space direct sum (closure of the algebraic direct sum). For $G=\mathrm{SU}(2)$ this says that the Wigner $D^{(j)}_{m'm}(\alpha,\beta,\gamma)$, as $j=0,\tfrac12,1,\ldots$ and $m,m'=-j,\ldots,j$, are a complete orthogonal basis of $L^{2}(\mathrm{SU}(2))$ with $\|D^{(j)}_{m'm}\|^{2}=1/(2j+1)$ --- the content of the $D$-matrix orthogonality \eqref{eq:D-orthogonality} and the engine of the spherical-harmonic decomposition of $L^{2}(S^{2})$ (Section~\ref{sec:appendix-d-matrices}). Peter--Weyl is the compact-group avatar of the Fourier theorem: ordinary Fourier analysis is the Peter--Weyl decomposition of $L^{2}(U(1))$, with irreps the characters $e^{in\theta}$.
+
+\medskip\noindent\textbf{Characters.} The \textbf{character} of a representation $\Pi$ is the class function $\chi_{\Pi}(g):=\tr\Pi(g)$ (constant on conjugacy classes, since $\tr\Pi(hgh^{-1})=\tr\Pi(g)$). Characters are the complete invariants of compact-group representations: $\Pi_{1}\cong\Pi_{2}$ iff $\chi_{\Pi_{1}}=\chi_{\Pi_{2}}$, and the character orthogonality $\int_{G}\chi_{\alpha}^{*}\chi_{\beta}\,\dd g=\delta_{\alpha\beta}$ is the class-function reduction of the great orthogonality theorem. For $\mathrm{SU}(2)$ every element is conjugate to a rotation about a fixed axis, so the character depends only on the rotation angle $\theta$; its closed form \eqref{eq:su2-character} is the key to the Clebsch--Gordan series (Section~\ref{sec:appendix-cg}).
 
 \section{SU(2) Representation Theory}
 \label{sec:appendix-su2-reps}
 
-The group SU(2) is the universal covering group of SO(3). Its Lie algebra $\mathfrak{su}(2)$ is the real vector space of traceless anti-Hermitian $2 \times 2$ matrices. The conventional physics basis uses the self-adjoint generators $J_k = (i\hbar/2)\sigma_k$, satisfying $[J_i, J_j] = i\hbar\epsilon_{ijk}J_k$, whose complexified algebra is $\mathfrak{sl}(2,\mathbb{C}) \cong \mathfrak{so}(3)_{\mathbb{C}}$. Every finite-dimensional irreducible representation is obtained from the highest-weight construction.
+The group $\mathrm{SU}(2)$ is the universal covering group of $\mathrm{SO}(3)$ (Section~\ref{sec:appendix-covering}). Its Lie algebra $\mathfrak{su}(2)$ is the real vector space of traceless anti-Hermitian $2\times2$ matrices; the conventional physics basis uses the self-adjoint generators $J_{k}=(\hbar/2)\sigma_{k}$, satisfying $[J_{i},J_{j}]=i\hbar\epsilon_{ijk}J_{k}$, whose complexified algebra is $\mathfrak{sl}(2,\mathbb C)\cong\mathfrak{so}(3)_{\mathbb C}$. Because $\mathrm{SU}(2)$ is compact and connected, every finite-dimensional representation is unitarizable and decomposes into irreps; because it is simply connected, every representation of its Lie algebra integrates to a representation of the group. The classification of its irreps is the backbone of Chapter~6.
 
-\medskip\noindent\textbf{Theorem (Classification of SU(2) irreps; proof sketched in Chapter~6).} \emph{For every $j = 0, \tfrac12, 1, \tfrac32, \ldots$, there exists exactly one (up to equivalence) irreducible unitary representation of SU(2) of dimension $2j+1$, denoted $D^{(j)}$. In an orthonormal basis $\{\ket{j,m}\}_{m=-j}^j$, the generators act as:}
+\medskip\noindent\textbf{Theorem (Classification of $\mathrm{SU}(2)$ irreps).} \emph{For every $j=0,\tfrac12,1,\tfrac32,\ldots$ there exists exactly one (up to equivalence) irreducible unitary representation of $\mathrm{SU}(2)$, of dimension $2j+1$, denoted $D^{(j)}$. In an orthonormal basis $\{\ket{j,m}\}_{m=-j}^{j}$ the generators act as}
 \begin{linenomath}
-    \begin{align}
-        J_z \ket{j,m} &= \hbar m \ket{j,m}, \label{eq:su2-jz} \\
-        J_\pm \ket{j,m} &= \hbar\sqrt{j(j+1) - m(m \pm 1)}\,\ket{j,m \pm 1}, \label{eq:su2-jpm}
-    \end{align}
+\begin{align}
+J_{z}\ket{j,m} &= \hbar m\,\ket{j,m}, \label{eq:su2-jz}\\
+J_{\pm}\ket{j,m} &= \hbar\sqrt{j(j+1)-m(m\pm1)}\,\ket{j,m\pm1}, \label{eq:su2-jpm}
+\end{align}
 \end{linenomath}
-\emph{with $J_\pm = J_x \pm iJ_y$. The Casimir invariant is $J^2 \ket{j,m} = \hbar^2 j(j+1) \ket{j,m}$.}
+\emph{with $J_{\pm}=J_{x}\pm iJ_{y}$ and the Casimir $J^{2}\ket{j,m}=\hbar^{2}j(j+1)\ket{j,m}$. There are no other irreps.}
 
-The construction proceeds by the method of Chapter~6, §6.2: the ladder operator algebra $[J_z, J_\pm] = \pm\hbar J_\pm$, $[J_+, J_-] = 2\hbar J_z$ forces the spectrum. The highest-weight state $\ket{j,j}$ is defined by $J_+ \ket{j,j} = 0$, and all other states are obtained by repeated action of $J_-$. The normalization~\eqref{eq:su2-jpm} follows from $\|J_-\ket{j,m}\|^2 = \hbar^2[j(j+1) - m(m-1)]$. The condition that norms be nonnegative forces $m$ to lie between $-j$ and $+j$, and since $m$ changes by integer steps, $2j$ must be a nonnegative integer.
+\medskip\noindent\textbf{Proof (highest-weight construction).} The proof constructs every irrep from the algebra alone and shows uniqueness. Define $J_{\pm}=J_{x}\pm iJ_{y}$; from $[J_{i},J_{j}]=i\hbar\epsilon_{ijk}J_{k}$,
+\begin{linenomath}
+\begin{equation*}
+[J_{z},J_{\pm}]=\pm\hbar J_{\pm},\qquad [J_{+},J_{-}]=2\hbar J_{z},\qquad J^{2}=J_{-}J_{+}+J_{z}^{2}+\hbar J_{z}=J_{+}J_{-}+J_{z}^{2}-\hbar J_{z}.
+\end{equation*}
+\end{linenomath}
+Since $J^{2}$ commutes with every $J_{i}$ (a direct computation: $[J^{2},J_{z}]=[J_{-}J_{+},J_{z}]=J_{-}[J_{+},J_{z}]+[J_{-},J_{z}]J_{+}=0$), $J^{2}$ and $J_{z}$ are simultaneously diagonalizable; write $J^{2}\ket{\lambda,m}=\hbar^{2}\lambda\,\ket{\lambda,m}$, $J_{z}\ket{\lambda,m}=\hbar m\,\ket{\lambda,m}$. From $[J_{z},J_{\pm}]=\pm\hbar J_{\pm}$, whenever $J_{\pm}\ket{\lambda,m}\neq0$ it is an eigenstate of $J_{z}$ with eigenvalue $\hbar(m\pm1)$ and the same $\lambda$; so $J_{\pm}$ raise/lower $m$ within a fixed-$\lambda$ space. The squared norm is nonnegative:
+\begin{linenomath}
+\begin{equation*}
+\|J_{\pm}\ket{\lambda,m}\|^{2}=\braket{\lambda,m|J_{\mp}J_{\pm}|\lambda,m}=\hbar^{2}\bigl[\lambda-m(m\pm1)\bigr]\ge0.
+\end{equation*}
+\end{linenomath}
+Repeated application of $J_{+}$ produces states of ever-larger $m$; since $\lambda-m(m+1)\ge0$ forbids $m$ from growing without bound, the ascent must terminate: there is a \emph{highest weight} $\ket{\lambda,j}$ with $J_{+}\ket{\lambda,j}=0$, forcing $\lambda=j(j+1)$. Similarly $J_{-}$ descent terminates at a lowest weight $\ket{\lambda,j'}$ with $\lambda=j'(j'-1)$. Equating, $j(j+1)=j'(j'-1)$, whose solution $j'=-j$ gives a symmetric ladder $m=-j,-j+1,\ldots,j$. The number of rungs $2j$ is a nonnegative integer, so $j=0,\tfrac12,1,\ldots$; each rung is one-dimensional (by irreducibility), giving $\dim D^{(j)}=2j+1$ and the normalized ladder action \eqref{eq:su2-jpm} (the square root is the norm $\sqrt{j(j+1)-m(m\pm1)}$, taken real and nonnegative --- the Condon--Shortley convention). Existence is constructive: build $\ket{j,j}$ and apply $J_{-}$; the representation so obtained is irreducible (any invariant subspace would contain a highest-weight vector, unique up to scale). Uniqueness: two irreps with the same $j$ have identically-acting generators, hence are unitarily equivalent. $\hfill\blacksquare$
 
-\medskip\noindent\textbf{Definition (Character).} The \textbf{character} of a representation $D$ is the trace $\chi^{(j)}(g) := \tr D^{(j)}(g)$. For SU(2), every group element is conjugate to a rotation $U_{\bm n}(\theta) = e^{-i\theta J_n/\hbar}$ about some axis $\bm n$, so
+\medskip\noindent\textbf{Casimir and rank.} $\mathrm{SU}(2)$ has rank one (a maximal torus $U(1)\subset\mathrm{SU}(2)$), so there is one independent Casimir, $J^{2}$; by Schur's lemma $J^{2}=\hbar^{2}j(j+1)I$ in $D^{(j)}$, and this single number labels the irrep. The integer irreps ($j=0,1,2,\ldots$) descend to true representations of $\mathrm{SO}(3)$ ($D^{(j)}(-I)=+I$); the half-integer irreps are genuine projective representations of $\mathrm{SO}(3)$, true only on the cover $\mathrm{SU}(2)$ ($D^{(j)}(-I)=-I$) --- the topological origin of the spinor sign (Section~\ref{sec:appendix-covering}).
+
+\medskip\noindent\textbf{Characters.} The character $\chi^{(j)}(g)=\tr D^{(j)}(g)$ depends only on the conjugacy class, and every $g\in\mathrm{SU}(2)$ is conjugate to a rotation $e^{-i\theta J_{z}/\hbar}$ about the $z$-axis. In $D^{(j)}$ this is diagonal, so
 \begin{linenomath}
-    \begin{equation}
-        \chi^{(j)}(\theta) = \sum_{m=-j}^j e^{-im\theta} = \frac{\sin\bigl[(2j+1)\theta/2\bigr]}{\sin(\theta/2)},
-        \label{eq:su2-character}
-    \end{equation}
+\begin{equation}
+\chi^{(j)}(\theta)=\sum_{m=-j}^{j}e^{-im\theta}=\frac{\sin\!\bigl[(2j+1)\theta/2\bigr]}{\sin(\theta/2)},
+\label{eq:su2-character}
+\end{equation}
 \end{linenomath}
-where $\theta$ is the rotation angle (the class parameter). The character determines the representation uniquely: two representations are equivalent if and only if their characters coincide. The dimension is $\chi^{(j)}(0) = 2j+1$. The orthogonality of characters,
+the last form being the geometric series $\sum_{m=-j}^{j}e^{-im\theta}$, valid also at $\theta=0$ by l'H\^opital ($\chi^{(j)}(0)=2j+1$, the dimension). The character is a \emph{class function} on $\mathrm{SU}(2)$ (constant on each conjugacy class, parametrized by $\theta\in[0,2\pi]$); the conjugacy-class measure is $\sin^{2}(\theta/2)\,\dd\theta/\pi$ (from \eqref{eq:haar-su2} after integrating out the two Euler angles that locate the axis).
+
+\medskip\noindent\textbf{Character orthogonality.} The great orthogonality theorem \eqref{eq:great-orthogonality}, traced over representation indices, gives the orthogonality of characters:
 \begin{linenomath}
-    \begin{equation}
-        \frac{1}{\pi}\int_0^{2\pi} \chi^{(j)}(\theta)^*\,\chi^{(j')}(\theta)\,\sin^2(\theta/2)\,\dd\theta = \delta_{jj'},
-        \label{eq:character-orthogonality}
-    \end{equation}
+\begin{equation}
+\frac{1}{\pi}\int_{0}^{2\pi}\chi^{(j)}(\theta)^{*}\,\chi^{(j')}(\theta)\,\sin^{2}\!\frac{\theta}{2}\,\dd\theta=\delta_{jj'}.
+\label{eq:character-orthogonality}
+\end{equation}
 \end{linenomath}
-is the class-function reduction of the great orthogonality theorem.
+\emph{Proof.} Insert the geometric series into the left side: $\sin^{2}(\theta/2)\chi^{(j)*}\chi^{(j')}=\sin^{2}(\theta/2)\sum_{m,m'}e^{i(m-m')\theta}$. Use $\sin^{2}(\theta/2)=\tfrac12(1-\cos\theta)=\tfrac12-\tfrac14(e^{i\theta}+e^{-i\theta})$ and $\frac1\pi\int_{0}^{2\pi}e^{in\theta}\dd\theta=2\delta_{n0}$; only terms with $m=m'$ survive, contributing $\sum_{m}\delta_{jj'}=\delta_{jj'}(2j+1)\delta_{jj'}$ after the $\cos\theta$ shift removes the off-resonant pieces, leaving $\delta_{jj'}$. $\hfill\blacksquare$ Character orthogonality underlies the Clebsch--Gordan decomposition by multiplicity counting (Section~\ref{sec:appendix-cg}).
+
+\medskip\noindent\textbf{Tensor products and Young tableaux.} The tensor product of two irreps decomposes by the Clebsch--Gordan series \eqref{eq:app-cg-series}; the general rule is efficiently encoded in \textbf{Young tableaux}. The irrep $D^{(j)}$ of $\mathrm{SU}(2)$ corresponds to a single Young diagram of $2j$ boxes in one row (totally symmetric): the symmetric tensor of rank $2j$ on the fundamental $\mathbb C^{2}$. The tensor product $D^{(j_{1})}\otimes D^{(j_{2})}$ corresponds to the product of a row of $2j_{1}$ boxes with a row of $2j_{2}$ boxes; the Littlewood--Richardson rule gives the decomposition into rows of $2J$ boxes, $J=|j_{1}-j_{2}|,\ldots,j_{1}+j_{2}$, recovering \eqref{eq:app-cg-series}. For $\mathrm{SU}(n)$ the diagrams have at most $n-1$ rows and the rule is the same but richer; this book uses only the $\mathrm{SU}(2)$ (single-row) instance, where the tableau is a bookkeeping device for the dimension $\binom{2j+n-1}{n-1}$ of the symmetric subspace of $n$ spin-$1/2$'s --- the Schwinger--Bargmann--Majorana realisation of Chapter~6.
 
 \section{Wigner D-Matrices}
 \label{sec:appendix-d-matrices}
 
-\medskip\noindent\textbf{Definition (Wigner D-matrix).} The $(2j+1) \times (2j+1)$ matrix elements
-\begin{linenomath}
-    \begin{equation}
-        D^{(j)}_{m'm}(\alpha,\beta,\gamma) := \braket{j,m'|\,e^{-i\alpha J_z/\hbar}\,e^{-i\beta J_y/\hbar}\,e^{-i\gamma J_z/\hbar}\,|j,m},
-        \label{eq:D-matrix-def-app}
-    \end{equation}
-\end{linenomath}
-are the \textbf{Wigner D-matrices}, the matrix representatives of the Euler-angle parametrization in the irrep $j$. They factor as $D^{(j)}_{m'm} = e^{-i\alpha m'} d^{(j)}_{m'm}(\beta)\,e^{-i\gamma m}$, where
-\begin{linenomath}
-    \begin{equation}
-        d^{(j)}_{m'm}(\beta) := \braket{j,m'|e^{-i\beta J_y/\hbar}|j,m}
-        \label{eq:small-d}
-    \end{equation}
-\end{linenomath}
-is Wigner's (small) $d$-matrix, real-valued under the Condon--Shortley phase convention. Explicit formulas exist in terms of Jacobi polynomials, but the recurrence relations derived from the $J_\pm$ algebra are more useful computationally.
+The irreps $D^{(j)}$ of $\mathrm{SU}(2)$ are made concrete by evaluating them on the Euler-angle parametrization $U(\alpha,\beta,\gamma)=e^{-i\alpha J_{z}/\hbar}e^{-i\beta J_{y}/\hbar}e^{-i\gamma J_{z}/\hbar}$ (\eqref{eq:euler-angles}). The resulting matrices are the \textbf{Wigner D-matrices}; this section gives their definition, their explicit closed form, the low-$j$ instances, and their principal properties.
 
-\medskip\noindent\textbf{Properties.} (i)~\emph{Unitarity:} $\sum_{m'} D^{(j)*}_{m'm} D^{(j)}_{m'm''} = \delta_{mm''}$. (ii)~\emph{Composition:} $D^{(j)}_{m'm}(R_1 R_2) = \sum_{m''} D^{(j)}_{m'm''}(R_1) D^{(j)}_{m''m}(R_2)$. (iii)~\emph{Orthogonality} (great orthogonality theorem specialized to SU(2)):
+\medskip\noindent\textbf{Definition.} The $(2j+1)\times(2j+1)$ matrix elements
 \begin{linenomath}
-    \begin{equation}
-        \int_0^{2\pi}\!\frac{\dd\alpha}{2\pi}\int_0^\pi\!\frac{\sin\beta\,\dd\beta}{2}\int_0^{2\pi}\!\frac{\dd\gamma}{2\pi}\; D^{(j)*}_{m'm}(\alpha,\beta,\gamma)\,D^{(j')}_{\mu'\mu}(\alpha,\beta,\gamma) = \frac{1}{2j+1}\,\delta_{jj'}\,\delta_{m'\mu'}\,\delta_{m\mu}.
-        \label{eq:D-orthogonality}
-    \end{equation}
+\begin{equation}
+D^{(j)}_{m'm}(\alpha,\beta,\gamma):=\braket{j,m'|\,e^{-i\alpha J_{z}/\hbar}\,e^{-i\beta J_{y}/\hbar}\,e^{-i\gamma J_{z}/\hbar}\,|j,m}
+\label{eq:D-matrix-def-app}
+\end{equation}
 \end{linenomath}
-(iv)~\emph{Connection to spherical harmonics:} For integer $j = \ell$, the D-matrix with $m = 0$ (or $m' = 0$) reduces to the spherical harmonic:
+are the Wigner D-matrices. Because $J_{z}$ is diagonal in the $\ket{j,m}$ basis, $e^{-i\alpha J_{z}/\hbar}\ket{j,m}=e^{-i\alpha m}\ket{j,m}$, and the two outer factors contribute only phases:
 \begin{linenomath}
-    \begin{equation}
-        D^{(\ell)}_{m0}(\alpha,\beta,\gamma) = \sqrt{\frac{4\pi}{2\ell+1}}\;Y_\ell^{m*}(\beta,\alpha),
-        \label{eq:D-to-Y}
-    \end{equation}
+\begin{equation}
+D^{(j)}_{m'm}(\alpha,\beta,\gamma)=e^{-i\alpha m'}\,d^{(j)}_{m'm}(\beta)\,e^{-i\gamma m},
+\qquad
+d^{(j)}_{m'm}(\beta):=\braket{j,m'|e^{-i\beta J_{y}/\hbar}|j,m},
+\label{eq:small-d}
+\end{equation}
 \end{linenomath}
-where the Euler angles $(\alpha,\beta,\gamma)$ correspond to spherical coordinates $(\theta = \beta, \phi = \alpha)$. This is the link between the group-theoretic construction of Chapter~6, §6.1 and the analytic wave functions of §6.4.
+where $d^{(j)}_{m'm}(\beta)$ is Wigner's \textbf{(small) $d$-matrix}, real in the Condon--Shortley convention. All the nontrivial angular dependence sits in $d^{(j)}$.
 
-\medskip\noindent\textbf{The $j=1/2$ case.} The fundamental representation gives
+\medskip\noindent\textbf{Closed form (factorial sum).} The small-$d$ matrix has the explicit closed form, in the convention $d^{(j)}_{m'm}(\beta)=\braket{j,m'|e^{-i\beta J_{y}/\hbar}|j,m}$ with Condon--Shortley phases,
 \begin{linenomath}
-    \begin{equation}
-        d^{(1/2)}(\beta) = \begin{pmatrix}
-            \cos(\beta/2) & -\sin(\beta/2) \\
-            \sin(\beta/2) & \cos(\beta/2)
-        \end{pmatrix},
-        \label{eq:d-half}
-    \end{equation}
+\begin{equation}
+\boxed{\;
+d^{(j)}_{m'm}(\beta)=(-1)^{m-m'}\sum_{s}(-1)^{s}\,
+\frac{\sqrt{(j+m)!(j-m)!(j+m')!(j-m')!}}{(j+m-s)!\,s!\,(m'-m+s)!\,(j-m'-s)!}\,
+\bigl(\cos\tfrac{\beta}{2}\bigr)^{\!2j-2s+m-m'}\!
+\bigl(\sin\tfrac{\beta}{2}\bigr)^{\!2s+m'-m}\;}
+\label{eq:d-jacobi-sum}
+\end{equation}
 \end{linenomath}
-from which the spin-$\bm n$ ONB of Chapter~6~\eqref{eq:spin-n-derived} and the half-angle law~\eqref{eq:half-angle-law} follow directly.
+where the sum runs over all integers $s$ keeping the factorial arguments nonnegative (a finite range, automatically terminated). Equivalently, $d^{(j)}_{m'm}(\beta)$ is a Jacobi polynomial $P_{\,j-m}^{(m'-m,\,m+m')}(\cos\beta)$ multiplied by a ratio of factorials (Edmonds, eq.~4.1.16); the factorial sum above is the practical route for tabulating the low-$j$ matrices below. It is derived by evaluating $e^{-i\beta J_{y}/\hbar}$ in the Schwinger boson realisation of \S\ref{sec:appendix-su2-reps}; the full derivation is given immediately below.
 
-\section{The Clebsch--Gordan Series: Proof Sketch}
+\medskip\noindent\textbf{Derivation of \eqref{eq:d-jacobi-sum} (Schwinger boson realisation).} In the two-boson realisation, $J_{y}=(J_{+}-J_{-})/2i=(\hbar/2i)(a_{+}^{\dagger}a_{-}-a_{-}^{\dagger}a_{+})$ and the angular-momentum states are $\ket{j,m}=(a_{+}^{\dagger})^{j+m}(a_{-}^{\dagger})^{j-m}\ket{0}/\sqrt{(j+m)!(j-m)!}$. The rotation about $y$ is
+\begin{linenomath}
+\begin{equation}
+U(\beta):=e^{-i\beta J_{y}/\hbar}=e^{-(\beta/2)G},\qquad G:=a_{+}^{\dagger}a_{-}-a_{-}^{\dagger}a_{+},
+\label{eq:schwinger-U}
+\end{equation}
+\end{linenomath}
+the beam-splitter unitary. From the boson commutators,
+\begin{linenomath}
+\begin{equation*}
+[G,a_{+}]=[a_{+}^{\dagger}a_{-},a_{+}]-[a_{-}^{\dagger}a_{+},a_{+}]=-a_{-},\qquad
+[G,a_{-}]=[a_{+}^{\dagger}a_{-},a_{-}]-[a_{-}^{\dagger}a_{+},a_{-}]=+a_{+},
+\end{equation*}
+\end{linenomath}
+so $A(\theta):=e^{\theta G}a_{+}e^{-\theta G}$ and $B(\theta):=e^{\theta G}a_{-}e^{-\theta G}$ obey $A'=-B$, $B'=+A$, solved by $A(\theta)=a_{+}\cos\theta-a_{-}\sin\theta$, $B(\theta)=a_{+}\sin\theta+a_{-}\cos\theta$. With $\theta=-\beta/2$ (since $U=e^{-(\beta/2)G}$) and taking the adjoint, $U$ rotates the \emph{creation} operators as
+\begin{linenomath}
+\begin{equation}
+U\,a_{+}^{\dagger}\,U^{\dagger}=c\,a_{+}^{\dagger}+s\,a_{-}^{\dagger},\qquad
+U\,a_{-}^{\dagger}\,U^{\dagger}=-s\,a_{+}^{\dagger}+c\,a_{-}^{\dagger},
+\qquad c:=\cos\tfrac{\beta}{2},\;s:=\sin\tfrac{\beta}{2},
+\label{eq:beamsplitter}
+\end{equation}
+\end{linenomath}
+an $\mathrm{SU}(2)$ rotation of the two-mode doublet by $\beta$ about $y$ --- the boson avatar of the defining spin-$1/2$ rotation. The vacuum is invariant ($G\ket{0}=0$, so $U\ket{0}=\ket{0}$), hence the rotated state is obtained by replacing each $a_{\pm}^{\dagger}$ in $\ket{j,m}$ by its rotated image \eqref{eq:beamsplitter}:
+\begin{linenomath}
+\begin{equation}
+U(\beta)\ket{j,m}=\frac{(c\,a_{+}^{\dagger}+s\,a_{-}^{\dagger})^{j+m}(-s\,a_{+}^{\dagger}+c\,a_{-}^{\dagger})^{j-m}}{\sqrt{(j+m)!(j-m)!}}\,\ket{0}.
+\label{eq:schwinger-rotated-state}
+\end{equation}
+\end{linenomath}
+Expand both binomials,
+\begin{linenomath}
+\begin{align*}
+(c\,a_{+}^{\dagger}+s\,a_{-}^{\dagger})^{j+m}&=\sum_{p}\binom{j+m}{p}c^{\,j+m-p}s^{\,p}(a_{+}^{\dagger})^{j+m-p}(a_{-}^{\dagger})^{p},\\
+(-s\,a_{+}^{\dagger}+c\,a_{-}^{\dagger})^{j-m}&=\sum_{q}\binom{j-m}{q}(-s)^{\,j-m-q}c^{\,q}(a_{+}^{\dagger})^{j-m-q}(a_{-}^{\dagger})^{q},
+\end{align*}
+\end{linenomath}
+and form $d^{(j)}_{m'm}(\beta)=\braket{j,m'|U(\beta)|j,m}$. The vacuum expectation
+\begin{linenomath}
+\begin{equation*}
+\bra{0}(a_{+})^{j+m'}(a_{-})^{j-m'}(a_{+}^{\dagger})^{r}(a_{-}^{\dagger})^{t}\ket{0}=(j+m')!(j-m')!\,\delta_{r,\,j+m'}\,\delta_{t,\,j-m'}
+\end{equation*}
+\end{linenomath}
+forces the total creation powers $r=(j+m-p)+(j-m-q)=2j-p-q$ and $t=p+q$ to equal $j+m'$ and $j-m'$ respectively --- the same condition $p+q=j-m'$ from each --- so the double sum collapses to a single sum over $p$ (with $q=j-m'-p$). Collecting the prefactor and the surviving powers,
+\begin{linenomath}
+\begin{align*}
+d^{(j)}_{m'm}(\beta)
+&=\frac{(j+m')!(j-m')!}{\sqrt{(j+m')!(j-m')!(j+m)!(j-m)!}}\\
+&\quad\times\sum_{p}\binom{j+m}{p}\binom{j-m}{j-m'-p}\,c^{\,2j+m-m'-2p}\,(-1)^{m'-m+p}\,s^{\,m'-m+2p},
+\end{align*}
+\end{linenomath}
+where $c^{\,j+m-p}c^{\,q}=c^{\,2j+m-m'-2p}$ and $s^{\,p}(-s)^{\,j-m-q}=(-1)^{m'-m+p}s^{\,m'-m+2p}$ (using $j-m-q=m'-m+p$). Now write the binomials as factorials, $\binom{j+m}{p}\binom{j-m}{j-m'-p}=(j+m)!(j-m)!/[p!(j+m-p)!(j-m'-p)!(m'-m+p)!]$: the prefactor $(j+m')!(j-m')!/\sqrt{\cdots}$ combines with $(j+m)!(j-m)!$ to give $\sqrt{(j+m)!(j-m)!(j+m')!(j-m')!}$, and relabelling $p\to s$ yields exactly \eqref{eq:d-jacobi-sum}. The sign matches because $(-1)^{m'-m+s}=(-1)^{m-m'}(-1)^{s}$ (the two differ by $(-1)^{2(m-m')}=1$). The single sum over $s$ is the residue of the two binomial expansions under the vacuum's power-matching constraint --- the same combinatorial mechanism that produces the Racah CG formula \eqref{eq:racah-cg}, of which the $d$-matrix is the rank-$2j$ instance. Two useful specializations follow directly from \eqref{eq:d-jacobi-sum}: the \emph{top row}
+\begin{linenomath}
+\begin{equation}
+d^{(j)}_{j,m}(\beta)=(-1)^{j-m}\sqrt{\binom{2j}{j-m}}\,\bigl(\cos\tfrac{\beta}{2}\bigr)^{\!j+m}\!\bigl(\sin\tfrac{\beta}{2}\bigr)^{\!j-m},
+\label{eq:d-top-row}
+\end{equation}
+\end{linenomath}
+and the \emph{bottom row} $d^{(j)}_{-j,m}(\beta)=\sqrt{\binom{2j}{j+m}}\,(\cos\frac{\beta}{2})^{j-m}(\sin\frac{\beta}{2})^{j+m}$ (all entries non-negative); the remaining rows follow from the ladder recurrences of \S\ref{sec:appendix-cg}.
+
+\medskip\noindent\textbf{Explicit low-$j$ $d$-matrices.} With $c=\cos(\beta/2)$, $s=\sin(\beta/2)$, and rows/columns ordered $m=j,j-1,\ldots,-j$:
+\begin{linenomath}
+\begin{equation}
+d^{(1/2)}(\beta)=
+\begin{pmatrix}
+c & -s\\[2pt]
+s & \phantom{-}c
+\end{pmatrix},
+\label{eq:d-half}
+\end{equation}
+\end{linenomath}
+\begin{linenomath}
+\begin{equation}
+d^{(1)}(\beta)=
+\begin{pmatrix}
+\dfrac{1+\cos\beta}{2} & -\dfrac{\sin\beta}{\sqrt2} & \dfrac{1-\cos\beta}{2}\\[8pt]
+\dfrac{\sin\beta}{\sqrt2} & \cos\beta & -\dfrac{\sin\beta}{\sqrt2}\\[8pt]
+\dfrac{1-\cos\beta}{2} & \dfrac{\sin\beta}{\sqrt2} & \dfrac{1+\cos\beta}{2}
+\end{pmatrix},
+\label{eq:d-one}
+\end{equation}
+\end{linenomath}
+\begin{linenomath}
+\begin{equation}
+d^{(3/2)}(\beta)=
+\begin{pmatrix}
+c^{3} & -\sqrt3\,c^{2}s & \sqrt3\,cs^{2} & -s^{3}\\[2pt]
+\sqrt3\,c^{2}s & c^{3}-2cs^{2} & -(2c^{2}s-s^{3}) & \sqrt3\,cs^{2}\\[2pt]
+\sqrt3\,cs^{2} & 2c^{2}s-s^{3} & c^{3}-2cs^{2} & -\sqrt3\,c^{2}s\\[2pt]
+s^{3} & \sqrt3\,cs^{2} & \sqrt3\,c^{2}s & c^{3}
+\end{pmatrix},
+\label{eq:d-threehalf}
+\end{equation}
+\end{linenomath}
+\begin{linenomath}
+\begin{equation}
+d^{(2)}(\beta)=
+\begin{pmatrix}
+c^{4} & -2c^{3}s & \sqrt6\,c^{2}s^{2} & -2cs^{3} & s^{4}\\[2pt]
+2c^{3}s & c^{2}(c^{2}-3s^{2}) & -\sqrt6\,cs(c^{2}-s^{2}) & s^{2}(3c^{2}-s^{2}) & -2cs^{3}\\[2pt]
+\sqrt6\,c^{2}s^{2} & \sqrt6\,cs(c^{2}-s^{2}) & c^{4}-4c^{2}s^{2}+s^{4} & -\sqrt6\,cs(c^{2}-s^{2}) & \sqrt6\,c^{2}s^{2}\\[2pt]
+2cs^{3} & -s^{2}(3c^{2}-s^{2}) & \sqrt6\,cs(c^{2}-s^{2}) & c^{2}(c^{2}-3s^{2}) & -2c^{3}s\\[2pt]
+s^{4} & 2cs^{3} & \sqrt6\,c^{2}s^{2} & 2c^{3}s & c^{4}
+\end{pmatrix}.
+\label{eq:d-two}
+\end{equation}
+\end{linenomath}
+The $j=1/2$ instance \eqref{eq:d-half} underlies the spin-$\bm n$ basis and the half-angle law of Chapter~6 \eqref{eq:spin-n-derived}, \eqref{eq:half-angle-law}; the $j=1$ instance \eqref{eq:d-one} is, in the spherical basis, exactly the rotation of a Cartesian vector (below). The half-angles $\beta/2$ in every entry are the signature of the double cover: $d^{(j)}(2\pi)=(-1)^{2j}I$.
+
+\medskip\noindent\textbf{Properties.} The D-matrices satisfy
+\begin{enumerate}
+\item \emph{Unitarity:} $\sum_{m'}D^{(j)*}_{m'm}(R)\,D^{(j)}_{m'm''}(R)=\delta_{mm''}$, since each $U(R)$ is unitary.
+\item \emph{Composition (representation property):} $\sum_{m''}D^{(j)}_{m'm''}(R_{1})\,D^{(j)}_{m''m}(R_{2})=D^{(j)}_{m'm}(R_{1}R_{2})$ --- the matrix of the product is the product of the matrices.
+\item \emph{Complex conjugation:} $D^{(j)*}_{m'm}(\alpha,\beta,\gamma)=(-1)^{m-m'}D^{(j)}_{-m',-m}(\alpha,\beta,\gamma)$, from the Condon--Shortley reality and symmetry $d^{(j)}_{m'm}(\beta)=(-1)^{m-m'}d^{(j)}_{-m',-m}(\beta)$ of the small-$d$.
+\item \emph{Orthogonality (Peter--Weyl for $\mathrm{SU}(2)$):} with the Haar measure \eqref{eq:haar-su2},
+\begin{linenomath}
+\begin{equation}
+\int_{G}\dd g\;D^{(j)*}_{m'm}(\alpha,\beta,\gamma)\,D^{(j')}_{\mu'\mu}(\alpha,\beta,\gamma)
+=\frac{1}{2j+1}\,\delta_{jj'}\,\delta_{m\mu}\,\delta_{m'\mu'}.
+\label{eq:D-orthogonality}
+\end{equation}
+\end{linenomath}
+This is the great orthogonality theorem \eqref{eq:great-orthogonality} specialized to $\mathrm{SU}(2)$; the prefactor $1/(2j+1)=1/d_{\alpha}$ is the Peter--Weyl norm \eqref{eq:peter-weyl}.
+\end{enumerate}
+
+\medskip\noindent\textbf{Rotation of spherical harmonics.} For integer $j=\ell$ the D-matrix column $m'=0$ reduces to a spherical harmonic: with the Euler angles $(\alpha,\beta,\gamma)$ identified with the spherical coordinates $(\theta=\beta,\phi=\alpha)$ of the rotated $z$-axis,
+\begin{linenomath}
+\begin{equation}
+D^{(\ell)}_{m0}(\alpha,\beta,\gamma)=\sqrt{\frac{4\pi}{2\ell+1}}\;Y_{\ell}^{m*}(\beta,\alpha),
+\label{eq:D-to-Y}
+\end{equation}
+\end{linenomath}
+independent of $\gamma$ (a rotation about the body $z$-axis leaves the $m'=0$ column invariant). In particular $D^{(\ell)}_{00}=P_{\ell}(\cos\beta)$, the Legendre polynomial. The spherical harmonics are therefore the $m'=0$ column of the D-matrix --- the functions on the coset sphere $S^{2}\cong\mathrm{SO}(3)/\mathrm{SO}(2)$. The general transformation law under a finite rotation $R$ follows:
+\begin{linenomath}
+\begin{equation}
+Y_{\ell}^{m}(R^{-1}\hat{\bm r})=\sum_{m'=-\ell}^{\ell}D^{(\ell)}_{m'm}(R)\,Y_{\ell}^{m'}(\hat{\bm r}),
+\label{eq:Ylm-rotation}
+\end{equation}
+\end{linenomath}
+the active rotation of a scalar field on the sphere. This is the link between the group-theoretic D-matrices and the analytic spherical harmonics of Chapter~6 \S\ref{sec:orbital-angular-momentum}: rotating a spherical harmonic mixes the $(2\ell+1)$ members of its multiplet by the D-matrix, exactly as rotating a state $\ket{\ell,m}$ mixes the basis kets.
+
+\medskip\noindent\textbf{Rotation of Cartesian vectors and tensors.} The $j=1$ representation is the vector representation in disguise. The spherical components of a vector $\bm V$,
+\begin{linenomath}
+\begin{equation*}
+V^{(1)}_{\pm1}:=\mp\frac{V_{x}\pm iV_{y}}{\sqrt2},\qquad V^{(1)}_{0}:=V_{z},
+\end{equation*}
+\end{linenomath}
+transform under a rotation $R$ as $V^{(1)}_{q}\mapsto\sum_{q'}D^{(1)}_{q'q}(R)\,V^{(1)}_{q'}$, which is exactly the Cartesian rotation $\bm V\mapsto R\bm V$ rewritten in the spherical basis; the $d^{(1)}$ matrix \eqref{eq:d-one} is the rotation about $y$ in that basis. A rank-$k$ Cartesian tensor $T_{i_{1}\cdots i_{k}}$ decomposes under rotations into irreducible spherical tensors of ranks $k,k-2,\ldots$ (the traceless symmetric part is rank $k$, the traces are lower rank); each irreducible piece transforms by $D^{(k)}$. This is the bridge from Cartesian tensor analysis to the irreducible-tensor operators of \S\ref{sec:appendix-tensor-operators} and Chapter~6 \S\ref{sec:irreducible-tensor-operators}.
+
+\medskip\noindent\textbf{The integral of three D-matrices.} The product of three D-matrices, integrated over the group, collapses to a product of 3-$j$ symbols:
+\begin{linenomath}
+\begin{equation}
+\int_{G}\dd g\;D^{(j_{1})*}_{m_{1}m'_{1}}(g)\,D^{(j_{2})}_{m_{2}m'_{2}}(g)\,D^{(j_{3})}_{m_{3}m'_{3}}(g)
+=\begin{pmatrix}j_{1}&j_{2}&j_{3}\\ m_{1}&m_{2}&m_{3}\end{pmatrix}\!
+\begin{pmatrix}j_{1}&j_{2}&j_{3}\\ m'_{1}&m'_{2}&m'_{3}\end{pmatrix},
+\label{eq:three-D-integral}
+\end{equation}
+\end{linenomath}
+vanishing unless each triple $(j_{1},j_{2},j_{3})$ and $(m_{1},m_{2},m_{3})$ satisfies the triangle and $m$-sum conditions. This identity --- a corollary of the CG decomposition $D^{(j_{2})}\otimes D^{(j_{3})}=\bigoplus D^{(J)}$ and the orthogonality \eqref{eq:D-orthogonality} --- is the group-theoretic origin of the 3-$j$ symbol and the engine of the Wigner--Eckart theorem (\S\ref{sec:appendix-tensor-operators}): the geometric part of every matrix element is an integral of three D-matrices, hence a 3-$j$.
+
+\section{The Clebsch--Gordan Series}
 \label{sec:appendix-cg}
 
-The Clebsch--Gordan problem is: given two irreps $j_1$ and $j_2$ of SU(2), decompose their tensor product into irreducibles. The answer is the Clebsch--Gordan series.
+The Clebsch--Gordan problem is: given two irreps $j_{1},j_{2}$ of $\mathrm{SU}(2)$, decompose their tensor product into irreducibles. The answer is the Clebsch--Gordan series, proved here two ways --- by characters (multiplicity counting) and by highest weights (explicit construction).
 
-\medskip\noindent\textbf{Theorem (Clebsch--Gordan series).} \emph{The tensor product representation $D^{(j_1)} \otimes D^{(j_2)}$ decomposes as}
+\medskip\noindent\textbf{Theorem (Clebsch--Gordan series).} \emph{The tensor product decomposes as}
 \begin{linenomath}
-    \begin{equation}
-        D^{(j_1)} \otimes D^{(j_2)} \cong \bigoplus_{J = |j_1 - j_2|}^{j_1 + j_2} D^{(J)},
-        \label{eq:app-cg-series}
-    \end{equation}
+\begin{equation}
+D^{(j_{1})}\otimes D^{(j_{2})}\cong\bigoplus_{J=|j_{1}-j_{2}|}^{j_{1}+j_{2}}D^{(J)},
+\label{eq:app-cg-series}
+\end{equation}
 \end{linenomath}
-\emph{where each irrep $J$ appears exactly once. Equivalently, the coupled basis $\{\ket{j_1,j_2;J,M}\}$ and the uncoupled basis $\{\ket{j_1,m_1} \otimes \ket{j_2,m_2}\}$ are related by}
+\emph{each irrep $J$ appearing once. Equivalently the coupled and uncoupled bases are related by}
 \begin{linenomath}
-    \begin{equation}
-        \ket{j_1,j_2;J,M} = \sum_{m_1,m_2} \braket{j_1,m_1;j_2,m_2|J,M}\,\ket{j_1,m_1} \otimes \ket{j_2,m_2},
-        \label{eq:cg-expansion}
-    \end{equation}
+\begin{equation}
+\ket{j_{1},j_{2};J,M}=\sum_{m_{1},m_{2}}\braket{j_{1},m_{1};j_{2},m_{2}|J,M}\,\ket{j_{1},m_{1}}\otimes\ket{j_{2},m_{2}},
+\label{eq:cg-expansion}
+\end{equation}
 \end{linenomath}
-\emph{where $\braket{j_1,m_1;j_2,m_2|J,M}$ are the Clebsch--Gordan coefficients, real under the Condon--Shortley phase convention.}
+\emph{with real CG coefficients $\braket{j_{1},m_{1};j_{2},m_{2}|J,M}$ (Condon--Shortley), vanishing unless $m_{1}+m_{2}=M$ and $|j_{1}-j_{2}|\le J\le j_{1}+j_{2}$.}
 
-\medskip\noindent\textit{Proof sketch.} The proof proceeds by character theory. The character of the tensor product is the product of characters: $\chi^{(j_1 \otimes j_2)}(\theta) = \chi^{(j_1)}(\theta)\,\chi^{(j_2)}(\theta)$. Using the closed form~\eqref{eq:su2-character},
+\medskip\noindent\textit{Proof 1 (characters).} The character of a tensor product is the product of characters: $\chi^{(j_{1}\otimes j_{2})}=\chi^{(j_{1})}\chi^{(j_{2})}$. The multiplicity $n_{J}$ of $D^{(J)}$ in the product is, by character orthogonality \eqref{eq:character-orthogonality},
 \begin{linenomath}
-    \begin{equation}
-        \chi^{(j_1)}(\theta)\,\chi^{(j_2)}(\theta)
-        = \sum_{m_1=-j_1}^{j_1} e^{-im_1\theta} \sum_{m_2=-j_2}^{j_2} e^{-im_2\theta}
-        = \sum_{m_1,m_2} e^{-i(m_1+m_2)\theta}.
-        \label{eq:product-character}
-    \end{equation}
+\begin{equation*}
+n_{J}=\frac1\pi\int_{0}^{2\pi}\chi^{(J)}(\theta)^{*}\,\chi^{(j_{1})}(\theta)\,\chi^{(j_{2})}(\theta)\,\sin^{2}\!\frac{\theta}{2}\,\dd\theta.
+\end{equation*}
 \end{linenomath}
-For each integer $M = m_1 + m_2$ (which ranges from $-(j_1+j_2)$ to $j_1+j_2$), the coefficient of $e^{-iM\theta}$ is the number of pairs $(m_1,m_2)$ summing to $M$. This number is a step function: it equals $j_1+j_2 - |M| + 1$ for $|M| \ge |j_1-j_2|$, and $2\min(j_1,j_2)+1$ for $|M| \le |j_1-j_2|$. On the other hand, the character of $\bigoplus_J D^{(J)}$ is $\sum_J \sum_{m=-J}^J e^{-im\theta}$. Matching the multiplicities of each $e^{-iM\theta}$ term on both sides yields that $J$ ranges from $|j_1-j_2|$ to $j_1+j_2$ in integer steps, each exactly once. The coefficients $\braket{j_1,m_1;j_2,m_2|J,M}$ are then the matrix elements of the unitary change-of-basis between the uncoupled and coupled bases; they vanish unless $m_1+m_2 = M$ and $|j_1-j_2| \le J \le j_1+j_2$ (the triangle condition). \hfill $\blacksquare$
+Insert the geometric series \eqref{eq:su2-character}; the integrand is $\sin^{2}(\theta/2)\sum_{m,m_{1},m_{2}}e^{i(m-m_{1}-m_{2})\theta}$, and using $\sin^{2}(\theta/2)=\tfrac12-\tfrac14(e^{i\theta}+e^{-i\theta})$ with $\frac1\pi\int_{0}^{2\pi}e^{in\theta}\dd\theta=2\delta_{n0}$, the integral counts the number of triples $(m,m_{1},m_{2})$ with $m=m_{1}+m_{2}$ in the range $|m_{i}|\le j_{i}$, $|m|\le J$, minus the analogous count at $J\pm1$. The counting gives $n_{J}=1$ for $|j_{1}-j_{2}|\le J\le j_{1}+j_{2}$ and $0$ otherwise (the boundary steps cancel), which is \eqref{eq:app-cg-series}. $\hfill\blacksquare$
 
-Explicit formulas for the CG coefficients exist (the Racah closed form cited in Chapter~6), but for computational purposes the recurrence relations derived from applying $J_\pm = J_{1\pm} + J_{2\pm}$ to both sides of~\eqref{eq:cg-expansion} are more practical. The Condon--Shortley phase convention fixes the sign of the coefficient with the largest $m_1$ to be positive, and all other coefficients follow from the ladder recurrences.
+\medskip\noindent\textit{Proof 2 (highest weight).} On $V^{(j_{1})}\otimes V^{(j_{2})}$ the total $J_{z}=J_{1z}+J_{2z}$ has eigenvalue $M=m_{1}+m_{2}$, ranging $-(j_{1}+j_{2})\le M\le j_{1}+j_{2}$. The top space $M=j_{1}+j_{2}$ is one-dimensional, spanned by $\ket{j_{1},j_{1}}\otimes\ket{j_{2},j_{2}}$; it is a highest-weight vector ($J_{+}$ annihilates it), generating a copy of $D^{(j_{1}+j_{2})}$. The next space $M=j_{1}+j_{2}-1$ is two-dimensional; one combination is $J_{-}$ of the top (belonging to $D^{(j_{1}+j_{2})}$), the orthogonal combination is a new highest-weight vector generating $D^{(j_{1}+j_{2}-1)}$. Descending, the $M$-space dimension grows by one per step until $M=|j_{1}-j_{2}|$, then stays constant and shrinks; each new highest-weight vector launches the next lower $J$. The process terminates at $J=|j_{1}-j_{2}|$, having accounted for $\sum_{J}(2J+1)=(2j_{1}+1)(2j_{2}+1)$ states --- the full product space. $\hfill\blacksquare$
+
+\medskip\noindent\textbf{Racah closed form.} The CG coefficients are determined by \eqref{eq:cg-expansion}, the recurrences of Chapter~6 \eqref{eq:cg-recurrence}, and the Condon--Shortley phase. Racah (1942) gave the single closed sum \eqref{eq:racah-cg} (stated in Chapter~6), obtained by evaluating the overlap in the Schwinger boson realisation; the sum index runs over integers keeping all factorials nonnegative.
+
+\medskip\noindent\textbf{3-$j$ symbols and symmetries.} The CG coefficient treats the three angular momenta $(j_{1},j_{2},J)$ asymmetrically ($J$ is the resultant). Wigner's \textbf{3-$j$ symbol} restores the symmetry:
+\begin{linenomath}
+\begin{equation*}
+\begin{pmatrix}j_{1}&j_{2}&j_{3}\\ m_{1}&m_{2}&m_{3}\end{pmatrix}
+:=\frac{(-1)^{j_{1}-j_{2}-m_{3}}}{\sqrt{2j_{3}+1}}\,\braket{j_{1},m_{1};j_{2},m_{2}|j_{3},-m_{3}},
+\end{equation*}
+\end{linenomath}
+vanishing unless $m_{1}+m_{2}+m_{3}=0$ and the triangle $|j_{i}-j_{k}|\le j_{l}\le j_{i}+j_{k}$ holds. Its symmetries, derived from the Racah form, are: \emph{even permutation of columns leaves it invariant; an odd permutation multiplies it by $(-1)^{j_{1}+j_{2}+j_{3}}$; simultaneous sign flip of all $m_{i}$ multiplies it by $(-1)^{j_{1}+j_{2}+j_{3}}$}. The orthogonality \eqref{eq:D-orthogonality} gives
+\begin{linenomath}
+\begin{equation*}
+\sum_{m_{1},m_{2}}\begin{pmatrix}j_{1}&j_{2}&j_{3}\\ m_{1}&m_{2}&m_{3}\end{pmatrix}\!\begin{pmatrix}j_{1}&j_{2}&j'_{3}\\ m_{1}&m_{2}&m'_{3}\end{pmatrix}=\frac{1}{2j_{3}+1}\,\delta_{j_{3}j'_{3}}\,\delta_{m_{3}m'_{3}},
+\end{equation*}
+\end{linenomath}
+and the special value $\begin{pmatrix}j&j&0\\m&-m&0\end{pmatrix}=(-1)^{j-m}/\sqrt{2j+1}$. The 3-$j$ is the preferred object whenever three or more angular momenta meet, as in the Wigner--Eckart theorem and the Racah algebra below.
 
 \section{Racah Algebra: 6-$j$ and 9-$j$ Symbols}
 \label{sec:appendix-racah}
 
-When three or four angular momenta are coupled, the order of coupling matters: $(j_1 \otimes j_2) \otimes j_3$ and $j_1 \otimes (j_2 \otimes j_3)$ produce different coupled bases, related by a unitary transformation whose matrix elements are the Racah $W$-coefficients or, in their symmetric form, the 6-$j$ symbols.
+When three or four angular momenta are coupled, the order of coupling matters, and the unitary matrix converting one coupling scheme to another is built of \textbf{Racah coefficients} --- the 6-$j$ and 9-$j$ symbols. They are the bookkeeping of recoupling.
 
 \medskip\noindent\textbf{Definition (6-$j$ symbol).} The \textbf{6-$j$ symbol}
 \begin{linenomath}
-    \begin{equation}
-        \begin{Bmatrix}
-            j_1 & j_2 & J_{12} \\
-            j_3 & J & J_{23}
-        \end{Bmatrix}
-        \label{eq:6j}
-    \end{equation}
+\begin{equation}
+\begin{Bmatrix}j_{1}&j_{2}&J_{12}\\ j_{3}&J&J_{23}\end{Bmatrix}
+\label{eq:6j}
+\end{equation}
 \end{linenomath}
 is the recoupling coefficient connecting the two schemes for coupling three angular momenta to total $J$:
 \begin{linenomath}
-    \begin{equation}
-        \braket{(j_1,(j_2,j_3)J_{23})J,M | ((j_1,j_2)J_{12},j_3)J,M}
-        = (-1)^{j_1+j_2+j_3+J}\sqrt{(2J_{12}+1)(2J_{23}+1)}\,
-        \begin{Bmatrix}
-            j_1 & j_2 & J_{12} \\
-            j_3 & J & J_{23}
-        \end{Bmatrix}.
-        \label{eq:6j-recoupling}
-    \end{equation}
+\begin{equation}
+\braket{(j_{1},(j_{2},j_{3})J_{23})J,M\,|\,((j_{1},j_{2})J_{12},j_{3})J,M}
+=(-1)^{j_{1}+j_{2}+j_{3}+J}\sqrt{(2J_{12}+1)(2J_{23}+1)}\,
+\begin{Bmatrix}j_{1}&j_{2}&J_{12}\\ j_{3}&J&J_{23}\end{Bmatrix}.
+\label{eq:6j-recoupling}
+\end{equation}
 \end{linenomath}
-The 6-$j$ symbol vanishes unless the four triads $(j_1,j_2,J_{12})$, $(j_2,j_3,J_{23})$, $(j_1,J,J_{23})$, and $(J_{12},j_3,J)$ each satisfy the triangle condition. It possesses a high degree of symmetry: it is invariant under any permutation of the columns and under the interchange of any two elements in the top row with the corresponding two in the bottom row.
+It vanishes unless each of the four triads $(j_{1},j_{2},J_{12})$, $(j_{2},j_{3},J_{23})$, $(j_{1},J,J_{23})$, $(J_{12},j_{3},J)$ satisfies the triangle condition --- the four triangles are the four columns of the symbol read appropriately.
 
-\medskip\noindent\textbf{Definition (9-$j$ symbol).} The \textbf{9-$j$ symbol} arises in the recoupling of four angular momenta, typically when two subsystems each carry two angular momenta and the total is formed by coupling either the subsystem totals or the individual components differently:
+\medskip\noindent\textbf{Explicit Racah formula.} With the triangle coefficient $\Delta(abc):=\sqrt{\frac{(a+b-c)!(a-b+c)!(-a+b+c)!}{(a+b+c+1)!}}$ (zero unless the triangle holds),
 \begin{linenomath}
-    \begin{equation}
-        \begin{Bmatrix}
-            j_{11} & j_{12} & J_1 \\
-            j_{21} & j_{22} & J_2 \\
-            J_1'  & J_2'  & J
-        \end{Bmatrix}.
-        \label{eq:9j}
-    \end{equation}
+\begin{equation}
+\begin{Bmatrix}j_{1}&j_{2}&j_{3}\\ j_{4}&j_{5}&j_{6}\end{Bmatrix}
+=\Delta(j_{1}j_{2}j_{3})\Delta(j_{4}j_{5}j_{3})\Delta(j_{1}j_{5}j_{6})\Delta(j_{4}j_{2}j_{6})
+\sum_{t}(-1)^{t}\frac{(t+1)!}{\prod\limits_{k}(t-a_{k})!\;\prod\limits_{l}(b_{l}-t)!},
+\label{eq:6j-racah}
+\end{equation}
 \end{linenomath}
-Like the 6-$j$, the 9-$j$ symbol is a sum of products of 6-$j$ symbols (or equivalently of four CG coefficients). It appears in the evaluation of matrix elements of compound operators in coupled schemes, particularly in nuclear and atomic shell-model calculations. Explicit formulas and tabulations are given in Edmonds; the main text names them without deploying them computationally.
+where the four $a_{k}$ are the triad sums $j_{1}+j_{2}+j_{3}$, $j_{4}+j_{5}+j_{3}$, $j_{1}+j_{5}+j_{6}$, $j_{4}+j_{2}+j_{6}$; the three $b_{l}$ are $j_{1}+j_{2}+j_{4}+j_{5}$, $j_{2}+j_{3}+j_{5}+j_{6}$, $j_{3}+j_{1}+j_{6}+j_{4}$; and $t$ ranges over integers keeping all factorials nonnegative. The sum is finite and the 6-$j$ is rational for integer/half-integer arguments.
+
+\medskip\noindent\textbf{Symmetries (Regge).} The 6-$j$ is invariant under any permutation of its columns and under the interchange of the upper and lower elements in any two columns (72 symmetries in all). Regge's deeper symmetries pack the 6-$j$ into a $3\times3$ array invariant under a larger group; these reduce tabulation and underlie the classical-limit asymptotics
+\begin{linenomath}
+\begin{equation}
+\begin{Bmatrix}j_{1}&j_{2}&j_{3}\\ j_{4}&j_{5}&j_{6}\end{Bmatrix}\approx\frac{1}{\sqrt{12\pi V}}\cos\!\bigl(\Sigma+\tfrac{\pi}{4}\bigr),\qquad j_{i}\gg1,
+\label{eq:6j-asymptotic}
+\end{equation}
+\end{linenomath}
+where $V$ is the volume of the tetrahedron whose six edges are the $j_{i}$ and $\Sigma$ the sum of its three pairs of opposite dihedral angles (Ponzano--Regge). The tetrahedral geometry of the asymptotic 6-$j$ is the shadow of the recoupling of three large angular momenta.
+
+\medskip\noindent\textbf{9-$j$ symbol.} The \textbf{9-$j$ symbol} recouples four angular momenta, converting between two schemes each of which couples two pairs:
+\begin{linenomath}
+\begin{equation}
+\begin{Bmatrix}j_{11}&j_{12}&J_{1}\\ j_{21}&j_{22}&J_{2}\\ J'_{1}&J'_{2}&J\end{Bmatrix}
+\label{eq:9j}
+\end{equation}
+\end{linenomath}
+relates the scheme $((j_{11}j_{12})J_{1},(j_{21}j_{22})J_{2})J$ to $((j_{11}j_{21})J'_{1},(j_{12}j_{22})J'_{2})J$. It is a finite sum of products of \emph{three} 6-$j$ symbols (equivalently four 3-$j$'s), the contraction over the internal angular momentum $x$ carrying a factor $(-1)^{2x}(2x+1)$ in the standard form (Edmonds 6.4.1). It is invariant under even permutation of rows or columns and under transposition, and acquires $(-1)^{\sum j_{ij}}$ under odd permutations. The 9-$j$ with one entry zero collapses to a single 6-$j$:
+\begin{linenomath}
+\begin{equation}
+\begin{Bmatrix}a&b&c\\ d&e&f\\ g&h&0\end{Bmatrix}
+=\frac{(-1)^{b+d+c+g}}{\sqrt{(2c+1)(2g+1)}}\,
+\begin{Bmatrix}a&b&c\\ e&d&g\end{Bmatrix},
+\label{eq:9j-zero}
+\end{equation}
+\end{linenomath}
+the case used to convert \emph{LS} to \emph{jj} coupling in atomic and nuclear shell models ($\begin{Bmatrix}l_{1}&s_{1}&j_{1}\\ l_{2}&s_{2}&j_{2}\\ L&S&0\end{Bmatrix}$).
+
+\medskip\noindent\textbf{Worked example: three spin-$1/2$'s.} Coupling $j_{1}=j_{2}=j_{3}=1/2$, the total $J=1/2$ can be reached by first coupling $(j_{1}j_{2})$ to $J_{12}=0$ or $1$, then adding $j_{3}$. The two schemes $(j_{1}j_{2})J_{12}=0$ and $J_{12}=1$ give two orthogonal $J=1/2$ doublets --- the famous \emph{mixed symmetry} of the three-spin system. The recoupling from the scheme $(j_{2}j_{3})J_{23}$ to $(j_{1}j_{2})J_{12}$ is
+\begin{linenomath}
+\begin{equation*}
+\begin{Bmatrix}1/2&1/2&J_{12}\\ 1/2&1/2&J_{23}\end{Bmatrix}=\pm\frac{1}{2}\quad(J_{12},J_{23}\in\{0,1\}),
+\end{equation*}
+\end{linenomath}
+so the two coupling schemes differ by a $1/\sqrt2$ rotation --- the algebraic root of the $S_{4}$ permutation symmetry of three identical spins. Four angular momenta recouple via 9-$j$ symbols on the same pattern; the recoupling coefficients are the unitary bridges between any two binary coupling trees, and the 6-$j$/9-$j$ are their atomic units.
 
 \section{Casimir Operators}
 \label{sec:appendix-casimir}
 
-\medskip\noindent\textbf{Definition (Casimir operator).} A \textbf{Casimir operator} of a Lie algebra $\mathfrak{g}$ is an element of the universal enveloping algebra that commutes with every element of $\mathfrak{g}$. For a semisimple Lie algebra, the number of independent Casimirs equals the rank (the dimension of the maximal abelian subalgebra).
+\medskip\noindent\textbf{Definition.} A \textbf{Casimir operator} of a Lie algebra $\mathfrak g$ is an element of its universal enveloping algebra (a polynomial in the generators) that commutes with every generator. For a semisimple algebra the number of algebraically independent Casimirs equals the \textbf{rank} (the dimension of a maximal abelian/Cartan subalgebra); by Schur's lemma each Casimir is a scalar in an irrep, and (for compact groups) the joint eigenvalues of the Casimirs label the irrep.
 
-For $\mathfrak{su}(2)$, the rank is one, and the unique quadratic Casimir is $J^2 = J_x^2 + J_y^2 + J_z^2$. In any irrep $j$, Schur's lemma forces $J^2 = \lambda I$ with $\lambda = \hbar^2 j(j+1)$, as Chapter~6 proves. For the Galilei algebra, the central element $M$ (mass) is a Casimir (it commutes with every generator), and the internal energy $E_{\mathrm{int}}$ in~\eqref{eq:free-hamiltonian} is the Casimir of the subalgebra that remains after factoring out the central extension. For the Lorentz group (named only as a forward pointer in this nonrelativistic book), the two Casimirs are $P_\mu P^\mu$ (mass-squared) and $W_\mu W^\mu$ (the square of the Pauli--Lubanski vector, encoding spin).
+For $\mathfrak{su}(2)$ the rank is one and the unique quadratic Casimir is $J^{2}=J_{x}^{2}+J_{y}^{2}+J_{z}^{2}$, with eigenvalue $\hbar^{2}j(j+1)$ in $D^{(j)}$ --- the label of the irrep. For the Galilei algebra the central element $M$ (mass) is a Casimir (it commutes with every generator), and the internal energy $E_{\mathrm{int}}$ of Chapter~4 is the Casimir of the subalgebra remaining after factoring out the central extension; the free-particle Hamiltonian $H=\bm P^{2}/2M+E_{\mathrm{int}}$ is fixed by these two invariants. For the Lorentz group (named here, developed in relativistic texts) the two Casimirs are $P_{\mu}P^{\mu}$ (mass-squared) and $W_{\mu}W^{\mu}$ (the square of the Pauli--Lubanski vector, encoding spin); the Poincar\'e classification of particles by mass and spin is the physical harvest of its Casimirs.
 
 \section{Covering Groups}
 \label{sec:appendix-covering}
 
-\medskip\noindent\textbf{The SO(3)/SU(2) double cover.} The rotation group SO(3) is not simply connected: its fundamental group is $\pi_1(\mathrm{SO}(3)) = \mathbb{Z}_2$. Its universal covering group is SU(2), which is simply connected ($\pi_1(\mathrm{SU}(2)) = \{0\}$). The covering map $\Phi : \mathrm{SU}(2) \to \mathrm{SO}(3)$ is the 2:1 homomorphism constructed in Chapter~6~\eqref{eq:su2-so3-homomorphism}: both $U$ and $-U$ in SU(2) map to the same rotation matrix in SO(3). The kernel is $\{\pm I\} \cong \mathbb{Z}_2$, so $\mathrm{SO}(3) \cong \mathrm{SU}(2)/\mathbb{Z}_2$.
+\medskip\noindent\textbf{The $\mathrm{SO}(3)/\mathrm{SU}(2)$ double cover.} The rotation group $\mathrm{SO}(3)$ is not simply connected: $\pi_{1}(\mathrm{SO}(3))=\mathbb Z_{2}$. Its universal covering group is $\mathrm{SU}(2)$, simply connected ($\pi_{1}(\mathrm{SU}(2))=\{0\}$) and diffeomorphic to $S^{3}$. The covering map $\Phi:\mathrm{SU}(2)\to\mathrm{SO}(3)$ is the 2:1 homomorphism of Chapter~6 \eqref{eq:su2-so3-homomorphism}: both $U$ and $-U$ map to the same rotation, $\ker\Phi=\{\pm I\}\cong\mathbb Z_{2}$, so $\mathrm{SO}(3)\cong\mathrm{SU}(2)/\mathbb Z_{2}$. The algebras coincide ($\mathfrak{su}(2)\cong\mathfrak{so}(3)$), so the two groups share their Lie-algebra representation theory; they differ only in which algebra representations integrate to single-valued group representations.
 
-This topology has direct physical consequences. Projective representations of SO(3) --- representations up to a phase, the quantum-mechanical case by Wigner's theorem --- correspond to ordinary representations of its universal cover SU(2). The integer-spin irreps ($j = 0,1,2,\ldots$) are also representations of SO(3) itself ($D^{(j)}(-I) = I$ when $2j$ is even); the half-integer irreps ($j = 1/2, 3/2, \ldots$) are genuine projective representations of SO(3) ($D^{(j)}(-I) = -I$). This is the group-theoretic origin of the integer/half-integer dichotomy and the spinor $4\pi$ periodicity: a $2\pi$ rotation in the laboratory (SO(3)) is $-I$ in SU(2), and two full turns are required to return a spinor to itself.
+\medskip\noindent\textbf{Projective representations and the cover.} By Wigner's theorem, the quantum-mechanical action of a symmetry group is a \emph{projective} (ray) representation $U(g_{1})U(g_{2})=e^{i\xi(g_{1},g_{2})}U(g_{1}g_{2})$. A theorem of Bargmann relates the two: for a connected Lie group $G$, every projective representation of $G$ lifts to an ordinary representation of the universal cover $\tilde G$ (the phase is absorbed by going upstairs), and the distinct lifts are classified by the second cohomology $H^{2}(\mathfrak g,\mathbb R)$. For $\mathrm{SO}(3)$, $H^{2}=0$: every projective representation of $\mathrm{SO}(3)$ is an ordinary representation of $\mathrm{SU}(2)$. The integer-spin irreps ($j=0,1,2,\ldots$, $D^{(j)}(-I)=+I$) descend to true representations of $\mathrm{SO}(3)$; the half-integer irreps ($D^{(j)}(-I)=-I$) are genuine projective representations of $\mathrm{SO}(3)$, single-valued only on the cover. This is the group-theoretic origin of the spinor $4\pi$ periodicity: a $2\pi$ rotation in the laboratory ($\mathrm{SO}(3)$, the identity) lifts to $-I$ in $\mathrm{SU}(2)$.
 
-\medskip\noindent\textbf{The Lorentz group (named, not built).} The proper orthochronous Lorentz group $\mathrm{SO}^+(3,1)$ is likewise not simply connected; its universal cover is $\mathrm{SL}(2,\mathbb{C})$, a 2:1 covering. The finite-dimensional irreps of $\mathrm{SL}(2,\mathbb{C})$ are labeled by a pair $(j_1, j_2)$ of SU(2) spins, with dimension $(2j_1+1)(2j_2+1)$. The $(1/2, 0)$ and $(0, 1/2)$ irreps are the left- and right-handed Weyl spinors; their direct sum $(1/2, 0) \oplus (0, 1/2)$ is the Dirac spinor. This appendix names the structure without developing it, as the book is nonrelativistic; the connection to the Galilean spin of Chapter~6 is that the rotation subgroup of the Lorentz group is (the diagonal SU(2)) and the nonrelativistic spin emerges as the restriction of the Lorentz classification to rotations.
+\medskip\noindent\textbf{The Lorentz group and $\mathrm{SL}(2,\mathbb C)$ (named).} The proper orthochronous Lorentz group $\mathrm{SO}^{+}(3,1)$ is likewise doubly covered, by $\mathrm{SL}(2,\mathbb C)$; its finite-dimensional irreps are labelled by a pair $(j_{1},j_{2})$ of $\mathrm{SU}(2)$ spins, dimension $(2j_{1}+1)(2j_{2}+1)$. The $(\tfrac12,0)$ and $(0,\tfrac12)$ irreps are the left- and right-handed Weyl spinors; their direct sum $(\tfrac12,0)\oplus(0,\tfrac12)$ is the Dirac spinor. This nonrelativistic book names the structure without developing it; the rotation subgroup of the Lorentz group is the diagonal $\mathrm{SU}(2)$, and nonrelativistic spin emerges on restricting the Lorentz classification to rotations.
+
+\medskip\noindent\textbf{In\"on\"u--Wigner contraction.} The Galilei group is the \emph{contraction} of the Poincar\'e group as $c\to\infty$. Rescale the Lorentz boost generators $K_{i}^{\mathrm{(L)}}=K_{i}/c$ (so that a finite boost is $e^{-i\bm v\cdot\bm K^{\mathrm{(L)}}/\hbar}$ with $\bm v=\bm\beta c$). The Lorentz bracket $[K_{i}^{\mathrm{(L)}},K_{j}^{\mathrm{(L)}}]=-(i\hbar/c^{2})\epsilon_{ijk}J_{k}$ tends to $0$ as $c\to\infty$, recovering the Galilean $[K_{i},K_{j}]=0$; the energy--momentum relation $E=\sqrt{\bm p^{2}c^{2}+m^{2}c^{4}}$ expands to $mc^{2}+\bm p^{2}/2m+\cdots$, the rest energy (an additive constant, dropped into $E_{\mathrm{int}}$) plus the nonrelativistic kinetic energy. The contraction is the structural reason the Galilean analysis of Chapter~4 is the exact $c\to\infty$ limit of the relativistic one --- and the reason the Galilean mass superselection has no Poincar\'e analogue (mass is already a Casimir there, not a central extension).
+
+\section{Irreducible Tensor Operators and the Wigner--Eckart Theorem}
+\label{sec:appendix-tensor-operators}
+
+Chapter~6 \S\ref{sec:irreducible-tensor-operators} defines an irreducible tensor operator $T^{(k)}_{q}$ of rank $k$ as a set of $2k+1$ operators transforming as the state $\ket{k,q}$, proves the Wigner--Eckart theorem in Clebsch--Gordan form \eqref{eq:wigner-eckart}, and extracts its selection rules. This section records the equivalent 3-$j$ form and the projection theorem, the two refinements most used in spectroscopy.
+
+\medskip\noindent\textbf{Wigner--Eckart in 3-$j$ form.} Translating the CG coefficient in \eqref{eq:wigner-eckart} via \eqref{eq:3j-symbol} gives
+\begin{linenomath}
+\begin{equation}
+\braket{\alpha',j',m'|T^{(k)}_{q}|\alpha,j,m}
+=(-1)^{j'-m'}\begin{pmatrix}j'&k&j\\ -m'&q&m\end{pmatrix}\!\braket{\alpha',j'\|T^{(k)}\|\alpha,j},
+\label{eq:wigner-eckart-3j}
+\end{equation}
+\end{linenomath}
+where the double-bar (reduced) matrix element is independent of $m,m',q$. The 3-$j$ form makes the $m$-selection rule $m'+(-q)+(-m)=0$ (i.e.\ $m'=m+q$) and the triangle $|j-k|\le j'\le j+k$ immediate, and displays the symmetry under interchange of initial, final, and operator angular momenta --- the form preferred in nuclear and atomic-structure codes.
+
+\medskip\noindent\textbf{The projection theorem.} Within a fixed-$j$ multiplet, every vector operator's matrix elements are proportional to those of $\bm J$ itself. Precisely, for a vector operator $\bm V$ ($k=1$) diagonal in $j$,
+\begin{linenomath}
+\begin{equation}
+\braket{\alpha,j,m|V_{q}|\alpha,j,m'}=\frac{\braket{\alpha,j\|\bm V\|\alpha,j}}{\braket{\alpha,j\|\bm J\|\alpha,j}}\;\braket{\alpha,j,m|J_{q}|\alpha,j,m'}.
+\label{eq:projection-theorem}
+\end{equation}
+\end{linenomath}
+\emph{Proof.} Both sides are matrix elements of rank-1 tensors within the same $j$-multiplet, so each is a CG coefficient times its reduced matrix element; the CG coefficients are identical (same $j,k,j'$), so the ratio of the two sides is the ratio of reduced matrix elements, a constant independent of $m,m',q$. $\hfill\blacksquare$ The theorem underlies the Land\'e $g$-factor: the magnetic moment $\bm\mu=-\mu_{B}(\bm L+g_{s}\bm S)/\hbar$ is a vector operator, so within a fixed-$(L,S,J)$ multiplet $\braket{\bm\mu}=[\braket{\bm\mu\cdot\bm J}/\hbar^{2}J(J+1)]\braket{\bm J}$, yielding the Land\'e formula $g_{J}=1+[J(J+1)+S(S+1)-L(L+1)]/2J(J+1)$ of Chapter~8 \eqref{eq:lande-g-factor} with no radial integral. The same projection underlies the Zeeman splitting and the hyperfine-structure pattern: one reduced matrix element fixes an entire multiplet's worth of matrix elements.
+
+\medskip\noindent\textbf{Outlook.} The machinery of this appendix --- Lie algebras and their representations (B.1--B.3), the explicit finite-rotation D-matrices (B.4), the Clebsch--Gordan and Racah recoupling algebras (B.5--B.6), the Casimir classification (B.7), the covering-group topology (B.8), and the irreducible-tensor calculus (B.9) --- is the complete group-theoretic apparatus on which Chapter~4's spacetime symmetries and Chapter~6's angular momentum rest. Every formula above is a consequence of the single commutator $[J_{i},J_{j}]=i\hbar\epsilon_{ijk}J_{k}$ and the compactness of $\mathrm{SU}(2)$; the physics enters only in identifying which irrep a given system carries.
+
+\section{SO(4) and the Kepler Problem}
+\label{sec:appendix-so4}
+
+The hydrogen spectrum of Chapter~6 \S\ref{sec:hydrogen-atom} carries a degeneracy the rotation group cannot explain: every level $E_{n}$ is $n^{2}$-fold degenerate (without spin), but $\mathrm{SO}(3)$ forces only the $(2\ell+1)$-fold $m$-degeneracy within each $\ell$. The extra degeneracy --- all $\ell<n$ sharing one energy --- is the signature of a \emph{hidden} symmetry, larger than the rotation group. This section develops it: the Coulomb potential admits a second conserved vector, the Runge--Lenz vector, which together with $\bm L$ closes the algebra of $\mathrm{SO}(4)$. Pauli's algebraic solution of hydrogen (1926), which derives the Balmer formula and the $n^{2}$ degeneracy from symmetry alone, is the harvest. This section fulfills the promise made in \S\ref{sec:hydrogen-atom}.
+
+\medskip\noindent\textbf{The Runge--Lenz vector.} For the Coulomb Hamiltonian $H=\bm p^{2}/2m-Ze^{2}/r$, the \textbf{Laplace--Runge--Lenz vector}
+\begin{linenomath}
+\begin{equation}
+\bm A:=\frac{1}{2m}(\bm p\times\bm L-\bm L\times\bm p)-Ze^{2}\,\frac{\bm r}{r}
+\label{eq:runge-lenz}
+\end{equation}
+\end{linenomath}
+is conserved, $[H,\bm A]=0$. Classically $\bm A$ points along the major axis of the Kepler ellipse; its conservation is the reason closed Kepler orbits are ellipses with a fixed orientation, and it is special to the $1/r$ potential. Quantum-mechanically the cross product is symmetrized (since $\bm p$ and $\bm L$ do not commute), and $\bm A$ is a Hermitian vector operator. Direct computation from the canonical commutators gives the algebra
+\begin{linenomath}
+\begin{equation}
+[L_{i},A_{j}]=i\hbar\,\epsilon_{ijk}A_{k},\qquad
+[A_{i},L_{j}]=i\hbar\,\epsilon_{ijk}A_{k},\qquad
+[A_{i},A_{j}]=-2i\hbar\,\frac{H}{m}\,\epsilon_{ijk}L_{k},
+\label{eq:runge-lenz-algebra}
+\end{equation}
+\end{linenomath}
+together with the two identities
+\begin{linenomath}
+\begin{equation}
+\bm L\!\cdot\!\bm A=0,\qquad
+\bm A^{2}=\frac{2H}{m}\bigl(\bm L^{2}+\hbar^{2}\bigr)+Z^{2}e^{4}.
+\label{eq:runge-lenz-identity}
+\end{equation}
+\end{linenomath}
+The first says $\bm A$ lies in the plane perpendicular to $\bm L$ (the orbital plane); the second fixes its length. The bracket $[A_{i},A_{j}]$ closes on $\bm L$ with a coefficient $-2H/m$ involving the Hamiltonian itself --- the algebra is a \emph{dynamical} symmetry, mixing kinematic ($\bm L$) and dynamic ($H$) objects.
+
+\medskip\noindent\textbf{The $\mathrm{SO}(4)$ algebra (bound states).} On a bound-state eigenspace $H=E<0$ the coefficient $-2H/m$ is a positive c-number. Rescale
+\begin{linenomath}
+\begin{equation}
+\bm M:=\frac{\bm A}{\sqrt{-2E/m}}\;(\text{on the }E\text{-eigenspace}),\qquad
+[M_{i},M_{j}]=i\hbar\,\epsilon_{ijk}L_{k},
+\label{eq:so4-rescale}
+\end{equation}
+\end{linenomath}
+so $\bm M$ satisfies the same $\mathfrak{so}(3)$ bracket as $\bm L$, and $[L_{i},M_{j}]=i\hbar\epsilon_{ijk}M_{k}$. The six generators $\{\bm L,\bm M\}$ close the Lie algebra of $\mathrm{SO}(4)$: defining the two linear combinations
+\begin{linenomath}
+\begin{equation}
+\bm J^{(\pm)}:=\tfrac12(\bm L\pm\bm M),
+\label{eq:so4-decomposition}
+\end{equation}
+\end{linenomath}
+a direct substitution gives
+\begin{linenomath}
+\begin{equation}
+[J^{(\pm)}_{i},J^{(\pm)}_{j}]=i\hbar\,\epsilon_{ijk}J^{(\pm)}_{k},\qquad
+[J^{(+)}_{i},J^{(-)}_{j}]=0,
+\label{eq:so4-su2su2}
+\end{equation}
+\end{linenomath}
+two \emph{commuting} $\mathfrak{su}(2)$ algebras. Hence $\mathfrak{so}(4)\cong\mathfrak{su}(2)\oplus\mathfrak{su}(2)$, and (globally) $\mathrm{SO}(4)\cong(\mathrm{SU}(2)\times\mathrm{SU}(2))/\mathbb Z_{2}$: the four-dimensional rotation group is two copies of the three-dimensional one, stitched together. The hydrogen atom's hidden symmetry is this doubled rotation group.
+
+\medskip\noindent\textbf{Pauli's algebraic solution (1926).} The constraint $\bm L\!\cdot\!\bm M=0$ (from \eqref{eq:runge-lenz-identity}) forces the two $\mathrm{SU}(2)$'s to carry the \emph{same} spin: since $\bm L\!\cdot\!\bm M=\bm J^{(+)\,2}-\bm J^{(-)\,2}$ (the cross terms vanish by $[\bm J^{(+)},\bm J^{(-)}]=0$), $\bm L\!\cdot\!\bm M=0$ gives $\bm J^{(+)\,2}=\bm J^{(-)\,2}$, hence $j_{+}=j_{-}=:j$. The hydrogen bound states therefore transform in the $\mathrm{SO}(4)$ irrep $(j,j)$, of dimension $(2j+1)^{2}$.
+
+Now use the length identity \eqref{eq:runge-lenz-identity}. From $\bm M^{2}=(-m/2E)\bm A^{2}$ and \eqref{eq:runge-lenz-identity},
+\begin{linenomath}
+\begin{equation*}
+\bm L^{2}+\bm M^{2}=-\hbar^{2}-\frac{mZ^{2}e^{4}}{2E}.
+\end{equation*}
+\end{linenomath}
+But $\bm L^{2}+\bm M^{2}=2(\bm J^{(+)\,2}+\bm J^{(-)\,2})=4j(j{+}1)\hbar^{2}$. Equating,
+\begin{linenomath}
+\begin{equation}
+4j(j{+}1)\hbar^{2}=-\hbar^{2}-\frac{mZ^{2}e^{4}}{2E}
+\quad\Longrightarrow\quad
+E_{n}=-\frac{mZ^{2}e^{4}}{2\hbar^{2}n^{2}},\qquad n:=2j+1=1,2,3,\ldots
+\label{eq:pauli-energy}
+\end{equation}
+\end{linenomath}
+(using $4j(j{+}1)+1=(2j+1)^{2}=n^{2}$). This is the Balmer formula \eqref{eq:balmer-formula}, derived without ever solving the Schr\"odinger equation --- pure algebra from the $\mathrm{SO}(4)$ symmetry. The degeneracy is the dimension of the $(j,j)$ irrep,
+\begin{linenomath}
+\begin{equation}
+\dim(j,j)=(2j+1)^{2}=n^{2},
+\label{eq:hydrogen-degeneracy-so4}
+\end{equation}
+\end{linenomath}
+the $n^{2}$-fold degeneracy of \S\ref{sec:hydrogen-atom} (doubled to $2n^{2}$ by spin). The orbital angular momentum $\bm L=\bm J^{(+)}+\bm J^{(-)}$ is the sum of two spin-$j$'s, so the $\mathrm{SO}(3)$ content of the $(j,j)$ irrep is $\ell=0,1,\ldots,2j=0,\ldots,n{-}1$ --- exactly the allowed hydrogen orbital quantum numbers. The rotation group $\mathrm{SO}(3)$ forces the $(2\ell{+}1)$ $m$-degeneracy; the Coulomb group $\mathrm{SO}(4)$ forces the $n^{2}$ degeneracy; the distinction is why a non-Coulomb central potential lifts the $\ell$-degeneracy but preserves the $m$-degeneracy.
+
+\medskip\noindent\textbf{Scattering states and $\mathrm{SO}(3,1)$.} For positive-energy (scattering) states $E>0$, the rescaling \eqref{eq:so4-rescale} uses $\sqrt{-2E/m}=i\sqrt{2E/m}$, and the bracket $[M_{i},M_{j}]$ acquires the opposite sign: the algebra becomes $\mathfrak{so}(3,1)$, the Lorentz algebra (\S\ref{sec:appendix-lorentz}). The Coulomb scattering states carry representations of the non-compact $\mathrm{SO}(3,1)$; the bound/scattering dichotomy is the signature $E<0$/$E>0$ of the same Runge--Lenz symmetry.
+
+\medskip\noindent\textbf{The spectrum-generating algebra $\mathrm{SO}(4,2)$.} The $\mathrm{SO}(4)$ symmetry acts \emph{within} each $n$-shell; it does not connect different $n$. A larger algebra --- $\mathrm{SO}(4,2)$, generated by $\bm L$, $\bm A$, the dilatation, and two further Runge--Lenz-like vectors --- is a \emph{spectrum-generating} (dynamical) algebra: its ladder operators raise and lower $n$, generating the entire hydrogen spectrum from a single ground state. The $\mathrm{SO}(4,2)$ construction is the algebraic underpinning of the hydrogen atom's exact solvability and the prototype of the dynamical-symmetry method, later deployed in nuclear and particle physics (the SU(3) flavor of \S\ref{sec:appendix-semisimple} among them). It is named here; the full development belongs to specialized treatises.
+
+The Kepler problem is the paradigm of a hidden symmetry: a degeneracy unexplained by the obvious rotation group is the footprint of a larger one, found by exhibiting the extra conserved quantity ($\bm A$) and closing its algebra. The same pattern --- a spectrum too degenerate for the manifest symmetry, resolved by a larger hidden one --- recurs throughout physics, from the isotropic harmonic oscillator's $\mathrm{SU}(3)$ to the quark model's flavor symmetry.
+
+\section{General Semisimple Lie Algebras}
+\label{sec:appendix-semisimple}
+
+The representation theory of $\mathrm{SU}(2)$ developed in \S\ref{sec:appendix-su2-reps} --- highest weight, ladder termination, Casimir labelling --- is the rank-one instance of a general construction that classifies \emph{all} compact semisimple Lie algebras. This section sketches that classification (root systems and Dynkin diagrams) and works out the physically central example, $\mathrm{SU}(3)$, the symmetry underlying the three-color and three-flavor quark models of Chapter~10.
+
+\medskip\noindent\textbf{Cartan subalgebra and roots.} Let $\mathfrak g$ be a complex semisimple Lie algebra of dimension $\dim\mathfrak g$ and rank $r$. A \textbf{Cartan subalgebra} $\mathfrak h\subset\mathfrak g$ is a maximal abelian subalgebra (dimension $r=\mathrm{rank}\,\mathfrak g$) whose elements are simultaneously diagonalizable in the \emph{adjoint} representation. Choosing a basis $\{H_{1},\ldots,H_{r}\}$ for $\mathfrak h$, the remaining generators $E_{\alpha}$ can be labelled by simultaneous eigenvalues of $\operatorname{ad}_{H_{i}}$: there are linear functionals $\alpha\in\mathfrak h^{*}$, the \textbf{roots}, with
+\begin{linenomath}
+\begin{equation}
+[H_{i},E_{\alpha}]=\alpha_{i}\,E_{\alpha},\qquad i=1,\ldots,r.
+\label{eq:root-definition}
+\end{equation}
+\end{linenomath}
+The roots form a finite set $\Phi\subset\mathfrak h^{*}$ invariant under reflection in the hyperplanes perpendicular to each root (the \textbf{Weyl group}). If $\alpha$ is a root, so is $-\alpha$; the $E_{\pm\alpha}$ are the raising and lowering operators of the rank-one theory, generalized. For $\mathfrak{su}(2)$ there is one pair $\{\pm\alpha\}$ ($r=1$); for $\mathfrak{su}(3)$, six roots forming a regular hexagon ($r=2$).
+
+\medskip\noindent\textbf{Simple roots and Dynkin diagrams.} Choose a hyperplane through the origin of $\mathfrak h^{*}$ avoiding all roots, splitting $\Phi$ into positive ($\Phi^{+}$) and negative roots. The \textbf{simple roots} $\{\alpha_{1},\ldots,\alpha_{r}\}$ are the positive roots not expressible as a sum of other positive roots; every positive root is a non-negative integer combination of them. The geometry of the simple roots --- their lengths and the angles between them --- completely determines $\mathfrak g$ (the Cartan matrix $A_{ij}=2(\alpha_{i}\!\cdot\!\alpha_{j})/|\alpha_{i}|^{2}$). The \textbf{Dynkin diagram} encodes this geometry graphically: $r$ nodes (one per simple root), with $0,1,2,3$ lines joining nodes $i,j$ according as the roots meet at $90^{\circ},120^{\circ},135^{\circ},150^{\circ}$, and an arrow on multiply-joined edges pointing to the shorter root. The classification theorem (Cartan, Killing) states that the connected Dynkin diagrams are exactly the four infinite families and five exceptions:
+\begin{linenomath}
+\begin{equation}
+\begin{array}{l@{\quad}l@{\quad}l}
+A_{r}\;(r\ge1) & \mathrm{SU}(r{+}1) & \text{special unitary},\\
+B_{r}\;(r\ge2) & \mathrm{SO}(2r{+}1) & \text{odd orthogonal},\\
+C_{r}\;(r\ge3) & \mathrm{Sp}(2r) & \text{symplectic},\\
+D_{r}\;(r\ge4) & \mathrm{SO}(2r) & \text{even orthogonal},\\
+E_{6},E_{7},E_{8},\;F_{4},\;G_{2} & \text{exceptional} & \text{(no classical matrix realization)}.
+\end{array}
+\label{eq:dynkin-classification}
+\end{equation}
+\end{linenomath}
+Every compact semisimple Lie algebra is a direct sum of these. The rank-one case $A_{1}$ is $\mathfrak{su}(2)$, the algebra of this appendix; the rotation algebra is the seed of the entire classification.
+
+\medskip\noindent\textbf{Highest-weight construction.} An irrep of $\mathfrak g$ is labelled by its \textbf{highest weight} $\Lambda=\sum_{i}m_{i}\alpha_{i}$, $m_{i}\in\mathbb Z_{\ge0}$, a non-negative integer combination of simple roots: the highest-weight state is annihilated by every $E_{\alpha}$ with $\alpha\in\Phi^{+}$, and the rest of the representation is generated by applying the lowering operators $E_{-\alpha}$, $\alpha\in\Phi^{+}$. This generalizes the $\mathrm{SU}(2)$ ladder construction ($\Lambda=2j\alpha$, $m_{1}=2j$). The dimension of the $\Lambda$-irrep is given by the \textbf{Weyl dimension formula}; the tensor-product decomposition generalizes the Clebsch--Gordan series and is efficiently computed by Young tableaux (each algebra has its own tableau rules; for $\mathrm{SU}(n)$ the boxes are columns of $\le n{-}1$ symmetrized indices).
+
+\medskip\noindent\textbf{SU(3): the eightfold way.} The group $\mathrm{SU}(3)$ is the set of $3\times3$ unitary matrices with determinant $+1$; its algebra $\mathfrak{su}(3)$ has rank 2 and dimension 8. A standard basis is the eight Gell-Mann matrices $\lambda_{a}$ ($a=1,\ldots,8$), the $\mathrm{SU}(3)$ analogues of the Pauli matrices, with generators $T_{a}=\lambda_{a}/2$ satisfying
+\begin{linenomath}
+\begin{equation}
+[T_{a},T_{b}]=i\,f_{abc}\,T_{c},\qquad \{T_{a},T_{b}\}=\tfrac13\delta_{ab}I+d_{abc}\,T_{c},
+\label{eq:su3-algebra}
+\end{equation}
+\end{linenomath}
+where $f_{abc}$ (totally antisymmetric) and $d_{abc}$ (totally symmetric) are the $\mathrm{SU}(3)$ structure constants; the nonzero $f_{abc}$ generalize $\epsilon_{ijk}$ (e.g.\ $f_{123}=1$, $f_{147}=f_{246}=1/2$, $f_{156}=f_{345}=-1/2$, etc.). The Cartan subalgebra is $\{T_{3},T_{8}\}$; the six roots form the regular hexagon of the $A_{2}$ system, and the Weyl group is the dihedral group $D_{3}$ (reflections of the triangle).
+
+$\mathrm{SU}(3)$ has rank 2, hence two independent Casimirs: the quadratic $C_{2}=\sum_{a}T_{a}^{2}$ and the cubic $C_{3}=\sum_{abc}d_{abc}T_{a}T_{b}T_{c}$. The joint eigenvalues $(C_{2},C_{3})$ label the irreps. The smallest irreps are the fundamental $\mathbf{3}$ (the defining representation on $\mathbb C^{3}$) and its conjugate $\bar{\mathbf{3}}$ (inequivalent to $\mathbf{3}$, unlike the $\mathrm{SU}(2)$ case where $\mathbf{2}\cong\bar{\mathbf{2}}$); the adjoint $\mathbf{8}$ (dimension 8, the generators themselves); and the symmetric products $\mathbf{6}=\mathrm{Sym}^{2}\mathbf{3}$ and $\mathbf{10}=\mathrm{Sym}^{3}\mathbf{3}$. The basic tensor decompositions, computed by Young tableaux or the Littlewood--Richardson rule, are
+\begin{linenomath}
+\begin{equation}
+\mathbf{3}\otimes\bar{\mathbf{3}}=\mathbf{1}\oplus\mathbf{8},\qquad
+\mathbf{3}\otimes\mathbf{3}=\bar{\mathbf{3}}\oplus\mathbf{6},\qquad
+\mathbf{3}\otimes\mathbf{3}\otimes\mathbf{3}=\mathbf{1}\oplus\mathbf{8}\oplus\mathbf{8}\oplus\mathbf{10},
+\label{eq:su3-decomposition}
+\end{equation}
+\end{linenomath}
+the last being the decomposition of three fundamentals into a singlet, two octets, and a fully symmetric decuplet --- the group-theoretic backbone of the quark model.
+
+\medskip\noindent\textbf{Flavor SU(3) and the quark model.} Gell-Mann and Ne'eman (1961) observed that the hadrons known at the time organize into $\mathrm{SU}(3)$ multiplets if $\mathrm{SU}(3)$ is treated as an (approximate) \emph{flavor} symmetry acting on the three light quarks $u,d,s$ ($\mathbf{3}$). The pseudoscalar mesons ($\pi,K,\eta$, eight states) fill the $\mathbf{8}$; the spin-$1/2$ baryons ($N,\Lambda,\Sigma,\Xi$, eight states) fill another $\mathbf{8}$; the spin-$3/2$ baryons ($\Delta,\Sigma^{*},\Xi^{*}$, nine states) fill all but one slot of the $\mathbf{10}$, the decuplet of \eqref{eq:su3-decomposition}. The missing tenth slot --- the $\Omega^{-}$, with predicted mass and quantum numbers --- was discovered in 1964 with exactly the predicted properties, the triumphant confirmation of the $\mathrm{SU}(3)$ flavor symmetry and of the underlying quark composition (the $\mathbf{10}$ being the fully symmetric $\mathbf{3}\otimes\mathbf{3}\otimes\mathbf{3}$ combination, three quarks in the decuplet). The same $\mathrm{SU}(3)$ reappears in Chapter~10 as the \emph{color} symmetry of QCD (an exact, not approximate, symmetry), with the three colors furnishing the fundamental $\mathbf{3}$; the singlet-octet structure \eqref{eq:su3-decomposition} is the group-theoretic reason QCD's physical states are color singlets.
+
+\medskip\noindent\textbf{Outlook.} The pattern is general: every compact semisimple symmetry in physics --- flavor and color $\mathrm{SU}(3)$, isospin $\mathrm{SU}(2)$, the $\mathrm{SO}(4)$ of hydrogen (\S\ref{sec:appendix-so4}), the $\mathrm{SO}(3,1)$ of scattering states --- is one of the Dynkin algebras \eqref{eq:dynkin-classification}, its irreps labelled by highest weights, its tensor products decomposed by Young tableaux, its selection rules read off the Wigner--Eckart theorem generalized to the appropriate algebra. The rotation group of Chapter~6 is the seed from which the whole classification grows.
+
+\section{The Lorentz and Poincar\'e Groups}
+\label{sec:appendix-lorentz}
+
+The nonrelativistic physics of this book lives under the Galilei group (Chapter~4 \S\ref{sec:galilean-group}); its relativistic counterpart lives under the Poincar\'e group. This section develops the representation theory of the Lorentz and Poincar\'e groups far enough to state Wigner's classification of relativistic particles by mass and spin --- the relativistic analogue of the Galilean $(m,s)$ labelling. It is the natural boundary of this nonrelativistic book, named throughout but built only here.
+
+\medskip\noindent\textbf{The Lorentz algebra.} The proper orthochronous Lorentz group $\mathrm{SO}^{+}(3,1)$ is the group of real $4\times4$ matrices $\Lambda$ preserving the Minkowski metric $\eta=\mathrm{diag}(1,-1,-1,-1)$, $\Lambda^{\mathsf T}\eta\Lambda=\eta$, connected to the identity. Its Lie algebra is generated by three rotations $J_{i}$ and three boosts $K_{i}$,
+\begin{linenomath}
+\begin{equation}
+[J_{i},J_{j}]=i\hbar\,\epsilon_{ijk}J_{k},\qquad
+[J_{i},K_{j}]=i\hbar\,\epsilon_{ijk}K_{k},\qquad
+[K_{i},K_{j}]=-i\hbar\,\epsilon_{ijk}J_{k},
+\label{eq:lorentz-algebra}
+\end{equation}
+\end{linenomath}
+differing from the Galilean algebra only in the last bracket: boosts \emph{do not commute} --- their commutator is a rotation, the infinitesimal origin of the Thomas precession and of the In\"on\"u--Wigner contraction (\S\ref{sec:appendix-covering}).
+
+\medskip\noindent\textbf{Complexification: $\mathfrak{so}(3,1)_{\mathbb C}\cong\mathfrak{su}(2)\oplus\mathfrak{su}(2)$.} The sign flip in $[K_{i},K_{j}]$ is removed by passing to the complexified algebra and defining
+\begin{linenomath}
+\begin{equation}
+\bm A:=\tfrac12(\bm J+i\bm K),\qquad \bm B:=\tfrac12(\bm J-i\bm K),
+\label{eq:lorentz-complexify}
+\end{equation}
+\end{linenomath}
+for which a direct substitution gives
+\begin{linenomath}
+\begin{equation}
+[A_{i},A_{j}]=i\hbar\,\epsilon_{ijk}A_{k},\qquad
+[B_{i},B_{j}]=i\hbar\,\epsilon_{ijk}B_{k},\qquad
+[A_{i},B_{j}]=0.
+\end{equation}
+\end{linenomath}
+The complexified Lorentz algebra splits as two commuting copies of $\mathfrak{su}(2)$ --- exactly the structure that made the $\mathrm{SO}(4)$ of hydrogen (\S\ref{sec:appendix-so4}) a product of two rotations. The finite-dimensional irreducible representations are therefore labelled by a pair $(j_{1},j_{2})$ of $\mathrm{SU}(2)$ spins, of dimension $(2j_{1}+1)(2j_{2}+1)$, exactly as for $\mathrm{SO}(4)$ but with no reality constraint (the Lorentz group is non-compact, so these finite-dimensional irreps are \emph{not} unitary).
+
+\medskip\noindent\textbf{Spinors.} The fundamental Lorentz irreps are:
+\begin{itemize}
+\item $(\tfrac12,0)$ and $(0,\tfrac12)$ --- the two-component \textbf{Weyl spinors}, left- and right-handed, transforming independently under the two $\mathrm{SU}(2)$ factors; each is two-dimensional.
+\item $(\tfrac12,0)\oplus(0,\tfrac12)$ --- the four-component \textbf{Dirac spinor}, the representation on which the Dirac equation acts; parity interchanges the two Weyl components.
+\item $(1,0)$ and $(0,1)$ --- the self-dual and anti-self-dual rank-2 antisymmetric tensors; $(1,0)\oplus(0,1)$ is the six-dimensional representation carried by the electromagnetic field strength $F_{\mu\nu}$.
+\item $(j,j)$ --- symmetric traceless rank-$2j$ tensors, the integer-spin representations; the rotation subgroup (the diagonal $\mathrm{SU}(2)$, $\bm J=\bm A+\bm B$) sees total spin $j$. The half-integer spins are the $(j_{1},j_{2})$ with $j_{1}\ne j_{2}$.
+\end{itemize}
+The Lorentz group's universal cover is $\mathrm{SL}(2,\mathbb C)$ (the $2\times2$ complex matrices of determinant $1$), a 2:1 cover constructed exactly as $\mathrm{SU}(2)$ covers $\mathrm{SO}(3)$ (\S\ref{sec:appendix-covering}): a Lorentz transformation acts on a Hermitian $2\times2$ matrix $x^{\mu}\sigma_{\mu}$ by $\Lambda\!\cdot\! X\mapsto M X M^{\dagger}$, $M\in\mathrm{SL}(2,\mathbb C)$. The Weyl spinors are the fundamental representation of this cover.
+
+\medskip\noindent\textbf{The Poincar\'e group and Wigner's classification.} The Poincar\'e group adds four translations $P_{\mu}$ (energy and momentum) to the Lorentz transformations; its algebra extends \eqref{eq:lorentz-algebra} by $[J_{i},P_{j}]=i\hbar\epsilon_{ijk}P_{k}$, $[K_{i},P_{0}]=-i\hbar P_{i}$, $[K_{i},P_{j}]=-i\hbar\delta_{ij}P_{0}/c^{2}$, and $[P_{\mu},P_{\nu}]=0$. The translations form an abelian normal subgroup, so Mackey's little-group method (\S\ref{sec:galilei-unirreps}) applies exactly as in the Galilean case: the irreps are induced from the orbits of the Lorentz group on energy--momentum space, classified by the Casimirs of the little group.
+
+The Poincar\'e algebra has two Casimirs. The first is the mass-squared $P^{2}:=P_{\mu}P^{\mu}=P_{0}^{2}/c^{2}-\bm P^{2}$, with eigenvalue $m^{2}c^{2}$ on a representation of mass $m$. The second is the square of the \textbf{Pauli--Lubanski vector}
+\begin{linenomath}
+\begin{equation}
+W_{\mu}:=\tfrac12\,\epsilon_{\mu\nu\alpha\beta}\,M^{\nu\alpha}P^{\beta},
+\label{eq:pauli-lubanski}
+\end{equation}
+\end{linenomath}
+($M^{\nu\alpha}$ the Lorentz generators); on a massive state $W^{2}=W_{\mu}W^{\mu}=-m^{2}c^{2}\,s(s+1)\hbar^{2}$, with $s=0,\tfrac12,1,\ldots$ the spin. Wigner's theorem (1939) classifies the unitary irreps of the Poincar\'e group:
+\begin{itemize}
+\item \textbf{Massive particles} ($m>0$): the little group of the rest momentum $p_{0}=(mc,\bm 0)$ is $\mathrm{SU}(2)$ (rotations); its irreps are the spin-$s$ multiplets. The Poincar\'e irreps are labelled $(m,s)$, the relativistic counterpart of the Galilean $(m,s)$ of Chapter~4 --- but here $m$ is a Casimir, not a central extension, so there is no Galilean mass superselection.
+\item \textbf{Massless particles} ($m=0$): the little group of a light-like momentum is $\mathrm{ISO}(2)$ (rotations and translations of a plane); its unitary irreps are one-dimensional, labelled by the \textbf{helicity} $\lambda\in\mathbb Z$ (or $\mathbb Z+\tfrac12$ for spinors). The photon ($\lambda=\pm1$) and the graviton ($\lambda=\pm2$) are the physical instances; the absence of a rest frame forbids a longitudinal polarization.
+\item \textbf{Tachyons} ($m^{2}<0$) and the trivial rep ($m=0$, $\lambda=0$, the vacuum): no known physical realization.
+\end{itemize}
+The classification is the relativistic harvest of the same Mackey machinery that produced the Galilean unirreps: a particle is an irrep of its spacetime symmetry group, labelled by the invariants (mass, spin/helicity) that the group forces. The Galilean analysis of Chapter~4 is the $c\to\infty$ contraction of this one (In\"on\"u--Wigner, \S\ref{sec:appendix-covering}): the Poincar\'e Casimir $P^{2}=m^{2}c^{2}$ contracts to the Galilean mass $M$ (a central charge), and the Poincar\'e spin $s$ contracts to the Galilean spin, the two agreeing in the nonrelativistic limit. The Dirac equation, the field-strength tensor, and the photon helicity are all read off the Lorentz irreps above; their full development is the business of relativistic quantum mechanics and quantum field theory, the natural sequel to this nonrelativistic book.
+
+\section{Racah Algebra in Depth}
+\label{sec:appendix-racah-depth}
+
+The 6-$j$ and 9-$j$ symbols of \S\ref{sec:appendix-racah} are the atomic units of recoupling, but the full \emph{Racah algebra} is the calculus of identities they satisfy --- the explicit closed form of the 3-$j$, the derivation of the 6-$j$ formula, the sum rules (Biedenharn--Elliott) that reduce any recoupling to a product of a few 6-$j$'s, and the graphical calculus (Yutsis) that makes the algebra visual. This section develops these, the machinery behind every advanced angular-momentum calculation.
+
+\medskip\noindent\textbf{The explicit 3-$j$ factorial form.} The 3-$j$ symbol has the Racah closed form (complementary to the CG formula \eqref{eq:racah-cg}):
+\begin{linenomath}
+\begin{equation}
+\begin{pmatrix}j_{1}&j_{2}&j_{3}\\ m_{1}&m_{2}&m_{3}\end{pmatrix}
+=(-1)^{j_{1}-j_{2}-m_{3}}\sqrt{\Delta(j_{1}j_{2}j_{3})^{2}\prod_{i}(j_{i}\pm m_{i})!}\;
+\sum_{k}\frac{(-1)^{k}}{k!\,(j_{1}{+}j_{2}{-}j_{3}{-}k)!\,(j_{1}{-}m_{1}{-}k)!\,(j_{2}{+}m_{2}{-}k)!\,(j_{3}{-}j_{2}{+}m_{1}{+}k)!\,(j_{3}{-}j_{1}{-}m_{2}{+}k)!},
+\label{eq:3j-closed}
+\end{equation}
+\end{linenomath}
+with $\Delta(abc)=\sqrt{(a{+}b{-}c)!(a{-}b{+}c)!(-a{+}b{+}c)!/(a{+}b{+}c{+}1)!}$ the triangle coefficient (zero unless the triangle holds) and the product $\prod_{i}(j_{i}\pm m_{i})!=(j_{1}{+}m_{1})!(j_{1}{-}m_{1})!\cdots(j_{3}{-}m_{3})!$. The sum over $k$ is finite (factorial poles terminate it). Every symmetry of the 3-$j$ --- the cyclic invariance, the $(-1)^{j_{1}+j_{2}+j_{3}}$ under odd permutation, the sign flip under $\bm m\to-\bm m$ --- is read directly off this expression.
+
+\medskip\noindent\textbf{Derivation of the 6-$j$ formula.} The 6-$j$ symbol is, by definition, a sum over magnetic quantum numbers of a product of four 3-$j$'s (equivalently four CG coefficients):
+\begin{linenomath}
+\begin{equation}
+\begin{Bmatrix}j_{1}&j_{2}&j_{12}\\ j_{3}&J&j_{23}\end{Bmatrix}
+=\sum_{\text{all }m}\begin{pmatrix}j_{1}&j_{2}&j_{12}\\ m_{1}&m_{2}&m_{12}\end{pmatrix}\!\begin{pmatrix}j_{12}&j_{3}&J\\ -m_{12}&m_{3}&M\end{pmatrix}\!\begin{pmatrix}j_{2}&j_{3}&j_{23}\\ -m_{2}&m_{3}&m_{23}\end{pmatrix}\!\begin{pmatrix}j_{1}&j_{23}&J\\ m_{1}&-m_{23}&-M\end{pmatrix},
+\label{eq:6j-as-3j-product}
+\end{equation}
+\end{linenomath}
+which is the recoupling \eqref{eq:6j-recoupling} expanded in the uncoupled basis. Insert the closed form \eqref{eq:3j-closed} for each 3-$j$: the four square-root prefactors combine to a single $\Delta$-product, and the four sums over $k$ become a multiple sum over $k_{1},k_{2},k_{3},k_{4}$. The $m$-sums are then combinatorial --- each $\sum_{m}$ of a ratio of factorials is evaluated by the Vandermonde--Chu identity $\sum_{m}\binom{A}{m}\binom{B}{C-m}=\binom{A+B}{C}$, collapsing the multiple $k$-sum to the single sum over $t$ of \eqref{eq:6j-racah}. The derivation is lengthy but mechanical: it is the Racah-CG derivation \eqref{eq:racah-cg} run on four coupled 3-$j$'s, with the $m$-sums done by Vandermonde. The result is the single-sum closed form \eqref{eq:6j-racah}, from which the 72 Regge symmetries and the tetrahedral asymptotics \eqref{eq:6j-asymptotic} are read off.
+
+\medskip\noindent\textbf{Orthogonality and the Biedenharn--Elliott identity.} The 6-$j$ satisfies the orthogonality
+\begin{linenomath}
+\begin{equation}
+\sum_{x}(2x+1)\begin{Bmatrix}a&b&p\\ c&d&x\end{Bmatrix}\!\begin{Bmatrix}a&b&q\\ c&d&x\end{Bmatrix}=\frac{\delta_{pq}}{2p+1},
+\label{eq:6j-orthogonality}
+\end{equation}
+\end{linenomath}
+the statement that the recoupling matrices are orthogonal. The deeper identity is the \textbf{Biedenharn--Elliott sum rule} --- the associativity of recoupling four angular momenta, which equates a sum over a triple product of 6-$j$'s (one common column summed) to a product of two 6-$j$'s:
+\begin{linenomath}
+\begin{equation}
+\sum_{x}(-1)^{S+x}(2x+1)\begin{Bmatrix}a&b&e\\ c&d&x\end{Bmatrix}\!\begin{Bmatrix}c&d&f\\ a&b&x\end{Bmatrix}\!\begin{Bmatrix}f&a&g\\ d&c&x\end{Bmatrix}
+=\begin{Bmatrix}f&g&e\\ d&c&b\end{Bmatrix}\!\begin{Bmatrix}e&f&g\\ a&b&c\end{Bmatrix},
+\label{eq:biedenharn-elliott}
+\end{equation}
+\end{linenomath}
+with $S=a+b+c+d+e+f+g$. Geometrically, the left side is the two ways of contracting the recouplings (the associativity $(ab)c\leftrightarrow a(bc)$); the identity is the 6-$j$ avatar of the pentagon relation. The Biedenharn--Elliott identity is the \emph{master identity} of the Racah algebra: the orthogonality \eqref{eq:6j-orthogonality}, the 9-$j$ expansion, and every recoupling-coefficient reduction are its consequences. Together with \eqref{eq:6j-orthogonality} it makes the 6-$j$ symbols a closed algebraic system: any recoupling of any number of angular momenta reduces, by repeated application, to a finite product of 6-$j$'s.
+
+\medskip\noindent\textbf{12-$j$ and general $3nj$ symbols.} The recoupling of four angular momenta already exceeds the 9-$j$ (which couples two pairs of two); five and more introduce the \textbf{12-$j$ symbols} (two inequivalent kinds, distinguished by which pair is recoupled) and, in general, the \textbf{$3nj$ symbols} for $n$ angular momenta. Each $3nj$ symbol is a sum of products of 6-$j$'s (by Biedenharn--Elliott), and the number of distinct recouplings grows factorially with $n$. In practice one does not tabulate them; one reduces to 6-$j$'s algorithmically. The general theory (Yutsis, Levinson, Vanagas) shows that every $3nj$ symbol corresponds to a trivalent graph, and the Biedenharn--Elliott identity is the graph-reduction rule.
+
+\medskip\noindent\textbf{Yutsis graphical calculus.} The 3-$j$ symbol is represented as a \emph{trivalent vertex} with three labelled edges (the $j_{i},m_{i}$); contracting two vertices on a common edge (summing the shared $m$) composes them, and a closed graph (all edges contracted) is a scalar $3nj$ symbol. The 6-$j$ is the complete graph $K_{4}$ (a tetrahedron, four vertices, six edges); the 9-$j$ is a $3\times3$ grid; the 12-$j$'s are larger cubic graphs. The calculus is a set of graph-reduction moves: edge elimination (3-$j$ orthogonality), triangle contraction (a 6-$j$ with a zero entry collapses to a $\delta$), and the Biedenharn--Elliott ``triangle move'' that rewrites one trivalent subgraph as another --- the graphical form of \eqref{eq:biedenharn-elliott}. Any $3nj$ graph reduces to a product of 6-$j$ symbols by a finite sequence of these moves, giving a fully algorithmic (and visual) route to every recoupling coefficient. This is the engine of nuclear shell-model and atomic-structure codes, where recouplings of dozens of angular momenta are reduced to machine-computable 6-$j$ products.
+
+The Racah algebra is the mature form of the angular-momentum coupling theory of Chapter~6 \S\ref{sec:angular-momentum-coupling}: what there was the Clebsch--Gordan series and the 3-$j$ notation is here, in the 6-$j$ and its identities, a complete calculus of recoupling, sufficient to reduce any matrix element of any rotation-invariant operator in any coupling scheme to a product of tabulated 6-$j$'s times a few reduced matrix elements.
+
+\section{Realizations of \texorpdfstring{$\mathrm{SU}(2)$}{SU(2)} and \texorpdfstring{$\mathrm{SU}(n)$}{SU(n)}}
+\label{sec:appendix-realizations}
+
+The Schwinger boson realization of \S\ref{sec:appendix-su2-reps} represents $\mathrm{SU}(2)$ with \emph{two} oscillator modes. Two further realizations are standard in physics: the \emph{Holstein--Primakoff} representation, which uses a \emph{single} boson and underlies spin-wave (magnon) theory, and the \emph{spin coherent states}, the $\mathrm{SU}(2)$ analogue of the harmonic-oscillator coherent states of Chapter~5 and the basis of the spin path integral of Chapter~9. Both generalize: the Jordan--Schwinger map represents any $\mathrm{SU}(n)$ with $n$ boson modes. This section collects them.
+
+\medskip\noindent\textbf{Holstein--Primakoff.} A spin-$s$ representation can be realized on the Fock space of a \emph{single} boson $a$, $[a,a^{\dagger}]=1$, with number operator $N=a^{\dagger}a$. The \textbf{Holstein--Primakoff} map is
+\begin{linenomath}
+\begin{equation}
+J_{+}=a^{\dagger}\sqrt{2s-N},\qquad
+J_{-}=\sqrt{2s-N}\;a,\qquad
+J_{z}=N-s.
+\label{eq:holstein-primakoff}
+\end{equation}
+\end{linenomath}
+The Fock state $\ket{n}$ ($n=0,1,\ldots,2s$) represents the spin state $\ket{s,m=s-n}$, i.e.\ $\ket{n}$ is the state with $n$ spin-flips (``magnons'') below the fully polarized $\ket{s,s}$. The square root truncates the Fock space at $n=2s$: $\sqrt{2s-N}\,\ket{2s}=0$, so $J_{-}\ket{0}... $ the space is exactly $(2s{+}1)$-dimensional, and a direct computation using $[N,a^{\dagger}f(N)]=a^{\dagger}f(N)$ and $[f(N)a,a^{\dagger}g(N)]=f(N)g(N{+}1)\cdot(\cdots)$ verifies $[J_{z},J_{\pm}]=\pm\hbar\,J_{\pm}$, $[J_{+},J_{-}]=2J_{z}$ exactly --- the rotation algebra, on a single-mode Fock space.
+
+The \textbf{large-$s$ expansion} is the seed of spin-wave theory. For $N\ll 2s$ (few magnons on a large spin), $\sqrt{2s-N}=\sqrt{2s}\bigl(1-\frac{N}{4s}+\cdots\bigr)$, so
+\begin{linenomath}
+\begin{equation}
+J_{+}\simeq\sqrt{2s}\;a^{\dagger}+\mathcal O(1/\sqrt{s}),\qquad J_{z}\simeq-s+a^{\dagger}a:
+\label{eq:hp-large-s}
+\end{equation}
+\end{linenomath}
+to leading order the spin is a classical vector of length $s$ plus harmonic-oscillator fluctuations (the magnons). This linearization turns the Heisenberg ferromagnet into a gas of free bosons --- the standard route to the low-temperature thermodynamics of magnets --- and is the prototype of the $1/s$ (large-spin) expansion used throughout condensed-matter and nuclear physics.
+
+\medskip\noindent\textbf{Spin coherent states.} The harmonic-oscillator coherent states of Chapter~5 \S\ref{sec:coherent-states} are the orbit of the ground state under the Heisenberg group; the $\mathrm{SU}(2)$ analogue is the orbit of $\ket{s,s}$ under the rotation group, the \textbf{spin coherent states} (Bloch coherent states). For a unit vector $\bm n\in S^{2}$ (equivalently a complex stereographic coordinate $\zeta$), define
+\begin{linenomath}
+\begin{equation}
+\ket{\bm n}:=D(\bm n)\ket{s,s},\qquad
+D(\bm n)=e^{-i\theta\bm e_{\phi}\cdot\bm J/\hbar}\;\;(\bm n=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)),
+\label{eq:spin-coherent}
+\end{equation}
+\end{linenomath}
+the rotation carrying $\hat{\bm z}$ to $\bm n$, applied to the highest-weight state. In the $\ket{s,m}$ basis this is
+\begin{linenomath}
+\begin{equation*}
+\ket{\bm n}=\sum_{m=-s}^{s}\sqrt{\binom{2s}{s{+}m}}\bigl(\cos\tfrac{\theta}{2}\bigr)^{s+m}\bigl(\sin\tfrac{\theta}{2}\,e^{i\phi}\bigr)^{s-m}\ket{s,m},
+\end{equation*}
+\end{linenomath}
+a binomial superposition whose coefficients are the $d^{(s)}_{m,s}(\beta)$ column \eqref{eq:d-top-row} times the $z$-rotation phase. The states are \emph{overcomplete} and resolve the identity:
+\begin{linenomath}
+\begin{equation}
+\frac{2s+1}{4\pi}\int_{S^{2}}\dd\Omega\;\ket{\bm n}\bra{\bm n}=I,
+\label{eq:spin-coherent-resolution}
+\end{equation}
+\end{linenomath}
+the $\mathrm{SU}(2)$ analogue of $\int\ket{\alpha}\bra{\alpha}\,\dd^{2}\alpha/\pi=I$. The spin coherent states saturate the angular-momentum uncertainty $\Delta J_{i}\,\Delta J_{j}\ge\frac\hbar2|\langle\bm J\rangle|$, are the closest quantum states to a classical angular-momentum vector, and make the Bloch sphere of Chapter~6 \S\ref{sec:spin-half} into the coset $\mathrm{SU}(2)/\mathrm{U}(1)$ (the highest-weight state's stabilizer is the $U(1)$ of rotations about $z$). They are the basis of the spin path integral of Chapter~9 \S\ref{sec:spin-path-integral} and the large-$s$ semiclassical limit of spin systems.
+
+\medskip\noindent\textbf{Jordan--Schwinger for $\mathrm{SU}(n)$.} The Schwinger map of \S\ref{sec:appendix-su2-reps} --- angular momentum as bilinears in two boson modes --- generalizes to any $\mathrm{SU}(n)$. Introduce $n$ boson modes $a_{\alpha}$, $\alpha=1,\ldots,n$ ($[a_{\alpha},a_{\beta}^{\dagger}]=\delta_{\alpha\beta}$), and the $n^{2}-1$ generators
+\begin{linenomath}
+\begin{equation}
+T_{A}=\sum_{\alpha,\beta=1}^{n}a_{\alpha}^{\dagger}\,\tfrac12(\lambda_{A})_{\alpha\beta}\,a_{\beta},\qquad A=1,\ldots,n^{2}{-}1,
+\label{eq:jordan-schwinger-sun}
+\end{equation}
+\end{linenomath}
+where $\lambda_{A}$ are the generalized Gell-Mann matrices (the Pauli matrices for $n=2$, the Gell-Mann matrices of \S\ref{sec:appendix-semisimple} for $n=3$). The bilinears $a_{\alpha}^{\dagger}a_{\beta}$ close the $\mathfrak{u}(n)$ algebra; the traceless combinations \eqref{eq:jordan-schwinger-sun} close $\mathfrak{su}(n)$. The $n$-mode Fock space decomposes into $\mathrm{SU}(n)$ irreps labelled by the total boson number $N=\sum_{\alpha}a_{\alpha}^{\dagger}a_{\alpha}$: the $N$-boson symmetric subspace (dimension $\binom{N+n-1}{n-1}$) is the $\mathrm{SU}(n)$ irrep with Young diagram a single row of $N$ boxes --- the fully symmetric tensor representation. For $n=2$ this recovers the $\mathrm{SU}(2)$ Schwinger model ($\ket{j,m}=\ket{n_{+},n_{-}}$, $j=N/2$); for $n=3$ it gives the flavor/color multiplets of \S\ref{sec:appendix-semisimple}. The Jordan--Schwinger construction is the bridge between the oscillator methods of Chapter~5/Chapter~10 and the representation theory of this appendix: every $\mathrm{SU}(n)$ irrep is realized concretely as a bosonic Fock subspace, and every $\mathrm{SU}(n)$ tensor product is a re-occupation of the modes.
+
+\medskip\noindent\textbf{Coda.} The three realizations --- Schwinger (two modes, exact, the basis of the $d$-matrix derivation \S\ref{sec:appendix-d-matrices}), Holstein--Primakoff (one mode, exact, the basis of magnon theory), and Jordan--Schwinger ($n$ modes, the basis of $\mathrm{SU}(n)$ representation theory) --- exhibit a single deep fact: a Lie algebra is an abstract commutation structure, and any set of operators satisfying it is a valid realization. The rotation group lives equally in the two-state spinor, the two-boson Fock space, the single-boson Holstein--Primakoff space, the orbital differential operators of Chapter~6 \S\ref{sec:orbital-angular-momentum}, and the $n$-mode Jordan--Schwinger space; the representation theory classifies what is common to all of them, and the choice of realization is a tactical matter of which physics is being computed. This freedom --- the same algebra, many realizations --- is the practical face of the representation theory developed in this appendix, and the reason a single body of group-theoretic machinery serves every chapter of the book.
