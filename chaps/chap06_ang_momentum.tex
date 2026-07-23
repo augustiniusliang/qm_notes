@@ -104,132 +104,78 @@ The Euler-angle form makes the 2:1 covering visible in the parameter ranges. The
         \label{eq:D-matrix-def}
     \end{equation}
 \end{linenomath}
-where
+where $d^{(j)}_{m'm}(\beta):=\braket{j,m'|e^{-i\beta J_y/\hbar}|j,m}$ is the reduced (Wigner small) $d$-matrix. The factorization follows because $J_z$ is diagonal in the $\ket{j,m}$ basis --- the first and third Euler factors contribute only the phases $e^{-i\alpha m'}$ and $e^{-i\gamma m}$ --- while the middle factor, the rotation about the $y$-axis, mixes $m$ values and carries the nontrivial $\beta$-dependence. The D-matrices are the $(2j+1)$-dimensional irreducible unitary representations of $\mathrm{SU}(2)$: under a rotation $R$, $U(R)\ket{j,m}=\sum_{m'}D^{(j)}_{m'm}(R)\ket{j,m'}$. They are the finite-rotation counterpart of the ladder coefficients of Section~\ref{sec:angular-momentum-algebra} --- the ladders step by one unit of $m$, the D-matrices rotate the entire multiplet by an arbitrary angle.
+
+\medskip\noindent\textbf{Closed form and explicit low-$j$ matrices.} The small-$d$ matrix has the explicit closed form (Appendix~\ref{sec:appendix-d-matrices}, \eqref{eq:d-jacobi-sum}), in terms of a finite factorial sum (equivalently a Jacobi polynomial). The two representations most used in physics are read off directly:
 \begin{linenomath}
     \begin{equation}
-        d^{(j)}_{m'm}(\beta) := \braket{j,m'|e^{-i\beta J_y/\hbar}|j,m}
+        d^{(1/2)}(\beta)=\begin{pmatrix}\cos(\beta/2)&-\sin(\beta/2)\\[2pt]\sin(\beta/2)&\cos(\beta/2)\end{pmatrix},\qquad
+        d^{(1)}(\beta)=\begin{pmatrix}
+        \dfrac{1{+}\cos\beta}{2}&-\dfrac{\sin\beta}{\sqrt2}&\dfrac{1{-}\cos\beta}{2}\\[6pt]
+        \dfrac{\sin\beta}{\sqrt2}&\cos\beta&-\dfrac{\sin\beta}{\sqrt2}\\[6pt]
+        \dfrac{1{-}\cos\beta}{2}&\dfrac{\sin\beta}{\sqrt2}&\dfrac{1{+}\cos\beta}{2}
+        \end{pmatrix},
+        \label{eq:d1-vector}
     \end{equation}
 \end{linenomath}
-is the reduced (Wigner small) d-matrix. The factorization follows because $J_z$ is diagonal in the $\ket{j,m}$ basis---the first and third Euler factors contribute only the phases $e^{-i\alpha m'}$ and $e^{-i\gamma m}$---while the middle factor, the rotation about the $y$-axis, mixes $m$ values and carries the nontrivial $\beta$-dependence.
-
-The physical meaning of the D-matrices is that they are the $(2j+1)$-dimensional irreducible unitary representations of SU(2). Under a rotation $R$, an angular momentum basis state transforms as
+in the bases $\{\ket{+z},\ket{-z}\}$ ($j=1/2$) and $\{\ket{1,1},\ket{1,0},\ket{1,-1}\}$ ($j=1$). The higher instances $d^{(3/2)}$ ($4\times4$) and $d^{(2)}$ ($5\times5$), together with the general factorial formula and the top-row specialization $d^{(j)}_{j,m}=(-1)^{j-m}\sqrt{\binom{2j}{j-m}}(\cos\frac\beta2)^{j+m}(\sin\frac\beta2)^{j-m}$, are tabulated in Appendix~\ref{sec:appendix-d-matrices}. The full D-matrix follows by sandwiching $d$ between the diagonal $z$-rotation phases; for $j=1/2$,
 \begin{linenomath}
-    \begin{equation}
-        U(R)\ket{j,m} = \sum_{m'=-j}^{j} D^{(j)}_{m'm}(R)\,\ket{j,m'}.
-    \end{equation}
+    \begin{equation*}
+        D^{(1/2)}(\alpha,\beta,\gamma)=\begin{pmatrix}
+        e^{-i(\alpha+\gamma)/2}\cos(\beta/2)&-e^{-i(\alpha-\gamma)/2}\sin(\beta/2)\\[2pt]
+        e^{i(\alpha-\gamma)/2}\sin(\beta/2)&e^{i(\alpha+\gamma)/2}\cos(\beta/2)
+        \end{pmatrix}.
+    \end{equation*}
 \end{linenomath}
-Every member of a $j$-multiplet is carried into a linear combination of all members, with the D-matrix supplying the coefficients. The D-matrices are the finite-rotation counterpart of the ladder coefficients of Section~\ref{sec:angular-momentum-algebra}: the ladders step by one unit of $m$, the D-matrices rotate the entire multiplet by an arbitrary angle.
+The half-angle $\beta/2$ is the signature of the double cover: the entries are $4\pi$-periodic in $\alpha,\gamma$, and $D^{(1/2)}(\alpha,\beta,\gamma+2\pi)=-D^{(1/2)}(\alpha,\beta,\gamma)$. The first column at $\gamma=0$ is the spin-$\bm n$ state $\ket{+\bm n}$ that Section~\ref{sec:spin-half} constructs from $\ket{+z}$ by the Euler rotation $U(\alpha,\beta,0)$.
 
-The D-matrices obey a set of fundamental properties that the remainder of the chapter spends.
+\medskip\noindent\textbf{Properties.} From $U(R_{1}R_{2})=U(R_{1})U(R_{2})$ the D-matrices compose as representations, $\sum_{m''}D^{(j)}_{m'm''}(R_{1})D^{(j)}_{m''m}(R_{2})=D^{(j)}_{m'm}(R_{1}R_{2})$; they are unitary; and in the Condon--Shortley convention $D^{(j)*}_{m'm}=(-1)^{m-m'}D^{(j)}_{-m',-m}$ (from the reality and reflection symmetry of $d^{(j)}$). Under the Haar measure $\dd R=(1/8\pi^{2})\sin\beta\,\dd\alpha\,\dd\beta\,\dd\gamma$ they obey the great orthogonality
+\begin{linenomath}
+    \begin{equation*}
+        \int\dd R\;D^{(j)*}_{m'm}(R)\,D^{(j')}_{\mu'\mu}(R)=\frac{1}{2j+1}\,\delta_{jj'}\,\delta_{m\mu}\,\delta_{m'\mu'},
+    \end{equation*}
+\end{linenomath}
+the $\mathrm{SU}(2)$ instance of the Peter--Weyl theorem (Appendix~\ref{sec:appendix-d-matrices}): the $D^{(j)}_{m'm}$ are a complete orthogonal basis of $L^{2}(\mathrm{SU}(2))$, the compact-group avatar of Fourier analysis.
 
-\medskip\noindent\textbf{Composition.} From $U(R_1R_2)=U(R_1)U(R_2)$, the matrix elements satisfy
-\begin{linenomath}
-    \begin{equation}
-        \sum_{m''=-j}^{j} D^{(j)}_{m'm''}(R_1)\,D^{(j)}_{m''m}(R_2)
-        = D^{(j)}_{m'm}(R_1R_2),
-    \end{equation}
-\end{linenomath}
-which is the statement that the $D^{(j)}$ are group representations: the matrix of the product is the product of the matrices.
-
-\medskip\noindent\textbf{Orthogonality.} The D-matrices for inequivalent representations are orthogonal under integration over the group manifold. With the invariant integration measure $dR = d\alpha\,d\cos\beta\,d\gamma$ over the Euler-angle domain,
-\begin{linenomath}
-    \begin{equation}
-        \int dR\; D^{(j)*}_{m'm}(R)\,D^{(j')}_{\mu'\mu}(R)
-        = \frac{8\pi^2}{2j+1}\,\delta_{jj'}\,\delta_{m\mu}\,\delta_{m'\mu'}.
-    \end{equation}
-\end{linenomath}
-This is the great orthogonality theorem for SU(2). The proof---which rests on Schur's lemma and the invariance of the Haar measure---is deferred to Appendix~B; the physics consequences (the orthogonality of states transforming under inequivalent representations and the completeness of the D-matrices as a basis for square-integrable functions on the group, the Peter--Weyl theorem) are developed here.
-
-\medskip\noindent\textbf{Complex conjugation.} From the unitarity of $U(R)$ and the Condon--Shortley phase convention for the $d$-matrix elements,
-\begin{linenomath}
-    \begin{equation}
-        D^{(j)*}_{m'm}(\alpha,\beta,\gamma)
-        = (-1)^{m-m'}\,D^{(j)}_{-m',-m}(\alpha,\beta,\gamma).
-    \end{equation}
-\end{linenomath}
-The relation is proved by explicit conjugation of \eqref{eq:D-matrix-def}:
-\begin{linenomath}
-\begin{align*}
-D^{(j)*}_{m'm}(\alpha,\beta,\gamma)
-&= \bigl(e^{-i\alpha m'} d^{(j)}_{m'm}(\beta) e^{-i\gamma m}\bigr)^*
- = e^{i\alpha m'} d^{(j)*}_{m'm}(\beta) e^{i\gamma m}.
-\end{align*}
-\end{linenomath}
-The Condon--Shortley convention fixes the $d$-matrix elements to be real and endows them with the symmetry $d^{(j)*}_{m'm}(\beta) = (-1)^{m-m'} d^{(j)}_{-m',-m}(\beta)$ (a consequence of the real, positive ladder matrix elements in \eqref{eq:ladder-action-j}). Substituting,
-\begin{linenomath}
-\begin{align*}
-D^{(j)*}_{m'm}(\alpha,\beta,\gamma)
-&= (-1)^{m-m'} e^{i\alpha m'} d^{(j)}_{-m',-m}(\beta) e^{i\gamma m}
- = (-1)^{m-m'} D^{(j)}_{-m',-m}(\alpha,\beta,\gamma),
-\end{align*}
-\end{linenomath}
-since $D^{(j)}_{-m',-m}(\alpha,\beta,\gamma)=e^{-i\alpha(-m')}d^{(j)}_{-m',-m}(\beta)e^{-i\gamma(-m)}=e^{i\alpha m'}d^{(j)}_{-m',-m}(\beta)e^{i\gamma m}$, matching the conjugated expression.
-
-\medskip\noindent\textbf{Connection to spherical harmonics.} For integer $\ell$, the $D$-matrices reduce to spherical harmonics. The column $m'=0$ of $D^{(\ell)}$, evaluated at $\gamma=0$, gives
+\medskip\noindent\textbf{Connection to spherical harmonics; rotation of functions.} For integer $\ell$, the $m'=0$ column of $D^{(\ell)}$ at $\gamma=0$ is a spherical harmonic:
 \begin{linenomath}
     \begin{equation}
         D^{(\ell)}_{m0}(\alpha,\beta,0)
-        = \sqrt{\frac{4\pi}{2\ell+1}}\,Y_\ell^{m*}(\beta,\alpha).
+        = \sqrt{\frac{4\pi}{2\ell+1}}\,Y_\ell^{m*}(\beta,\alpha),
         \label{eq:D-Y-relation}
     \end{equation}
 \end{linenomath}
-In particular, $D^{(\ell)}_{00}(\alpha,\beta,\gamma) = P_\ell(\cos\beta)$, the Legendre polynomial, independent of $\alpha$ and $\gamma$ as required for a scalar under rotations about the $z$-axis. The spherical harmonics are therefore a special case of the rotation matrices: the functions on the sphere $S^2 \cong \mathrm{SO}(3)/\mathrm{SO}(2)$ that transform under the $\ell$-representation are precisely the $m'=0$ column of the D-matrix. This connection is developed fully in Section~\ref{sec:orbital-angular-momentum}; here it is stated to exhibit the unity of the finite-rotation formalism: the D-matrices contain the spherical harmonics as a special case, just as they contain the spin-$1/2$ amplitudes as the $j=1/2$ instance.
+and in particular $D^{(\ell)}_{00}=P_\ell(\cos\beta)$. The spherical harmonics are the $m'=0$ column --- the functions on the coset sphere $S^{2}\cong\mathrm{SO}(3)/\mathrm{SO}(2)$. The general transformation law under a finite rotation $R$ follows:
+\begin{linenomath}
+    \begin{equation}
+        Y_{\ell}^{m}(R^{-1}\hat{\bm r})=\sum_{m'=-\ell}^{\ell}D^{(\ell)}_{m'm}(R)\,Y_{\ell}^{m'}(\hat{\bm r}),
+        \label{eq:Ylm-rotation-ch6}
+    \end{equation}
+\end{linenomath}
+the active rotation of a scalar field on the sphere: rotating a spherical harmonic mixes the $(2\ell+1)$ members of its multiplet by the D-matrix, exactly as rotating a state $\ket{\ell,m}$ mixes the basis kets. This is the bridge to Section~\ref{sec:orbital-angular-momentum}.
 
-\medskip\noindent\textbf{Explicit form for $j=1/2$.} The fundamental representation is read off directly from the Euler decomposition. For $j=1/2$, $J_i = (\hbar/2)\sigma_i$, and
-\begin{linenomath}
-    \begin{equation}
-        U(\alpha,\beta,\gamma) = e^{-i\alpha\sigma_z/2}\,e^{-i\beta\sigma_y/2}\,e^{-i\gamma\sigma_z/2}.
-    \end{equation}
-\end{linenomath}
-The reduced d-matrix in the $\{\ket{+z},\ket{-z}\}$ basis is the middle factor:
-\begin{linenomath}
-    \begin{equation}
-        d^{(1/2)}(\beta) = e^{-i\beta\sigma_y/2}
-        = \begin{pmatrix}
-            \cos(\beta/2) & -\sin(\beta/2) \\[2pt]
-            \sin(\beta/2) &  \cos(\beta/2)
-        \end{pmatrix}.
-    \end{equation}
-\end{linenomath}
-The full D-matrix follows by sandwiching with the diagonal $z$-rotation factors:
-\begin{linenomath}
-    \begin{equation}
-        D^{(1/2)}(\alpha,\beta,\gamma)
-        = \begin{pmatrix}
-            e^{-i(\alpha+\gamma)/2}\cos(\beta/2) & -e^{-i(\alpha-\gamma)/2}\sin(\beta/2) \\[2pt]
-            e^{i(\alpha-\gamma)/2}\sin(\beta/2)  &  e^{i(\alpha+\gamma)/2}\cos(\beta/2)
-        \end{pmatrix}.
-    \end{equation}
-\end{linenomath}
-The half-angle $\beta/2$ is the signature of the double cover: the matrix entries are $4\pi$-periodic in $\alpha$ and $\gamma$, and $D^{(1/2)}(\alpha,\beta,\gamma+2\pi) = -D^{(1/2)}(\alpha,\beta,\gamma)$. The first column, evaluated at $\gamma=0$, is exactly the spin-$\bm n$ state $\ket{+\bm n}$ that Section~\ref{sec:spin-half} will construct from the reference state $\ket{+z}$ by the Euler rotation $U(\alpha,\beta,0)$.
+\medskip\noindent\textbf{Rotation of Cartesian vectors and tensors.} The $j=1$ representation \eqref{eq:d1-vector} \emph{is} the vector representation in the spherical basis. The spherical components $V^{(1)}_{\pm1}=\mp(V_x\pm iV_y)/\sqrt2$, $V^{(1)}_{0}=V_z$ of a vector $\bm V$ transform as $V^{(1)}_{q}\mapsto\sum_{q'}D^{(1)}_{q'q}(R)\,V^{(1)}_{q'}$, which is exactly the Cartesian rotation $\bm V\mapsto R\bm V$ rewritten --- $d^{(1)}(\beta)$ is the rotation about $y$ in that basis. A rank-$k$ Cartesian tensor $T_{i_{1}\cdots i_{k}}$ decomposes under rotations into irreducible spherical tensors of ranks $k,k-2,\ldots$ (the traceless symmetric part is rank $k$, traces lower), each transforming by $D^{(k)}$; this is the bridge to the irreducible-tensor operators of Section~\ref{sec:irreducible-tensor-operators}.
 
-\medskip\noindent\textbf{Example: spin precession re-read through Euler angles.} The Larmor precession of the evolution chapter (Section~\ref{sec:spin-precession}) acquires its Euler-angle reading here. The evolution operator for a spin in a uniform magnetic field $\bm B = B\hat{z}$ is
-\begin{linenomath}
-    \begin{equation}
-        U(t) = e^{-i\omega t\,\sigma_z/2},
-    \end{equation}
-\end{linenomath}
-with $\omega = -\gamma B$ (\eqref{eq:larmor-evolution}). In the Euler-angle language of \eqref{eq:euler-angles}, this is the special case $\alpha = \omega t$, $\beta = 0$, $\gamma = 0$: a one-parameter subgroup generated by $J_z$ alone. The D-matrix element \eqref{eq:D-matrix-def} gives the amplitude for the state to remain in the initial $m$-state:
-\begin{linenomath}
-    \begin{equation}
-        D^{(1/2)}_{++}(\omega t,0,0) = e^{-i\omega t/2},
-        \qquad
-        D^{(1/2)}_{--}(\omega t,0,0) = e^{i\omega t/2}.
-    \end{equation}
-\end{linenomath}
-At $t = 2\pi/\omega$ the D-matrix is $D^{(1/2)}(2\pi,0,0) = -I$, exactly the spinor sign that the evolution chapter computed (\eqref{eq:spinor-sign}): the state has traversed a full cycle in SU(2) while the spatial rotation in SO(3) is the identity. The expectation vector $\langle\bm\sigma\rangle(t)$ of \eqref{eq:precession} rotates at the frequency $\omega$ in $\mathbb{R}^3$:
-\begin{linenomath}
-    \begin{equation}
-        \langle\sigma_x\rangle(t) = \langle\sigma_x\rangle(0)\cos\omega t - \langle\sigma_y\rangle(0)\sin\omega t,
-        \qquad
-        \langle\sigma_y\rangle(t) = \langle\sigma_x\rangle(0)\sin\omega t + \langle\sigma_y\rangle(0)\cos\omega t.
-    \end{equation}
-\end{linenomath}
-The D-matrix element $D^{(1/2)}_{++}(t) = e^{-i\omega t/2}$ gives the state evolution directly: the state rotates at half the SO(3) rate because $J_z = (\hbar/2)\sigma_z$ has eigenvalue $+\hbar/2$, and the Euler angle $\alpha = \omega t$ is the spatial rotation angle. The factor $1/2$ in the exponent is the $m=1/2$ eigenvalue in the phase $e^{-i\alpha m}$ of \eqref{eq:D-matrix-def}. The 2:1 covering is made quantitative: the expectation vector (SO(3)) completes one cycle at $\omega t = 2\pi$, while the state (SU(2)) completes one cycle at $\omega t = 4\pi$.
+\medskip\noindent\textbf{Example: spin precession re-read through Euler angles.} The Larmor precession of the evolution chapter (Section~\ref{sec:spin-precession}) acquires its Euler-angle reading here. The evolution operator for a spin in a uniform magnetic field $\bm B = B\hat{z}$ is $U(t)=e^{-i\omega t\,\sigma_z/2}$, with $\omega=-\gamma B$ (\eqref{eq:larmor-evolution}). In the Euler-angle language of \eqref{eq:euler-angles} this is the special case $\alpha=\omega t$, $\beta=0$, $\gamma=0$: a one-parameter subgroup generated by $J_z$ alone. The D-matrix element \eqref{eq:D-matrix-def} gives the amplitude to remain in the initial $m$-state, $D^{(1/2)}_{++}(\omega t,0,0)=e^{-i\omega t/2}$, $D^{(1/2)}_{--}(\omega t,0,0)=e^{i\omega t/2}$. At $t=2\pi/\omega$, $D^{(1/2)}(2\pi,0,0)=-I$, the spinor sign of \eqref{eq:spinor-sign}: the state has traversed a full cycle in $\mathrm{SU}(2)$ while the spatial rotation in $\mathrm{SO}(3)$ is the identity. The expectation vector $\langle\bm\sigma\rangle(t)$ of \eqref{eq:precession} rotates at frequency $\omega$ in $\mathbb R^{3}$ and completes one cycle at $\omega t=2\pi$; the state completes one cycle at $\omega t=4\pi$. The 2:1 covering is made quantitative.
 
-The advantage of the Euler-angle and D-matrix reading is that it generalizes immediately to arbitrary rotations: the D-matrix \eqref{eq:D-matrix-def} gives the amplitude for any initial state $\ket{j,m}$ to be found in any final state $\ket{j,m'}$ after any rotation parametrized by $(\alpha,\beta,\gamma)$, and the composition property converts sequences of rotations into matrix multiplication. The D-matrices are the finite-rotation machinery the remainder of the chapter spends. Its limitation is that the D-matrices are defined on the angular momentum basis, which Section~\ref{sec:angular-momentum-algebra} must still construct; the group-theoretic properties stated here (the great orthogonality theorem and the Peter--Weyl completeness) are named with Appendix~B pointers---their proof requires Schur's lemma and the invariance of the Haar measure, which belong to representation theory, not to physics. The sections that follow need only the algebra and the explicit D-matrix forms, not the general theory.
+\medskip\noindent\textbf{Example: the symmetric top --- a rigid rotor with D-matrices as wavefunctions.} A rigid molecule whose inertia tensor has a symmetry axis (a \emph{symmetric top}, e.g.\ NH$_{3}$ or CH$_{3}$Cl) has rotational Hamiltonian $H=A\,J_{a}^{2}+B(J_{b}^{2}+J_{c}^{2})$ in the body-fixed frame, where $A\ne B$ are the principal moments and $a$ the symmetry axis. Writing $J_{a}^{2}$ as the projection of $\bm J$ onto the body axis --- the operator whose space-fixed representative is the third Euler angle --- the simultaneous eigenstates of $H$, $J^{2}$, $J_{z}$ (space-fixed, quantum number $M$), and $J_{a}$ (body-fixed, quantum number $K$) are precisely the D-matrices:
+\begin{linenomath}
+    \begin{equation}
+        \braket{\alpha,\beta,\gamma|J,M,K}\propto D^{(J)*}_{MK}(\alpha,\beta,\gamma),
+        \label{eq:symmetric-top}
+    \end{equation}
+\end{linenomath}
+and the energies are
+\begin{linenomath}
+    \begin{equation*}
+        E_{J,K}=B\,J(J+1)+(A-B)\,K^{2},\qquad J=0,1,2,\ldots,\;\;K=-J,\ldots,J.
+    \end{equation*}
+\end{linenomath}
+The $(2J+1)$-fold $M$-degeneracy is rotation invariance (as for any rotor); the $(2J+1)$-fold $K$-degeneracy (counting $\pm K$) is the additional symmetry of the symmetric top. The asymmetric top ($A\ne B\ne C$) mixes $K$ and has no closed form --- its levels are found by diagonalizing $H$ in the $|JMK\rangle$ basis, a standard application of the D-matrix algebra. Rotational spectroscopy of molecules (the CO $J=1\to0$ line of \eqref{eq:rigid-rotor} and, more generally, the microwave spectra of symmetric tops) is read directly off the D-matrix eigenvalue formula.
 
-The finite-rotation formalism---the group structure, the 2:1 covering, the Euler-angle parametrization, and the Wigner D-matrices---is now complete. The next question is algebraic: what eigenvalues can the generators $J^2$ and $J_z$ possess? The answer is independent of the group topology and follows from the single commutator \eqref{eq:galilei-algebra} alone, by the ladder method of Chapter~5.
+\medskip\noindent\textbf{Example: spin-1 and photon polarization.} The $j=1$ representation is the natural language of vector (spin-1) fields. A massless spin-1 particle --- the photon --- carries no longitudinal state: its two physical polarizations are the helicity $\lambda=\pm1$ states, obtained from the $j=1$ triplet by projecting onto the direction of motion. A polarization state is a point on the Poincar\'e sphere (the $j=1$ analogue of the spin-$1/2$ Bloch sphere of Section~\ref{sec:spin-half}); the Stokes parameters $(S_{1},S_{2},S_{3})$ are its Bloch vector, with $|\bm S|=1$ for pure polarization and $|\bm S|<1$ for partial polarization. Linear polarizers, quarter- and half-wave plates, and polarization rotators act on the $(S_{1},S_{2},S_{3})$ vector by exactly the $\mathrm{SO}(3)$ rotations of \eqref{eq:d1-vector} --- the spin-1 D-matrix is the operator behind every optical polarization calculation. This is the $j=1$ counterpart of the $j=1/2$ Stern--Gerlach grammar of Chapters~2--3.
+
+The finite-rotation formalism --- the group structure, the 2:1 covering, the Euler-angle parametrization, the Wigner D-matrices with their explicit low-$j$ forms and their reduction to spherical harmonics --- is now complete. The D-matrices give the amplitude for any initial state $\ket{j,m}$ to be found in any final state $\ket{j,m'}$ after any rotation, and the composition property converts sequences of rotations into matrix multiplication. What remains is algebraic: what eigenvalues can the generators $J^{2}$ and $J_{z}$ possess? The answer is independent of the group topology and follows from the single commutator \eqref{eq:galilei-algebra} alone, by the ladder method of Chapter~5.
 
 \section{Angular Momentum Algebra: the Spectrum of $J^2$ and $J_z$}
 \label{sec:angular-momentum-algebra}
@@ -1406,17 +1352,27 @@ corresponding to the famous $21\,\text{cm}$ line: $\nu = \Delta E_{\text{hf}}/2\
 
 The hyperfine splitting is the simplest experimental repayment of the angular momentum coupling theory. The two-spin-$1/2$ paradigm converts the single unknown coupling constant $A$ into a predicted doublet with a definite $3:1$ degeneracy ratio (triplet weight $3$, singlet weight $1$); the measured transition frequency then fixes $A$ from the observed line. The same CSCO logic that built the coupled basis $\ket{F,M_F}$ from the uncoupled one -- via the CG coefficients of Table~\ref{tab:cg-half-half} -- is the bookkeeping behind every atomic and nuclear hyperfine structure calculation.
 
-\medskip\noindent\textbf{6-$j$ symbols.}
-The addition of two angular momenta is unambiguous: the coupled basis $\ket{j_1,j_2;J,M}$ is the unique result of the Clebsch--Gordan series \eqref{eq:cg-series}. For three angular momenta $j_1,j_2,j_3$, the coupling order is not unique. The total $J$ can be reached by two distinct routes: first couple $j_1$ and $j_2$ to an intermediate $j_{12}$, then couple $j_{12}$ and $j_3$ to $J$; or first couple $j_2$ and $j_3$ to $j_{23}$, then couple $j_1$ and $j_{23}$ to $J$. The two schemes produce two different coupled bases on the same tensor product space, and the overlap between them is the \textbf{6-$j$ symbol}:
+\medskip\noindent\textbf{Three angular momenta and the 6-$j$ symbol.}
+The addition of two angular momenta is unambiguous: the coupled basis $\ket{j_1,j_2;J,M}$ is the unique result of the Clebsch--Gordan series \eqref{eq:cg-series}. For three angular momenta $j_1,j_2,j_3$ the coupling order is not unique. The total $J$ can be reached by two distinct routes: first couple $j_1$ and $j_2$ to an intermediate $j_{12}$, then couple $j_{12}$ and $j_3$ to $J$; or first couple $j_2$ and $j_3$ to $j_{23}$, then couple $j_1$ and $j_{23}$ to $J$. The two schemes produce two different coupled bases on the same tensor product space, and the overlap between them is the \textbf{recoupling coefficient}, conventionally written in the symmetric \textbf{6-$j$ symbol}:
+\begin{linenomath}
+  \begin{equation}
+    \braket{(j_{1},(j_{2},j_{3})j_{23})J,M\,|\,((j_{1},j_{2})j_{12},j_{3})J,M}
+    =(-1)^{j_{1}+j_{2}+j_{3}+J}\sqrt{(2j_{12}+1)(2j_{23}+1)}\,
+    \begin{Bmatrix}j_{1}&j_{2}&j_{12}\\ j_{3}&J&j_{23}\end{Bmatrix}.
+    \label{eq:three-j-recoupling}
+  \end{equation}
+\end{linenomath}
+The 6-$j$ symbol is a recoupling coefficient, not a coupling coefficient: it is a single number, independent of all magnetic quantum numbers $m$, that encodes the geometry of three coupled angular momenta. It vanishes unless each of the four triads $(j_{1},j_{2},j_{12})$, $(j_{2},j_{3},j_{23})$, $(j_{1},J,j_{23})$, $(j_{12},j_{3},J)$ satisfies the triangle condition. The explicit Racah closed form, the 72 Regge symmetries, and the tetrahedral classical asymptotics are collected in Appendix~\ref{sec:appendix-racah}.
+
+\medskip\noindent\textbf{Worked example: three spin-$1/2$'s.} Coupling $j_{1}=j_{2}=j_{3}=1/2$ to total $J=1/2$, the intermediate quantum number is $j_{12}=0$ or $1$ in the first scheme, $j_{23}=0$ or $1$ in the second. The two $J=1/2$ doublets built from $j_{12}=0$ and $j_{12}=1$ are recoupled to the two built from $j_{23}=0,1$ by the 6-$j$ symbols $\begin{Bmatrix}1/2&1/2&j_{12}\\ 1/2&1/2&j_{23}\end{Bmatrix}$, which take only the values $\pm1/2$. The two coupling schemes therefore differ by a $1/\sqrt2$ rotation --- the algebraic root of the $S_{4}$ permutation symmetry of three identical spins, and the prototype of the recoupling transformations that pervade nuclear shell-model and few-body calculations.
+
+\medskip\noindent\textbf{9-$j$ symbols and $LS\leftrightarrow jj$ coupling.} Four angular momenta --- equivalently two subsystems each carrying two --- admit still more coupling schemes. The conversion between coupling the two subsystems' totals ($LS$ scheme: couple all orbital momenta to $L$, all spins to $S$, then $L+S\to J$) and coupling each subsystem's orbital and spin first ($jj$ scheme: $l_{i}+s_{i}\to j_{i}$, then $j_{1}+j_{2}\to J$) is the \textbf{9-$j$ symbol}
 \begin{linenomath}
   \begin{equation*}
-    \begin{Bmatrix}
-      j_1 & j_2 & j_{12} \\
-      j_3 & J   & j_{23}
-    \end{Bmatrix}.
+    \begin{Bmatrix}l_{1}&s_{1}&j_{1}\\ l_{2}&s_{2}&j_{2}\\ L&S&J\end{Bmatrix},
   \end{equation*}
 \end{linenomath}
-The 6-$j$ symbol is a recoupling coefficient, not a coupling coefficient; it is a number (independent of all $m$'s) that encodes the geometry of three angular momenta. Its physical context is the transformation between the $LS$-coupling and $jj$-coupling schemes of atomic spectroscopy: in $LS$ coupling the orbital angular momenta are coupled first, then the spins, then the totals; in $jj$ coupling each electron's orbital and spin are coupled first, then the individual $j$'s are coupled to the total $J$. The 6-$j$ symbol provides the unitary matrix connecting the two descriptions. The full Racah algebra of $3nj$-symbols -- 6-$j$, 9-$j$, and their symmetries -- is developed in Appendix~B.
+a sum of products of three 6-$j$ symbols (Appendix~\ref{sec:appendix-racah}). The 9-$j$ with one zero entry collapses to a single 6-$j$, the form most used in converting atomic and nuclear shell-model coupling schemes. The full Racah algebra of $3nj$-symbols --- 6-$j$, 9-$j$, and their symmetries --- is the calculus of recoupling; its physical harvest is that any matrix element of a rotation-invariant operator, in any coupling scheme, reduces to a product of 6-$j$ and 9-$j$ symbols times a small number of reduced matrix elements.
 
 \medskip\noindent\textbf{Advantage and limitation.}
 The advantage of the angular momentum coupling formalism is that it separates geometry from dynamics: the CG coefficients \eqref{eq:cg-def} -- or, with greater symmetry, the 3-$j$ symbols \eqref{eq:3j-symbol} -- are fixed by the rotation group alone, encoding the purely geometric content of adding two angular momenta, while the physics -- interaction strengths, energy splittings, transition amplitudes -- enters only through the reduced matrix elements that the Wigner--Eckart theorem will isolate. The Racah closed form \eqref{eq:racah-cg} supplies the CG coefficients in a single analytic expression valid for all ranks, and the recurrence relations \eqref{eq:cg-recurrence} provide the practical computational route. The limitation is that this section treats only two angular momenta in full detail; the addition of three or more, encoded in the 6-$j$ symbols named above and in the full Racah algebra, is deferred to the specialised literature and to Appendix~B. The tensor product space of this section is the simplest instance of the composite-system formalism; its generalization to arbitrary Hilbert spaces and to the partial-trace operation that defines reduced states is the composite-systems chapter's first task.
@@ -1629,6 +1585,59 @@ the normal Zeeman triplet: one unshifted line ($\Delta m = 0$, $\pi$-polarizatio
 
 The advantage of the Wigner--Eckart theorem is its complete separation of geometry from dynamics: all the $m$-dependence of every transition amplitude in every rotation-invariant system is carried by the Clebsch--Gordan coefficients, which are the group-theory bookkeeping, computed once and tabulated for all ranks. Its limitation is equally plain: the theorem says nothing about the reduced matrix element, which must be computed --- or measured --- separately for each physical system. A vector operator's reduced matrix element between two specific levels is the integral of a radial function against the dipole operator; the theorem guarantees that once that one number is known, every matrix element of the operator between every pair of magnetic sublevels of those two multiplets is determined. For the $p\to s$ transition, the nine candidate matrix elements collapse to three nonzero values, and those three share a single reduced matrix element; two numbers --- the reduced matrix element and its complex conjugate --- determine the entire polarization-resolved emission spectrum.
 
+\medskip\noindent\textbf{The 3-$j$ form.} Translating the CG coefficient in \eqref{eq:wigner-eckart} by the 3-$j$ symbol \eqref{eq:3j-symbol} gives the symmetric form
+\begin{linenomath}
+  \begin{equation}
+    \braket{\alpha',j',m'|T^{(k)}_{q}|\alpha,j,m}
+    =(-1)^{j'-m'}\begin{pmatrix}j'&k&j\\ -m'&q&m\end{pmatrix}\!\braket{\alpha',j'\|T^{(k)}\|\alpha,j},
+    \label{eq:we-3j-ch6}
+  \end{equation}
+\end{linenomath}
+in which the three angular momenta --- final, operator, initial --- enter on an equal footing, the $m$-selection rule $m'=m+q$ and the triangle $|j-k|\le j'\le j+k$ are immediate, and the reduced matrix element (double bar) carries all the dynamics, independent of $m,m',q$. This is the form used in atomic- and nuclear-structure codes; the equivalent CG form \eqref{eq:wigner-eckart} is retained for hand calculation.
+
+\medskip\noindent\textbf{The projection theorem.} Within a single $j$-multiplet, every vector operator's matrix elements are proportional to those of $\bm J$ itself: for a vector operator $\bm V$ ($k=1$) diagonal in $j$,
+\begin{linenomath}
+  \begin{equation}
+    \braket{\alpha,j,m|V_{q}|\alpha,j,m'}=\frac{\braket{\alpha,j\|\bm V\|\alpha,j}}{\braket{\alpha,j\|\bm J\|\alpha,j}}\;\braket{\alpha,j,m|J_{q}|\alpha,j,m'}.
+    \label{eq:projection-theorem-ch6}
+  \end{equation}
+\end{linenomath}
+Both sides are rank-1 matrix elements within the same multiplet, so each is the same CG coefficient times its own reduced matrix element; the ratio of the two sides is therefore a constant, the ratio of reduced matrix elements (proof and Condon--Shortley bookkeeping in Appendix~\ref{sec:appendix-tensor-operators}). The theorem's harvest is the Land\'e $g$-factor: the magnetic moment $\bm\mu=-\mu_{B}(\bm L+g_{s}\bm S)/\hbar$ is a vector operator, so within a fixed-$(L,S,J)$ multiplet $\langle\bm\mu\rangle=[\langle\bm\mu\!\cdot\!\bm J\rangle/\hbar^{2}J(J{+}1)]\langle\bm J\rangle$, and the Land\'e formula $g_{J}=1+[J(J{+}1)+S(S{+}1)-L(L{+}1)]/2J(J{+}1)$ of Chapter~8 \eqref{eq:lande-g-factor} follows with no radial integral --- one reduced matrix element fixes an entire multiplet's worth of Zeeman splittings.
+
+\medskip\noindent\textbf{Rank-2 tensors: the electric quadrupole.} The traceless symmetric part of $x_{i}x_{j}$ is a rank-2 irreducible tensor; its spherical components are proportional to the spherical harmonics $Y_{2}^{q}$,
+\begin{linenomath}
+  \begin{equation}
+    Q^{(2)}_{q}=\sqrt{\frac{16\pi}{5}}\;r^{2}Y_{2}^{q}(\hat{\bm r})\propto r^{2}\sqrt{\frac{4\pi}{5}}Y_{2}^{q},\qquad q=-2,\ldots,2,
+    \label{eq:quadrupole-tensor}
+  \end{equation}
+\end{linenomath}
+the \textbf{electric quadrupole operator}. The Wigner--Eckart selection rules \eqref{eq:wigner-eckart-selection} permit $\Delta j=0,\pm1,\pm2$ (with $j=1/2\to1/2$ and $0\to0,1$ forbidden by the triangle), the next channel beyond the dipole. The quadrupole moment of a deformed nucleus or atom, $Q=\braket{j,j|Q^{(2)}_{0}|j,j}$, is the single reduced matrix element that characterizes the charge distribution's departure from spherical symmetry; it is measured by the hyperfine splitting it induces (the quadrupole interaction $H_{Q}\propto\bm I\cdot\bm Q$, a scalar product of two rank-2 tensors). The general pattern: any Cartesian tensor operator, of any rank, is first decomposed into its irreducible spherical pieces (Section~\ref{sec:rotation-group}), and each piece is then priced by one reduced matrix element.
+
+\medskip\noindent\textbf{Spin--orbit coupling as a scalar product.} The spin--orbit Hamiltonian $H_{\mathrm{so}}=\xi(r)\,\bm L\!\cdot\!\bm S$ is a \emph{scalar} under rotations --- it must be, to appear in a rotation-invariant Hamiltonian --- built from two vector (rank-1) operators. The scalar product of two irreducible tensors of equal rank is the $J=0$ contraction
+\begin{linenomath}
+  \begin{equation}
+    \bm L\!\cdot\!\bm S=\sum_{q=-1}^{1}(-1)^{q}\,L^{(1)}_{q}\,S^{(1)}_{-q}=\sqrt{3}\,\bigl(L^{(1)}\otimes S^{(1)}\bigr)^{(0)}_{0},
+    \label{eq:scalar-product}
+  \end{equation}
+\end{linenomath}
+the rank-0 component of the tensor product $L^{(1)}\otimes S^{(1)}$. Applying the Wigner--Eckart theorem to this scalar (or, equivalently, evaluating the CG coefficient for coupling two rank-1 tensors to $J=0$) gives $\braket{LSJM|\bm L\!\cdot\!\bm S|LSJM}=\tfrac12[J(J{+}1)-L(L{+}1)-S(S{+}1)]\hbar^{2}$, and the spin--orbit energy
+\begin{linenomath}
+  \begin{equation}
+    E_{J}^{\mathrm{(so)}}=\tfrac12\,A\,\bigl[J(J{+}1)-L(L{+}1)-S(S{+}1)\bigr],
+    \label{eq:lande-interval}
+  \end{equation}
+\end{linenomath}
+with $A=\braket\xi(r)$ a single radial integral. The level spacing $E_{J}-E_{J-1}=AJ$ is the \textbf{Land\'e interval rule}: consecutive fine-structure levels of a given term separate in proportion to $J$. The rule is a direct prediction of the Wigner--Eckart theorem and is verified throughout atomic spectroscopy; the fine-structure perturbation of Chapter~8 \eqref{eq:fine-structure-hamiltonian} is its specialization to hydrogen.
+
+\medskip\noindent\textbf{Multipole expansion.} Any rotation-invariant interaction of two localized charge distributions separates into multipoles through
+\begin{linenomath}
+  \begin{equation}
+    \frac{1}{|\bm r-\bm r'|}=\sum_{\ell=0}^{\infty}\frac{4\pi}{2\ell+1}\frac{r_{<}^{\ell}}{r_{>}^{\ell+1}}\sum_{m=-\ell}^{\ell}Y_{\ell}^{m*}(\hat{\bm r}')\,Y_{\ell}^{m}(\hat{\bm r}),
+    \label{eq:multipole-expansion}
+  \end{equation}
+\end{linenomath}
+where $r_{<}$ ($r_{>}$) is the lesser (greater) of $r,r'$. Each $\ell$-term is a scalar (rank-0) built from two rank-$\ell$ tensors coupled to $J=0$, exactly the pattern of \eqref{eq:scalar-product}; the multipole moments $Q_{\ell m}=\int\rho(\bm r)\,r^{\ell}Y_{\ell}^{m}(\hat{\bm r})\,\dd^{3}r$ are the irreducible-tensor components of the charge distribution, transforming under rotations by $D^{(\ell)}$ via \eqref{eq:Ylm-rotation-ch6}. The $\ell=0,1,2$ terms are the monopole (total charge), dipole, and quadrupole \eqref{eq:quadrupole-tensor}; higher multipoles follow the same pattern. The Wigner--Eckart theorem is the unifying engine: every multipole--multipole interaction, every selection rule, and every intensity ratio in atomic, molecular, and nuclear spectroscopy is a Clebsch--Gordan coefficient times a reduced matrix element.
+
 The chapter's two towers --- the angular momentum algebra of Sections~\ref{sec:angular-momentum-algebra} and~\ref{sec:angular-momentum-coupling}, and the Wigner--Eckart engine of this section --- are now complete. The algebra delivered the spectrum and the coupling rules; the Wigner--Eckart theorem converts the coupling rules into spectroscopic selection rules and relative intensities. What remains is to deploy the entire machinery on the atom that launched the quantum theory: the hydrogen atom, whose Coulomb potential is the central-potential problem par excellence, and whose spectrum is the book's oldest unpaid debt.
 
 \section{The Hydrogen Atom: Fruit of Rotational Symmetry}
@@ -1829,7 +1838,7 @@ The agreement is to one part in $10^4$; the residual difference --- the reduced-
 d_n = \sum_{\ell=0}^{n-1} (2\ell+1) = n^2 .
 \end{equation*}
 \end{linenomath}
-With the electron spin included, the degeneracy is $2n^2$. The $m$-degeneracy ($2\ell+1$ within each $\ell$) is forced by rotation invariance: it is the level-local corollary \eqref{eq:degeneracy-invariance} at work, the $m$-multiplet of Section~\ref{sec:angular-momentum-algebra}. The $\ell$-degeneracy --- that all $\ell < n$ share the same $E_n$ --- is of a different character. It is \emph{accidental} in the sense of the rotation group: no three-dimensional rotation mixes states of different $\ell$, yet the Coulomb potential gives them equal energy. The extra degeneracy signals a higher symmetry --- the $1/r$ potential admits a conserved vector, the Runge--Lenz vector, which together with $\bm L$ generates the group SO(4).\footnote{The Runge--Lenz vector is $\bm A = (\bm p\times\bm L - \bm L\times\bm p)/2m - e^2\bm r/r$; classically it points along the major axis of the Kepler ellipse, and quantum-mechanically its commutation relations with $\bm L$ close the SO(4) algebra. The SO(4) explanation of the $n^2$ degeneracy was given by Pauli (1926) and by Fock (1935). The group is named here; its algebra is developed in Appendix~B.} The rotation group SO(3) forces the $2\ell+1$ degeneracy; the Coulomb group SO(4) forces the $n^2$ degeneracy. The distinction matters: in a non-Coulomb central potential, the $\ell$-degeneracy is lifted, and the levels depend on both $n$ and $\ell$, while the $m$-degeneracy persists.
+With the electron spin included, the degeneracy is $2n^2$. The $m$-degeneracy ($2\ell+1$ within each $\ell$) is forced by rotation invariance: it is the level-local corollary \eqref{eq:degeneracy-invariance} at work, the $m$-multiplet of Section~\ref{sec:angular-momentum-algebra}. The $\ell$-degeneracy --- that all $\ell < n$ share the same $E_n$ --- is of a different character. It is \emph{accidental} in the sense of the rotation group: no three-dimensional rotation mixes states of different $\ell$, yet the Coulomb potential gives them equal energy. The extra degeneracy signals a higher symmetry --- the $1/r$ potential admits a conserved vector, the Runge--Lenz vector, which together with $\bm L$ generates the group SO(4).\footnote{The Runge--Lenz vector is $\bm A = (\bm p\times\bm L - \bm L\times\bm p)/2m - e^2\bm r/r$; classically it points along the major axis of the Kepler ellipse, and quantum-mechanically its commutation relations with $\bm L$ close the SO(4) algebra. The SO(4) explanation of the $n^2$ degeneracy was given by Pauli (1926) and by Fock (1935). The group is named here; its algebra is developed in \S\ref{sec:appendix-so4}.} The rotation group SO(3) forces the $2\ell+1$ degeneracy; the Coulomb group SO(4) forces the $n^2$ degeneracy. The distinction matters: in a non-Coulomb central potential, the $\ell$-degeneracy is lifted, and the levels depend on both $n$ and $\ell$, while the $m$-degeneracy persists.
 
 \medskip\noindent\textbf{Radial wave functions.} The terminated series $v(\rho)$ is a polynomial of degree $n_r = n-\ell-1$. The resulting radial functions are expressed in terms of the associated Laguerre polynomials $L_{p}^{(q)}$:
 \begin{linenomath}

@@ -30,7 +30,7 @@ Harmonic oscillator spectrum (cross-check) & ch5 \S\ref{sec:harmonic-oscillator}
 \end{tabular}
 \end{table}
 
-\medskip\noindent The chapter proceeds in seven sections. Section~\ref{sec:propagator-review} reviews the propagator machinery of Chapter~5, poses the question of the short-time kernel, and derives it by the Trotter factorization --- the single technical tool the construction needs beyond the existing axioms. Section~\ref{sec:feynman-construction} composes the short-time kernels into the $N$-slice product, takes the limit, and obtains the Feynman path integral in its discretized and symbolic forms, with the free particle verified exactly. Section~\ref{sec:classical-limit} applies stationary phase to recover the classical limit and repays the Hamilton-Jacobi debt. Section~\ref{sec:harmonic-oscillator-path-integral} evaluates the harmonic oscillator exactly, yielding the Mehler kernel and the spectrum. Section~\ref{sec:aharonov-bohm} presents the Aharonov-Bohm effect as a topological application. Section~\ref{sec:wkb} develops the WKB method and repays the Bohr-Sommerfeld debt. Section~\ref{sec:ch9summary} collects the principles, balances the ledger, and hands the functional-integral template to the field chapter.
+\medskip\noindent The chapter proceeds in nine sections. Section~\ref{sec:propagator-review} reviews the propagator machinery of Chapter~5, poses the question of the short-time kernel, and derives it by the Trotter factorization --- the single technical tool the construction needs beyond the existing axioms. Section~\ref{sec:feynman-construction} composes the short-time kernels into the $N$-slice product, takes the limit, and obtains the Feynman path integral in its discretized and symbolic forms, with the free particle verified exactly. Section~\ref{sec:classical-limit} applies stationary phase to recover the classical limit and repays the Hamilton-Jacobi debt. Section~\ref{sec:harmonic-oscillator-path-integral} evaluates the harmonic oscillator exactly, yielding the Mehler kernel and the spectrum. Section~\ref{sec:aharonov-bohm} presents the Aharonov-Bohm effect as a topological application. Section~\ref{sec:wkb} develops the WKB method and repays the Bohr-Sommerfeld debt. Section~\ref{sec:spin-path-integral} constructs the path integral for spin systems from spin coherent states, deriving the Wess-Zumino action and the path topology that quantizes spin. Section~\ref{sec:coherent-state-path-integral} builds the holomorphic coherent-state path integral for bosonic systems, unifying the harmonic-oscillator ladder algebra with the path-integral formalism and providing the template for the functional integral over fields in Chapter~10. Section~\ref{sec:ch9summary} collects the principles, balances the ledger, and hands the functional-integral template to the field chapter.
 
 
 \section{The Propagator Reviewed: Kernel, Composition, and the Short-Time Kernel}
@@ -1397,14 +1397,388 @@ where $\omega$ is the small-oscillation frequency in each well and $E_0 \approx 
 The WKB method closes the circle that Chapter~1 opened. The quantization rules the old quantum theory postulated --- $\oint p_i\,dq_i = n_i h$ --- are derived as the leading order of a systematic semiclassical expansion. The Maslov index $1/2$ is the quantum correction they lacked, and it is the zero-point energy's semiclassical face. The chapter's debts are now repaid; the ledger is balanced in the summary that follows.
 
 
-\section{The Path Integral Formulation: Summary and Open Debts}
-\label{sec:ch9summary}
+\section{The Spin Path Integral}
+\label{sec:spin-path-integral}
 
-Chapter~9 constructed Feynman's path integral from the propagator composition property planted in Chapter~5, time-sliced the evolution operator, and identified the classical action as the phase of the short-time kernel. The classical limit emerged from the stationary-phase approximation, the harmonic oscillator was solved exactly via the quadratic fluctuation determinant, the Aharonov-Bohm effect revealed the role of configuration-space topology, and the WKB method derived the corrected Bohr-Sommerfeld quantization condition --- repaying the book's oldest debts. This section consolidates the chapter into principles, balances the ledger, exhibits the experiment--formalism dictionary, and poses the exit question that launches Chapter~10.
+The path integral constructed in Sections~\ref{sec:propagator-review}--\ref{sec:feynman-construction} sums over histories of a particle's position --- a continuous coordinate $x(t)$. Spin is not such a coordinate. It takes discrete values, has no classical analogue in the sense of a point moving in a continuous configuration space, and is described by a finite-dimensional Hilbert space $\mathbb{C}^{2s+1}$. Yet there exists a path-integral representation for spin: the configuration space is the Bloch sphere $S^{2}$, the paths are trajectories $\hat{\bm n}(t)$ on that sphere, and the action contains a topological term --- the Wess-Zumino (Berry phase) term --- whose single-valuedness quantizes the spin. This section constructs that representation.
+
+\begin{note}
+The symbol $\int\mathcal{D}\hat{\bm n}$ in this section is formal notation for the limiting discretized product defined over the Bloch sphere, exactly as $\int\mathcal{D}x$ was defined over $\mathbb{R}$ in Section~\ref{sec:feynman-construction}. Its sole rigorous content is the limit of the $N$-slice product of spin-coherent-state resolutions of identity.
+\end{note}
+
+\subsection{Motivation: Why a Path Integral for Spin?}
+
+A particle with spin moving in space has the tensor-product Hilbert space $L^{2}(\mathbb{R}^{3})\otimes\mathbb{C}^{2s+1}$; its position degree of freedom is treated by the Feynman path integral of Section~\ref{sec:feynman-construction}, and its spin degree of freedom by the construction of this section. The separation is not a theorem --- kinetic and spin terms in the Hamiltonian may couple --- but when the spin dynamics is governed by a Hamiltonian $H(\bm S)$ that depends only on the spin operators, the spin path integral is a closed description. The construction also serves a second purpose: it exhibits the Wess-Zumino term, the simplest topological term in a quantum action, whose cousins (the Wess-Zumino-Witten term in two spacetime dimensions, the Chern-Simons term in three) are central to quantum field theory. The spin path integral is the mechanical prototype of every topological term in this book.
+
+The configuration space for a spin is not a flat manifold. A spin-$s$ system has $2s+1$ orthogonal states. The set of all normalized states is the complex projective space $\mathbb{CP}^{2s}$, of real dimension $4s$. The states that can be obtained by rotating the highest-weight state $|s,s\rangle$ form a submanifold: the orbit of the rotation group acting on a fixed state. Since the stabilizer of $|s,s\rangle$ under rotations about the $z$-axis is $\mathrm{U}(1)$, the orbit is the coset space
+\begin{linenomath}
+\begin{equation}
+\mathrm{SU}(2)/\mathrm{U}(1) \cong S^{2},
+\end{equation}
+\end{linenomath}
+the Bloch sphere. Every point on this sphere labels a coherent state; the sphere is the classical phase space of a spin, with the Poisson bracket $\{S_i, S_j\} = \epsilon_{ijk}S_k$ inherited from the quantum commutator. The spin path integral sums over trajectories on this sphere.
+
+\subsection{Spin Coherent States}
+
+\medskip\noindent\textbf{Definition.} For a spin-$s$ system, the spin coherent state $|\hat{\bm n}\rangle$ directed along the unit vector $\hat{\bm n} = (\sin\theta\cos\phi,\;\sin\theta\sin\phi,\;\cos\theta)$ is the state obtained by rotating the highest-weight state $|s,s\rangle$ from the north pole to $\hat{\bm n}$:
+\begin{linenomath}
+\begin{equation}
+|\hat{\bm n}\rangle := e^{-i\phi S_{z}/\hbar}\,e^{-i\theta S_{y}/\hbar}\,|s,s\rangle .
+\label{eq:spin-coherent-state-def}
+\end{equation}
+\end{linenomath}
+The state is normalized, $\langle\hat{\bm n}|\hat{\bm n}\rangle = 1$, and satisfies the eigenvalue-like property $\hat{\bm n}\!\cdot\!\bm S\,|\hat{\bm n}\rangle = \hbar s\,|\hat{\bm n}\rangle$: the projection of the spin along the direction $\hat{\bm n}$ is maximal. For the two-state system ($s = 1/2$), the coherent states are precisely the spin-$\bm n$ basis of Chapter~2 (\eqref{eq:spin-n}), covering the Bloch sphere exactly once.
+
+\medskip\noindent\textbf{Overlap.} The inner product of two spin coherent states is
+\begin{linenomath}
+\begin{equation}
+\langle\hat{\bm n}_{1}|\hat{\bm n}_{2}\rangle
+= \Bigl[\frac{1}{2}\bigl(1 + \hat{\bm n}_{1}\!\cdot\!\hat{\bm n}_{2}\bigr)\Bigr]^{s}\,
+e^{i s\,\Phi(\hat{\bm n}_{1},\hat{\bm n}_{2},\hat{\bm z})},
+\label{eq:spin-coherent-overlap}
+\end{equation}
+\end{linenomath}
+where $\Phi$ is the solid angle (Berry phase) of the spherical triangle formed by the geodesics connecting $\hat{\bm z}$, $\hat{\bm n}_{1}$, and $\hat{\bm n}_{2}$ on the sphere. The phase is geometric: it depends only on the area of the triangle, not on the path taken. For $s=1/2$, the modulus squared reproduces the Malus law of the two-state grammar: $|\langle\hat{\bm n}_{1}|\hat{\bm n}_{2}\rangle|^{2} = (1 + \hat{\bm n}_{1}\!\cdot\!\hat{\bm n}_{2})/2$.
+
+\medskip\noindent\textbf{Resolution of identity.} The spin coherent states form an overcomplete basis. The resolution of identity on the spin-$s$ Hilbert space is
+\begin{linenomath}
+\begin{equation}
+\frac{2s+1}{4\pi}\int_{S^{2}} d\Omega\;|\hat{\bm n}\rangle\langle\hat{\bm n}| = I,
+\qquad d\Omega = \sin\theta\,d\theta\,d\phi,
+\label{eq:spin-resolution-identity}
+\end{equation}
+\end{linenomath}
+with the integral over the unit sphere. The proof is an application of the Wigner $D$-matrix orthogonality and is cited from the angular-momentum chapter's representation theory (Appendix~B). The pre-factor $(2s+1)/4\pi$ ensures the correct trace: $\tr I = 2s+1$.
+
+\subsection{The Spin Path Integral Construction}
+
+\medskip\noindent\textbf{Time-slicing with coherent states.} The evolution operator for a spin Hamiltonian $H(\bm S)$ is $U(t) = e^{-iHt/\hbar}$. Slice the time interval $[0,t]$ into $N$ steps of duration $\varepsilon = t/N$ and insert the resolution of identity (\eqref{eq:spin-resolution-identity}) at each interior time:
+\begin{linenomath}
+\begin{equation}
+U(t) = \lim_{N\to\infty}\int \prod_{k=1}^{N-1}\Bigl(\frac{2s+1}{4\pi}\,d\Omega_{k}\Bigr)\;
+\prod_{k=0}^{N-1}|\hat{\bm n}_{k+1}\rangle\langle\hat{\bm n}_{k+1}|\,
+e^{-i\varepsilon H(\bm S)/\hbar}\,|\hat{\bm n}_{k}\rangle .
+\label{eq:spin-time-slicing}
+\end{equation}
+\end{linenomath}
+with $|\hat{\bm n}_{0}\rangle = |\hat{\bm n}(0)\rangle$ the initial state and $\hat{\bm n}_{N} = \hat{\bm n}(t)$ the final direction.
+
+\medskip\noindent\textbf{Short-time kernel.} For infinitesimal $\varepsilon$, the short-time amplitude factorizes:
+\begin{linenomath}
+\begin{equation}
+\langle\hat{\bm n}_{k+1}|e^{-i\varepsilon H(\bm S)/\hbar}|\hat{\bm n}_{k}\rangle
+\approx \langle\hat{\bm n}_{k+1}|\hat{\bm n}_{k}\rangle\,
+e^{-i\varepsilon H(\hat{\bm n}_{k+1})/\hbar},
+\label{eq:spin-short-time}
+\end{equation}
+\end{linenomath}
+where $H(\hat{\bm n}) := \langle\hat{\bm n}|H(\bm S)|\hat{\bm n}\rangle$ is the expectation value (the ``classical'' Hamiltonian on the Bloch sphere); the error is $O(\varepsilon^{2})$ by the Trotter logic of Section~\ref{sec:propagator-review}. The overlap factor cannot be reduced to unity: it carries the kinetic (Berry phase) term that will become the Wess-Zumino action.
+
+\medskip\noindent\textbf{The overlap as a phase.} For small angular separation between successive slices, $\hat{\bm n}_{k+1} \approx \hat{\bm n}_{k} + \Delta\hat{\bm n}_{k}$ with $|\Delta\hat{\bm n}_{k}| \ll 1$. Expanding the overlap (\eqref{eq:spin-coherent-overlap}):
+\begin{linenomath}
+\begin{equation}
+\langle\hat{\bm n}_{k+1}|\hat{\bm n}_{k}\rangle
+\approx \exp\!\Bigl[i s\,\Delta\phi_{k}\,(1 - \cos\theta_{k})\Bigr]\,
+\Bigl[1 - \frac{s}{4}\,|\Delta\hat{\bm n}_{k}|^{2} + \cdots\Bigr] .
+\label{eq:spin-overlap-expanded}
+\end{equation}
+\end{linenomath}
+The phase contains the discrete form of the Wess-Zumino term; the modulus supplies a Gaussian fluctuation factor that keeps the path near the classical trajectory. In the continuum limit $\varepsilon \to 0$, $N \to \infty$, the $N$-slice product assembles into the path integral:
+\begin{linenomath}
+\begin{equation}
+\boxed{K(\hat{\bm n},t;\hat{\bm n}',0) = \int_{\hat{\bm n}(0)=\hat{\bm n}'}^{\hat{\bm n}(t)=\hat{\bm n}} \mathcal{D}\hat{\bm n}\;
+\exp\!\Bigl[\frac{i}{\hbar}\,S_{\mathrm{eff}}[\hat{\bm n}]\Bigr]} ,
+\label{eq:spin-path-integral}
+\end{equation}
+\end{linenomath}
+with the effective action
+\begin{linenomath}
+\begin{equation}
+S_{\mathrm{eff}}[\hat{\bm n}] = \hbar s\int_{0}^{t} dt'\,(1 - \cos\theta)\,\dot{\phi}\;-\; \int_{0}^{t} dt'\,H(\hat{\bm n}(t')) .
+\label{eq:spin-effective-action}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{The Wess-Zumino term.} The first term,
+\begin{linenomath}
+\begin{equation}
+S_{\mathrm{WZ}}[\hat{\bm n}] := \hbar s\int_{0}^{t} dt'\,(1 - \cos\theta)\,\dot{\phi}
+= \hbar s\int_{0}^{t} dt'\,\bm A(\hat{\bm n})\!\cdot\!\dot{\hat{\bm n}},
+\label{eq:wz-term}
+\end{equation}
+\end{linenomath}
+is the \textbf{Wess-Zumino term} (also called the Berry phase action). The vector $\bm A(\hat{\bm n})$ is the Dirac monopole vector potential on the sphere: $\nabla_{\hat{\bm n}} \times \bm A = \hat{\bm n}$. The term measures the area on the Bloch sphere swept by the spin trajectory. Its integral over a closed path is $\hbar s$ times the solid angle enclosed --- the Berry phase. In the Lagrangian register, $L_{\mathrm{WZ}} = \hbar s(1-\cos\theta)\dot{\phi}$; the canonical momentum conjugate to $\phi$ is $p_{\phi} = \partial L_{\mathrm{WZ}}/\partial\dot{\phi} = \hbar s(1-\cos\theta) = S_{z}$, and the symplectic form $\omega = dp_{\phi}\wedge d\phi = \hbar s\sin\theta\,d\theta\wedge d\phi$ is the area element on the Bloch sphere --- the classical Poisson bracket of a spin.
+
+\medskip\noindent\textbf{Quantization of spin from path topology.} The Wess-Zumino term is not single-valued on the sphere. Under a gauge transformation (a different choice of the reference state for the coherent-state phase convention), the term changes by a total derivative. The ambiguity is physical: for the evolution operator to be well-defined, the path integral must be independent of the choice. This requires that the WZ term for any \emph{closed} path be an integer multiple of $2\pi\hbar$:
+\begin{linenomath}
+\begin{equation}
+\frac{1}{\hbar}S_{\mathrm{WZ}}[\text{closed path}] = s\cdot(\text{solid angle}) = 2\pi n,
+\qquad n \in \mathbb{Z}.
+\label{eq:spin-quantization}
+\end{equation}
+\end{linenomath}
+A closed path on the sphere encloses a solid angle of $4\pi n$; therefore $2s$ must be an integer. Spin quantization --- $s = 0, 1/2, 1, 3/2, \ldots$ --- emerges from the requirement that the path integral be well-defined. This is the path-integral version of the angular-momentum quantization derived algebraically in Chapter~6; here the same result follows from the topology of the Bloch sphere, exactly as the Dirac quantization of magnetic charge follows from the topology of the Hopf bundle.
+
+\subsection{Example: Spin-$1/2$ in a Magnetic Field}
+
+For a spin-$1/2$ particle in a static magnetic field $\bm B = B\,\hat{\bm z}$, the Hamiltonian is $H = -\gamma\bm B\!\cdot\!\bm S = -(\hbar\omega/2)\,\sigma_{z}$ with $\omega = \gamma B$, the Larmor frequency of Section~\ref{sec:spin-precession}. The classical Hamiltonian on the Bloch sphere is $H(\hat{\bm n}) = \langle\hat{\bm n}|H|\hat{\bm n}\rangle = -(\hbar\omega/2)\cos\theta$. The effective action \eqref{eq:spin-effective-action} becomes
+\begin{linenomath}
+\begin{equation}
+S_{\mathrm{eff}}[\theta,\phi] = \int_{0}^{t} dt'\,\Bigl[
+\frac{\hbar}{2}(1-\cos\theta)\,\dot{\phi} + \frac{\hbar\omega}{2}\cos\theta\Bigr] .
+\label{eq:spin-action-magnetic}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Classical equation: Landau-Lifshitz.} The stationary-phase condition $\delta S_{\mathrm{eff}} = 0$ yields the classical equation of motion. Varying with respect to $\theta$ and $\phi$:
+\begin{linenomath}
+\begin{align}
+\frac{\delta S_{\mathrm{eff}}}{\delta\phi} = 0 &: \quad \frac{d}{dt}\Bigl[\frac{\hbar}{2}(1-\cos\theta)\Bigr] = 0
+\;\Longrightarrow\; \dot{\theta} = 0, \\
+\frac{\delta S_{\mathrm{eff}}}{\delta\theta} = 0 &: \quad \frac{\hbar}{2}\sin\theta\,\dot{\phi} - \frac{\hbar\omega}{2}\sin\theta = 0
+\;\Longrightarrow\; \dot{\phi} = \omega .
+\end{align}
+\end{linenomath}
+The classical trajectory is $\theta = \text{const}$, $\phi(t) = \phi_{0} + \omega t$: uniform precession of the spin vector about the field axis at the Larmor frequency. In vector form, $\dot{\hat{\bm n}} = \omega\,\hat{\bm z}\times\hat{\bm n}$, which is the Landau-Lifshitz equation for a spin in a magnetic field. The stationary-phase limit of the spin path integral reproduces the classical spin dynamics, exactly as the stationary-phase limit of the Feynman path integral reproduced Newton's equation for a particle.
+
+\medskip\noindent\textbf{Gaussian fluctuations and the propagator.} Expanding the action to quadratic order around the classical path and performing the Gaussian functional integral (the spin analogue of the fluctuation determinant in Section~\ref{sec:harmonic-oscillator-path-integral}) recovers the exact two-state propagator. The calculation is Exercise~11; the result must match the Larmor precession kernel embedded in the spin-$\bm n$ basis. The agreement is a consistency check: the spin path integral and the canonical operator formalism are one dynamics, written in two registers.
+
+\medskip\noindent\textbf{Advantage and limitation.} The advantage of the spin path integral is conceptual: it reveals the geometric origin of spin quantization as a topological consistency condition on the path integral, and it makes the classical limit of a spin system --- the Landau-Lifshitz dynamics --- transparent. Its limitation is calculational: explicit evaluation of the spin path integral beyond the stationary-phase approximation is rarely simpler than the canonical operator method. The spin path integral earns its keep in two regimes: (i) semiclassical spin dynamics, where $\hbar s$ is large and the stationary-phase approximation is accurate; and (ii) systems where the spin couples to other degrees of freedom and a unified path-integral treatment is natural. The forward debt --- instantons in spin systems, quantum tunneling of magnetization, and the Wess-Zumino-Witten term in field theory --- is planted here.
+
+
+\section{The Coherent State Path Integral for Bosons}
+\label{sec:coherent-state-path-integral}
+
+The spin path integral of Section~\ref{sec:spin-path-integral} used the overcomplete basis of spin coherent states on the Bloch sphere. Bosonic systems admit an analogous construction: the overcomplete basis of harmonic-oscillator coherent states $|z\rangle$, eigenstates of the annihilation operator. The resulting path integral unifies the operator ladder algebra of Chapter~5 with the Feynman sum over histories of this chapter, and it supplies the template --- the functional integral over complex fields --- on which every relativistic quantum field theory is built. This section constructs the bosonic coherent-state path integral, verifies it on the harmonic oscillator, and extracts the generating functional and Wick's theorem.
+
+\begin{note}
+The symbol $\int\mathcal{D}[z,\bar z]$ is formal notation for the limiting discretized product defined in Section~\ref{sec:feynman-construction}, with the coherent-state measure $d^{2}z_{k}/\pi$ replacing the position-space measure $dx_{k}$ at each slice. Its sole rigorous content is the limit of the $N$-slice product.
+\end{note}
+
+\subsection{Holomorphic (Bargmann) Coherent States}
+
+\medskip\noindent\textbf{Definition.} The bosonic coherent state $|z\rangle$ labelled by the complex number $z \in \mathbb{C}$ is
+\begin{linenomath}
+\begin{equation}
+|z\rangle := e^{-|z|^{2}/2}\,\sum_{n=0}^{\infty}\frac{z^{n}}{\sqrt{n!}}\,|n\rangle
+= e^{-|z|^{2}/2}\,e^{z a^{\dagger}}\,|0\rangle,
+\label{eq:bargmann-coherent-state}
+\end{equation}
+\end{linenomath}
+where $|n\rangle$ are the harmonic-oscillator number eigenstates of Chapter~5 (\eqref{eq:number-spectrum}) and $a^{\dagger}$ is the creation operator. The state is normalized: $\langle z|z\rangle = 1$. Its defining property is that it is an eigenstate of the annihilation operator:
+\begin{linenomath}
+\begin{equation}
+a\,|z\rangle = z\,|z\rangle,
+\qquad
+\langle z|\,a^{\dagger} = \bar z\,\langle z|.
+\label{eq:coherent-state-eigenvalue}
+\end{equation}
+\end{linenomath}
+No two coherent states are orthogonal; they are an overcomplete set spanning the entire oscillator Hilbert space. The complex number $z$ is the classical analogue of the oscillator amplitude: $\langle z|Q|z\rangle = \sqrt{2\hbar/m\omega}\,\mathrm{Re}\,z$ and $\langle z|P|z\rangle = \sqrt{2\hbar m\omega}\,\mathrm{Im}\,z$, so the phase-space coordinates are $q = \sqrt{2\hbar/m\omega}\,\mathrm{Re}\,z$, $p = \sqrt{2\hbar m\omega}\,\mathrm{Im}\,z$.
+
+\medskip\noindent\textbf{Overlap and resolution of identity.} The inner product of two coherent states is
+\begin{linenomath}
+\begin{equation}
+\langle z_{1}|z_{2}\rangle
+= e^{-|z_{1}|^{2}/2 - |z_{2}|^{2}/2 + \bar z_{1}z_{2}} .
+\label{eq:coherent-state-overlap}
+\end{equation}
+\end{linenomath}
+The states resolve the identity on the oscillator Hilbert space:
+\begin{linenomath}
+\begin{equation}
+\frac{1}{\pi}\int d^{2}z\;|z\rangle\langle z| = I,
+\qquad d^{2}z := d(\mathrm{Re}\,z)\,d(\mathrm{Im}\,z),
+\label{eq:coherent-resolution-identity}
+\end{equation}
+\end{linenomath}
+with the integral over the full complex plane. The proof is one line in the number basis: $\frac{1}{\pi}\int d^{2}z\,e^{-|z|^{2}}\,\frac{\bar z^{m}z^{n}}{\sqrt{m!\,n!}} = \delta_{mn}$, by converting to polar coordinates $z = r e^{i\phi}$; the radial integral yields $n!$ and cancels the factorial in the normalization. The measure $d^{2}z/\pi$ assigns weight $1/\pi$ per complex dimension.
+
+\subsection{The Bosonic Coherent-State Path Integral Construction}
+
+\medskip\noindent\textbf{Time-slicing.} For a Hamiltonian $H(a^{\dagger}, a)$ expressed in terms of creation and annihilation operators, the evolution operator is sliced with coherent-state resolutions of identity. With $N$ steps of duration $\varepsilon = t/N$:
+\begin{linenomath}
+\begin{equation}
+U(t) = \lim_{N\to\infty} \int \prod_{k=1}^{N-1}\frac{d^{2}z_{k}}{\pi}\;
+\prod_{k=0}^{N-1}|z_{k+1}\rangle\langle z_{k+1}|\,e^{-i\varepsilon H/\hbar}\,|z_{k}\rangle,
+\label{eq:boson-time-slicing}
+\end{equation}
+\end{linenomath}
+with the boundary data $|z_{0}\rangle$ and $\langle z_{N}|$ (or, for the kernel between coherent states, both boundaries specified).
+
+\medskip\noindent\textbf{Short-time kernel.} For small $\varepsilon$, the short-time amplitude is
+\begin{linenomath}
+\begin{equation}
+\langle z_{k+1}|e^{-i\varepsilon H(a^{\dagger},a)/\hbar}|z_{k}\rangle
+\approx \langle z_{k+1}|z_{k}\rangle\;
+e^{-i\varepsilon H(\bar z_{k+1},z_{k})/\hbar},
+\label{eq:boson-short-time}
+\end{equation}
+\end{linenomath}
+where $H(\bar z, z) := \langle z|H(a^{\dagger},a)|z\rangle$ is the expectation value in the coherent state --- the normal-ordered symbol of the Hamiltonian. The error is $O(\varepsilon^{2})$ by the Trotter logic of Section~\ref{sec:propagator-review}. The overlap supplies the kinetic (``$\bar z\dot z$'') term. For a single slice, with $z_{k+1} - z_{k} = \Delta z_{k}$,
+\begin{linenomath}
+\begin{equation}
+\langle z_{k+1}|z_{k}\rangle
+= \exp\!\Bigl[-\frac{1}{2}|z_{k+1}|^{2} - \frac{1}{2}|z_{k}|^{2} + \bar z_{k+1}z_{k}\Bigr]
+= \exp\!\Bigl[\frac{1}{2}\bigl(\bar z_{k+1}\Delta z_{k} - \bar\Delta z_{k}\,z_{k}\bigr)\Bigr].
+\label{eq:overlap-difference}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{The continuum action.} In the limit $\varepsilon \to 0$, $N \to \infty$, the exponent of the $N$-slice product assembles into the action integral:
+\begin{linenomath}
+\begin{equation}
+\boxed{K(\bar z, t; z',0) = \int_{z(0)=z'}^{\bar z(t)=\bar z} \mathcal{D}[z,\bar z]\;
+\exp\!\Bigl[\frac{i}{\hbar}\,S[z,\bar z]\Bigr]} ,
+\label{eq:coherent-path-integral}
+\end{equation}
+\end{linenomath}
+with the action in holomorphic form:
+\begin{linenomath}
+\begin{equation}
+S[z,\bar z] = \int_{0}^{t} dt'\,\Bigl[\frac{i\hbar}{2}\bigl(\bar z\dot z - \dot{\bar z}z\bigr) - H(\bar z, z)\Bigr].
+\label{eq:holomorphic-action}
+\end{equation}
+\end{linenomath}
+The kinetic term $\frac{i\hbar}{2}(\bar z\dot z - \dot{\bar z}z)$ is the symplectic (Berry-phase) term for the complex plane; it is $i\hbar\bar z\dot z$ up to a total time derivative, so the action is conventionally written
+\begin{linenomath}
+\begin{equation}
+S[z,\bar z] = \int_{0}^{t} dt'\,\bigl[i\hbar\,\bar z\dot z - H(\bar z, z)\bigr],
+\label{eq:holomorphic-action-standard}
+\end{equation}
+\end{linenomath}
+the difference being an endpoint contribution that does not affect the equations of motion. The symplectic form is $\omega = i\hbar\,d\bar z \wedge dz$, corresponding to the Poisson bracket $\{z, \bar z\} = 1/i\hbar$, which is the classical limit of the canonical commutator $[a, a^{\dagger}] = 1$.
+
+\medskip\noindent\textbf{The measure.} The measure is the formal notation for the limiting discretized product:
+\begin{linenomath}
+\begin{equation}
+\int\mathcal{D}[z,\bar z] := \lim_{N\to\infty}\;\prod_{k=1}^{N-1}\int\frac{d^{2}z_{k}}{\pi},
+\label{eq:boson-measure}
+\end{equation}
+\end{linenomath}
+exactly as the position-space measure $\int\mathcal{D}x$ was defined in Section~\ref{sec:feynman-construction}.
+
+\subsection{Example: The Harmonic Oscillator Revisited}
+
+For the harmonic oscillator, the (normal-ordered) Hamiltonian in coherent-state language is $H(\bar z, z) = \hbar\omega\,\bar z z$. The action \eqref{eq:holomorphic-action-standard} becomes
+\begin{linenomath}
+\begin{equation}
+S[z,\bar z] = \int_{0}^{t} dt'\,\bigl[i\hbar\,\bar z\dot z - \hbar\omega\,\bar z z\bigr].
+\label{eq:ho-coherent-action}
+\end{equation}
+\end{linenomath}
+
+\medskip\noindent\textbf{Classical equation.} Varying $\bar z$ and $z$ independently:
+\begin{linenomath}
+\begin{equation}
+\frac{\delta S}{\delta\bar z} = 0: \quad i\hbar\,\dot z - \hbar\omega\,z = 0
+\;\Longrightarrow\; z(t) = z_{0}\,e^{-i\omega t}.
+\label{eq:coherent-eom}
+\end{equation}
+\end{linenomath}
+The classical trajectory is uniform circular motion in the complex plane, corresponding to the oscillator's elliptical orbit in phase space; the frequency is $\omega$, exactly the quantum level spacing.
+
+\medskip\noindent\textbf{Gaussian path integral.} The action is quadratic in $z$ and $\bar z$. The path integral is a Gaussian functional integral and is therefore exactly evaluable. The discretized form of the action on the $N$-slice lattice is a quadratic form in the complex variables $\{z_{k},\bar z_{k}\}$; integrating over all intermediate $z_{k}$ by repeated Gaussian integration (the complex analogue of the free-particle integration in Section~\ref{sec:feynman-construction}) yields the kernel between coherent states:
+\begin{linenomath}
+\begin{equation}
+K(\bar z, t; z',0) = \exp\!\Bigl[\bar z\,z'\,e^{-i\omega t}\Bigr],
+\label{eq:coherent-ho-kernel}
+\end{equation}
+\end{linenomath}
+up to a normalization factor. Expanding the exponential in a Taylor series,
+\begin{linenomath}
+\begin{equation}
+K(\bar z, t; z',0) = \sum_{n=0}^{\infty}\frac{(\bar z\,e^{-i\omega t/2})^{n}}{\sqrt{n!}}\,
+\frac{(z'\,e^{-i\omega t/2})^{n}}{\sqrt{n!}}
+= \sum_{n=0}^{\infty}\langle\bar z|n\rangle\langle n|z'\rangle\,e^{-i\omega(n+1/2)t},
+\label{eq:coherent-spectral}
+\end{equation}
+\end{linenomath}
+which reproduces the harmonic oscillator spectrum $E_{n} = \hbar\omega(n+1/2)$ --- the third independent derivation in this book, after the ladder algebra of Chapter~5 (\eqref{eq:number-spectrum}) and the Mehler kernel of Section~\ref{sec:harmonic-oscillator-path-integral} (\eqref{eq:mehler-spectral}). The three derivations check one another, and each reveals a different face of the oscillator: algebraic structure, classical action and fluctuations, and the coherent-state geometry.
+
+\subsection{Generating Functional and Wick's Theorem}
+
+\medskip\noindent\textbf{Source terms.} Introduce external sources $J(t)$, $\bar J(t)$ coupled linearly to $\bar z$ and $z$:
+\begin{linenomath}
+\begin{equation}
+Z[J,\bar J] := \int\mathcal{D}[z,\bar z]\;
+\exp\!\Bigl[\frac{i}{\hbar}\int_{0}^{t}dt'\,
+\bigl(i\hbar\,\bar z\dot z - H(\bar z,z) + \bar J z + \bar z J\bigr)\Bigr].
+\label{eq:generating-functional}
+\end{equation}
+\end{linenomath}
+$Z[J,\bar J]$ is the \textbf{generating functional} of correlation functions. Functional derivatives with respect to the sources pull down factors of $z$ and $\bar z$ from the exponent:
+\begin{linenomath}
+\begin{equation}
+\langle z(t_{1})\bar z(t_{2})\rangle
+:= \frac{1}{Z[0,0]}\,
+\frac{\delta^{2}Z[J,\bar J]}{\delta\bar J(t_{1})\,\delta J(t_{2})}\Big|_{J=\bar J=0}.
+\label{eq:two-point-function}
+\end{equation}
+\end{linenomath}
+For a free theory ($H = \hbar\omega\,\bar z z$), $Z[J,\bar J]$ is a Gaussian functional integral and evaluates exactly: complete the square in the exponent, shift the integration variable, and use the normalization $Z[0,0] = 1$ (up to a constant). The result is
+\begin{linenomath}
+\begin{equation}
+Z[J,\bar J] = \exp\!\Bigl[-\frac{i}{\hbar}\int dt_{1}dt_{2}\;
+\bar J(t_{1})\,G(t_{1},t_{2})\,J(t_{2})\Bigr],
+\label{eq:free-generating-functional}
+\end{equation}
+\end{linenomath}
+where $G(t_{1},t_{2})$ is the Green's function (the inverse of the kinetic operator $i\hbar\,\partial_{t} - \hbar\omega$). The two-point function \eqref{eq:two-point-function} is then $G(t_{1},t_{2})$.
+
+\medskip\noindent\textbf{Wick's theorem from the path integral.} For a free theory, all higher correlation functions factorize into sums of products of two-point functions. This is \textbf{Wick's theorem} in the path-integral register. The proof is identical to the combinatorial argument for a finite-dimensional Gaussian integral: each pair of sources $J$, $\bar J$ is contracted with a propagator, and the sum runs over all pairings. In the continuum, the statement is
+\begin{linenomath}
+\begin{equation}
+\langle z(t_{1})\cdots z(t_{n})\,\bar z(s_{1})\cdots\bar z(s_{n})\rangle
+= \sum_{\text{pairings}} \prod_{\text{pairs }(i,j)} G(t_{i}, s_{j}).
+\label{eq:wick-theorem-path-integral}
+\end{equation}
+\end{linenomath}
+This is the Gaussian-factorial structure that, in the interacting case, becomes the Feynman-diagram expansion. For an anharmonic perturbation $H_{\mathrm{int}} = \lambda(\bar z z)^{2}$, the generating functional expands as a power series in $\lambda$:
+\begin{linenomath}
+\begin{equation}
+Z[J,\bar J] = \exp\!\Bigl[-\frac{i\lambda}{\hbar}\int dt\,
+\Bigl(\frac{\hbar}{i}\frac{\delta}{\delta J}\frac{\hbar}{i}\frac{\delta}{\delta\bar J}\Bigr)^{2}\Bigr]\,
+Z_{0}[J,\bar J],
+\label{eq:interacting-generating-functional}
+\end{equation}
+\end{linenomath}
+where the functional derivatives with respect to the sources represent the insertion of operators $\bar z z$ at each interaction vertex. Expanding the exponential generates the Feynman-diagram series.
+
+\subsection{From Mechanical Coherent States to the Functional Integral over Fields}
+
+The step from a single oscillator to a quantum field is the step from one complex coordinate $z(t)$ to a complex coordinate at every point in space, $\psi(\bm x, t)$:
+\begin{linenomath}
+\begin{equation}
+z(t) \;\longrightarrow\; \psi(\bm x, t),
+\qquad
+\bar z(t) \;\longrightarrow\; \bar\psi(\bm x, t),
+\qquad
+\int dt \;\longrightarrow\; \int dt\,d^{3}x.
+\label{eq:field-limit}
+\end{equation}
+\end{linenomath}
+The bosonic coherent-state path integral becomes the functional integral over field configurations:
+\begin{linenomath}
+\begin{equation}
+\boxed{Z = \int\mathcal{D}[\psi,\bar\psi]\;
+\exp\!\Bigl[\frac{i}{\hbar}\int dt\,d^{3}x\,
+\bigl(i\hbar\,\bar\psi\partial_{t}\psi - \mathcal{H}(\bar\psi,\psi)\bigr)\Bigr]},
+\label{eq:field-functional-integral}
+\end{equation}
+\end{linenomath}
+where $\mathcal{H}$ is the Hamiltonian density. This is the central object of quantum field theory --- the generating functional from which every scattering amplitude, every correlation function, and every observable of a relativistic quantum field is computed. Its construction, for the Schr\"odinger field and for the quantized electromagnetic field, is the subject of Chapter~10.
+
+\medskip\noindent\textbf{Advantage and limitation.} The advantage of the coherent-state path integral is its algebraic transparency: it unifies the operator methods of Chapter~5 (creation and annihilation operators, the number basis, the ladder algebra) with the path-integral formalism of this chapter, and it provides the template for the functional integral over fields. Its limitation is the same as the Feynman path integral's: the measure is formal, and outside the class of quadratic actions, evaluation relies on perturbation theory or the stationary-phase approximation. What the coherent-state path integral adds to the Feynman path integral is the holomorphic (Bargmann) representation --- the natural language for bosonic systems with a Fock-space structure, and the bridge from the non-relativistic quantum mechanics of this book to the relativistic quantum field theory of the next.
+
+Chapter~9 constructed Feynman's path integral from the propagator composition property planted in Chapter~5, time-sliced the evolution operator, and identified the classical action as the phase of the short-time kernel. The classical limit emerged from the stationary-phase approximation, the harmonic oscillator was solved exactly via the quadratic fluctuation determinant, the Aharonov-Bohm effect revealed the role of configuration-space topology, the WKB method derived the corrected Bohr-Sommerfeld quantization condition --- repaying the book's oldest debts, the spin path integral exhibited the Wess-Zumino term and derived spin quantization from path topology, and the bosonic coherent-state path integral unified the ladder algebra with the functional integral and supplied the template for quantum field theory. This section consolidates the chapter into principles, balances the ledger, exhibits the experiment--formalism dictionary, and poses the exit question that launches Chapter~10.
+
+\section{Path Integral Formalism: A Summary}
+\label{sec:ch9summary}
 
 \subsection{Five Principles}
 
-The chapter's content compresses into five principles that characterize the path-integral formulation of quantum mechanics.
+The chapter's content compresses into seven principles that characterize the path-integral formulation of quantum mechanics.
 
 \begin{itemize}
 \item \textbf{(P1) Construction.} The Feynman path integral is constructed from the composition property of the propagator (Equation~\eqref{eq:propagator-composition}) by time-slicing. The short-time kernel is the Trotter-product of kinetic and potential factors (Section~\ref{sec:propagator-review}). The $N \to \infty$ limit of the $N$-slice product defines the sum over all paths, each contributing the amplitude $e^{iS[x]/\hbar}$ where $S[x]$ is the classical action functional (Equations~\eqref{eq:path-integral-discrete} and~\eqref{eq:path-integral-symbolic}). The measure $\int\mathcal{D}x$ is formal notation for this limiting procedure; its sole rigorous content is the discretized Lebesgue product.
@@ -1416,6 +1790,10 @@ The chapter's content compresses into five principles that characterize the path
 \item \textbf{(P4) Path topology.} The Aharonov-Bohm effect demonstrates that the path integral registers global properties of the configuration space inaccessible to the canonical formalism. Electrons passing around an impenetrable flux tube acquire a gauge-invariant topological phase shift $\Delta\phi = 2\pi\Phi/\Phi_0$ (Equation~\eqref{eq:ab-phase-shift}), periodic in the flux quantum $\Phi_0 = 2\pi\hbar c/e$ (Equation~\eqref{eq:flux-quantum}). The effect is measured even though $\bm B = \bm 0$ everywhere the electrons travel. The propagator decomposes as a sum over homotopy classes weighted by the unitary representations of the fundamental group: $K = \sum_n e^{in e\Phi/\hbar c} K_n$. The phase factor is the abelian Wilson loop.
 
 \item \textbf{(P5) Semiclassical expansion.} The WKB method is the systematic $\hbar$-expansion of the Schrodinger equation. The leading order reproduces the Hamilton-Jacobi equation for the characteristic function (Equation~\eqref{eq:wkb-leading}); the next order gives the transport equation and the $1/\sqrt{p(x)}$ amplitude prefactor (Equation~\eqref{eq:wkb-next-order}); the wave function in the classically allowed and forbidden regions is given by Equation~\eqref{eq:wkb-wavefunction}. At turning points, connection formulas (Equation~\eqref{eq:connection-formulas}) supply the $-\pi/4$ Maslov phase per soft turning point. The single-valuedness condition produces the corrected Bohr-Sommerfeld quantization rule $\oint p\,dx = 2\pi\hbar(n+1/2)$ (Equation~\eqref{eq:bohr-sommerfeld-corrected}) --- repaying Chapter~1, row~1.9 and supplying the zero-point energy the old quantum theory lacked. Tunneling through a barrier is exponentially suppressed, with the Gamow transmission factor $T \sim \exp[-(2/\hbar)\int dx\,\sqrt{2m(V-E)}]$ (Equation~\eqref{eq:wkb-tunneling}).
+
+\item \textbf{(P6) Spin path integral.} The continuum path integral for a spin degree of freedom is built on the overcomplete basis of spin coherent states $|\hat{\bm n}\rangle$ on the Bloch sphere $S^{2}$ (Equations~\eqref{eq:spin-coherent-state-def}, \eqref{eq:spin-resolution-identity}). The effective action (Equation~\eqref{eq:spin-effective-action}) consists of the geometric Wess-Zumino (Berry phase) term and the classical Hamiltonian. The WZ term $S_{\mathrm{WZ}} = \hbar s\int dt\,(1-\cos\theta)\dot{\phi}$ (Equation~\eqref{eq:wz-term}) measures the solid angle swept by the spin trajectory. Its single-valuedness on the sphere quantizes the spin: $2s \in \mathbb{N}$ (Equation~\eqref{eq:spin-quantization}). The stationary-phase equation is the Landau-Lifshitz equation $\dot{\hat{\bm n}} = \gamma\hat{\bm n}\times\bm B$, the classical limit of spin dynamics (Section~\ref{sec:spin-path-integral}).
+
+\item \textbf{(P7) Bosonic coherent-state path integral.} The holomorphic path integral is built on the overcomplete basis of harmonic oscillator coherent states $|z\rangle$ (Equations~\eqref{eq:bargmann-coherent-state}, \eqref{eq:coherent-resolution-identity}). The action takes the canonical form $S[z,\bar z] = \int dt\,[i\hbar\bar z\dot z - H(\bar z,z)]$ (Equation~\eqref{eq:holomorphic-action-standard}), whose symplectic term encodes the canonical commutator $[a,a^{\dagger}]=1$. The generating functional $Z[J,\bar J]$ (Equation~\eqref{eq:generating-functional}) produces correlation functions by functional differentiation. Wick's theorem (Equation~\eqref{eq:wick-theorem-path-integral}) is the Gaussian factorization of all higher correlations. The continuum limit $z(t) \to \psi(\bm x,t)$ (Equation~\eqref{eq:field-limit}) transforms the mechanical path integral into the functional integral over fields (Equation~\eqref{eq:field-functional-integral}) --- the template for Chapter~10's quantum field theory (Section~\ref{sec:coherent-state-path-integral}).
 \end{itemize}
 
 \subsection{Ledger Balanced}
@@ -1431,13 +1809,16 @@ The debts inherited from earlier chapters and the debts planted forward are now 
 \item De Broglie packet dispersion (Chapter~5, Equation~\eqref{eq:packet-spreading}): reproduced from stationary phase (Section~\ref{sec:classical-limit}) and WKB (Section~\ref{sec:wkb}).
 \item Harmonic oscillator spectrum $E_n = \hbar\omega(n+1/2)$ (Chapter~5, Equation~\eqref{eq:number-spectrum}): independently recovered from the Mehler kernel's spectral expansion (Section~\ref{sec:harmonic-oscillator-path-integral}, Equation~\eqref{eq:mehler-spectral}) and from WKB quantization (Section~\ref{sec:wkb}, Equation~\eqref{eq:wkb-harmonic-oscillator}).
 \item Planck's material oscillator / zero-point energy (Chapter~1, rows~1.3/1.5): the $1/2$ is the Maslov-index correction to the old Bohr-Sommerfeld rule, derived in Section~\ref{sec:wkb}.
+\item Spin quantization (Chapter~6, angular-momentum algebra): $2s \in \mathbb{N}$ derived from the single-valuedness of the spin path integral on the Bloch sphere (Section~\ref{sec:spin-path-integral}, Equation~\eqref{eq:spin-quantization}) --- the topological face of the angular-momentum ladder spectrum.
+\item Harmonic oscillator number spectrum (Chapter~5, Equation~\eqref{eq:number-spectrum}): recovered a third time from the coherent-state path integral (Section~\ref{sec:coherent-state-path-integral}, Equation~\eqref{eq:coherent-spectral}), cross-checking both the ladder-algebra and the Mehler-kernel derivations.
 \end{itemize}
 
 \medskip\noindent\textbf{Debts planted forward by this chapter:}
 \begin{itemize}
 \item Functional integral over fields: the path integral over $x(t)$ is the mechanical template for the field-theoretic functional integral $\int\mathcal{D}\phi\,e^{iS[\phi]/\hbar}$ of Chapter~10.
 \item Euclidean (imaginary-time) path integral: the Wick rotation $t \to -i\tau$ converts the oscillatory Feynman measure to the well-defined Wiener measure; named in Section~\ref{sec:feynman-construction}, owed by Chapter~10.
-\item Coherent-state path integral: the oscillator's phase-space path integral is the bridge to the holomorphic (Bargmann) path integral for bosonic fields; named in Section~\ref{sec:harmonic-oscillator-path-integral}, owed by Chapter~10.
+\item Coherent-state path integral: the oscillator's phase-space path integral is the bridge to the holomorphic (Bargmann) path integral for bosonic fields; named in Section~\ref{sec:harmonic-oscillator-path-integral}, constructed in Sections~\ref{sec:spin-path-integral} (spin) and~\ref{sec:coherent-state-path-integral} (bosonic), and consumed by Chapter~10.
+\item Spin path integrals and topological terms: the Wess-Zumino term of the spin path integral is the mechanical prototype of topological terms in field theory (WZW, Chern-Simons); named in Section~\ref{sec:spin-path-integral}, owed by gauge field theory.
 \item Loop expansion / saddle-point methods: the stationary-phase plus fluctuation-determinant logic of Sections~\ref{sec:classical-limit}--\ref{sec:harmonic-oscillator-path-integral} is the $\hbar$-expansion (loop expansion) of field theory; $\hbar$ counts loops.
 \item Instanton methods: the imaginary-time classical solutions that govern tunneling between degenerate minima, named in Section~\ref{sec:wkb}; owed by advanced quantum mechanics.
 \item Wilson loops: the AB phase factor $\exp[(ie/\hbar c)\oint \bm A\cdot d\bm l]$ is the abelian prototype of the gauge-invariant observables of Yang-Mills theory; named in Section~\ref{sec:aharonov-bohm}.
@@ -1469,6 +1850,11 @@ Bohr-Sommerfeld rule $\oint p\,dq = nh$ & Corrected rule $\oint p\,dx = 2\pi\hba
 Free-particle dispersion & Quadratic fluctuations around stationary phase \\
 Harmonic-oscillator period & Mehler-kernel caustics at $t = k\pi/\omega$ \\
 Gauge transformation $\bm A\to\bm A+\nabla\chi$ & Overall phase of propagator (no observable effect) \\
+Spin trajectory on Bloch sphere & Path $\hat{\bm n}(t)$ weighted by $e^{iS_{\mathrm{WZ}}/\hbar}$ \\
+Wess-Zumino term & Geometric phase $\hbar s\int(1-\cos\theta)\dot{\phi}$ \\
+Coherent-state label $z(t)$ & Holomorphic path with action $\int[i\hbar\bar z\dot z - H]$ \\
+Generating functional $Z[J,\bar J]$ & Source-coupled path integral \\
+Wick's theorem & Gaussian factorization of $\langle z\cdots\bar z\cdots\rangle$ \\
 \bottomrule
 \end{tabular}
 \end{table}

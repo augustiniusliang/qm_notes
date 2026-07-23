@@ -8,7 +8,7 @@ The forward debts from Chapters~4--6 are equally specific. Chapter~4's Dyson ser
 
 The chapter's thesis: perturbation theory and scattering theory are the bridge from the Hilbert-space structure of Chapters~1--6 to the numbers the spectroscopist and the accelerator read. The chapter adds zero new axioms -- everything is derived from the ch2--ch5 axioms and the ch6 theorems.
 
-The chapter proceeds in seven sections. Sections~8.1--8.2 treat time-independent perturbation theory: first the non-degenerate Rayleigh--Schrodinger series, with the Stark effect in hydrogen as its primary example, then the degenerate case, with the Zeeman effect, fine structure, and the linear Stark effect. Section~8.3 presents the variational method and computes the helium ground-state energy, the oldest quantitative failure of the old quantum theory. Section~8.4 derives time-dependent perturbation theory from the Dyson series, obtains Fermi's golden rule, and recovers the Einstein $A$ and $B$ coefficients -- the chapter's keystone. Sections~8.5--8.6 build scattering theory: the Lippmann--Schwinger formalism, the S-matrix, the optical theorem, the Born approximation (recovering Rutherford), and the partial-wave expansion through the Breit--Wigner resonance. Section~8.7 consolidates the debt ledger and the method dictionary.
+The chapter proceeds in seven sections. Sections~8.1--8.2 treat time-independent perturbation theory: first the non-degenerate Rayleigh--Schrodinger series, with the Stark effect in hydrogen as its primary example, then the degenerate case, with the Zeeman effect, fine structure, and the linear Stark effect. Section~8.3 presents the variational method and computes the helium ground-state energy, the oldest quantitative failure of the old quantum theory. Section~8.4 derives time-dependent perturbation theory from the Dyson series, obtains Fermi's golden rule, and recovers the Einstein $A$ and $B$ coefficients -- the chapter's keystone. Sections~8.5--8.6 build scattering theory: \S\ref{sec:scattering-formalism} develops the formal M\o{}ller/S-matrix framework and reads it in three registers --- stationary (the Lippmann--Schwinger equation, the scattering amplitude, the optical theorem), time-dependent (wave packets and the dynamical derivation of the $i\epsilon$), and symmetry (the partial-wave expansion, phase shifts, and the Breit--Wigner resonance) --- and \S\ref{sec:born-partial-waves} develops the Born approximation, recovering the Rutherford cross-section. Section~8.7 consolidates the debt ledger and the method dictionary.
 
 Three honesty declarations travel with the chapter. The electromagnetic field is treated classically throughout; the field's quanta are Chapter~10's. The Einstein $A$ coefficient is obtained by detailed balance with a classical vector potential; the semi-classical limitation is stated explicitly. The resonance discussion is a one-subsection note; full resonance theory is beyond scope. Non-perturbative methods (strong coupling, lattice) are named only in the exit question that concludes the chapter: ``These methods are perturbative -- what do we do when the coupling is strong?'' -- a question for Chapters~9 (path integrals, WKB) and~10 (field theory).
 
@@ -864,367 +864,752 @@ The golden rule computes rates when the perturbation is weak. Scattering theory 
 \section{Formal Scattering Theory: States, S-Matrix, and Cross-Sections}
 \label{sec:scattering-formalism}
 
-Scattering is the experimental regime in which a particle, prepared in the distant past as a momentum eigenstate, encounters a target, and is registered in the distant future in a definite direction. The formalism that describes this regime is the time-independent scattering theory: the Lippmann--Schwinger equation, the M\o{}ller operators, the S-matrix, and the optical theorem.
-
-\medskip\noindent\textbf{Scattering kinematics.}
-A beam of particles of mass $m$ and momentum $\hbar\bm k$ is incident on a fixed target described by a potential $V(\bm r)$. The scattering geometry: the incident direction is $\hat{\bm k}$, the outgoing direction is $\hat{\bm k}' = \hat{\bm r}$ (the direction of the detector). At large distances from the target, the scattered wavefunction is a superposition of the incident plane wave and an outgoing spherical wave:
-\begin{linenomath}
-\begin{equation}
-\psi_{\bm k}(\bm r) \xrightarrow{r\to\infty} e^{i\bm k\cdot\bm r} + f(\theta,\phi)\,\frac{e^{ikr}}{r}.
-\label{eq:scattering-amplitude-def}
-\end{equation}
-\end{linenomath}
-The scattering amplitude $f(\theta,\phi)$ carries all the physics; it depends on the incident direction $\hat{\bm k}$ and the outgoing direction $\hat{\bm r}$, but for a spherically symmetric potential it depends only on the angle $\theta$ between them. The measurable quantity is the differential cross-section:
+Scattering is the experimental regime in which a particle, prepared in the distant past as a free state, encounters a target, and is registered in the distant future in a definite direction. Between the two asymptotic instants the full Hamiltonian
 \begin{linenomath}
 \begin{equation*}
-\frac{d\sigma}{d\Omega} = |f(\theta,\phi)|^{2}.
+H = H_{0} + V
 \end{equation*}
 \end{linenomath}
-Its integral over all solid angles is the total cross-section $\sigma_{\text{tot}}$. The incident flux in the plane wave $e^{i\bm k\cdot\bm r}$ is $v = \hbar k/m$ particles per unit area per unit time; the scattered flux into solid angle $d\Omega$ at distance $r$ is $|f|^{2}v\,d\Omega/r^{2}$; their ratio, times $r^{2}$, is $|f|^{2}\,d\Omega$ -- the differential cross-section.
+governs the motion; outside the interaction region the particle is free, governed by $H_{0}$. The whole content of scattering theory is the map from the incoming free state to the outgoing free state --- the \emph{S-matrix}. Every other object in this section --- the Lippmann--Schwinger equation, the scattering amplitude $f$, the cross-section, the optical theorem, the partial-wave expansion --- is a consequence of that map, read in one or another representation.
 
-\medskip\noindent\textbf{The Lippmann--Schwinger equation.}
-The time-independent Schr\"odinger equation for scattering, $(E-H_{0})|\psi\rangle = V|\psi\rangle$ with $E = \hbar^{2}k^{2}/2m > 0$, is an inhomogeneous equation. The formal solution, incorporating the appropriate boundary conditions, is
+The section is built in four stages, each more special than the last. \emph{Formal scattering theory} (\S\ref{sec:scattering-formalism-moller}) postulates the asymptotic condition and deduces from it the M\o{}ller operators, the S-matrix, its unitarity, and the optical theorem --- all at the operator level, with no choice of representation. \emph{Stationary scattering theory} (\S\ref{sec:scattering-stationary}) is the energy-shell specialisation: the Lippmann--Schwinger equation, the free Green's function, and the scattering amplitude emerge as the position-space reading of the formal operators. \emph{Time-dependent scattering theory} (\S\ref{sec:scattering-timedep}) supplies the dynamical foundation --- wave packets, the strong limits, and the derivation of the stationary formalism as the long-time limit --- with worked examples. \emph{Symmetry of scattered states} (\S\ref{sec:scattering-symmetry}) closes the section: every symmetry shared by $H$ and $H_{0}$ commutes with $S$, and energy and momentum conservation, the partial-wave expansion, parity selection, and time-reversal reciprocity follow without further calculation.
+
+The treatment adds no new axioms. The asymptotic condition is the single physical input --- the scattering-theoretic instance of the evolution postulate of Chapter~4, applied to states that are free in the distant past and future. The debt repaid is the Rutherford cross-section of Chapter~1; the machinery built here is the bridge from the Hilbert space of Chapters~2--6 to the numbers the accelerator reads.
+
+\subsection{The Formalism: M\o{}ller Operators and the S-Matrix}
+\label{sec:scattering-formalism-moller}
+
+\medskip\noindent\textbf{The geometry.} A beam of particles of mass $m$ and momentum $\hbar\bm k$ is incident along $\hat{\bm k}$ on a fixed scattering centre at the origin; detectors sit at a large distance $r$, at angles $(\theta,\phi)$. The incident direction defines the $z$-axis; the outgoing direction is $\hat{\bm k}'=\hat{\bm r}$. For a spherically symmetric potential the scattering is azimuthally symmetric and depends only on $\theta$. The \textbf{momentum transfer} is
 \begin{linenomath}
 \begin{equation}
-|\psi^{(\pm)}\rangle = |\phi\rangle + \frac{1}{E - H_{0} \pm i\epsilon}\,V\,|\psi^{(\pm)}\rangle.
-\label{eq:lippmann-schwinger}
+\bm q = \bm k' - \bm k,\qquad q = |\bm q| = 2k\sin\frac{\theta}{2}.
+\label{eq:momentum-transfer}
 \end{equation}
 \end{linenomath}
-The free state $|\phi\rangle = |\bm k\rangle$ is the incident plane wave, $\braket{\bm r|\bm k} = e^{i\bm k\cdot\bm r}/(2\pi)^{3/2}$. The operator $(E-H_{0}\pm i\epsilon)^{-1}$ is the free-particle Green's function (resolvent), and the $\pm i\epsilon$ prescription -- the limit $\epsilon \to 0^{+}$ taken after the integral -- selects outgoing ($+$) or incoming ($-$) boundary conditions. The $+$ solution is the physical scattering state: an incident plane wave plus an outgoing scattered wave.
 
-The Green's function in the position representation is
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[scale=1.2]
+    % Coordinate axes
+    \draw[->,thick] (0,0) -- (4,0) node[right] {$z$ (incident)};
+    \draw[->,thick] (0,0) -- (0,3) node[above] {$x$};
+    % Target
+    \filldraw[fill=gray!30] (2,0) circle (0.15) node[below=4pt] {target $V(r)$};
+    % Incident beam
+    \draw[->,very thick,blue!60] (-1,0) -- (1.5,0);
+    \node[blue!60] at (0.2,0.4) {$\bm k$};
+    % Scattered wave
+    \draw[->,very thick,red!60] (2,0) -- (4.2,2.0);
+    \node[red!60] at (3.5,1.4) {$\bm k'$};
+    % Angle
+    \draw[->] (3,0) arc (0:42:1.5);
+    \node at (3.3,0.5) {$\theta$};
+    % Detector
+    \draw[thick] (5,2.3) rectangle (5.6,2.7);
+    \node at (5.3,2.5) {\scriptsize det};
+    \draw[->,dashed] (4.2,2.0) -- (5,2.5);
+    % Solid angle label
+    \node at (5.5,1.5) {$d\Omega$};
+    % Scattering region
+    \draw[dashed,gray] (2,0) circle (1.0);
+    \node[gray] at (3.2,-0.8) {$r \gg a$};
+\end{tikzpicture}
+\caption{Scattering geometry. A beam of momentum $\hbar\bm k$ is incident from the left onto a target of range $a$. Particles scattered through angle $\theta$ into solid angle $d\Omega$ are counted by a distant detector. The scattering amplitude $f(\theta,\phi)$ is the coefficient of the outgoing spherical wave.}
+\label{fig:scattering-geometry}
+\end{figure}
+
+\medskip\noindent\textbf{The asymptotic condition.} The physical input of scattering theory is the statement that a scattering state looks free in the distant past and the distant future. Made precise: for every scattering state $|\psi\rangle$ (a normalisable state evolving under $H$) there exist \emph{free} states $|\psi_{\mathrm{in}}\rangle,|\psi_{\mathrm{out}}\rangle\in\mathcal{H}_{0}$ such that
 \begin{linenomath}
 \begin{align}
-G_{0}^{(\pm)}(\bm r,\bm r';E) &= \braket{\bm r|\frac{1}{E-H_{0}\pm i\epsilon}|\bm r'}
-= \int \frac{d^{3}k'}{(2\pi)^{3}}\,
-\frac{e^{i\bm k'\cdot(\bm r-\bm r')}}{E - \hbar^{2}k'^{2}/2m \pm i\epsilon} \nonumber \\
-&= -\frac{2m}{\hbar^{2}}\,\frac{e^{\pm ik|\bm r-\bm r'|}}{4\pi|\bm r-\bm r'|}.
+\lim_{t\to-\infty}\bigl\|e^{-iHt/\hbar}|\psi\rangle - e^{-iH_{0}t/\hbar}|\psi_{\mathrm{in}}\rangle\bigr\| &= 0,
+\label{eq:asymptotic-in}\\
+\lim_{t\to+\infty}\bigl\|e^{-iHt/\hbar}|\psi\rangle - e^{-iH_{0}t/\hbar}|\psi_{\mathrm{out}}\rangle\bigr\| &= 0.
+\label{eq:asymptotic-out}
 \end{align}
 \end{linenomath}
-The integral is evaluated by contour integration; the $\pm i\epsilon$ dictates which pole is enclosed, and the result is an outgoing ($+$) or incoming ($-$) spherical wave.
+This is an assumption about the dynamics: true for short-range potentials $V$ (those decaying faster than $r^{-3-\varepsilon}$, so that a particle sent to infinity no longer feels the potential), and \emph{false} for the Coulomb potential, whose $1/r$ tail is felt at every distance --- a failure repaired in \S\ref{sec:scattering-timedep}. Equations \eqref{eq:asymptotic-in}--\eqref{eq:asymptotic-out} are the scattering-theoretic instance of the evolution postulate of Chapter~4: free evolution $e^{-iH_{0}t/\hbar}$ replaces full evolution $e^{-iHt/\hbar}$ at the temporal boundaries.
 
-For large $r = |\bm r|$, with $r \gg r'$ (the detector far from the target), expand the exponent:
-\begin{linenomath}
-\begin{equation*}
-k|\bm r - \bm r'| \approx kr - k\hat{\bm r}\!\cdot\!\bm r' + O(1/r).
-\end{equation*}
-\end{linenomath}
-The Green's function takes the asymptotic form
-\begin{linenomath}
-\begin{equation*}
-G_{0}^{(+)}(\bm r,\bm r';E) \xrightarrow{r\to\infty}
--\frac{2m}{\hbar^{2}}\,\frac{e^{ikr}}{4\pi r}\,e^{-i\bm k'\cdot\bm r'},
-\qquad \bm k' = k\hat{\bm r}.
-\end{equation*}
-\end{linenomath}
-Insert this into the position representation of the LS equation \eqref{eq:lippmann-schwinger} (with the $+$ sign):
-\begin{linenomath}
-\begin{equation*}
-\psi_{\bm k}^{(+)}(\bm r) = \braket{\bm r|\bm k} + \int d^{3}r'\,G_{0}^{(+)}(\bm r,\bm r';E)\braket{\bm r'|V|\psi_{\bm k}^{(+)}}.
-\end{equation*}
-\end{linenomath}
-The asymptotic form is, with $\braket{\bm r|\bm k} = e^{i\bm k\cdot\bm r}/(2\pi)^{3/2}$,
-\begin{linenomath}
-\begin{align}
-\psi_{\bm k}^{(+)}(\bm r) &\xrightarrow{r\to\infty}
-\frac{1}{(2\pi)^{3/2}}\Bigl[\,e^{i\bm k\cdot\bm r}
-- \frac{2m}{\hbar^{2}}\,\frac{e^{ikr}}{4\pi r}
-\int d^{3}r'\,e^{-i\bm k'\cdot\bm r'}\braket{\bm r'|V|\psi_{\bm k}^{(+)}}\Bigr] \nonumber \\
-&= \frac{1}{(2\pi)^{3/2}}\Bigl[\,e^{i\bm k\cdot\bm r}
-+ f(\bm k',\bm k)\,\frac{e^{ikr}}{r}\Bigr],
-\end{align}
-\end{linenomath}
-with the scattering amplitude
+\medskip\noindent\textbf{The M\o{}ller operators.} Multiply \eqref{eq:asymptotic-in} by $e^{iHt/\hbar}$ and take $t\to-\infty$. The left-hand side becomes $|\psi\rangle$; the right-hand side becomes the limit of $e^{iHt/\hbar}e^{-iH_{0}t/\hbar}|\psi_{\mathrm{in}}\rangle$, the state $|\psi_{\mathrm{in}}\rangle$ factoring out to define an operator:
 \begin{linenomath}
 \begin{equation}
-f(\bm k',\bm k) = -\frac{2m}{\hbar^{2}}\,\frac{1}{4\pi}\,(2\pi)^{3}\braket{\bm k'|V|\psi_{\bm k}^{(+)}}.
-\label{eq:scattering-amplitude-ls}
-\end{equation}
-\end{linenomath}
-The factor $(2\pi)^{3}$ arises from the normalisation convention $\braket{\bm k'|\bm k} = \delta^{(3)}(\bm k'-\bm k)$.
-
-\medskip\noindent\textbf{M\o{}ller operators and the S-matrix.}
-The scattering state $|\psi^{(+)}\rangle$ is the time evolution, from the distant past, of the incident plane-wave state. Define the M\o{}ller wave operators
-\begin{linenomath}
-\begin{equation}
-\Omega^{(\pm)} = \lim_{t\to\mp\infty} e^{iHt/\hbar}\,e^{-iH_{0}t/\hbar}.
+\Omega_{\pm} := \lim_{t\to\mp\infty} e^{iHt/\hbar}\,e^{-iH_{0}t/\hbar},
 \label{eq:moller-operators}
 \end{equation}
 \end{linenomath}
-Their action is $|\psi^{(\pm)}\rangle = \Omega^{(\pm)}|\phi\rangle$: the M\o{}ller operator maps a free asymptotic state to the full scattering state with the corresponding boundary condition. The scattering operator (S-matrix) is the overlap of the outgoing and incoming scattering states:
+with action
 \begin{linenomath}
 \begin{equation}
-S_{fi} = \braket{\psi_{f}^{(-)}|\psi_{i}^{(+)}} = \braket{\phi_{f}|\Omega^{(-)\dagger}\Omega^{(+)}|\phi_{i}} = \braket{\phi_{f}|S|\phi_{i}},
+|\psi^{(\pm)}\rangle = \Omega_{\pm}|\phi\rangle.
+\label{eq:moller-action}
+\end{equation}
+\end{linenomath}
+Here $|\psi^{(+)}\rangle=\Omega_{+}|\phi\rangle$ is the scattering state that \emph{was} the free state $|\phi\rangle$ in the remote past (the \emph{in}-state); $|\psi^{(-)}\rangle=\Omega_{-}|\phi\rangle$ is the scattering state that \emph{will be} $|\phi\rangle$ in the remote future (the \emph{out}-state). The M\o{}ller operator $\Omega_{+}$ prepares an in-state from a free state; $\Omega_{-}$ prepares an out-state. The limit is a \emph{strong} operator limit --- convergence in norm on each vector, not in operator norm, the only kind available for unbounded Hamiltonians.\footnote{The existence of the strong limits for short-range potentials is the Cook--Jauch theorem; see Reed \& Simon, Vol.~III, \S XI.3. A sketch is given in \S\ref{sec:scattering-timedep}.}
+
+\medskip\noindent\textbf{Isometry.} The M\o{}ller operators preserve the norm. Compute
+\begin{linenomath}
+\begin{equation*}
+\Omega_{\pm}^{\dagger}\Omega_{\pm}
+= \lim_{t\to\mp\infty} e^{iH_{0}t/\hbar}\,e^{-iHt/\hbar}\,e^{iHt/\hbar}\,e^{-iH_{0}t/\hbar}
+= \lim_{t\to\mp\infty} e^{iH_{0}t/\hbar}\,e^{-iH_{0}t/\hbar}
+= I,
+\end{equation*}
+\end{linenomath}
+since $e^{-iHt/\hbar}e^{iHt/\hbar}=I$ ($H$ commutes with itself). Hence
+\begin{linenomath}
+\begin{equation}
+\Omega_{\pm}^{\dagger}\Omega_{\pm} = I,
+\label{eq:moller-isometry}
+\end{equation}
+\end{linenomath}
+and $\|\Omega_{\pm}|\phi\rangle\|=\||\phi\rangle\|$: the map from free to scattering states preserves probability. An operator with $A^{\dagger}A=I$ is an \emph{isometry}; it is unitary only if its range is the whole space.
+
+\medskip\noindent\textbf{Asymptotic completeness.} The range of $\Omega_{\pm}$ is the subspace of \emph{scattering states} of $H$ --- its continuous spectral subspace $\mathcal{H}_{\mathrm{cont}}$. The bound states of $H$ (point spectrum) are orthogonal to every scattering state and lie outside the range. The statement that the range exhausts the continuous subspace,
+\begin{linenomath}
+\begin{equation*}
+\Omega_{\pm}\Omega_{\pm}^{\dagger} = I - P_{\mathrm{bound}},
+\end{equation*}
+\end{linenomath}
+with $P_{\mathrm{bound}}$ the projector onto the bound states, is \emph{asymptotic completeness} --- a theorem for a wide class of short-range potentials, stated here without proof.\footnote{Asymptotic completeness for two-body short-range potentials is proved in Reed \& Simon, Vol.~III, \S XI.3--XI.5.} With isometry it says: the scattering states and the bound states partition $\mathcal{H}$, and every scattering state comes from a unique free state.
+
+\medskip\noindent\textbf{The intertwining relation.} The M\o{}ller operators \emph{intertwine} the free and full Hamiltonians:
+\begin{linenomath}
+\begin{equation}
+H\,\Omega_{\pm} = \Omega_{\pm}\,H_{0}.
+\label{eq:intertwining}
+\end{equation}
+\end{linenomath}
+\emph{Proof.} For any real $s$,
+\begin{linenomath}
+\begin{align*}
+\Omega_{\pm}\,e^{-iH_{0}s/\hbar}
+&= \lim_{t\to\mp\infty} e^{iHt/\hbar}\,e^{-iH_{0}(t+s)/\hbar}
+= \lim_{t'\to\mp\infty} e^{iH(t'-s)/\hbar}\,e^{-iH_{0}t'/\hbar}\\
+&= e^{-iHs/\hbar}\,\lim_{t'\to\mp\infty} e^{iHt'/\hbar}\,e^{-iH_{0}t'/\hbar}
+= e^{-iHs/\hbar}\,\Omega_{\pm},
+\end{align*}
+\end{linenomath}
+where $t'=t+s$ relabels the dummy variable (the limit is unchanged). Differentiate with respect to $s$ at $s=0$: the left gives $\Omega_{\pm}(-iH_{0}/\hbar)$, the right $(-iH/\hbar)\Omega_{\pm}$. Equating and cancelling $-i/\hbar$ yields \eqref{eq:intertwining}. $\square$
+
+The consequence is decisive. If $H_{0}|\phi\rangle = E|\phi\rangle$, then
+\begin{linenomath}
+\begin{equation*}
+H\,\Omega_{\pm}|\phi\rangle = \Omega_{\pm}H_{0}|\phi\rangle = E\,\Omega_{\pm}|\phi\rangle:
+\end{equation*}
+\end{linenomath}
+the scattering state $\Omega_{\pm}|\phi\rangle$ is an eigenstate of $H$ with the \emph{same} energy $E$ as the free state. The continuous spectrum of $H_{0}$ ($E>0$) is carried into the continuous spectrum of $H$; the potential reshapes the state but cannot change its energy. This is energy conservation, \emph{derived} from the asymptotic condition rather than assumed.
+
+\medskip\noindent\textbf{The S-matrix.} The experiment prepares an in-state $|\psi_{i}^{(+)}\rangle=\Omega_{+}|\phi_{i}\rangle$ and detects an out-state. The amplitude to emerge as the free state $|\phi_{f}\rangle$ is the overlap of the in-scattering state with the out-scattering state $|\psi_{f}^{(-)}\rangle=\Omega_{-}|\phi_{f}\rangle$:
+\begin{linenomath}
+\begin{equation}
+S_{fi} := \langle\psi_{f}^{(-)}|\psi_{i}^{(+)}\rangle
+= \langle\phi_{f}|\Omega_{-}^{\dagger}\Omega_{+}|\phi_{i}\rangle
+= \langle\phi_{f}|S|\phi_{i}\rangle,
+\qquad
+S := \Omega_{-}^{\dagger}\Omega_{+}.
 \label{eq:S-matrix-def}
 \end{equation}
 \end{linenomath}
-with $S = \Omega^{(-)\dagger}\Omega^{(+)}$. The S-matrix is unitary, $S^{\dagger}S = SS^{\dagger} = I$, expressing the conservation of probability in scattering: every incident particle either emerges scattered or is absorbed (inelastic channels); the sum of probabilities over all final states is unity.
+The S-matrix is the in$\to$out map read in the free-particle basis.
 
-The S-matrix separates into a no-scattering part (the incident particle passes through unaffected) and a scattering part, conventionally parametrised by the transition matrix $T$:
+\medskip\noindent\textbf{Energy conservation.} From intertwining, $H\Omega_{\pm}=\Omega_{\pm}H_{0}$, and its adjoint $\Omega_{\pm}^{\dagger}H = H_{0}\Omega_{\pm}^{\dagger}$. Then
 \begin{linenomath}
 \begin{equation*}
-S_{fi} = \delta_{fi} - 2\pi i\,\delta(E_{f}-E_{i})\,T_{fi}.
+H_{0}S = H_{0}\Omega_{-}^{\dagger}\Omega_{+} = \Omega_{-}^{\dagger}H\,\Omega_{+} = \Omega_{-}^{\dagger}\Omega_{+}H_{0} = S H_{0},
 \end{equation*}
 \end{linenomath}
-The delta function enforces energy conservation -- scattering connects states of the same energy. The on-shell T-matrix element ($E_{f}=E_{i}=E$) is related to the scattering amplitude by
-\begin{linenomath}
-\begin{equation*}
-f(\bm k',\bm k) = -\frac{2m}{\hbar^{2}}\,\frac{1}{4\pi}\,(2\pi)^{3}\,T_{\bm k'\bm k}.
-\end{equation*}
-\end{linenomath}
-The LS equation \eqref{eq:lippmann-schwinger}, iterated once, gives the Born series:
-\begin{linenomath}
-\begin{equation*}
-T = V + V\frac{1}{E-H_{0}+i\epsilon}V + V\frac{1}{E-H_{0}+i\epsilon}V\frac{1}{E-H_{0}+i\epsilon}V + \cdots .
-\end{equation*}
-\end{linenomath}
-The first term is the first Born approximation -- the subject of Section~\ref{sec:born-partial-waves}.
-
-\medskip\noindent\textbf{The optical theorem.}
-Unitarity of the S-matrix, $S^{\dagger}S = I$ or $\sum_{n}S_{nf}^{*}S_{ni} = \delta_{fi}$, imposes a relation on the T-matrix. Substituting $S_{ni} = \delta_{ni} - 2\pi i\,\delta(E_{n}-E_{i})\,T_{ni}$:
-\begin{linenomath}
-\begin{align*}
-\sum_{n}\bigl[\delta_{nf} + 2\pi i\,\delta(E_{n}-E_{f})\,T_{nf}^{*}\bigr]
-      \bigl[\delta_{ni} - 2\pi i\,\delta(E_{n}-E_{i})\,T_{ni}\bigr] = \delta_{fi}.
-\end{align*}
-\end{linenomath}
-Expanding and keeping terms up to linear order in $T$, the zeroth-order term $\sum_{n}\delta_{nf}\delta_{ni} = \delta_{fi}$ cancels the right-hand side. The cross terms give
-\begin{linenomath}
-\begin{equation*}
--2\pi i\,\delta(E_{f}-E_{i})\,T_{fi}
-+ 2\pi i\,\delta(E_{f}-E_{i})\,T_{if}^{*}
-+ 4\pi^{2}\delta(E_{f}-E_{i})\sum_{n}\delta(E_{n}-E_{i})\,T_{nf}^{*}T_{ni} = 0.
-\end{equation*}
-\end{linenomath}
-The quadratic term (from $T^{\dagger}T$) is retained because it is of the same order as the linear terms when multiplied by the density of intermediate states. Cancelling the common factor $\delta(E_{f}-E_{i})$ and rearranging yields the on-shell unitarity condition for the T-matrix:
-\begin{linenomath}
-\begin{equation*}
-T_{fi} - T_{if}^{*} = -2\pi i\sum_{n}\delta(E_{n}-E_{i})\,T_{nf}^{*}T_{ni}.
-\end{equation*}
-\end{linenomath}
-For forward scattering ($f = i$), this becomes
-\begin{linenomath}
-\begin{equation*}
-2i\,\Im T_{ii} = -2\pi i\sum_{n}\delta(E_{n}-E_{i})\,|T_{ni}|^{2}.
-\end{equation*}
-\end{linenomath}
-Dividing by $-2i$ and translating to the scattering amplitude gives the optical theorem:
+so
 \begin{linenomath}
 \begin{equation}
-\Im f(\theta=0) = \frac{k}{4\pi}\,\sigma_{\text{tot}}.
+[S,H_{0}] = 0.
+\label{eq:S-commutes-H0}
+\end{equation}
+\end{linenomath}
+In the energy basis $S_{fi}$ carries $\delta(E_{f}-E_{i})$: scattering connects only states of the same energy. This is the temporal-translation invariance of Chapter~4 \eqref{eq:conservation-theorem}, here the statement that the free Hamiltonian --- the generator of time translations outside the interaction region --- is a conserved label of the S-matrix.
+
+\medskip\noindent\textbf{Unitarity.} Probability conservation is the unitarity of $S$. Using asymptotic completeness $\Omega_{-}\Omega_{-}^{\dagger}=I-P_{\mathrm{bound}}$ and the orthogonality $P_{\mathrm{bound}}\Omega_{+}=0$ (bound states are orthogonal to scattering states, and $\Omega_{+}|\phi\rangle$ is a scattering state),
+\begin{linenomath}
+\begin{equation*}
+S^{\dagger}S = \Omega_{+}^{\dagger}\bigl(\Omega_{-}\Omega_{-}^{\dagger}\bigr)\Omega_{+} = \Omega_{+}^{\dagger}(I-P_{\mathrm{bound}})\Omega_{+} = \Omega_{+}^{\dagger}\Omega_{+} = I,
+\end{equation*}
+\end{linenomath}
+and similarly $SS^{\dagger}=I$. Hence $S^{\dagger}S=SS^{\dagger}=I$. In components $\sum_{n}S_{nf}^{*}S_{ni}=\delta_{fi}$: the probability of emerging in \emph{some} final free state, summed over all open channels, is unity. Every incident particle either scatters elastically, scatters inelastically (the target changes state), or is captured into a bound state; the S-matrix accounts for the first two, and unitarity fixes their sum.
+
+\medskip\noindent\textbf{The T-matrix.} Because $[S,H_{0}]=0$, the S-matrix in the energy representation carries an overall $\delta(E_{f}-E_{i})$. Separate the identity (the particle passes through unscattered) from the transition:
+\begin{linenomath}
+\begin{equation}
+S_{fi} = \delta_{fi} - 2\pi i\,\delta(E_{f}-E_{i})\,T_{fi}.
+\label{eq:S-T-decomposition}
+\end{equation}
+\end{linenomath}
+The first term is the ``no-scattering'' piece; $T_{fi}$ is the \emph{transition matrix}, evaluated \emph{on the energy shell} $E_{f}=E_{i}=E$. The factor $2\pi i$ and the energy $\delta$ are the Fourier image of the infinite time interval (derived in \S\ref{sec:scattering-timedep}); the decomposition \eqref{eq:S-T-decomposition} is the definition of $T$.
+
+\medskip\noindent\textbf{The unitarity relation for $T$.} Insert \eqref{eq:S-T-decomposition} into $S^{\dagger}S=I$, i.e.\ $\sum_{n}S_{nf}^{*}S_{ni}=\delta_{fi}$:
+\begin{linenomath}
+\begin{equation*}
+\sum_{n}\bigl[\delta_{nf}+2\pi i\,\delta(E_{n}-E_{f})\,T_{nf}^{*}\bigr]\bigl[\delta_{ni}-2\pi i\,\delta(E_{n}-E_{i})\,T_{ni}\bigr]=\delta_{fi}.
+\end{equation*}
+\end{linenomath}
+The zeroth-order term gives $\delta_{fi}$, cancelling the right-hand side. The cross terms and the quadratic term leave
+\begin{linenomath}
+\begin{equation*}
+-2\pi i\,\delta(E_{f}-E_{i})\,T_{fi} + 2\pi i\,\delta(E_{f}-E_{i})\,T_{if}^{*} + (2\pi)^{2}\sum_{n}\delta(E_{n}-E_{f})\delta(E_{n}-E_{i})\,T_{nf}^{*}T_{ni} = 0.
+\end{equation*}
+\end{linenomath}
+The quadratic term is retained at the same order as the linear ones because the dense sum over intermediate states supplies a second energy $\delta$:
+$\sum_{n}\delta(E_{n}-E_{f})\delta(E_{n}-E_{i}) = \delta(E_{f}-E_{i})\sum_{n}\delta(E_{n}-E_{i})$,
+the last factor being the density of intermediate states. Cancelling $\delta(E_{f}-E_{i})$ and $2\pi i$,
+\begin{linenomath}
+\begin{equation}
+T_{fi} - T_{if}^{*} = -2\pi i\sum_{n}\delta(E_{n}-E_{i})\,T_{nf}^{*}T_{ni}.
+\label{eq:T-unitarity}
+\end{equation}
+\end{linenomath}
+This is the exact on-shell unitarity relation for $T$ --- exact in $T$, not perturbative. For forward scattering ($f=i$),
+\begin{linenomath}
+\begin{equation*}
+2i\,\Im T_{ii} = -2\pi i\sum_{n}\delta(E_{n}-E_{i})\,|T_{ni}|^{2}
+\quad\Longrightarrow\quad
+\Im T_{ii} = -\pi\sum_{n}\delta(E_{n}-E_{i})\,|T_{ni}|^{2}.
+\end{equation*}
+\end{linenomath}
+The imaginary part of the forward $T$-element is fixed by the total transition probability into all open channels. Translated to the scattering amplitude $f$ (defined in \S\ref{sec:scattering-stationary}, where $f\propto -T$), this becomes the optical theorem $\Im f(0)=k\sigma_{\mathrm{tot}}/4\pi$ \eqref{eq:optical-theorem}: the minus sign in $f\propto -T$ turns the negative $\Im T_{ii}$ into the positive $\Im f(0)$.
+
+\medskip\noindent\textbf{The Born series.} The transition matrix obeys an integral equation (derived in \S\ref{sec:scattering-stationary} as the operator form of the Lippmann--Schwinger equation):
+\begin{linenomath}
+\begin{equation*}
+T = V + V\,\frac{1}{E-H_{0}+i\epsilon}\,T,
+\end{equation*}
+\end{linenomath}
+with the free resolvent $G_{0}^{(+)}=(E-H_{0}+i\epsilon)^{-1}$. Iterating (a Neumann series) gives the \emph{Born series}
+\begin{linenomath}
+\begin{equation}
+T = V + V\,G_{0}^{(+)}\,V + V\,G_{0}^{(+)}\,V\,G_{0}^{(+)}\,V + \cdots,
+\label{eq:born-series}
+\end{equation}
+\end{linenomath}
+each term adding one more interaction with $V$. This is the energy-domain avatar of the Dyson series of Chapter~4 \eqref{eq:time-ordered-exp}. The leading term $T\approx V$ is the first Born approximation, the subject of \S\ref{sec:born-partial-waves}; convergence requires the potential to be weak or the energy high (validity discussed there). The series is exact as a formal identity; its truncation is the approximation.
+
+The formalism of this subsection --- the asymptotic condition, the M\o{}ller operators, the intertwining relation, the S-matrix, unitarity, and the $T$-matrix --- is representation-independent. It says nothing about wavefunctions or cross-sections. Those follow by reading the operators in the energy and position representations: the task of the next subsection.
+
+\subsection{Stationary Scattering Theory as a Special Case}
+\label{sec:scattering-stationary}
+
+The formalism of \S\ref{sec:scattering-formalism-moller} is representation-independent. Specialising to the energy shell and reading the operators in the position representation turns the M\o{}ller operators into the Lippmann--Schwinger equation, the resolvent into the free Green's function, and the on-shell $T$-matrix into the scattering amplitude $f$. This subsection deduces each in turn; nothing new is assumed.
+
+\medskip\noindent\textbf{From the intertwining relation to the Lippmann--Schwinger equation.}
+The in-state $|\psi^{(+)}\rangle=\Omega_{+}|\phi\rangle$ is an eigenstate of $H$ with the same energy $E$ as the free state $|\phi\rangle$ (by intertwining \eqref{eq:intertwining}): $H|\psi^{(+)}\rangle=E|\psi^{(+)}\rangle$, $H_{0}|\phi\rangle=E|\phi\rangle$, with $H=H_{0}+V$ and $E=\hbar^{2}k^{2}/2m>0$. Subtracting,
+\begin{linenomath}
+\begin{equation*}
+(E-H_{0})|\psi^{(+)}\rangle = V|\psi^{(+)}\rangle,
+\end{equation*}
+\end{linenomath}
+an inhomogeneous equation whose right-hand side is known once $|\psi^{(+)}\rangle$ is. Inverting $E-H_{0}$ requires a boundary condition: the $\pm i\epsilon$ prescription (deduced below) selects the outgoing ($+$) or incoming ($-$) solution. The formal inverse, with the homogeneous solution $|\phi\rangle$ added, is the \emph{Lippmann--Schwinger equation}
+\begin{linenomath}
+\begin{equation}
+|\psi^{(\pm)}\rangle = |\phi\rangle + \frac{1}{E-H_{0}\pm i\epsilon}\,V\,|\psi^{(\pm)}\rangle.
+\label{eq:lippmann-schwinger}
+\end{equation}
+\end{linenomath}
+This is the position-energy avatar of the intertwining relation: in operator form $\Omega_{\pm}=I+G_{0}^{(\pm)}V\,\Omega_{\pm}$ with the free resolvent $G_{0}^{(\pm)}=(E-H_{0}\pm i\epsilon)^{-1}$, and acting on $|\phi\rangle$ returns \eqref{eq:lippmann-schwinger}. The equation is exact but implicit --- the unknown $|\psi^{(\pm)}\rangle$ appears on both sides; its iterative solution is the Born series \eqref{eq:born-series}.
+
+\medskip\noindent\textbf{The $i\epsilon$ prescription.}
+The inverse $(E-H_{0}\pm i\epsilon)^{-1}$ is the Fourier transform of a retarded ($+$) or advanced ($-$) free propagator. With a convergence factor $e^{-\varepsilon t/\hbar}$ ($\varepsilon>0$) switched off at the end,
+\begin{linenomath}
+\begin{equation}
+\frac{1}{E-H_{0}\pm i\epsilon}
+= \mp\frac{i}{\hbar}\int_{0}^{\infty}\!dt\; e^{\pm i(E-H_{0})t/\hbar}\,e^{-\varepsilon t/\hbar}
+\;\xrightarrow{\varepsilon\to0^{+}}\;
+\mp\frac{i}{\hbar}\int_{0}^{\infty}\!dt\; e^{\pm i(E-H_{0})t/\hbar}.
+\label{eq:iepsilon-time}
+\end{equation}
+\end{linenomath}
+The integral converges only because of $e^{-\varepsilon t/\hbar}$: evaluating $\int_{0}^{\infty}dt\,e^{\pm i(E-H_{0})t/\hbar}e^{-\varepsilon t/\hbar}=\mp i\hbar/(E-H_{0}\pm i\epsilon)$ reproduces the resolvent. The $+i\epsilon$ (the $t>0$ integral) is \emph{retarded}: it builds the state from its past --- the physical in-state, an incident wave \emph{plus} an outgoing scattered wave. The $-i\epsilon$ is advanced, building the out-state. The $i\epsilon$ is thus not a trick but the Fourier signature of the arrow of time in the asymptotic condition \eqref{eq:asymptotic-in}--\eqref{eq:asymptotic-out}; it is derived dynamically in \S\ref{sec:scattering-timedep}.
+
+\medskip\noindent\textbf{The free Green's function.}
+In the position representation the resolvent is the free Green's function,
+\begin{linenomath}
+\begin{equation*}
+G_{0}^{(\pm)}(\bm r,\bm r';E)=\braket{\bm r|\tfrac{1}{E-H_{0}\pm i\epsilon}|\bm r'}
+=\int\frac{d^{3}k'}{(2\pi)^{3}}\frac{e^{i\bm k'\cdot(\bm r-\bm r')}}{E-\hbar^{2}k'^{2}/2m\pm i\epsilon},
+\end{equation*}
+\end{linenomath}
+with $E=\hbar^{2}k^{2}/2m$ and $\bm R=\bm r-\bm r'$. Pull out $2m/\hbar^{2}$ and do the angular integral (align $\bm R$ with the $k'$-polar axis, $\int d\Omega\,e^{ik'R\cos\theta}=4\pi\sin(k'R)/(k'R)$):
+\begin{linenomath}
+\begin{equation*}
+G_{0}^{(\pm)}=\frac{2m}{\hbar^{2}}\frac{1}{2\pi^{2}R}\int_{0}^{\infty}\!dk'\,\frac{k'\sin(k'R)}{k^{2}-k'^{2}\pm i\epsilon'}.
+\end{equation*}
+\end{linenomath}
+Write $\sin(k'R)=(e^{ik'R}-e^{-ik'R})/(2i)$ and extend the integral to the whole line (the integrand $k'\sin(k'R)$ is even in $k'$):
+\begin{linenomath}
+\begin{equation*}
+\int_{0}^{\infty}\!dk'\,\frac{k'\sin(k'R)}{k^{2}-k'^{2}+i\epsilon'}=\frac{1}{2i}\int_{-\infty}^{\infty}\!dk'\,\frac{k'\,e^{ik'R}}{k^{2}-k'^{2}+i\epsilon'}-\frac{1}{2i}\int_{-\infty}^{\infty}\!dk'\,\frac{k'\,e^{-ik'R}}{k^{2}-k'^{2}+i\epsilon'}.
+\end{equation*}
+\end{linenomath}
+For the $e^{+ik'R}$ piece close the contour in the upper half-plane ($R>0$); the poles of $1/(k^{2}-k'^{2}+i\epsilon')$ lie at $k'=\pm(k+i\epsilon'')$, so only $k'=k+i\epsilon''$ is enclosed. The residue is $\lim_{k'\to k}k'e^{ik'R}/(-2k)=-e^{ikR}/2$, giving $\int=2\pi i(-e^{ikR}/2)=-\pi i\,e^{ikR}$. The $e^{-ik'R}$ piece, closed in the lower half-plane (clockwise), encloses $k'=-k-i\epsilon''$ with residue $-e^{ikR}/2$, contributing $-2\pi i(-e^{ikR}/2)=+\pi i\,e^{ikR}$. Their difference is $-2\pi i\,e^{ikR}$; times $1/(2i)$ this is $-\pi e^{ikR}$. Hence, for the $+$ sign (the $-$ sign gives $e^{-ikR}$ by the mirrored contour),
+\begin{linenomath}
+\begin{equation}
+G_{0}^{(\pm)}(\bm r,\bm r';E)=-\frac{2m}{\hbar^{2}}\,\frac{e^{\pm ik|\bm r-\bm r'|}}{4\pi|\bm r-\bm r'|}.
+\label{eq:free-green}
+\end{equation}
+\end{linenomath}
+The $\pm i\epsilon$ has selected an outgoing ($+$) or incoming ($-$) spherical wave --- precisely the boundary condition of \eqref{eq:lippmann-schwinger}. The Green's function is the amplitude for a free particle of energy $E$ to propagate from $\bm r'$ to $\bm r$; the $i\epsilon$ fixes whether it propagates with the retarded or advanced prescription.
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[scale=1.0]
+    % Incident plane wave
+    \foreach \y in {-1.5,-0.5,0.5,1.5} {
+        \draw[blue!40,very thin] (-3,\y) -- (-0.5,\y);
+    }
+    \draw[blue!60,->,thick] (-3,0) -- (-0.5,0) node[midway,above] {$e^{i\bm k\cdot\bm r}$};
+    % Interaction region
+    \draw[thick,fill=gray!20] (-0.5,-1.5) rectangle (0.5,1.5);
+    \node at (0,0) {$V(r)$};
+    \node at (0,-1.8) {$r < a$};
+    % Scattered spherical waves
+    \foreach \r in {1.0,1.5,2.0,2.5} {
+        \draw[red!50,thin] (0,0) circle (\r);
+    }
+    \draw[red!60,->,thick] (0,0) -- (2.5,0) node[midway,below] {$\frac{e^{ikr}}{r}$};
+    \node[red!60] at (1.2,1.8) {outgoing};
+    % Asymptotic labels
+    \node[blue!60] at (-2.5,2.0) {incoming plane wave};
+    \node[red!60] at (2.5,2.0) {outgoing spherical wave};
+    % Divider
+    \draw[dashed] (-3.5,0) -- (-3.5,0);
+\end{tikzpicture}
+\caption{Asymptotic forms of the scattering wavefunction. Left of the interaction region: an incident plane wave approaches. Right: at large distances, the wavefunction is the superposition of the unscattered plane wave (continuing through) and an outgoing spherical wave centred on the target. The scattering amplitude $f$ is the envelope of the spherical wave.}
+\label{fig:asymptotic-scattering}
+\end{figure}
+
+\medskip\noindent\textbf{The asymptotic form and the scattering amplitude.}
+Take the position matrix element of \eqref{eq:lippmann-schwinger} (with $+$) and insert \eqref{eq:free-green}:
+\begin{linenomath}
+\begin{equation*}
+\braket{\bm r|\psi_{\bm k}^{(+)}}=\braket{\bm r|\bm k}-\frac{2m}{\hbar^{2}}\int d^{3}r'\,\frac{e^{ik|\bm r-\bm r'|}}{4\pi|\bm r-\bm r'|}\braket{\bm r'|V|\psi_{\bm k}^{(+)}}.
+\end{equation*}
+\end{linenomath}
+For a detector far from the target ($r=|\bm r|\gg r'$), expand $|\bm r-\bm r'|\approx r-\hat{\bm r}\!\cdot\!\bm r'$, so $e^{ik|\bm r-\bm r'|}\approx e^{ikr}e^{-i\bm k'\cdot\bm r'}$ with $\bm k'=k\hat{\bm r}$ the final momentum. With $\braket{\bm r|\bm k}=e^{i\bm k\cdot\bm r}/(2\pi)^{3/2}$,
+\begin{linenomath}
+\begin{equation*}
+\braket{\bm r|\psi_{\bm k}^{(+)}}\xrightarrow{r\to\infty}\frac{1}{(2\pi)^{3/2}}\Bigl[e^{i\bm k\cdot\bm r}+f(\bm k',\bm k)\,\frac{e^{ikr}}{r}\Bigr],
+\end{equation*}
+\end{linenomath}
+where the matching has \emph{defined} the scattering amplitude
+\begin{linenomath}
+\begin{equation}
+f(\bm k',\bm k)=-\frac{2m}{\hbar^{2}}\frac{(2\pi)^{3}}{4\pi}\braket{\bm k'|V|\psi_{\bm k}^{(+)}}.
+\label{eq:scattering-amplitude-ls}
+\end{equation}
+\end{linenomath}
+The factor $(2\pi)^{3}$ reflects the normalisation $\braket{\bm k'|\bm k}=\delta^{(3)}(\bm k'-\bm k)$. Defining the scattering wavefunction $\psi_{\bm k}(\bm r):=(2\pi)^{3/2}\braket{\bm r|\psi_{\bm k}^{(+)}}$ (so the incident part is the plane wave $e^{i\bm k\cdot\bm r}$), the asymptotic form is
+\begin{linenomath}
+\begin{equation}
+\psi_{\bm k}(\bm r)\xrightarrow{r\to\infty}e^{i\bm k\cdot\bm r}+f(\theta,\phi)\,\frac{e^{ikr}}{r}.
+\label{eq:scattering-amplitude-def}
+\end{equation}
+\end{linenomath}
+The two terms are the two alternatives of the experiment --- the particle passes through unscattered (the plane wave) or is scattered (the outgoing spherical wave). The amplitude $f$ carries all the dynamics; its phase is unobservable in the elastic cross-section but is fixed in the forward direction by the optical theorem below, and its analytic structure in complex energy encodes the bound states and resonances of the potential (\S\ref{sec:scattering-symmetry}).
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[scale=1.0]
+    % Three regions
+    \filldraw[fill=gray!30] (0,0) circle (1.2);
+    \node at (0,0) {$V(r)\neq0$};
+    \draw[dashed] (0,0) circle (1.2);
+    \node at (0,-1.5) {interaction region ($r<a$)};
+    % Outgoing rays
+    \foreach \a in {0,30,60,...,330} {
+        \draw[red!40,->] (0,0) -- ({\a}:3.0);
+    }
+    \node[red!60] at (2.5,2.5) {asymptotic region};
+    \node[red!60] at (2.5,2.1) {$r\gg a$, $V\approx0$};
+    % Radial labels
+    \draw[<->] (0,-1.3) -- (3.0,-1.3);
+    \node at (1.5,-1.6) {$a$ (range)};
+    % Incident direction
+    \draw[blue!60,->,very thick] (-3.5,0) -- (-1.3,0);
+    \node[blue!60] at (-2.5,0.3) {$\bm k$};
+\end{tikzpicture}
+\caption{Three regimes of scattering. The interaction region ($r<a$) is where the potential is appreciable. Outside it, the particle propagates freely; the wavefunction is a spherical wave whose radial amplitude is modulated by $f(\theta,\phi)$. The scattering problem is the matching of the interior solution to the asymptotic form \eqref{eq:scattering-amplitude-def}.}
+\label{fig:interaction-region}
+\end{figure}
+
+\medskip\noindent\textbf{Cross-section from flux.}
+The incident flux in the plane wave $e^{i\bm k\cdot\bm r}$ is $v=\hbar k/m$ particles per unit area per unit time. The outgoing spherical wave $f\,e^{ikr}/r$ carries radial flux $|f|^{2}v/r^{2}$; into solid angle $d\Omega$ at distance $r$ this is $|f|^{2}v\,d\Omega/r^{2}$. The ratio of scattered to incident flux, times $r^{2}$, is the differential cross-section:
+\begin{linenomath}
+\begin{equation}
+\frac{d\sigma}{d\Omega}=|f(\theta,\phi)|^{2},\qquad
+\sigma_{\mathrm{tot}}=\int d\Omega\,|f(\theta,\phi)|^{2}.
+\label{eq:differential-cross-section}
+\end{equation}
+\end{linenomath}
+For inelastic scattering, in which the target changes internal state, the same formula holds with the channel amplitude $f_{i\to f}$.
+
+\medskip\noindent\textbf{The S-matrix on the energy shell.}
+Reading $S=\Omega_{-}^{\dagger}\Omega_{+}$ \eqref{eq:S-matrix-def} in the momentum basis and using $\Omega_{-}^{\dagger}=\lim_{t\to+\infty}e^{iH_{0}t/\hbar}e^{-iHt/\hbar}$ together with \eqref{eq:lippmann-schwinger}, the on-shell element is
+\begin{linenomath}
+\begin{equation}
+\braket{\bm k_{f}|\psi_{\bm k_{i}}^{(+)}}=\delta^{(3)}(\bm k_{f}-\bm k_{i})-2\pi i\,\delta(E_{f}-E_{i})\,T_{\bm k_{f}\bm k_{i}},
+\qquad
+T_{\bm k_{f}\bm k_{i}}:=\braket{\bm k_{f}|V|\psi_{\bm k_{i}}^{(+)}}.
+\label{eq:on-shell-T}
+\end{equation}
+\end{linenomath}
+This is the momentum-space form of the decomposition \eqref{eq:S-T-decomposition}: the $\delta^{(3)}$ is the no-scattering piece, $T$ the transition. Comparing \eqref{eq:on-shell-T} with \eqref{eq:scattering-amplitude-ls} gives the on-shell relation
+\begin{linenomath}
+\begin{equation}
+f(\bm k',\bm k)=-\frac{2m}{\hbar^{2}}\frac{(2\pi)^{3}}{4\pi}\,T_{\bm k'\bm k}=-\frac{4m\pi^{2}}{\hbar^{2}}\,T_{\bm k'\bm k},
+\label{eq:f-T-relation}
+\end{equation}
+\end{linenomath}
+i.e.\ $f\propto -T$ --- the minus sign promised in \S\ref{sec:scattering-formalism-moller}. Iterating \eqref{eq:lippmann-schwinger} once, $|\psi^{(+)}\rangle=|\phi\rangle+G_{0}^{(+)}V|\phi\rangle+\cdots$, gives $T=V+VG_{0}^{(+)}V+\cdots$, the Born series \eqref{eq:born-series}; the leading term $T\approx V$ is the first Born approximation of \S\ref{sec:born-partial-waves}.
+
+\medskip\noindent\textbf{The optical theorem.}
+The $T$-matrix unitarity relation \eqref{eq:T-unitarity}, made explicit in the continuum ($\sum_{n}\to\int d^{3}k_{n}$), reads on the energy shell
+\begin{linenomath}
+\begin{equation*}
+2i\,\Im T_{ii}=-2\pi i\int d^{3}k_{n}\,\delta(E_{n}-E_{i})\,|T_{\bm k_{n}\bm k_{i}}|^{2}.
+\end{equation*}
+\end{linenomath}
+The momentum integral is done with $E_{n}=\hbar^{2}k_{n}^{2}/2m$ on shell:
+$\int d^{3}k_{n}\,\delta(E_{n}-E_{i})=\int k_{n}^{2}dk_{n}\,d\Omega_{n}\,\delta(\hbar^{2}k_{n}^{2}/2m-E_{i})=(mk/\hbar^{2})\int d\Omega_{n}$
+(since $dE=(\hbar^{2}k/m)\,dk$). Hence
+\begin{linenomath}
+\begin{equation*}
+\Im T_{ii}=-\pi\,\frac{mk}{\hbar^{2}}\int d\Omega\,|T(\bm k_{n},\bm k_{i})|^{2}.
+\end{equation*}
+\end{linenomath}
+Now translate to $f$ via \eqref{eq:f-T-relation}: $|T|^{2}=|f|^{2}\,\hbar^{4}/(16m^{2}\pi^{4})$, so $\int d\Omega\,|T|^{2}=\hbar^{4}\sigma_{\mathrm{tot}}/(16m^{2}\pi^{4})$, while $\Im f(0)=-(4m\pi^{2}/\hbar^{2})\,\Im T_{ii}$. Assembling,
+\begin{linenomath}
+\begin{equation*}
+\Im f(0)=-\frac{4m\pi^{2}}{\hbar^{2}}\Bigl[-\pi\,\frac{mk}{\hbar^{2}}\cdot\frac{\hbar^{4}\sigma_{\mathrm{tot}}}{16m^{2}\pi^{4}}\Bigr]=\frac{k}{4\pi}\,\sigma_{\mathrm{tot}}.
+\end{equation*}
+\end{linenomath}
+Thus the \emph{optical theorem},
+\begin{linenomath}
+\begin{equation}
+\Im f(\theta=0)=\frac{k}{4\pi}\,\sigma_{\mathrm{tot}},
 \label{eq:optical-theorem}
 \end{equation}
 \end{linenomath}
-The physical content: the total cross-section (elastic plus inelastic, summed over all open channels) is proportional to the imaginary part of the forward elastic scattering amplitude. Destructive interference in the forward direction removes precisely the flux from the incident beam that reappears as scattering into all other directions. The theorem is exact -- a consequence of probability conservation alone -- and is testable in any scattering experiment.
+an exact consequence of probability conservation ($S^{\dagger}S=I$) alone. The total cross-section --- elastic plus inelastic, summed over all open channels --- is proportional to the imaginary part of the \emph{forward} elastic amplitude. Destructive interference in the forward direction removes precisely the flux from the incident beam that reappears as scattering into all other directions; the theorem is testable in any experiment measuring both $d\sigma/d\Omega$ and the forward amplitude. The partial-wave reading of \eqref{eq:optical-theorem} in \S\ref{sec:scattering-symmetry} gives a second, independent proof and a sharp physical picture.
 
-\medskip\noindent\textbf{Cross-sections from the S-matrix.}
-For scattering from an initial momentum $\bm k$ to a final momentum $\bm k'$ (elastic), the differential cross-section is $d\sigma/d\Omega = |f(\bm k',\bm k)|^{2}$. For inelastic scattering $i \to f$ in which the target changes internal state, the same formula applies with the appropriate T-matrix element connecting the initial and final channels, and the appropriate density of final states. The total cross-section for a given initial channel is the sum (integral) over all open final channels.
+The stationary theory is the working register of scattering calculations: the LS equation \eqref{eq:lippmann-schwinger}, the Green's function \eqref{eq:free-green}, the amplitude \eqref{eq:scattering-amplitude-ls}, the cross-section \eqref{eq:differential-cross-section}, and the optical theorem \eqref{eq:optical-theorem}. It is the energy-shell specialisation of the formal operators of \S\ref{sec:scattering-formalism-moller}. Its own foundation --- why the $i\epsilon$ and the asymptotic form are the long-time limits of a dynamical process --- is the subject of the next subsection.
 
-The operational content of this formal section is the optical theorem and the connection between the scattering amplitude and the measurable cross-section. The LS equation is exact but exact only as an integral equation -- it is not a solution. The first Born approximation, which replaces the full scattering state $|\psi^{(+)}\rangle$ inside the integral by the incident plane wave $|\bm k\rangle$, yields a closed-form expression for the scattering amplitude -- and with it, the Rutherford cross-section.
+\subsection{Time-Dependent Scattering Theory: the Dynamical Foundation}
+\label{sec:scattering-timedep}
 
-\section{The Born Approximation and Partial Waves}
-\label{sec:born-partial-waves}
+The stationary theory of \S\ref{sec:scattering-stationary} is the working register of calculations, but it is not the physical origin of the formalism. Scattering is a dynamical process: a wave packet, localised in the distant past, approaches the target, interacts, and emerges as a scattered packet in the distant future. This subsection makes that picture precise --- it is the foundation on which \S\ref{sec:scattering-formalism-moller}--\S\ref{sec:scattering-stationary} stand --- and works four examples that exhibit the formalism in motion.
 
-The Lippmann--Schwinger equation is exact but implicit: the unknown $|\psi^{(+)}\rangle$ appears on both sides. The first Born approximation replaces it by the incident plane wave inside the integral, yielding an explicit formula for the scattering amplitude. The partial-wave expansion, by contrast, exploits rotational symmetry to reduce the scattering problem to a set of one-dimensional radial equations labelled by angular momentum -- exact, and complementary to the Born approximation.
-
-\medskip\noindent\textbf{The first Born approximation.}
-Set $|\psi^{(+)}\rangle \approx |\bm k\rangle$ in the LS result \eqref{eq:scattering-amplitude-ls}. The scattering amplitude becomes the Fourier transform of the potential, evaluated at the momentum transfer:
+\medskip\noindent\textbf{Wave packets.} A realistic experiment does not use momentum eigenstates (unnormalisable, filling all space) but a wave packet --- a normalisable superposition peaked at the incident momentum $\hbar\bm k_{0}$:
 \begin{linenomath}
 \begin{equation}
-f_{\text{Born}}(\bm k',\bm k) = -\frac{2m}{\hbar^{2}}\,\frac{1}{4\pi}\int d^{3}r\;e^{-i\bm q\cdot\bm r}\,V(\bm r),
-\qquad \bm q = \bm k' - \bm k.
+|\psi_{\mathrm{in}}\rangle = \int d^{3}k\;\phi(\bm k-\bm k_{0})\,|\bm k\rangle,
+\label{eq:wave-packet-in}
+\end{equation}
+\end{linenomath}
+with $\phi$ a smooth envelope of width $\Delta k\ll k_{0}$. The asymptotic condition \eqref{eq:asymptotic-in}--\eqref{eq:asymptotic-out} now reads concretely: as $t\to-\infty$ the packet is far from the target and $|\psi(t)\rangle\to e^{-iH_{0}t/\hbar}|\psi_{\mathrm{in}}\rangle$; as $t\to+\infty$ it has left and $|\psi(t)\rangle\to e^{-iH_{0}t/\hbar}|\psi_{\mathrm{out}}\rangle$. The S-matrix is the in$\to$out map on the free states,
+\begin{linenomath}
+\begin{equation}
+|\psi_{\mathrm{out}}\rangle = S\,|\psi_{\mathrm{in}}\rangle,
+\label{eq:S-matrix-wave-packet}
+\end{equation}
+\end{linenomath}
+a normalisable avatar of \eqref{eq:S-matrix-def}.
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[scale=0.9]
+    % Time axis
+    \draw[->,thick] (-5,0) -- (5,0) node[right] {$t$};
+    \node at (0,-0.8) {interaction};
+    % Past
+    \node at (-4.5,0.5) {$t\to -\infty$};
+    % Future
+    \node at (4.5,0.5) {$t\to +\infty$};
+    % Incoming wave packet (left)
+    \draw[blue!60,thick] plot[smooth] coordinates {(-4.5,0.2) (-3.5,0.8) (-2.5,1.4) (-1.5,1.8) (-0.5,2.0)};
+    \node[blue!60] at (-2.5,1.8) {incoming packet};
+    \draw[blue!40,->,dashed] (-1.0,1.8) -- (-0.1,1.8);
+    \node[blue!40] at (-0.6,2.1) {$e^{-iH_{0}t/\hbar}$};
+    % Interaction zone
+    \filldraw[fill=gray!30] (-0.8,-0.5) rectangle (0.8,0.5);
+    \node at (0,0) {$V$};
+    \draw[gray] (0,1.6) -- (0,-0.6);
+    % Scattered wave packets (right)
+    \draw[red!60,thick] plot[smooth] coordinates {(0.5,2.0) (1.5,1.5) (2.5,1.0) (3.5,0.6) (4.5,0.4)};
+    \draw[red!60,thick] plot[smooth] coordinates {(0.5,2.0) (1.5,2.3) (2.5,2.5) (3.5,2.3) (4.5,2.0)};
+    \node[red!60] at (2.5,2.8) {scattered packets};
+    % Outgoing label
+    \draw[red!40,->,dashed] (1.0,2.0) -- (2.0,2.0);
+    \node[red!40] at (1.5,2.3) {$e^{-iH_{0}t/\hbar}$};
+    % Møller labels
+    \node at (-2.5,-1.5) {$\Omega_{+} = \displaystyle\lim_{t\to-\infty} e^{iHt/\hbar}e^{-iH_{0}t/\hbar}$};
+    \node at (2.5,-1.5) {$\Omega_{-} = \displaystyle\lim_{t\to+\infty} e^{iHt/\hbar}e^{-iH_{0}t/\hbar}$};
+\end{tikzpicture}
+\caption{Time-dependent picture of scattering. In the distant past ($t\to-\infty$), the incoming wave packet approaches freely. It enters the interaction region, where the full dynamics under $H=H_{0}+V$ distorts it. In the distant future ($t\to+\infty$), it emerges as a superposition of scattered packets propagating freely in various directions. The M\o{}ller operators $\Omega_{\pm}$ intertwine the free and full dynamics at the temporal boundaries.}
+\label{fig:time-dependent-scattering}
+\end{figure}
+
+\medskip\noindent\textbf{Strong limits and Cook's theorem.} The M\o{}ller operators \eqref{eq:moller-operators} are strong limits: for each normalisable $|\phi\rangle$, $e^{iHt/\hbar}e^{-iH_{0}t/\hbar}|\phi\rangle$ converges in norm as $t\to\mp\infty$. Their existence is not automatic --- it fails for the Coulomb potential (Example~4 below). \emph{Cook's theorem} gives a usable sufficient condition: if $\int_{1}^{\infty}\|V e^{-iH_{0}t/\hbar}|\phi\rangle\|\,dt<\infty$ for a dense set of $|\phi\rangle$ (true for short-range $V\sim r^{-3-\varepsilon}$, whose tail a free particle outruns), then the strong limit exists.\footnote{Cook's theorem and the Kato--Kuroda theory of asymptotic completeness: Reed \& Simon, Vol.~III, \S XI.3.} This is the rigorous content of the asymptotic condition; the rest of the section uses it as given.
+
+\medskip\noindent\textbf{Example 1: the free wave packet and its spreading.} Before the packet reaches the target it propagates freely. Inserting \eqref{eq:wave-packet-in} into $e^{-iH_{0}t/\hbar}$ and using $H_{0}|\bm k\rangle=(\hbar^{2}k^{2}/2m)|\bm k\rangle$,
+\begin{linenomath}
+\begin{equation*}
+\psi_{\mathrm{in}}(\bm r,t)=\int d^{3}k\;\phi(\bm k-\bm k_{0})\,e^{i\bm k\cdot\bm r-i\hbar k^{2}t/2m},
+\end{equation*}
+\end{linenomath}
+the free-particle propagator of Chapter~5 \eqref{eq:free-propagator} (equivalently the short-time kernel of Chapter~9 \eqref{eq:short-time-kernel}) convolved with the initial envelope. For a Gaussian $\phi$ of width $\Delta k$, stationary phase at $\bm k=\bm k_{0}+m\bm r/\hbar t$ gives a packet centred at $\bm r=\bm v_{0}t$ ($\bm v_{0}=\hbar\bm k_{0}/m$) whose width grows as $\Delta r(t)\sim\sqrt{(\Delta r_{0})^{2}+(\hbar t/2m\Delta r_{0})^{2}}$: the packet translates and \emph{spreads}, the free-particle instance of dispersion. Scattering is meaningful only while the packet is compact on the target scale --- $\Delta r\ll a$ sets the experimental time window.
+
+\medskip\noindent\textbf{Example 2: from time-dependent to stationary --- the $i\epsilon$ derived.} The bridge to \S\ref{sec:scattering-stationary} is the derivation of the Lippmann--Schwinger equation and its $i\epsilon$ from the time-dependent picture (the Gell-Mann--Goldberger construction). Evolve the in-state from $t=-\infty$ under $H$ and project onto a free state:
+\begin{linenomath}
+\begin{equation*}
+\braket{\bm k_{f}|\psi_{\bm k_{i}}^{(+)}} = \lim_{t\to-\infty}\braket{\bm k_{f}|e^{iHt/\hbar}e^{-iH_{0}t/\hbar}|\bm k_{i}\rangle} = \lim_{\varepsilon\to0^{+}}\braket{\bm k_{f}|\tfrac{i\varepsilon}{E_{i}-H+i\varepsilon}|\bm k_{i}\rangle},
+\end{equation*}
+\end{linenomath}
+where the retarded convergence factor $e^{\varepsilon t/\hbar}$ ($t\to-\infty$) has been introduced and the limit traded for the resolvent via $\int_{-\infty}^{0}dt\,e^{i(E_{i}-H)t/\hbar}e^{\varepsilon t/\hbar}=i\hbar/(E_{i}-H+i\varepsilon)$. Splitting $H=H_{0}+V$ and using $E_{i}|\bm k_{i}\rangle=H_{0}|\bm k_{i}\rangle$ yields \eqref{eq:on-shell-T} with the $+i\epsilon$, and the operator form $\Omega_{+}=I+(E-H_{0}+i\epsilon)^{-1}V\Omega_{+}$ is \eqref{eq:lippmann-schwinger}. The $i\epsilon$ is thus not postulated but \emph{derived} --- the Fourier image of evolving from the distant past with a retarded switch-on. The stationary theory is the long-time limit of the dynamical one; the two are one theory in two registers, and \eqref{eq:iepsilon-time} is its precise statement.
+
+\medskip\noindent\textbf{Example 3: from wave packet to cross-section.} Why do unnormalisable plane waves give correct cross-sections? Put the experiment in a box of volume $\mathcal{V}$ (one particle, one target). The probability of detecting the particle with final momentum in the cone $d\Omega$ about $\hat{\bm k}'$ is
+\begin{linenomath}
+\begin{equation}
+dP = |S_{\bm k',\bm k}|^{2}\,\frac{\mathcal{V}}{(2\pi)^{3}}\,k^{2}dk\,d\Omega,
+\label{eq:scattering-probability}
+\end{equation}
+\end{linenomath}
+with $\mathcal{V}/(2\pi)^{3}$ the density of final states. The incident flux is one particle in volume $\mathcal{V}$ moving at $v=\hbar k/m$, i.e.\ $j_{\mathrm{inc}}=v/\mathcal{V}$. Using $S_{\bm k',\bm k}=\delta^{(3)}(\bm k'-\bm k)-2\pi i\,\delta(E_{f}-E_{i})\,T_{\bm k'\bm k}$ \eqref{eq:on-shell-T} and $f=-(4m\pi^{2}/\hbar^{2})T$ \eqref{eq:f-T-relation}, the $\delta^{(3)}$ (no-scattering) piece is removed by looking off the incident direction, and the transition piece gives a rate $dP/dt=j_{\mathrm{inc}}\,|f|^{2}d\Omega$ (the energy $\delta$ supplies $\delta(E_{f}-E_{i})=\delta(k-k_{i})/(v\hbar)$, the time-integral of a rate). Dividing by $j_{\mathrm{inc}}=v/\mathcal{V}$ and taking $\mathcal{V}\to\infty$,
+\begin{linenomath}
+\begin{equation*}
+\frac{d\sigma}{d\Omega}=|f(\bm k',\bm k)|^{2},
+\end{equation*}
+\end{linenomath}
+recovering \eqref{eq:differential-cross-section}. The plane-wave formula is the $\mathcal{V}\to\infty$ limit of a finite wave-packet calculation; the flux normalisation absorbs the volume, and the energy $\delta$ encodes the infinite interaction time. This is the rigorous meaning of ``scattering of a momentum eigenstate.''
+
+\medskip\noindent\textbf{Example 4: the Coulomb caveat.} The Coulomb potential $V(r)=Ze^{2}/r$ violates the short-range condition: $|V|\sim r^{-1}$, not $r^{-3-\varepsilon}$, so a particle never outruns the tail and the strong limits \eqref{eq:moller-operators} \emph{do not exist} --- the phase accumulated at large $r$ diverges logarithmically. The formalism above therefore does not apply directly. Dollard's repair (1964) replaces the free comparison dynamics $e^{-iH_{0}t/\hbar}$ with a \emph{modified} free dynamics carrying a logarithmic phase $e^{-i(Ze^{2}/\hbar v)\ln(\hbar kv^{2}t/m\hbar)}$; with this modification the M\o{}ller operators exist, the S-matrix is unitary, and the exact Coulomb amplitude (the Gordon formula) differs from the Born result \eqref{eq:rutherford-cross-section} by a phase $e^{-i\eta\ln\sin^{2}(\theta/2)}$ ($\eta=Ze^{2}/\hbar v$) that drops out of $|f|^{2}$.\footnote{J.~Dollard, J.~Math.~Phys.~\textbf{5}, 729 (1964).} The Rutherford cross-section is recovered identically because the phase cancels. The lesson stands: the formalism of \S\ref{sec:scattering-formalism-moller}--\S\ref{sec:scattering-stationary} is the theory of \emph{short-range} scattering; long-range forces require modified asymptotics.
+
+The time-dependent picture is the foundation; the stationary picture is its long-time shadow. What remains is to read off the consequences of symmetry --- the subject of the closing subsection.
+
+\subsection{Symmetry of Scattered States}
+\label{sec:scattering-symmetry}
+
+The asymptotic condition treats the in and out states symmetrically, and the S-matrix inherits every symmetry shared by $H$ and $H_{0}$. This subsection deduces the general theorem and extracts its consequences: energy and momentum conservation, the partial-wave expansion (rotational symmetry), parity selection, and time-reversal reciprocity. The partial-wave machinery --- phase shifts, resonances, the scattering length --- follows from rotational invariance alone and is developed here as its principal application.
+
+\medskip\noindent\textbf{The symmetry theorem.} Let $U$ be a unitary (or antiunitary) operator that is a symmetry of both the free and the full dynamics, $[U,H_{0}]=[U,H]=0$. Then $U$ commutes with the M\o{}ller operators and with the S-matrix:
+\begin{linenomath}
+\begin{equation}
+[U,\Omega_{\pm}]=0,\qquad [U,S]=0.
+\label{eq:symmetry-theorem}
+\end{equation}
+\end{linenomath}
+\emph{Proof.} Since $[U,H]=0$, $Ue^{iHt/\hbar}=e^{iHt/\hbar}U$; likewise $[U,H_{0}]=0$ gives $Ue^{-iH_{0}t/\hbar}=e^{-iH_{0}t/\hbar}U$. Hence $U\,e^{iHt/\hbar}e^{-iH_{0}t/\hbar}=e^{iHt/\hbar}e^{-iH_{0}t/\hbar}\,U$, and the strong limit gives $U\Omega_{\pm}=\Omega_{\pm}U$. Then $US=U\Omega_{-}^{\dagger}\Omega_{+}=\Omega_{-}^{\dagger}U\Omega_{+}=\Omega_{-}^{\dagger}\Omega_{+}U=SU$. $\square$ (For antiunitary $U$ the chain holds, the adjoint carrying the antiunitary conjugation.) This is the scattering-theoretic form of Chapter~4's conservation theorem \eqref{eq:conservation-theorem}: a generator commuting with $H$ is conserved, and here it labels the S-matrix. The consequence is that $S$ is \emph{diagonal} in the quantum numbers of $U$ --- scattering does not mix them.
+
+\medskip\noindent\textbf{Energy conservation.} With $U=e^{-iH_{0}s/\hbar}$ (the time translation generated by the free Hamiltonian), \eqref{eq:symmetry-theorem} reproduces $[S,H_{0}]=0$ \eqref{eq:S-commutes-H0}: $S_{fi}\propto\delta(E_{f}-E_{i})$. Energy is conserved because the asymptotic condition is invariant under the time translation that $H_{0}$ generates.
+
+\medskip\noindent\textbf{Translation and Galilean invariance.} For a genuine two-body problem --- two particles interacting via $V(\bm r_{1}-\bm r_{2})$ --- the total momentum $\bm P_{\mathrm{tot}}$ generates spatial translations and $[V,\bm P_{\mathrm{tot}}]=0$; the symmetry theorem gives $[S,\bm P_{\mathrm{tot}}]=0$: total momentum is conserved, the spatial-translation instance of the Galilean invariance analysed in Chapter~4 (\S\ref{sec:galilean-group}). The fixed-target idealisation $V(\bm r)$ used in \S\ref{sec:scattering-stationary} breaks translation invariance (the target pins a preferred origin), reducing the problem to the relative coordinate; momentum conservation is restored in the centre-of-mass frame, where the reduced-particle formalism of this chapter applies and the Galilean boost fixes the relation between lab-frame and CM-frame cross-sections.
+
+\medskip\noindent\textbf{Rotational invariance and partial waves.} For a central potential $V(r)$, $[V,\bm J]=0$ and $[H_{0},\bm J]=0$; the symmetry theorem gives $[S,\bm J]=0$. In the angular-momentum basis $|E,\ell,m\rangle$, $S$ is diagonal in $\ell$ and $m$ and (no $m$-dependence for a scalar potential) depends only on $\ell$: the S-matrix factorises,
+\begin{linenomath}
+\begin{equation}
+S=\bigoplus_{\ell=0}^{\infty}S_{\ell},\qquad S_{\ell}=e^{2i\delta_{\ell}},
+\label{eq:Smatrix-partialwave}
+\end{equation}
+\end{linenomath}
+with $\delta_{\ell}$ real by unitarity ($|S_{\ell}|=1$). The whole content of central-potential scattering is the set of \emph{phase shifts} $\{\delta_{\ell}\}$.
+
+\medskip\noindent\textbf{Physical picture.} The incident plane wave resolves into a superposition of spherical waves, each of definite angular momentum $\ell$. A classical particle of momentum $p=\hbar k$ and impact parameter $b$ carries angular momentum $L=pb=\hbar kb$; the correspondence $b\leftrightarrow\ell/k$ identifies the classical impact parameter with the quantum channel: low-$\ell$ waves probe the interior of the potential, while high-$\ell$ waves are kept at large distance by the centrifugal barrier and barely feel it. The phase shift $\delta_{\ell}$ is the angular displacement of the $\ell$-th wave's nodes relative to the free wave --- the sole imprint of the potential on the asymptotic region.
+
+\medskip\noindent\textbf{Origin of the phase shifts.}
+Outside the range of the potential, channel $\ell$ obeys the free radial equation of Chapter~6 \eqref{eq:radial-equation}:
+\begin{linenomath}
+\begin{equation*}
+\frac{d^{2}u_{\ell}}{dr^{2}} + \Bigl[k^{2} - \frac{\ell(\ell+1)}{r^{2}}\Bigr]u_{\ell} = 0,\qquad u_{\ell}(r)=rR_{\ell}(r).
+\end{equation*}
+\end{linenomath}
+The regular solution, normalised to unit amplitude at infinity, is $u_{\ell}(r)=kr\,j_{\ell}(kr)\xrightarrow{r\to\infty}\sin(kr-\ell\pi/2)$. In the presence of a short-range potential the asymptotic wavefunction is still a linear combination of the two independent solutions, but its phase is shifted:
+\begin{linenomath}
+\begin{equation*}
+u_{\ell}(r)\xrightarrow{r\to\infty}A_{\ell}\,\sin\!\bigl(kr-\tfrac{\ell\pi}{2}+\delta_{\ell}\bigr).
+\end{equation*}
+\end{linenomath}
+The potential, whatever its shape, can only displace the nodes --- not the $1/r$ fall-off or the wavenumber.
+
+\medskip\noindent\textbf{The partial-wave expansion.} Expand the incident plane wave (Rayleigh expansion) and match to the asymptotic form \eqref{eq:scattering-amplitude-def}. With
+\begin{linenomath}
+\begin{equation*}
+e^{i\bm k\cdot\bm r}=\sum_{\ell=0}^{\infty}(2\ell+1)i^{\ell}j_{\ell}(kr)P_{\ell}(\cos\theta)\xrightarrow{r\to\infty}\sum_{\ell=0}^{\infty}(2\ell+1)i^{\ell}\frac{\sin(kr-\ell\pi/2)}{kr}P_{\ell}(\cos\theta),
+\end{equation*}
+\end{linenomath}
+the full scattering wavefunction acquires the phase shift $\delta_{\ell}$ in each channel but the same coefficients $c_{\ell}=(2\ell+1)i^{\ell}$ (the unscattered component is the plane wave itself). Writing each sine as incoming plus outgoing spherical waves, $\sin(kr-\ell\pi/2+\delta_{\ell})=\frac{1}{2i}[e^{i\delta_{\ell}}e^{i(kr-\ell\pi/2)}-e^{-i\delta_{\ell}}e^{-i(kr-\ell\pi/2)}]$, and subtracting the plane-wave piece isolates the outgoing scattered wave. The matching yields
+\begin{linenomath}
+\begin{equation}
+f(\theta)=\frac{1}{k}\sum_{\ell=0}^{\infty}(2\ell+1)\,e^{i\delta_{\ell}}\sin\delta_{\ell}\,P_{\ell}(\cos\theta),
+\label{eq:partial-wave-expansion}
+\end{equation}
+\end{linenomath}
+with $e^{i\delta_{\ell}}\sin\delta_{\ell}=(S_{\ell}-1)/(2i)$ the imprint of $S_{\ell}$ on the amplitude. The construction is the content of $[S,\bm J]=0$: rotational symmetry has reduced the scattering problem to one real phase shift per channel.
+
+The partial cross-section follows from $\int_{-1}^{1}P_{\ell}P_{\ell'}\,d\!\cos\theta=2\delta_{\ell\ell'}/(2\ell+1)$:
+\begin{linenomath}
+\begin{equation}
+\sigma_{\ell}=\frac{4\pi}{k^{2}}(2\ell+1)\sin^{2}\delta_{\ell},\qquad \sigma_{\mathrm{tot}}=\sum_{\ell}\sigma_{\ell}.
+\label{eq:partial-cross-section}
+\end{equation}
+\end{linenomath}
+The optical theorem \eqref{eq:optical-theorem} is now immediate and automatic:
+\begin{linenomath}
+\begin{equation*}
+\Im f(0)=\frac{1}{k}\sum_{\ell}(2\ell+1)\sin^{2}\delta_{\ell}=\frac{k}{4\pi}\,\sigma_{\mathrm{tot}},
+\end{equation*}
+\end{linenomath}
+a second, partial-wave proof --- the forward amplitude built from phase shifts satisfies the optical theorem identically, a consistency check on the whole construction. Since $\sin^{2}\delta_{\ell}\le1$, the \emph{unitarity bound} $\sigma_{\ell}\le(4\pi/k^{2})(2\ell+1)$; saturation ($\delta_{\ell}=\pi/2$) is a resonance.
+
+\medskip\noindent\textbf{Low-energy scattering and the scattering length.}
+As $k\to0$ the centrifugal barrier $\hbar^{2}\ell(\ell+1)/2mr^{2}$ suppresses all $\ell>0$: only s-wave survives. For short-range $V$,
+\begin{linenomath}
+\begin{equation}
+\delta_{0}(k)\approx -a_{s}k\quad(k\to0),\qquad \sigma\xrightarrow{k\to0}\frac{4\pi}{k^{2}}\sin^{2}\delta_{0}\approx 4\pi a_{s}^{2},
+\label{eq:scattering-length}
+\end{equation}
+\end{linenomath}
+defining the \emph{scattering length} $a_{s}$. Its sign is physical: positive for repulsion or a shallow bound state near threshold, negative for attraction without a bound state. For neutron--proton scattering the singlet length $a_{s}\approx-23.7\;\mathrm{fm}$ (nearly bound, a virtual state) and the triplet $a_{t}\approx5.4\;\mathrm{fm}$ (the deuteron bound state).
+
+\medskip\noindent\textbf{Resonance: the Breit--Wigner formula.}
+When $V$ supports a quasi-bound state at $E_{R}$ in channel $\ell$, $\delta_{\ell}$ rises rapidly through $\pi/2$. Near resonance, $\delta_{\ell}(E)\approx\delta_{\mathrm{bg}}+\arctan\!\bigl(\tfrac{\Gamma/2}{E_{R}-E}\bigr)$, and the partial cross-section takes the Breit--Wigner form
+\begin{linenomath}
+\begin{equation}
+\sigma_{\ell}\approx\frac{4\pi}{k^{2}}(2\ell+1)\,\frac{\Gamma^{2}/4}{(E-E_{R})^{2}+\Gamma^{2}/4},
+\label{eq:breit-wigner}
+\end{equation}
+\end{linenomath}
+peaking at the unitarity bound with full width $\Gamma$. The width is the decay rate of the quasi-bound state, $\Gamma=\hbar/\tau$ --- the same $\Gamma$ as in the golden rule \eqref{eq:fermi-golden-rule} and the energy-time relation \eqref{eq:no-time-operator}: the resonance decay rate equals the golden-rule rate into all open channels.
+
+\medskip\noindent\textbf{Bound states and Levinson's theorem.}
+A bound state at $E=-\hbar^{2}\kappa^{2}/2m<0$ is a pole of $S_{\ell}$ on the positive imaginary $k$-axis, $k=i\kappa$; near it $S_{\ell}(k)=e^{2i\delta_{\ell}(k)}\sim 1/(k-i\kappa)$, and the bound-state wavefunction falls as $e^{-\kappa r}/r$. Levinson's theorem counts them:
+\begin{linenomath}
+\begin{equation*}
+\delta_{\ell}(0)-\delta_{\ell}(\infty)=n_{\ell}\pi,
+\end{equation*}
+\end{linenomath}
+each bound state contributing $\pi$ to the accumulated phase as $E$ sweeps from $\infty$ to threshold.\footnote{Levinson's theorem, with the half-bound-state caveat at threshold: Reed \& Simon, Vol.~III, \S XI.5.}
+
+\medskip\noindent\textbf{Parity.} For an even potential $[V,\Pi]=0$; the symmetry theorem gives $[S,\Pi]=0$. Since $\Pi|\bm k\rangle=|-\bm k\rangle$, the scattering states obey $\Pi|\psi_{\bm k}^{(\pm)}\rangle\propto|\psi_{-\bm k}^{(\pm)}\rangle$ and the amplitude satisfies
+\begin{linenomath}
+\begin{equation}
+f(\bm k',\bm k)=f(-\bm k',-\bm k).
+\label{eq:parity-amplitude}
+\end{equation}
+\end{linenomath}
+In partial waves, parity ($P_{\ell}\to(-1)^{\ell}P_{\ell}$) forbids the mixing of even and odd $\ell$: each channel keeps its parity. This is the scattering instance of Laporte's rule \eqref{eq:parity-selection}.
+
+\medskip\noindent\textbf{Time reversal and reciprocity.} If $V$ is time-reversal invariant ($\Theta H\Theta^{-1}=H$, $\Theta$ antiunitary), the symmetry theorem gives $\Theta S\Theta^{-1}=S^{\dagger}$ (antiunitarity reverses the operator order). In components this is \emph{reciprocity},
+\begin{linenomath}
+\begin{equation}
+S_{fi}=S_{\bar i\bar f},
+\label{eq:reciprocity}
+\end{equation}
+\end{linenomath}
+where bars denote time-reversed states. For spinless scattering $\Theta|\bm k\rangle=|-\bm k\rangle$ and reciprocity reads $f(\bm k',\bm k)=f(-\bm k,-\bm k')$: the amplitude for $\bm k\to\bm k'$ equals that for the reversed process. Combined with parity \eqref{eq:parity-amplitude} it gives $f(\bm k',\bm k)=f(\bm k,\bm k')$ --- the amplitude is symmetric under interchange of initial and final momenta, so the differential cross-section is unchanged when source and detector are swapped. Reciprocity plus unitarity underlies the optical theorem and the equality of forward and reverse reaction rates (detailed balance). For particles with spin, $\Theta^{2}=(-1)^{2s}$ and Kramers degeneracy \eqref{eq:kramers} doubles the reciprocity structure; spin-averaged cross-sections still obey detailed balance.
+
+The symmetries of $H$ and $H_{0}$ have thus been read off the S-matrix without a further calculation: energy and momentum conservation, the partial-wave reduction, parity selection, and time-reversal reciprocity are all consequences of \eqref{eq:symmetry-theorem}. What the symmetries do \emph{not} give is the numerical value of the phase shifts or the Born amplitude --- those require solving for the dynamics, the subject of the closing section.
+
+\section{The Born Approximation}
+\label{sec:born-partial-waves}
+
+The Lippmann--Schwinger equation \eqref{eq:lippmann-schwinger} is exact but implicit: the unknown $|\psi^{(+)}\rangle$ appears on both sides. The first Born approximation --- the leading term of the series \eqref{eq:born-series} --- replaces $|\psi^{(+)}\rangle$ inside the integral by the incident plane wave, yielding an explicit formula for the scattering amplitude. (The partial-wave expansion, the complementary low-energy tool that exploits the rotational symmetry of \S\ref{sec:scattering-symmetry}, has already been developed there.)
+
+\medskip\noindent\textbf{The first Born approximation.}
+Set $|\psi^{(+)}\rangle\approx|\bm k\rangle$ in \eqref{eq:scattering-amplitude-ls}. The amplitude becomes the Fourier transform of the potential at the momentum transfer:
+\begin{linenomath}
+\begin{equation}
+f_{\text{Born}}(\bm k',\bm k)=-\frac{2m}{\hbar^{2}}\frac{1}{4\pi}\int d^{3}r\;e^{-i\bm q\cdot\bm r}\,V(\bm r),\qquad \bm q=\bm k'-\bm k.
 \label{eq:born-amplitude}
 \end{equation}
 \end{linenomath}
-The momentum transfer $q = |\bm q| = 2k\sin(\theta/2)$ measures how hard the scattering is: forward scattering ($\theta=0$) corresponds to $q=0$; back-scattering ($\theta=\pi$) to $q=2k$.
+The momentum transfer $q=|\bm q|=2k\sin(\theta/2)$ measures how hard the scattering is: forward ($\theta=0$) is $q=0$; back-scattering ($\theta=\pi$) is $q=2k$.
+
+\begin{figure}[htbp!]
+\centering
+\begin{tikzpicture}[scale=1.0]
+    % Coordinate axes
+    \draw[->] (-2,0) -- (4,0) node[right] {$z$};
+    \draw[->] (0,-2) -- (0,3) node[above] {$x$};
+    % Incident k vector
+    \draw[->,very thick,blue!60] (0,0) -- (3.5,0) node[midway,below] {$\bm k$};
+    % Scattered k' vector
+    \draw[->,very thick,red!60] (0,0) -- (2.8,2.2) node[midway,above left] {$\bm k'$};
+    % Angle
+    \draw[->] (1.2,0) arc (0:38:1.2);
+    \node at (1.5,0.35) {$\theta$};
+    % Arrow for k'
+    \draw[very thick,red!60] (0,0) -- (2.8,2.2);
+    % Momentum transfer q = k' - k
+    \draw[->,very thick,green!50!black] (3.5,0) -- (2.8,2.2) node[midway,right] {$\bm q$};
+    \draw[dashed,green!50!black] (1.5,0) -- (1.5,2.2);
+    \node[green!50!black] at (1.5,-0.3) {$q = 2k\sin(\theta/2)$};
+    % Length indicators
+    \draw (0.2,-0.5) -- (3.3,-0.5);
+\draw (0.2,-0.5) -- (0.2,-0.3);
+\draw (3.3,-0.5) -- (3.3,-0.3);
+    \node at (1.75,-0.7) {$k = |\bm k| = |\bm k'|$};
+\end{tikzpicture}
+\caption{Momentum transfer in elastic scattering. The incident momentum $\bm k$ and the scattered momentum $\bm k'$ have equal magnitudes $k=|\bm k|=|\bm k'|$. The momentum transfer $\bm q = \bm k' - \bm k$ has magnitude $q = 2k\sin(\theta/2)$. The Born amplitude is the Fourier transform of the potential evaluated at $\bm q$.}
+\label{fig:momentum-transfer}
+\end{figure}
 
 For a spherically symmetric potential $V(r)$, the angular integration is immediate:
 \begin{linenomath}
 \begin{equation}
-f_{\text{Born}}(\theta) = -\frac{2m}{\hbar^{2}q}\int_{0}^{\infty} dr\;r\,V(r)\,\sin(qr).
+f_{\text{Born}}(\theta)=-\frac{2m}{\hbar^{2}q}\int_{0}^{\infty}dr\;r\,V(r)\,\sin(qr).
 \label{eq:born-spherical}
 \end{equation}
 \end{linenomath}
 
 \medskip\noindent\textbf{Rutherford scattering: the ch1 debt repaid.}
-For the Coulomb potential $V(r) = Ze^{2}/r$, the Fourier transform of $1/r$ is $4\pi/q^{2}$. The integral $\int_{0}^{\infty} dr\,\sin(qr) = \lim_{\mu\to0} q/(q^{2}+\mu^{2}) = 1/q$ (regulated by a screening factor $e^{-\mu r}$, $\mu\to 0$). Then
+For the Coulomb potential $V(r)=Ze^{2}/r$, the Fourier transform of $1/r$ is $4\pi/q^{2}$. The integral $\int_{0}^{\infty}dr\,\sin(qr)=\lim_{\mu\to0}q/(q^{2}+\mu^{2})=1/q$ (regulated by a screening factor $e^{-\mu r}$, $\mu\to0$). Then
 \begin{linenomath}
 \begin{align}
-f_{\text{Born}}(\theta) &= -\frac{2mZe^{2}}{\hbar^{2}}\,\frac{1}{q^{2}}
-= -\frac{2mZe^{2}}{\hbar^{2}}\,\frac{1}{4k^{2}\sin^{2}(\theta/2)} \nonumber \\
-&= -\frac{Ze^{2}}{2mv^{2}}\,\frac{1}{\sin^{2}(\theta/2)}.
+f_{\text{Born}}(\theta)&=-\frac{2mZe^{2}}{\hbar^{2}}\frac{1}{q^{2}}=-\frac{2mZe^{2}}{\hbar^{2}}\frac{1}{4k^{2}\sin^{2}(\theta/2)}\nonumber\\
+&=-\frac{Ze^{2}}{2mv^{2}}\frac{1}{\sin^{2}(\theta/2)}.
 \end{align}
 \end{linenomath}
-With $E = \tfrac12 mv^{2} = \hbar^{2}k^{2}/2m$, the differential cross-section is
+With $E=\tfrac12 mv^{2}=\hbar^{2}k^{2}/2m$, the differential cross-section is
 \begin{linenomath}
 \begin{equation}
-\frac{d\sigma}{d\Omega} = \left(\frac{Ze^{2}}{4E}\right)^{2}\frac{1}{\sin^{4}(\theta/2)}.
+\frac{d\sigma}{d\Omega}=\left(\frac{Ze^{2}}{4E}\right)^{2}\frac{1}{\sin^{4}(\theta/2)}.
 \label{eq:rutherford-cross-section}
 \end{equation}
 \end{linenomath}
-This is exactly the classical Rutherford formula derived in Chapter~1. The debt is repaid in full.
+This is exactly the classical Rutherford formula of Chapter~1. The debt is repaid in full.
 
 \begin{note}
-The Born approximation and the classical calculation happen to give the same result for the Coulomb potential. This is a coincidence: the Born amplitude is the Fourier transform $1/q^{2}$, and the classical scattering integral for $1/r$ also produces $1/\sin^{2}(\theta/2)$, which is proportional to $1/q^{4}$ in the cross-section. For a general potential the two differ. Moreover, the exact Coulomb scattering amplitude -- the Gordon formula -- differs from the Born result by a phase factor $e^{-i\eta\ln(\sin^{2}\theta/2)}$, where $\eta = Ze^{2}/\hbar v$, which drops out of $|f|^{2}$ -- named, not derived.
+The Born approximation and the classical calculation give the same result for the Coulomb potential by coincidence: the Born amplitude is the Fourier transform $1/q^{2}$, and the classical $1/r$ scattering integral also produces $1/\sin^{2}(\theta/2)\propto 1/q^{4}$ in the cross-section. For a general potential the two differ. The exact Coulomb amplitude --- the Gordon formula --- differs from the Born result by the phase $e^{-i\eta\ln\sin^{2}(\theta/2)}$ ($\eta=Ze^{2}/\hbar v$) of Example~4, which drops out of $|f|^{2}$.
 \end{note}
 
 \medskip\noindent\textbf{Validity of the Born approximation.}
-The replacement $|\psi^{(+)}\rangle \approx |\bm k\rangle$ requires the scattered wave to be small compared to the incident wave in the interaction region. This is satisfied when either (a) the incident energy is high, $ka \gg 1$ for a potential of range $a$, or (b) the potential is weak: $|V_{0}| \ll \hbar^{2}/ma^{2}$ for a potential of depth $V_{0}$ and range $a$. For the Coulomb potential, the condition is $Ze^{2}/\hbar v \ll 1$ -- high velocity, low nuclear charge.
+The replacement $|\psi^{(+)}\rangle\approx|\bm k\rangle$ requires the scattered wave to be small compared to the incident wave in the interaction region. This holds when either (a) the incident energy is high, $ka\gg1$ for a potential of range $a$, or (b) the potential is weak, $|V_{0}|\ll\hbar^{2}/ma^{2}$ for depth $V_{0}$ and range $a$. For the Coulomb potential the condition is $Ze^{2}/\hbar v\ll1$ --- high velocity, low nuclear charge.
 
 \medskip\noindent\textbf{Form factor.}
-When the target is not a point particle but a composite object with a charge distribution $\rho(\bm r)$, the potential is the convolution $V(\bm r) = \int d^{3}r'\,\rho(\bm r')/|\bm r-\bm r'|$. In the Born approximation, the scattering amplitude factorises:
+When the target is composite, with charge distribution $\rho(\bm r)$, the potential is the convolution $V(\bm r)=\int d^{3}r'\,\rho(\bm r')/|\bm r-\bm r'|$. In the Born approximation the amplitude factorises:
 \begin{linenomath}
 \begin{equation}
-f_{\text{Born}}(\bm q) = f_{\text{point}}(\bm q)\,F(\bm q),
-\qquad
-F(\bm q) = \int d^{3}r\;e^{-i\bm q\cdot\bm r}\,\rho(\bm r).
+f_{\text{Born}}(\bm q)=f_{\text{point}}(\bm q)\,F(\bm q),\qquad F(\bm q)=\int d^{3}r\;e^{-i\bm q\cdot\bm r}\,\rho(\bm r).
 \label{eq:form-factor}
 \end{equation}
 \end{linenomath}
-$F(\bm q)$ is the elastic form factor -- the Fourier transform of the target's charge distribution. The differential cross-section measures $|F(q)|^{2}$: scattering is diffraction, and the diffraction pattern reveals the target's structure. This is how Hofstadter measured nuclear charge radii, how X-ray crystallography determines electron densities, and how deep inelastic scattering maps the proton's parton distributions.
-
-\medskip\noindent\textbf{Partial-wave expansion.}
-Rotational symmetry diagonalises the scattering problem. The scattering amplitude for a spherically symmetric potential depends only on the angle $\theta$, and can be expanded in Legendre polynomials:
-\begin{linenomath}
-\begin{equation}
-f(\theta) = \frac{1}{k}\sum_{\ell=0}^{\infty} (2\ell+1)\,e^{i\delta_{\ell}}\sin\delta_{\ell}\,P_{\ell}(\cos\theta).
-\label{eq:partial-wave-expansion}
-\end{equation}
-\end{linenomath}
-The phase shifts $\delta_{\ell}$ are real numbers, one for each angular-momentum channel $\ell$. They encode all the physics of the potential for that channel.
-
-\medskip\noindent\textbf{Origin of the phase shifts.}
-Outside the range of the potential, the radial wavefunction for channel $\ell$ satisfies the free radial equation from Chapter~6 \eqref{eq:radial-equation}:
-\begin{linenomath}
-\begin{equation*}
-\frac{d^{2}u_{\ell}}{dr^{2}} + \Bigl[k^{2} - \frac{\ell(\ell+1)}{r^{2}}\Bigr]u_{\ell} = 0,
-\qquad u_{\ell}(r) = rR_{\ell}(r).
-\end{equation*}
-\end{linenomath}
-The regular solution, normalised to unit amplitude at infinity for a free particle, is $u_{\ell}(r) = kr\,j_{\ell}(kr)$, with the spherical Bessel function $j_{\ell}$. Its asymptotic form is
-\begin{linenomath}
-\begin{equation*}
-kr\,j_{\ell}(kr) \xrightarrow{r\to\infty} \sin\!\Bigl(kr - \frac{\ell\pi}{2}\Bigr).
-\end{equation*}
-\end{linenomath}
-In the presence of a short-range potential, the wavefunction in the asymptotic region (where $V(r)$ is negligible) is still a linear combination of the two independent solutions, but its phase is shifted:
-\begin{linenomath}
-\begin{equation*}
-u_{\ell}(r) \xrightarrow{r\to\infty} A_{\ell}\,\sin\!\Bigl(kr - \frac{\ell\pi}{2} + \delta_{\ell}\Bigr).
-\end{equation*}
-\end{linenomath}
-The phase shift $\delta_{\ell}$ is the sole imprint of the potential on the asymptotic wave: the potential, whatever its detailed shape, can only displace the nodes of the radial wavefunction -- it cannot change the $1/r$ fall-off or the wave number.
-To extract the scattering amplitude, expand the incident plane wave in spherical waves (Rayleigh expansion):
-\begin{linenomath}
-\begin{equation*}
-e^{i\bm k\cdot\bm r} = \sum_{\ell=0}^{\infty}(2\ell+1)\,i^{\ell}\,j_{\ell}(kr)\,P_{\ell}(\cos\theta)
-\xrightarrow{r\to\infty}
-\sum_{\ell=0}^{\infty}(2\ell+1)\,i^{\ell}\,
-\frac{\sin(kr - \ell\pi/2)}{kr}\,P_{\ell}(\cos\theta).
-\end{equation*}
-\end{linenomath}
-The full scattering wavefunction admits a partial-wave decomposition
-\begin{linenomath}
-\begin{equation*}
-\psi_{\bm k}^{(+)}(\bm r) \xrightarrow{r\to\infty}
-\frac{1}{(2\pi)^{3/2}}\sum_{\ell=0}^{\infty}
-c_{\ell}\,\frac{\sin(kr - \ell\pi/2 + \delta_{\ell})}{kr}\,P_{\ell}(\cos\theta),
-\end{equation*}
-\end{linenomath}
-where each partial wave acquires the phase shift $\delta_{\ell}$ but the coefficients $c_{\ell}$ must be those of the incident plane wave, because the unscattered component of the wavefunction is the plane wave itself; hence $c_{\ell} = (2\ell+1)i^{\ell}$.
-Writing each sine as a sum of incoming and outgoing spherical waves,
-$\sin(kr - \ell\pi/2 + \delta_{\ell}) = \frac{1}{2i}[e^{i\delta_{\ell}}e^{i(kr-\ell\pi/2)} - e^{-i\delta_{\ell}}e^{-i(kr-\ell\pi/2)}]$,
-and subtracting the plane-wave contribution isolates the outgoing scattered wave. This matching procedure yields the partial-wave expansion
-\begin{linenomath}
-\begin{equation}
-f(\theta) = \frac{1}{k}\sum_{\ell=0}^{\infty} (2\ell+1)\,e^{i\delta_{\ell}}\sin\delta_{\ell}\,P_{\ell}(\cos\theta).
-\label{eq:partial-wave-expansion}
-\end{equation}
-\end{linenomath}
-
-The partial cross-section in channel $\ell$ -- the contribution of that angular momentum to the total cross-section -- is obtained by integrating $|f(\theta)|^{2}$ over solid angles, using the orthogonality of the Legendre polynomials $\int_{-1}^{1}P_{\ell}(x)P_{\ell'}(x)dx = 2\delta_{\ell\ell'}/(2\ell+1)$:
-\begin{linenomath}
-\begin{equation}
-\sigma_{\ell} = \frac{4\pi}{k^{2}}\,(2\ell+1)\,\sin^{2}\delta_{\ell}.
-\label{eq:partial-cross-section}
-\end{equation}
-\end{linenomath}
-The total cross-section is the sum $\sigma_{\text{tot}} = \sum_{\ell}\sigma_{\ell}$. The optical theorem \eqref{eq:optical-theorem} in partial-wave language reads
-\begin{linenomath}
-\begin{equation*}
-\Im f(0) = \frac{1}{k}\sum_{\ell}(2\ell+1)\sin^{2}\delta_{\ell} = \frac{k}{4\pi}\,\sigma_{\text{tot}},
-\end{equation*}
-\end{linenomath}
-a consistency check: the forward amplitude constructed from phase shifts satisfies the optical theorem automatically.
-
-\medskip\noindent\textbf{Unitarity bound.}
-Since $\sin^{2}\delta_{\ell} \le 1$, each partial cross-section is bounded:
-\begin{linenomath}
-\begin{equation*}
-\sigma_{\ell} \le \frac{4\pi}{k^{2}}\,(2\ell+1).
-\end{equation*}
-\end{linenomath}
-Saturation of this bound ($\delta_{\ell} = \pi/2$, $\sin^{2}\delta_{\ell}=1$) corresponds to a resonance in the $\ell$-th partial wave: the scattering amplitude in that channel reaches its maximum possible value, and the phase shift passes rapidly through $\pi/2$.
-
-\medskip\noindent\textbf{Low-energy scattering.}
-As $k \to 0$, the centrifugal barrier $\hbar^{2}\ell(\ell+1)/2mr^{2}$ suppresses all waves with $\ell > 0$: the barrier height diverges as $1/r^{2}$ while the incident kinetic energy vanishes as $k^{2}$. Only s-wave ($\ell=0$) scattering survives. For a short-range potential, the s-wave phase shift at low energy is proportional to $k$:
-\begin{linenomath}
-\begin{equation}
-\delta_{0}(k) \approx -a_{s}k \qquad (k \to 0),
-\label{eq:scattering-length}
-\end{equation}
-\end{linenomath}
-defining the scattering length $a_{s}$. The low-energy total cross-section is then
-\begin{linenomath}
-\begin{equation*}
-\sigma \xrightarrow{k\to 0} \frac{4\pi}{k^{2}}\sin^{2}\delta_{0} \approx 4\pi a_{s}^{2}.
-\end{equation*}
-\end{linenomath}
-The sign of $a_{s}$ carries physical information: positive for a repulsive potential (or a shallow bound state near threshold -- effective-range theory), negative for an attractive potential without a bound state. For neutron--proton scattering, the singlet scattering length is $a_{s} \approx -23.7\;\text{fm}$ (nearly bound, a virtual state) and the triplet is $a_{t} \approx 5.4\;\text{fm}$ (shallow bound state -- the deuteron).
-
-\medskip\noindent\textbf{Resonance: the Breit--Wigner formula.}
-When the potential supports a quasi-bound state -- a resonance -- at energy $E_{R}$ in channel $\ell$, the phase shift rises rapidly through $\pi/2$. Near the resonance, the energy dependence is parametrised by
-\begin{linenomath}
-\begin{equation*}
-\delta_{\ell}(E) \approx \delta_{\text{bg}} + \arctan\!\Bigl(\frac{\Gamma/2}{E_{R}-E}\Bigr),
-\end{equation*}
-\end{linenomath}
-where $\delta_{\text{bg}}$ is a slowly varying background phase and $\Gamma$ is the resonance width. The partial cross-section takes the Breit--Wigner form:
-\begin{linenomath}
-\begin{equation}
-\sigma_{\ell} \approx \frac{4\pi}{k^{2}}\,(2\ell+1)\,
-\frac{\Gamma^{2}/4}{(E-E_{R})^{2} + \Gamma^{2}/4}.
-\label{eq:breit-wigner}
-\end{equation}
-\end{linenomath}
-At $E = E_{R}$, the cross-section peaks at the unitarity bound. The full width at half maximum is $\Gamma$. The width is the decay rate of the quasi-bound state: $\Gamma = \hbar/\tau$, the same $\Gamma$ that appears in the golden rule \eqref{eq:fermi-golden-rule} and in the energy-time uncertainty of Chapter~4 \eqref{eq:no-time-operator}. The connection -- the resonance decay rate equals the golden-rule rate into all open channels -- is stated; the multi-channel sum is named only (beyond scope).
-
-\medskip\noindent\textbf{Connection to bound states.}
-A bound state at energy $E = -\hbar^{2}\kappa^{2}/2m < 0$ corresponds to a pole of the S-matrix on the positive imaginary $k$-axis: $k = i\kappa$ with $\kappa > 0$. The bound-state wavefunction behaves as $e^{-\kappa r}/r$ for large $r$, and the S-matrix at the pole has the form $S_{\ell}(k) = e^{2i\delta_{\ell}(k)} \sim 1/(k-i\kappa)$. Levinson's theorem relates the phase shift at threshold to the number of bound states in that channel:
-\begin{linenomath}
-\begin{equation*}
-\delta_{\ell}(0) - \delta_{\ell}(\infty) = n_{\ell}\pi,
-\end{equation*}
-\end{linenomath}
-where $n_{\ell}$ is the number of bound states with angular momentum $\ell$. The theorem is stated without proof (an Appendix~A pointer); its content is that each bound state contributes $\pi$ to the accumulated phase shift as the energy sweeps from infinity down to threshold.
+$F(\bm q)$ is the elastic form factor --- the Fourier transform of the target's charge distribution. The cross-section measures $|F(q)|^{2}$: scattering is diffraction, and the diffraction pattern reveals the target's structure. This is how Hofstadter measured nuclear charge radii, how X-ray crystallography determines electron densities, and how deep inelastic scattering maps the proton's parton distributions.
 
 \medskip\noindent\textbf{Example: Yukawa potential.}
-The Yukawa potential $V(r) = (g^{2}/r)\,e^{-r/\lambda}$ describes massive-particle exchange (range $\lambda = \hbar/mc$, coupling $g$). The Born amplitude from \eqref{eq:born-spherical} is
+The Yukawa potential $V(r)=(g^{2}/r)\,e^{-r/\lambda}$ describes massive-particle exchange (range $\lambda=\hbar/mc$, coupling $g$). The Born amplitude from \eqref{eq:born-spherical} is
 \begin{linenomath}
 \begin{equation}
-f_{\text{Born}}(\theta) = -\frac{2mg^{2}}{\hbar^{2}}\,\frac{1}{q^{2} + 1/\lambda^{2}}.
+f_{\text{Born}}(\theta)=-\frac{2mg^{2}}{\hbar^{2}}\frac{1}{q^{2}+1/\lambda^{2}},
 \label{eq:born-yukawa}
 \end{equation}
 \end{linenomath}
-The differential cross-section:
-\begin{linenomath}
-\begin{equation*}
-\frac{d\sigma}{d\Omega} = \frac{4m^{2}g^{4}}{\hbar^{4}}\,\frac{1}{(q^{2} + 1/\lambda^{2})^{2}}.
-\end{equation*}
-\end{linenomath}
-In the limit $\lambda \to \infty$ (massless exchange, $1/\lambda^{2} \to 0$), the potential becomes the Coulomb potential and the cross-section recovers the Rutherford formula \eqref{eq:rutherford-cross-section}. Yukawa's original 1935 application to nuclear forces identified the range $\lambda = \hbar/m_{\pi}c$ with the pion mass, predicting $m_{\pi} \approx 100$--$200\;\text{MeV}/c^{2}$; the pion was discovered in 1947 with $m_{\pi} \approx 140\;\text{MeV}/c^{2}$.
+with differential cross-section $d\sigma/d\Omega=(4m^{2}g^{4}/\hbar^{4})/(q^{2}+1/\lambda^{2})^{2}$. In the limit $\lambda\to\infty$ (massless exchange) the potential becomes Coulomb and the cross-section recovers Rutherford \eqref{eq:rutherford-cross-section}. Yukawa's 1935 application to nuclear forces identified the range $\lambda=\hbar/m_{\pi}c$ with the pion mass, predicting $m_{\pi}\approx100$--$200\;\mathrm{MeV}/c^{2}$; the pion was discovered in 1947 with $m_{\pi}\approx140\;\mathrm{MeV}/c^{2}$.
 
-The Born approximation and partial-wave expansion are the two standard tools for computing cross-sections from a given potential -- the Born approximation convenient at high energy or weak coupling, the partial-wave expansion natural at low energy, where only a few phase shifts matter. Together with the golden rule for transition rates and the Rayleigh--Schrodinger/variational methods for bound states, they constitute the perturbative toolbox -- the bridge from the Hilbert space to the laboratory.
+The Born approximation is the high-energy, weak-coupling tool for computing cross-sections from a given potential; the partial-wave expansion of \S\ref{sec:scattering-symmetry} is its low-energy complement, where only a few phase shifts matter. Together with the golden rule for transition rates and the Rayleigh--Schrodinger/variational methods for bound states, they constitute the perturbative toolbox --- the bridge from the Hilbert space to the laboratory.
 
 \section{Perturbative Methods and the Theory of Scattering: Summary and Open Debts}
 \label{sec:ch8summary}
@@ -1239,9 +1624,9 @@ The chapter's content compresses into no new axioms -- every display in the chap
 
 \item[\S 8.4] \textbf{Time-dependent perturbation theory.} First-order transition amplitude from the truncated Dyson series (\eqref{eq:first-order-amplitude}). Fermi's golden rule (\eqref{eq:fermi-golden-rule}) -- the chapter's keystone -- gives the transition rate as $2\pi/\hbar$ times the squared matrix element times the density of states. Einstein $A$ and $B$ coefficients derived (\eqref{eq:einstein-B}, \eqref{eq:einstein-A}) via the semi-classical radiation theory plus detailed balance. Benchmark check against the exact forced-oscillator solution: first-order TDPT correctly captures the single-quantum channel. Repaid: ch4 debt \#25 (Dyson truncation to TDPT); ch5 debt \#28 (interaction-picture truncation, forced-oscillator benchmark); ch6 debts \#34, \#35 (Wigner--Eckart selection rules for rates, dipole matrix elements); ch1's Einstein A/B debt.
 
-\item[\S 8.5] \textbf{Formal scattering theory.} Lippmann--Schwinger equation (\eqref{eq:lippmann-schwinger}), M\o{}ller operators (\eqref{eq:moller-operators}), S-matrix (\eqref{eq:S-matrix-def}), optical theorem (\eqref{eq:optical-theorem}) -- the exact identity $\Im f(0) = k\sigma_{\text{tot}}/4\pi$ from probability conservation. Repaid: ch6 debt \#37 (central-potential scattering boundary conditions from the radial equation).
+\item[\S 8.5] \textbf{Formal scattering theory.} The asymptotic condition and M\o{}ller operators (\eqref{eq:moller-operators}), the intertwining relation (\eqref{eq:intertwining}), the S-matrix and its unitarity (\eqref{eq:S-matrix-def}); the stationary Lippmann--Schwinger equation (\eqref{eq:lippmann-schwinger}), free Green's function (\eqref{eq:free-green}), scattering amplitude (\eqref{eq:scattering-amplitude-ls}), and optical theorem (\eqref{eq:optical-theorem}) --- $\Im f(0)=k\sigma_{\text{tot}}/4\pi$ from probability conservation; the time-dependent foundation (wave packets, the derived $i\epsilon$, the Coulomb/Dollard caveat); and the symmetry theorem (\eqref{eq:symmetry-theorem}) yielding the partial-wave expansion (\eqref{eq:partial-wave-expansion}), phase shifts, scattering length (\eqref{eq:scattering-length}), and Breit--Wigner resonance (\eqref{eq:breit-wigner}). Repaid: ch6 debt \#37 (central-potential scattering boundary conditions from the radial equation); ch4's symmetry/conservation theorem read off the S-matrix.
 
-\item[\S 8.6] \textbf{Born approximation and partial waves.} First Born amplitude as the Fourier transform of the potential (\eqref{eq:born-amplitude}); Rutherford cross-section recovered identically (\eqref{eq:rutherford-cross-section}) -- the ch1 debt repaid. Form factor $F(\bm q)$ (\eqref{eq:form-factor}) connects scattering to structure. Partial-wave expansion (\eqref{eq:partial-wave-expansion}) with phase shifts $\delta_{\ell}$; Breit--Wigner resonance formula (\eqref{eq:breit-wigner}); scattering length (\eqref{eq:scattering-length}). Repaid: ch1's Rutherford debt; ch6 debt \#37 (partial waves from the central-potential reduction); ch4 debt \#25 (linewidth/resonance rate theory).
+\item[\S 8.6] \textbf{The Born approximation.} First Born amplitude as the Fourier transform of the potential (\eqref{eq:born-amplitude}); Rutherford cross-section recovered identically (\eqref{eq:rutherford-cross-section}) -- the ch1 debt repaid. Form factor $F(\bm q)$ (\eqref{eq:form-factor}) connects scattering to structure; the Yukawa potential (\eqref{eq:born-yukawa}) predicts the pion mass. Repaid: ch1's Rutherford debt.
 \end{enumerate}
 
 \medskip\noindent\textbf{Method dictionary.}
@@ -1266,6 +1651,7 @@ Optical theorem & $\Im f(0) \propto \sigma_{\text{tot}}$ \\
 Born approximation & Fourier transform of the potential \\
 Phase shift & imprint of the potential per channel \\
 Resonance & quasi-bound state, Breit--Wigner, $\Gamma = \hbar/\tau$ \\
+Symmetry of $S$ & $[S,U]=0$ for $[U,H]=[U,H_{0}]=0$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1362,7 +1748,7 @@ e^{-Z_{1}r_{1}/a_{0}}e^{-Z_{2}r_{2}/a_{0}}.
 \item[(c)] Under what condition on $V_{0}$, $a$, and $k$ is the Born approximation valid for this potential? Express the condition in terms of the dimensionless parameters $|V_{0}|ma^{2}/\hbar^{2}$ and $ka$.
 \end{enumerate}
 
-\item ($\star\star\star$) (Section~\ref{sec:born-partial-waves}) Phase shift from a square well. For the attractive spherical square well,
+\item ($\star\star\star$) (Section~\ref{sec:scattering-symmetry}) Phase shift from a square well. For the attractive spherical square well,
 \begin{linenomath}
 \begin{equation*}
 V(r) = \begin{cases}
@@ -1385,7 +1771,7 @@ where $\kappa = \sqrt{k^{2} + 2mV_{0}/\hbar^{2}}$.
 \item[(c)] Show that at low energy ($ka \ll 1$), the s-wave scattering length is $a_{s} = a[1 - \tan(\kappa_{0}a)/(\kappa_{0}a)]$ with $\kappa_{0} = \sqrt{2mV_{0}}/\hbar$. Discuss how the sign of $a_{s}$ changes as the well depth increases and the first bound state appears.
 \end{enumerate}
 
-\item ($\star\star\star$) (Section~\ref{sec:born-partial-waves}) Optical theorem verification for the square well. Using the s-wave phase shift $\delta_{0}(k)$ from Exercise~9:
+\item ($\star\star\star$) (Section~\ref{sec:scattering-symmetry}) Optical theorem verification for the square well. Using the s-wave phase shift $\delta_{0}(k)$ from Exercise~9:
 \begin{enumerate}
 \item[(a)] Compute the forward scattering amplitude $\Im f(0)$ from the partial-wave expansion \eqref{eq:partial-wave-expansion} (s-wave only at low energy).
 \item[(b)] Compute the total cross-section $\sigma_{\text{tot}}$ from \eqref{eq:partial-cross-section}.

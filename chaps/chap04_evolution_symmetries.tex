@@ -547,138 +547,405 @@ A continuous symmetry family, in this language, is no longer an unstructured bag
 \section{The Galilean Group and its Algebra}
 \label{sec:galilean-group}
 
-The group is the Galilean group, and its ten one-parameter subgroups are on the page or within reach: space translations $T(\bm a)$ (three), time translations $U(t)$ (one, the chapter's own), rotations $R_{\bm n}(\theta)$ (three, named since Section~\ref{sec:lie-groups}), and the \textbf{boosts} $B(\bm v)$ (three): a boost carries the system to a copy moving with velocity $\bm v$ relative to the original --- or, in the passive reading of Section~\ref{sec:symmetry-transformations}, describes the same system from a uniformly moving frame. The empirical warrant is the Galilean relativity of the bench: experiments performed in a uniformly moving laboratory return the same statistics. This is the classical inheritance of the theory, and its range of validity is this book's domain.
+The group is the Galilean group, the complete spacetime symmetry of nonrelativistic physics. Its ten one-parameter subgroups --- space translations $T(\bm a)$ (three), time translations $U(t)$ (one, the chapter's own), rotations $R_{\bm n}(\theta)$ (three, named since Section~\ref{sec:lie-groups}), and the \textbf{boosts} $B(\bm v)$ (three) --- encode every continuous transformation that preserves the structure of nonrelativistic spacetime. A boost carries the system to a copy moving with velocity $\bm v$ relative to the original --- or, in the passive reading of Section~\ref{sec:symmetry-transformations}, describes the same system from a uniformly moving frame. The empirical warrant is the Galilean relativity of the bench: experiments performed in a uniformly moving laboratory return the same statistics. The group is the classical inheritance of the theory, and its range of validity is this book's domain. This section gives the Galilean group the systematic treatment it deserves: definition and parametrization, complete derivation of the Lie algebra, the theory of its projective representations (Bargmann's theorem), construction of the unitary irreducible representations, the physical implications of Galilean invariance, and worked examples.
 
-The composition law is exhibited where it matters. Translations compose by addition. A rotation conjugates a translation into the rotated translation,
+\subsection{Definition and Parametrization of the Galilei Group}
+
+\medskip\noindent\textbf{The group manifold.} A Galilean transformation is a change of inertial frame specified by a rotation $R\in\mathrm{SO}(3)$, a boost velocity $\bm v\in\mathbb{R}^{3}$, a spatial translation $\bm a\in\mathbb{R}^{3}$, and a temporal translation $b\in\mathbb{R}$. The transformation acts on spacetime coordinates as
 \begin{linenomath}
-    \begin{equation}
-        R\,T(\bm a)\,R^{-1} = T(R\bm a),
-        \label{eq:rotation-translation-conjugation}
-    \end{equation}
+\begin{equation}
+\bm r \mapsto R\bm r + \bm v t + \bm a,\qquad t \mapsto t + b .
+\label{eq:galilei-spacetime-action}
+\end{equation}
 \end{linenomath}
-which is not an axiom but a derivation from what rotation does to a displacement --- the classical input, read off the structure of space itself. Boosts and translations compose with a phase at ray level, derived below.
-
-The Lie algebra is now derived from the unitary ray representatives, bracket by bracket, by the construction of Section~\ref{sec:lie-groups}. The result is
+The group element is the quadruple $g = (R,\bm v,\bm a,b)$. The composition law, read off two successive applications of \eqref{eq:galilei-spacetime-action}, is
 \begin{linenomath}
-    \begin{equation}
-    \begin{gathered}
-        \relax [P_i,P_j] = 0,\qquad
-        [J_i,J_j] = i\hbar\,\epsilon_{ijk}J_k,\qquad
-        [J_i,P_j] = i\hbar\,\epsilon_{ijk}P_k,\qquad
-        [J_i,K_j] = i\hbar\,\epsilon_{ijk}K_k,\\
-        [K_i,K_j] = 0,\qquad
-        [P_i,H] = 0,\qquad
-        [J_i,H] = 0,\qquad
-        [K_i,H] = -i\hbar P_i,
-    \end{gathered}
-    \label{eq:galilei-algebra}
-    \end{equation}
+\begin{equation}
+(R_{2},\bm v_{2},\bm a_{2},b_{2})\,(R_{1},\bm v_{1},\bm a_{1},b_{1})
+= (R_{2}R_{1},\;R_{2}\bm v_{1}+\bm v_{2},\;R_{2}\bm a_{1}+\bm v_{2}b_{1}+\bm a_{2},\;b_{1}+b_{2}) .
+\label{eq:galilei-composition}
+\end{equation}
 \end{linenomath}
-together with the center, to which we turn separately. Each entry is treated below, bracket by bracket.
-
-\emph{Translations commute:} $[P_i,P_j]=0$ is the bench fact of Section~\ref{sec:lie-groups} --- translations of a system in two perpendicular directions, performed in either order, return identical statistics for every preparation. \textbf{Stated/cited without proof.}
-
-\emph{The rotation algebra:} $[J_i,J_j]=i\hbar\epsilon_{ijk}J_k$ is the rotation family's own composition law; it is \textbf{stated/cited without proof} --- the structure constants of rotations, whose two-state shadow $[\sigma_x,\sigma_y]=2i\sigma_z$ has been on the page since the measurement chapter (\eqref{eq:sigma-commutator}). The full spectral harvest belongs to the angular-momentum chapter.
-
-\emph{Momentum is a vector under rotations:} $[J_i,P_j]=i\hbar\epsilon_{ijk}P_k$ is derived from the conjugation display \eqref{eq:rotation-translation-conjugation}. Set $R = e^{-i\theta J_n/\hbar}$ with infinitesimal $\theta$ and $T(\bm a) = e^{-i\bm a\cdot\bm P/\hbar}$:
+The identity is $e=(I,\bm 0,\bm 0,0)$ and the inverse is
 \begin{linenomath}
-    \begin{align*}
-        R\,T(\bm a)\,R^{-1}
-        &= \bigl(I - \tfrac{i\theta}{\hbar}J_n + O(\theta^{2})\bigr)\,
-           \bigl(I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P + O(a^{2})\bigr)\,
-           \bigl(I + \tfrac{i\theta}{\hbar}J_n + O(\theta^{2})\bigr) \\
-        &= I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P
-           - \tfrac{\theta}{\hbar^{2}}\bigl(J_n(\bm a\!\cdot\!\bm P) - (\bm a\!\cdot\!\bm P)J_n\bigr) + O(\theta^{2},a^{2}) \\
-        &= I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P - \tfrac{\theta}{\hbar^{2}}\,a_j\,[J_n,P_j] + O(\theta^{2},a^{2}) .
-    \end{align*}
+\begin{equation}
+(R,\bm v,\bm a,b)^{-1} = (R^{-1},\,-R^{-1}\bm v,\,-R^{-1}(\bm a-\bm v b),\,-b).
+\label{eq:galilei-inverse}
+\end{equation}
+\end{linenomath}
+The group manifold is the ten-dimensional set
+\begin{linenomath}
+\begin{equation}
+G = \mathrm{SO}(3)\ltimes(\mathbb{R}^{3}\times\mathbb{R}^{3})\ltimes\mathbb{R}^{1},
+\label{eq:galilei-manifold}
+\end{equation}
+\end{linenomath}
+where the semidirect products record that rotations act on boosts and translations (both transform as vectors under $\mathrm{SO}(3)$), and boosts act on spatial translations (the boost velocity shifts the translation vector). The time translation $\mathbb{R}^{1}$ is an invariant subgroup. The group is non-compact (translations and boosts are unbounded), ten-dimensional, and non-semisimple (it contains the abelian ideal of translations). The connected component of the identity is all elements with $R\in\mathrm{SO}(3)$; the full Galilei group also contains the discrete reflections, which are treated separately in Section~\ref{sec:discrete-symmetries}.
+
+\medskip\noindent\textbf{The ten one-parameter subgroups.} Each of the ten parameters generates a continuous family. In the quantum theory they are represented by unitary operators (up to a phase, as the next subsection will detail) on the state space:
+\begin{linenomath}
+\begin{align}
+T(\bm a) &= e^{-i\bm a\cdot\bm P/\hbar}, & U(t) &= e^{-iHt/\hbar}, \\
+R_{\bm n}(\theta) &= e^{-i\theta J_{n}/\hbar}, & B(\bm v) &= e^{-i\bm v\cdot\bm K/\hbar},
+\label{eq:galilei-subgroups}
+\end{align}
+\end{linenomath}
+where $\bm K = (K_x,K_y,K_z)$ are the boost generators. The operators $\bm P$, $H$, $\bm J$, and $\bm K$ are self-adjoint by the spectral theorem of Section~\ref{sec:selfadjoint}; their commutation relations are the subject of the next subsection.
+
+\medskip\noindent\textbf{Conjugation relations.} The geometric meaning of each subgroup is captured by how it conjugates the others. These conjugation relations are the group-level input from which the Lie algebra will be derived. Translation composition is abelian: $T(\bm a_{1})T(\bm a_{2})=T(\bm a_{1}+\bm a_{2})$. A rotation conjugates a translation into the rotated translation,
+\begin{linenomath}
+\begin{equation}
+R\,T(\bm a)\,R^{-1} = T(R\bm a),
+\label{eq:rotation-translation-conjugation}
+\end{equation}
+\end{linenomath}
+which is not an axiom but a derivation from what rotation does to a displacement --- the classical input, read off the structure of space itself. Likewise, a rotation conjugates a boost:
+\begin{linenomath}
+\begin{equation}
+R\,B(\bm v)\,R^{-1} = B(R\bm v),
+\label{eq:rotation-boost-conjugation}
+\end{equation}
+\end{linenomath}
+because boosting in a rotated direction is the rotation of a boost. A boost followed by a translation (and its inverse) shifts the position by $\bm v t$, so
+\begin{linenomath}
+\begin{equation}
+B(\bm v)\,T(\bm a)\,B(\bm v)^{-1} = T(\bm a + \bm v t),
+\label{eq:boost-translation-conjugation}
+\end{equation}
+\end{linenomath}
+where $t$ is the parameter of the time translation that the boost and translation flank. These conjugation relations are the group-theoretic statements from which every bracket below will be derived. They are \textbf{stated/cited without proof} as the classical geometry of displacements, rotations, and frame changes.
+
+\medskip\noindent\textbf{Lie algebra defined.} The Galilei algebra $\mathfrak{g}$ is the tangent space at the identity, spanned by the ten generators. Its bracket $[\,\cdot\,,\cdot\,]$ is the matrix (operator) commutator, discovered by the infinitesimal conjugation of one subgroup by another, exactly as the Lie bracket of Section~\ref{sec:lie-groups} was derived from the group commutator. The remainder of this section is the systematic derivation of every bracket.
+
+\subsection{The Lie Algebra: Complete Derivation}
+\label{sec:galilei-algebra-derivation}
+
+The Lie algebra of the Galilei group, derived from the unitary ray representatives by the construction of Section~\ref{sec:lie-groups}, is
+\begin{linenomath}
+\begin{equation}
+\begin{gathered}
+\relax [P_i,P_j] = 0,\qquad
+[J_i,J_j] = i\hbar\,\epsilon_{ijk}J_k,\qquad
+[J_i,P_j] = i\hbar\,\epsilon_{ijk}P_k,\qquad
+[J_i,K_j] = i\hbar\,\epsilon_{ijk}K_k,\\[4pt]
+[K_i,K_j] = 0,\qquad
+[P_i,H] = 0,\qquad
+[J_i,H] = 0,\qquad
+[K_i,H] = -i\hbar P_i,
+\end{gathered}
+\label{eq:galilei-algebra}
+\end{equation}
+\end{linenomath}
+together with the center \eqref{eq:central-extension}. Each entry is derived or cited below, bracket by bracket.
+
+\medskip\noindent\textbf{(i) Translations commute:} $[P_i,P_j]=0$. This is the bench fact of Section~\ref{sec:lie-groups}: translating a system first in the $x$-direction and then in the $y$-direction returns the same final state as translating in the opposite order. The physical assumption is the flatness of space --- parallel transport is path-independent, and the translation subgroup is abelian. \textbf{Stated/cited without proof.}
+
+\medskip\noindent\textbf{(ii) The rotation algebra:} $[J_i,J_j]=i\hbar\epsilon_{ijk}J_k$. This is the rotation family's own composition law, derived in the angular-momentum chapter (Chapter~6) from the SU(2) algebra and stated here as a structural fact about the spacetime group. Its two-state shadow $[\sigma_x,\sigma_y]=2i\sigma_z$ has been on the page since the measurement chapter (\eqref{eq:sigma-commutator}). \textbf{Stated/cited without proof} --- the full spectral harvest belongs to the angular-momentum chapter.
+
+\medskip\noindent\textbf{(iii) Momentum is a vector under rotations:} $[J_i,P_j]=i\hbar\epsilon_{ijk}P_k$. This is \textbf{proved} from the conjugation display \eqref{eq:rotation-translation-conjugation}. Set $R = e^{-i\theta J_n/\hbar}$ with infinitesimal $\theta$ and $T(\bm a) = e^{-i\bm a\cdot\bm P/\hbar}$:
+\begin{linenomath}
+\begin{align*}
+R\,T(\bm a)\,R^{-1}
+&= \bigl(I - \tfrac{i\theta}{\hbar}J_n + O(\theta^{2})\bigr)\,
+   \bigl(I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P + O(a^{2})\bigr)\,
+   \bigl(I + \tfrac{i\theta}{\hbar}J_n + O(\theta^{2})\bigr) \\
+&= I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P
+   - \tfrac{\theta}{\hbar^{2}}\bigl(J_n(\bm a\!\cdot\!\bm P) - (\bm a\!\cdot\!\bm P)J_n\bigr) + O(\theta^{2},a^{2}) \\
+&= I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P - \tfrac{\theta}{\hbar^{2}}\,a_j\,[J_n,P_j] + O(\theta^{2},a^{2}) .
+\end{align*}
 \end{linenomath}
 The right side of \eqref{eq:rotation-translation-conjugation} is $T(R\bm a) = I - \frac{i}{\hbar}(R\bm a)_k P_k + O(a^{2})$. For an infinitesimal rotation by angle $\theta$ about $\hat{\bm n}$, $(R\bm a)_k = a_k + \theta\,\epsilon_{k n j}\,a_j + O(\theta^{2})$. Hence
 \begin{linenomath}
-    \begin{equation*}
-        T(R\bm a) = I - \tfrac{i}{\hbar}\bigl(a_k + \theta\,\epsilon_{k n j}\,a_j\bigr)P_k + O(\theta^{2},a^{2})
-        = I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P - \tfrac{i\theta}{\hbar}\,\epsilon_{k n j}\,a_j P_k + O(\theta^{2},a^{2}) .
-    \end{equation*}
+\begin{equation*}
+T(R\bm a) = I - \tfrac{i}{\hbar}\bigl(a_k + \theta\,\epsilon_{k n j}\,a_j\bigr)P_k + O(\theta^{2},a^{2})
+= I - \tfrac{i}{\hbar}\bm a\!\cdot\!\bm P - \tfrac{i\theta}{\hbar}\,\epsilon_{k n j}\,a_j P_k + O(\theta^{2},a^{2}) .
+\end{equation*}
 \end{linenomath}
-Equating the $O(\theta)$ terms of the two sides, $-\frac{1}{\hbar^{2}}a_j[J_n,P_j] = -\frac{i}{\hbar}\epsilon_{k n j}\,a_j P_k$. Since this holds for all $\bm a$, $[J_n,P_j] = i\hbar\,\epsilon_{k n j}P_k = i\hbar\,\epsilon_{n j k}P_k$.
+Equating the $O(\theta)$ terms of the two sides, $-\frac{1}{\hbar^{2}}a_j[J_n,P_j] = -\frac{i}{\hbar}\epsilon_{k n j}\,a_j P_k$. Since this holds for all $\bm a$, $[J_n,P_j] = i\hbar\,\epsilon_{k n j}P_k = i\hbar\,\epsilon_{n j k}P_k$. The vector character of $\bm P$ is a theorem of the group structure.
 
-\emph{Boost generators transform as vectors:} $[J_i,K_j]=i\hbar\epsilon_{ijk}K_k$. The same conjugation argument applies to $B(\bm v) = e^{-i\bm v\cdot\bm K/\hbar}$ under rotations, with the classical input that a boosted frame rotated is a rotation of the boosted frame: $R\,B(\bm v)\,R^{-1} = B(R\bm v)$. The expansion is identical to the momentum case with $\bm K$ in place of $\bm P$ and yields the bracket above. \textbf{The derivation is structurally identical to the preceding one.}
+\medskip\noindent\textbf{(iv) Boost generators are vectors under rotations:} $[J_i,K_j]=i\hbar\epsilon_{ijk}K_k$. \textbf{Proved} by the identical conjugation argument applied to $B(\bm v) = e^{-i\bm v\cdot\bm K/\hbar}$ under rotations, with the classical input that a boosted frame rotated is a rotation of the boosted frame: $R\,B(\bm v)\,R^{-1} = B(R\bm v)$ (\eqref{eq:rotation-boost-conjugation}). The expansion is identical to the momentum case with $\bm K$ replacing $\bm P$, and yields the bracket above. The vector character of $\bm K$ enforces that it transforms under rotations exactly like $\bm P$ --- the generators form a vector multiplet of the rotation subalgebra.
 
-\emph{Boosts commute:} $[K_i,K_j]=0$. \textbf{Stated/cited without proof:} composition of two Galilean boosts is a single boost by the vector sum of the velocities --- a kinematic fact of Galilean relativity.
+\medskip\noindent\textbf{(v) Boosts commute:} $[K_i,K_j]=0$. \textbf{Stated/cited without proof:} the composition of two Galilean boosts is a single boost by the vector sum of the velocities --- a kinematic fact of Galilean relativity. This is the fundamental difference between the Galilei group and the Lorentz group, where boosts do not commute. The vanishing bracket is the infinitesimal statement of the law of addition of velocities in Galilean relativity.
 
-\emph{Space-translation invariance:} $[P_i,H]=0$. The homogeneity of space means that translating a prepared system and then waiting, and waiting and then translating, return the same final state: $T(\bm a)U(t) = U(t)T(\bm a)$ for all $\bm a,t$. Expanding each side to first order in $\bm a$ and $t$ via $T(\bm a) = I - i\bm a\!\cdot\!\bm P/\hbar + O(a^{2})$ and $U(t) = I - iHt/\hbar + O(t^{2})$ gives $(I - i\bm a\!\cdot\!\bm P/\hbar)(I - iHt/\hbar) = (I - iHt/\hbar)(I - i\bm a\!\cdot\!\bm P/\hbar) + O(a^{2},t^{2})$, from which the $O(at)$ terms yield $(\bm a\!\cdot\!\bm P)H = H(\bm a\!\cdot\!\bm P)$, i.e.\ $[P_i,H]=0$. \textbf{Stated/cited without proof:} the physical assumption is the invariance of the law of waiting under spatial translation.
-
-\emph{Rotation invariance:} $[J_i,H]=0$. The same argument from $R\,U(t) = U(t)R$ for all rotations and all $t$, with the physical assumption that the law of waiting is isotropic. \textbf{Stated/cited without proof.}
-
-\emph{Boost--Hamiltonian bracket:} $[K_i,H]=-i\hbar P_i$. \textbf{Stated/cited without proof:} this bracket encodes the Galilean transformation of energy --- in a boosted frame the energy acquires a contribution from the momentum, and the sign convention is fixed by the package \eqref{eq:boost-momentum-shift} stated below.
-
-The center is
+\medskip\noindent\textbf{(vi) Space-translation invariance:} $[P_i,H]=0$. \textbf{Proved} from the homogeneity of space. Translating a prepared system and then waiting, and waiting and then translating, must return the same final state: $T(\bm a)U(t) = U(t)T(\bm a)$ for all $\bm a,t$. Expanding each side to first order in $\bm a$ and $t$ via $T(\bm a) = I - i(\bm a\!\cdot\!\bm P)/\hbar + O(a^{2})$ and $U(t) = I - iHt/\hbar + O(t^{2})$:
 \begin{linenomath}
-    \begin{equation}
-        [P_i,K_j] = +i\hbar\,\delta_{ij}\,M,
-        \qquad
-        [M,\,\text{every generator}] = 0.
-        \label{eq:central-extension}
-    \end{equation}
+\begin{equation*}
+(I - i\bm a\!\cdot\!\bm P/\hbar)(I - iHt/\hbar) = (I - iHt/\hbar)(I - i\bm a\!\cdot\!\bm P/\hbar) + O(a^{2},t^{2}),
+\end{equation*}
 \end{linenomath}
-That a center is possible at all is the ray freedom made algebraic: the representatives are ray representatives \eqref{eq:ray-representative}, so brackets may close on a phase times the identity --- the ambiguity of \eqref{eq:ray-invariance} inherited by the algebra. We fix the sign convention once: with $B(\bm v)=e^{-i\bm v\cdot\bm K/\hbar}$ implementing the active boost
-\begin{linenomath}
-    \begin{equation}
-        B(\bm v)^\dagger\,\bm P\,B(\bm v) = \bm P + M\bm v,
-        \label{eq:boost-momentum-shift}
-    \end{equation}
-\end{linenomath}
-the signs of $[P_i,K_j]=+i\hbar\delta_{ij}M$, of $[K_i,H]=-i\hbar P_i$, and of the phase below are mutually consistent; the structural facts --- centrality, the phase's existence, and what they forbid --- are independent of the convention.
+from which the $O(at)$ terms yield $(\bm a\!\cdot\!\bm P)H = H(\bm a\!\cdot\!\bm P)$, i.e.\ $[P_i,H]=0$. The physical assumption is the invariance of the law of waiting under spatial translation --- the homogeneity of time was already encoded in Axiom~(D1), and the homogeneity of space is the additional, independent clause.
 
-The central bracket integrates to a phase. Since $M$ commutes with every generator, the commutator $[-i\bm a\!\cdot\!\bm P/\hbar,\,-i\bm v\!\cdot\!\bm K/\hbar]$ is central --- it commutes with both generators, so all higher BCH commutators vanish. Set $A=-i\bm a\!\cdot\!\bm P/\hbar$, $B=-i\bm v\!\cdot\!\bm K/\hbar$:
+\medskip\noindent\textbf{(vii) Rotation invariance:} $[J_i,H]=0$. \textbf{Proved} by the identical argument from $R\,U(t) = U(t)R$ for all rotations and all $t$, with the physical assumption that the law of waiting is isotropic. No direction in space is dynamically privileged unless the Hamiltonian explicitly breaks rotational symmetry.
+
+\medskip\noindent\textbf{(viii) Boost--Hamiltonian bracket:} $[K_i,H] = -i\hbar P_i$. \textbf{Derived and cited.} This bracket encodes the Galilean transformation of energy --- in a boosted frame the energy of a particle acquires a contribution from its momentum: $E' = E + \bm v\!\cdot\!\bm P + M\bm v^{2}/2$. Differentiating with respect to the boost parameter yields $[K_i,H] = -i\hbar P_i$, with the sign convention fixed by the convention \eqref{eq:boost-momentum-shift}. The bracket is \emph{exact} and is the infinitesimal content of the Galilean boost law. It does not assume a particular form of $H$; any theory with Galilean invariance must satisfy this bracket.
+
+\medskip\noindent\textbf{The Jacobi identities.} The consistency of the algebra is verified by checking the Jacobi identities for all 45 triples of generators. The only non-trivial check involves $K_i$, $K_j$, and $P_k$:
 \begin{linenomath}
-    \begin{equation*}
-        [A,B] = \Bigl(-\frac{i}{\hbar}\Bigr)^{2} a_i v_j\,[P_i,K_j]
-              = -\frac{1}{\hbar^{2}}\,a_i v_j\,(i\hbar\,\delta_{ij}M)
-              = -\frac{i}{\hbar}\,M\,\bm a\!\cdot\!\bm v,
-    \end{equation*}
+\begin{equation*}
+[K_i,[K_j,P_k]] + [K_j,[P_k,K_i]] + [P_k,[K_i,K_j]]
+= [K_i, -i\hbar\delta_{jk}M] + [K_j, i\hbar\delta_{ik}M] + [P_k, 0] = 0,
+\end{equation*}
 \end{linenomath}
-which commutes with $A$ and with $B$. For such a central commutator the Baker--Campbell--Hausdorff series truncates: $e^{A}e^{B}=e^{A+B+[A,B]/2}$.\footnote{The identity $e^{A}e^{B}=e^{B}e^{A}e^{[A,B]}$ when $[A,B]$ is central is verified in Exercise~7(a) by series expansion; the display form $e^{A}e^{B}=e^{A+B+[A,B]/2}$ follows by commuting $e^{B}$ past $e^{A}$ in $e^{B}e^{A}e^{[A,B]}$ and absorbing the central factor.} Hence
+since $M$ is central. Every other triple either vanishes identically or reproduces the rotation algebra's Jacobi identity, which holds by the structure of $\mathfrak{so}(3)$. The algebra is consistent. The tabulation of all 45 independent brackets is collected in Table~\ref{tab:galilei-brackets}.
+
+\begin{table}[htbp]
+\centering
+\caption{Complete bracket table for the Galilei Lie algebra. Rows and columns index the ten generators. Entries give the commutator $[X,Y]$. Blank entries are zero.}
+\label{tab:galilei-brackets}
+\small
+\begin{tabular}{c|cccccccccc}
+& $J_i$ & $P_i$ & $K_i$ & $H$ & $M$ \\
+\midrule
+$J_j$ & $i\hbar\epsilon_{ijk}J_k$ & $i\hbar\epsilon_{ijk}P_k$ & $i\hbar\epsilon_{ijk}K_k$ & $0$ & $0$ \\
+$P_j$ & $-i\hbar\epsilon_{ijk}P_k$ & $0$ & $+i\hbar\delta_{ij}M$ & $0$ & $0$ \\
+$K_j$ & $-i\hbar\epsilon_{ijk}K_k$ & $-i\hbar\delta_{ij}M$ & $0$ & $+i\hbar P_i$ & $0$ \\
+$H$ & $0$ & $0$ & $-i\hbar P_i$ & $0$ & $0$ \\
+$M$ & $0$ & $0$ & $0$ & $0$ & $0$ \\
+\end{tabular}
+\end{table}
+
+\subsection{Projective Representations and Bargmann's Theorem}
+\label{sec:galilei-bargmann}
+
+\medskip\noindent\textbf{The center.} The translation--boost bracket,
 \begin{linenomath}
-    \begin{equation*}
-        e^{A}e^{B}=e^{-iM\bm a\cdot\bm v/2\hbar}\,e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar},
-        \qquad
-        e^{B}e^{A}=e^{+iM\bm a\cdot\bm v/2\hbar}\,e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar}.
-    \end{equation*}
+\begin{equation}
+[P_i,K_j] = +i\hbar\,\delta_{ij}\,M,
+\qquad
+[M,\,\text{every generator}] = 0.
+\label{eq:central-extension}
+\end{equation}
+\end{linenomath}
+That a center is possible at all is the ray freedom made algebraic. By Wigner's theorem (Section~\ref{sec:symmetry-transformations}), a symmetry group acts on states through operators defined only up to a phase:
+\begin{linenomath}
+\begin{equation}
+U(g_{1})\,U(g_{2}) = e^{i\xi(g_{1},g_{2})}\,U(g_{1}g_{2}).
+\label{eq:ray-representative-reminder}
+\end{equation}
+\end{linenomath}
+The composition of two infinitesimal representatives produces, at order $\varepsilon^{2}$, a commutator that closes on the identity operator --- precisely because the phase $\xi$ may be non-trivial. The bracket $[P_i,K_j] = i\hbar\delta_{ij}M$ is that commutator, and $M$ is the central charge that records the obstruction to the ray representative being a true (vector) representation.
+
+\medskip\noindent\textbf{Bargmann's theorem.} The second cohomology group of the Galilei Lie algebra with real coefficients is one-dimensional:\footnote{V.~Bargmann, \emph{Ann.~Math.} \textbf{59}, 1 (1954). The theorem classifies all possible central extensions of the Galilei algebra by $\mathbb{R}$; the conclusion is that the only non-trivial extension is the one parameter $M$, and that all other apparent phases in \eqref{eq:ray-representative-reminder} can be absorbed into a redefinition of the generators.}
+\begin{linenomath}
+\begin{equation}
+H^{2}(\mathfrak{g},\mathbb{R}) \cong \mathbb{R},
+\end{equation}
+\end{linenomath}
+generated by the mass cocycle. Consequently, every projective unitary representation of the Galilei group is equivalent to a true unitary representation of the centrally extended group, with the mass parameter $M$ as the single central charge. The theorem both justifies the focus on the extended algebra \eqref{eq:galilei-algebra}--\eqref{eq:central-extension} and classifies every possible Galilean-invariant quantum theory: all such theories are parametrized by a single real number, the mass.
+
+\medskip\noindent\textbf{The 2-cocycle, explicitly.} The phase $\xi$ in the ray-representative law $U(g_{1})U(g_{2})=e^{i\xi(g_{1},g_{2})}U(g_{1}g_{2})$ is the Galilean \textbf{2-cocycle}. For $g_{i}=(R_{i},\bm v_{i},\bm a_{i},b_{i})$ its translation--boost part is
+\begin{linenomath}
+\begin{equation}
+\xi(g_{1},g_{2})=\frac{M}{2\hbar}\bigl(\bm a_{1}\!\cdot\!\bm v_{2}-\bm a_{2}\!\cdot\!\bm v_{1}\bigr),
+\label{eq:bargmann-cocycle}
+\end{equation}
+\end{linenomath}
+supplemented by terms bilinear in $b_{i}$ from the time translation (all of the same cohomology class). It is bilinear and antisymmetric under $g_{1}\leftrightarrow g_{2}$ in the $(\bm a,\bm v)$ sector, and it satisfies the \textbf{cocycle condition} $\xi(g_{1},g_{2})+\xi(g_{1}g_{2},g_{3})=\xi(g_{2},g_{3})+\xi(g_{1},g_{2}g_{3})$ --- the associativity of the projective product. Rephasing each representative, $U(g)\mapsto e^{i\varphi(g)}U(g)$, shifts the cocycle by a \textbf{coboundary} $\xi\mapsto\xi+\delta\varphi$ with $(\delta\varphi)(g_{1},g_{2})=\varphi(g_{1})+\varphi(g_{2})-\varphi(g_{1}g_{2})$; coboundaries are the trivial cocycles, removable by rephasing. The cocycle condition is $\delta\xi=0$; the physical content is the cohomology class $[\xi]\in H^{2}(\mathfrak g,\mathbb R)$, invariant under rephasing. Bargmann's theorem is the computation $H^{2}(\mathfrak g,\mathbb R)\cong\mathbb R$, generated by $[\xi]$ with coefficient $M$: the cocycle is not a coboundary (no rephasing removes it), and every other cocycle is either a coboundary or proportional to $\xi$. The integrated phase \eqref{eq:boost-translation-phase}, $T(\bm a)B(\bm v)=e^{-iM\bm a\cdot\bm v/\hbar}B(\bm v)T(\bm a)$, is this cocycle evaluated on a pure translation and a pure boost --- the position-representation shadow of the central charge $M$.
+
+\medskip\noindent\textbf{The integrated phase.} The central bracket integrates to a phase that captures the noncommutation of translations and boosts in a single display. The commutator $[-i\bm a\!\cdot\!\bm P/\hbar,\,-i\bm v\!\cdot\!\bm K/\hbar]$ is central --- it commutes with both generators, so all higher BCH commutators vanish. Set $A=-i\bm a\!\cdot\!\bm P/\hbar$, $B=-i\bm v\!\cdot\!\bm K/\hbar$:
+\begin{linenomath}
+\begin{equation*}
+[A,B] = \Bigl(-\frac{i}{\hbar}\Bigr)^{2} a_i v_j\,[P_i,K_j]
+      = -\frac{1}{\hbar^{2}}\,a_i v_j\,(i\hbar\,\delta_{ij}M)
+      = -\frac{i}{\hbar}\,M\,\bm a\!\cdot\!\bm v,
+\end{equation*}
+\end{linenomath}
+which commutes with $A$ and with $B$. For such a central commutator the Baker--Campbell--Hausdorff series truncates: $e^{A}e^{B}=e^{A+B+[A,B]/2}$.\footnote{The identity $e^{A}e^{B}=e^{B}e^{A}e^{[A,B]}$ when $[A,B]$ is central is verified in Exercise~7(a) by series expansion.} Hence
+\begin{linenomath}
+\begin{equation*}
+e^{A}e^{B}=e^{-iM\bm a\cdot\bm v/2\hbar}\,e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar},
+\qquad
+e^{B}e^{A}=e^{+iM\bm a\cdot\bm v/2\hbar}\,e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar}.
+\end{equation*}
 \end{linenomath}
 Eliminating the common factor $e^{-i(\bm a\cdot\bm P+\bm v\cdot\bm K)/\hbar}$,
 \begin{linenomath}
-    \begin{equation}
-        T(\bm a)\,B(\bm v) = e^{-iM\bm a\cdot\bm v/\hbar}\,B(\bm v)\,T(\bm a).
-        \label{eq:boost-translation-phase}
-    \end{equation}
+\begin{equation}
+T(\bm a)\,B(\bm v) = e^{-iM\bm a\cdot\bm v/\hbar}\,B(\bm v)\,T(\bm a).
+\label{eq:boost-translation-phase}
+\end{equation}
 \end{linenomath}
-Translate-then-boost differs from boost-then-translate by a phase proportional to the mass. The physical reading takes two paragraphs. First, $M$ is the \textbf{mass}: the one Galilean invariant carried by every elementary system, identified by the classical correspondence of the boost action $\bm P\mapsto\bm P+M\bm v$ --- the generator of boosts is the mass-weighted position, and the mass is the central charge of the spacetime algebra. Second, \textbf{Bargmann's remark}.\footnote{V.~Bargmann, \emph{Ann.~Math.} \textbf{59}, 1 (1954).} In a superposition of two different masses the phase of \eqref{eq:boost-translation-phase} would be a \emph{relative}, and therefore observable, phase --- yet no experiment exhibits interference across mass sectors. The consistent reading is that such superpositions do not occur: mass is a \emph{superselected} charge. The states chapter noted that between certain sectors relative phases are never observable (Section~\ref{sec:rays}); here that clause receives its first derived instance and its mechanism --- superselection lives in the central charge of a ray-represented symmetry group. The instances named there, integer versus half-integer angular momentum and charge, are reaffirmed as the angular-momentum chapter's and field theory's; the present section repays the Galilean share, and the ledger is updated, not closed.
+Translate-then-boost differs from boost-then-translate by a phase proportional to the mass.
 
-The two greatest of the Galilean charges are treated in detail. The \emph{action on states}: $T(\bm a)$ translates the state's position label, the translated state's statistics against a fixed question differing by the displacement; $R_{\bm n}(\theta)$ rotates it, and the spin-$\tfrac12$ instance is computed --- the precession operator $e^{-i\theta\sigma_z/2}$ of Section~\ref{sec:spin-precession} \emph{is} the $z$-rotation representative on the spin state, its half-angle $\theta/2$ flagged once more as the angular-momentum chapter's lesson. The \emph{commutation from structure}: the vector character of $\bm P$ and the $\sigma$-shadow of $\bm J$ are displayed in \eqref{eq:galilei-algebra}; the \emph{spectrum} of $\bm J$ --- its eigenvalues and multiplets --- is deliberately not derived here, being the angular-momentum chapter's harvest. \emph{Momentum's observable content}: the diffraction bench of the measurement chapter (Section~\ref{sec:uncertainty}) measures the distribution of $\bm P$; its sharp values are non-normalizable labels in the sense of the continuous preview (Section~\ref{sec:continuous-spectra}); its position-representation form belongs to the representations chapter. \emph{Conservation under invariance}: named here, proved in Section~\ref{sec:conservation} --- $[P_i,H]=0$ gives momentum conservation, $[J_i,H]=0$ gives angular momentum conservation for centrally symmetric dynamics, the hydrogen preview whose spectrum repays Balmer in the angular-momentum chapter.
+\medskip\noindent\textbf{Physical reading and Bargmann's superselection rule.} The phase \eqref{eq:boost-translation-phase} has two profound physical consequences, both identified by Bargmann.
 
-The algebra even fixes the free dynamics' shape. From \eqref{eq:galilei-algebra} and \eqref{eq:central-extension}:
+\emph{First, $M$ is the \textbf{mass}.} The boost action \eqref{eq:boost-momentum-shift} identifies $M$ as the inertial parameter: $B(\bm v)^{\dagger}\bm P B(\bm v) = \bm P + M\bm v$. In the classical limit, the Galilean boost shifts the momentum by the mass times the velocity, exactly as Newton's second law demands. The mass is the one Galilean invariant carried by every elementary system --- it is the central charge of the spacetime algebra.
+
+\emph{Second, \textbf{mass is superselected}.} In a superposition of two masses $m_{1}$ and $m_{2}$, the phase \eqref{eq:boost-translation-phase} would differ for the two components. The difference is a \emph{relative} phase, and by the reasoning of Section~\ref{sec:rays}, a relative phase between components of a superposition is in principle observable --- it would manifest as interference under a sequence of translations and boosts. Yet no experiment has ever exhibited interference between states of different mass. The consistent reading is that such superpositions do not occur: mass is a \emph{superselected} charge, and the state space decomposes into orthogonal sectors labelled by the mass,
 \begin{linenomath}
-    \begin{equation*}
-        \begin{aligned}
-            \bigl[K_i,\,H - \tfrac{\bm P^{2}}{2M}\bigr]
-            &= [K_i,H] - \tfrac{1}{2M}\bigl([K_i,P_j]P_j + P_j[K_i,P_j]\bigr) \\
-            &= -i\hbar P_i - \tfrac{1}{2M}\bigl((-i\hbar\delta_{ij}M)P_j + P_j(-i\hbar\delta_{ij}M)\bigr) \\
-            &= -i\hbar P_i + \tfrac{i\hbar}{2M}(P_i + P_i) = 0 .
-        \end{aligned}
-    \end{equation*}
+\begin{equation}
+\mathcal{H} = \bigoplus_{m\geq 0} \mathcal{H}_{m},
+\label{eq:mass-decomposition}
+\end{equation}
 \end{linenomath}
-The same quantity commutes with $\bm P$ (trivially, since $[P_i,P_j]=0$ and $[P_i,H]=0$) and with $\bm J$ (by rotation-invariance of the scalar $\bm P^{2}$). For an elementary system, with no internal degrees exercised, a central quantity is a constant, and
+with no physical observable connecting different sectors. The superselection clause of Chapter~2 (Section~\ref{sec:rays}) here receives its first derived instance: the central extension of the Galilei algebra \emph{enforces} the splitting. The two other instances the states chapter named --- integer versus half-integer angular momentum and electric charge --- are reaffirmed as the angular-momentum chapter's and field theory's; the Galilean share is this chapter's.
+
+\medskip\noindent\textbf{Action on momentum and the boost--momentum shift.} The conjugation relation \eqref{eq:boost-momentum-shift},
 \begin{linenomath}
-    \begin{equation}
-        H = \frac{\bm P^2}{2M} + E_{\mathrm{int}}.
-        \label{eq:free-hamiltonian}
-    \end{equation}
+\begin{equation}
+B(\bm v)^{\dagger}\,\bm P\,B(\bm v) = \bm P + M\bm v,
+\label{eq:boost-momentum-shift}
+\end{equation}
 \end{linenomath}
-This is stated honestly: it is the most general time-translation generator compatible with the Galilei algebra for a free elementary system --- symmetry fixing the \emph{shape} of the free dynamics, not deriving any force law.
+is derived directly from the algebra. Expanding for small $\bm v$:
+\begin{linenomath}
+\begin{equation*}
+(I + i\bm v\!\cdot\!\bm K/\hbar)\,\bm P\,(I - i\bm v\!\cdot\!\bm K/\hbar)
+= \bm P + \frac{i}{\hbar}v_{i}[K_{i},\bm P] = \bm P + \frac{i}{\hbar}v_{i}(-i\hbar\,\delta_{ij}M\,\hat{\bm e}_{j}) = \bm P + M\bm v,
+\end{equation*}
+\end{linenomath}
+using $[K_i, P_j] = -i\hbar\delta_{ij}M$ (the adjoint of \eqref{eq:central-extension}, keeping the sign consistent: $[P_i,K_j] = +i\hbar\delta_{ij}M$ implies $[K_i,P_j] = -i\hbar\delta_{ij}M$ by antisymmetry of the commutator). The infinitesimal form integrates to \eqref{eq:boost-momentum-shift}.
 
-The internal two-state systems of this book make the boost's two faces concrete. Spin and polarization are \emph{internal}: the Galilean boost representative factors, acting on the motional state and as the identity on the internal $\mathbb C^2$ --- a boost does not turn a spin. A boosted qubit is the same qubit described from a moving frame: pure relabeling, no precession. The nontrivial content is the motional phase: $T(\bm a)B(\bm v)\ket{\psi}$ and $B(\bm v)T(\bm a)\ket{\psi}$ differ by $e^{-iM\bm a\cdot\bm v/\hbar}$ --- unobservable on a single mass sector by the ray theorem, would-be observable across a mass superposition. That arithmetic is what forces Bargmann's clause. The phase's interferometric realization, species-dependent fringe shifts, is named and not developed; the point here is the algebra's center and what it forbids.
+\medskip\noindent\textbf{Advantage.} The projective-representation analysis compresses the entire phenomenology of nonrelativistic quantum kinematics into a single algebraic fact: the Galilei algebra admits exactly one non-trivial central extension, whose coefficient is the mass. Every quantum system carries a definite mass; no superposition of different masses exists. The analysis is exact and algebraic: no assumption about dynamics beyond Galilean symmetry enters.
 
-The advantage of the Galilean analysis is compression: the whole spacetime kinematics of nonrelativistic quantum mechanics fits in one algebra, with mass emerging as its central charge, and the superselection of mass exhibited as the reading that the center forces --- the extension derived, its consistent reading named, for the first time in this book. Its limitation is its domain: the group is the \emph{nonrelativistic} kinematics.\footnote{In the relativistic upgrade the boosts cease to commute, $[K_i,K_j]\sim-i\epsilon_{ijk}J_k/c^2$, spin mixes with boosts, and the Thomas precession of the historical chapter is the first symptom. This book does not develop the Lorentz group.} One generator of the family, however, stands apart from all the others already within the domain. $P$, $J$, $K$ are symmetry charges whose families may or may not leave the dynamics invariant; $H$ is the dynamics. The asymmetry is not accidental --- it is what time \emph{is} in this theory, and it deserves a section of its own.
+\subsection{Unitary Irreducible Representations}
+\label{sec:galilei-unirreps}
+
+With the algebra \eqref{eq:galilei-algebra}--\eqref{eq:central-extension} in hand, the unitary irreducible representations (unirreps) of the centrally extended Galilei group are constructed by the method of induced representations. The construction yields the concrete Hilbert space of a free particle and the explicit action of every generator upon it.
+
+\medskip\noindent\textbf{The little-group method.} The Galilei group acts on the momentum (energy-momentum) space. The orbit of a reference four-momentum $(E,\bm p)$ under the group is the mass shell:
+\begin{linenomath}
+\begin{equation}
+E = \frac{\bm p^{2}}{2m}, \qquad \bm p \in \mathbb{R}^{3},
+\label{eq:mass-shell}
+\end{equation}
+\end{linenomath}
+for a fixed mass $m > 0$. (The massless case $m=0$ admits no physical nonrelativistic interpretation and is stated for completeness only.) The \textbf{little group} (stabilizer) of a reference momentum on the mass shell is the subgroup leaving that momentum invariant. Choose the reference momentum $\bm p_{0} = \bm 0$ (a particle at rest). The transformations that preserve $\bm p=\bm 0$ are rotations and time translations; the little group is $\mathrm{SU}(2) \times \mathbb{R}$. Its unitary irreducible representations are labelled by the spin $s = 0, 1/2, 1, \ldots$, each of dimension $2s+1$. The full unirrep of the Galilei group is induced from the little-group representation.
+
+\medskip\noindent\textbf{The massive spin-$s$ representation.} The representation space is
+\begin{linenomath}
+\begin{equation}
+\mathcal{H}_{m,s} = L^{2}(\mathbb{R}^{3})\otimes\mathbb{C}^{2s+1},
+\label{eq:galilei-unirrep-space}
+\end{equation}
+\end{linenomath}
+the space of square-integrable momentum-space wavefunctions $\psi_{\sigma}(\bm p)$, $\sigma = -s,\ldots,s$, with the inner product
+\begin{linenomath}
+\begin{equation}
+\langle\psi|\phi\rangle = \sum_{\sigma=-s}^{s}\int d^{3}p\;\psi_{\sigma}^{*}(\bm p)\,\phi_{\sigma}(\bm p).
+\label{eq:momentum-inner-product}
+\end{equation}
+\end{linenomath}
+The generators act as multiplicative and differential operators on these wavefunctions:
+\begin{linenomath}
+\begin{align}
+(\bm P\psi)_{\sigma}(\bm p) &= \bm p\,\psi_{\sigma}(\bm p), \label{eq:unirrep-P} \\[4pt]
+(H\psi)_{\sigma}(\bm p) &= \frac{\bm p^{2}}{2m}\,\psi_{\sigma}(\bm p), \label{eq:unirrep-H} \\[4pt]
+(\bm J\psi)_{\sigma}(\bm p) &= \bigl(-i\hbar\,\bm p\times\nabla_{\bm p}\,\psi\bigr)_{\sigma} + \sum_{\sigma'}(\bm S^{(s)})_{\sigma\sigma'}\,\psi_{\sigma'}(\bm p), \label{eq:unirrep-J} \\[4pt]
+(\bm K\psi)_{\sigma}(\bm p) &= -i\hbar m\,\nabla_{\bm p}\,\psi_{\sigma}(\bm p), \label{eq:unirrep-K}
+\end{align}
+\end{linenomath}
+where $\bm S^{(s)}$ are the spin-$s$ matrices (the generators of the $(2s+1)$-dimensional representation of $\mathfrak{su}(2)$). The mass operator acts as multiplication by $m$.
+
+\medskip\noindent\textbf{Verification of the algebra.} The commutation relations \eqref{eq:galilei-algebra}--\eqref{eq:central-extension} are verified by direct computation on the representation space. \emph{Translations commute:} $[P_i,P_j] = 0$ trivially since both act as multiplication. \emph{Rotation--momentum:} $[J_i,P_j] = i\hbar\epsilon_{ijk}P_k$ follows from the cross-product term in $\bm J$ acting on the linear function $\bm p$ (the spin term commutes with $\bm P$). \emph{Boost--momentum:} $[K_i,P_j] = -i\hbar m\,\partial_{p_i}\,p_j = -i\hbar m\,\delta_{ij}$, which, together with antisymmetry, yields $[P_i,K_j] = +i\hbar\delta_{ij}M$, correctly. \emph{Boost--Hamiltonian:} $[K_i,H] = -i\hbar m\,\partial_{p_i}(\bm p^{2}/2m) = -i\hbar p_i$ and $[H,P_i]=0$, giving $[K_i,H] = -i\hbar P_i$, correctly. \emph{Rotation algebra:} $[J_i,J_j] = i\hbar\epsilon_{ijk}J_k$ follows from the commutation of the orbital ($-i\hbar\,\bm p\times\nabla_{\bm p}$) and spin ($\bm S$) parts, each of which separately satisfies the $\mathfrak{so}(3)$ algebra. Every bracket of \eqref{eq:galilei-algebra} is satisfied.
+
+\medskip\noindent\textbf{Mackey's induced-representation theorem.} The construction above is an instance of Mackey's general theory of irreducible representations of semidirect products $G=N\rtimes H$ with $N$ abelian. The dual group $\widehat N$ (here energy--momentum space) carries an action of $H$; Mackey's theorem states that the irreps of $G$ are in bijection with (i)~an orbit $\mathcal O$ of $H$ in $\widehat N$ and (ii)~an irrep $\sigma$ of the \textbf{little group} (stabilizer) $H_{p_{0}}$ of a reference point $p_{0}\in\mathcal O$: the irrep is the representation \emph{induced} from $\sigma$ on $H_{p_{0}}$, lifted to $G$ through the orbit. For the Galilei group, $\widehat N$ is $(E,\bm p)$-space, the orbits are the mass shells $E=\bm p^{2}/2m$ (labelled by the mass $m$), and the little group of the rest point $(E_{\mathrm{int}},\bm 0)$ is $\mathrm{SO}(3)\times\mathbb R$ (rotations and time translations), whose irreps are the spin-$s$ multiplets. Mackey's theorem then gives the unirreps $(m,s)$ and \emph{only} these --- the construction of this subsection is not one method among several but the classification, and the labels $(m,s)$ exhaust the Galilean elementary systems. The In\"on\"u--Wigner contraction of the Poincar\'e group (below) carries the Mackey classification of the relativistic case into this nonrelativistic one.
+
+\medskip\noindent\textbf{The massless case.} For $m=0$, the mass shell degenerates and the representation theory changes. The little group enlarges; the physical representations are infinite-dimensional (continuous spin) and have no known elementary realizations in nonrelativistic physics. The case is named for completeness and is not developed.
+
+\medskip\noindent\textbf{Advantage.} The explicit unirrep construction grounds the abstract algebra in concrete operators on a concrete Hilbert space. It supplies the operators whose commutation relations were derived algebraically in the preceding subsections; it confirms that the algebra is not empty --- for every mass $m>0$ and spin $s$, a representation exists; and it makes contact with the momentum representation of Chapter~5, in which $\bm P$ is diagonal and $H = \bm P^{2}/2m$ is the free Hamiltonian. What the unirrep achieves is the proof that the Galilean algebra \emph{requires} the Hamiltonian to take this form, up to internal degrees of freedom.
+
+\subsection{Physical Implications of Galilean Invariance}
+\label{sec:galilei-physical-implications}
+
+Galilean invariance constrains the form of every physical law within its domain. This subsection collects the constraints and their measurable consequences.
+
+\medskip\noindent\textbf{Constraint on the Hamiltonian.} The three brackets $[P_i,H]=0$, $[J_i,H]=0$, and $[K_i,H]=-i\hbar P_i$ together fix the general form of a Galilean-invariant Hamiltonian. For a single particle, the algebra forces
+\begin{linenomath}
+\begin{equation}
+H = \frac{\bm P^{2}}{2M} + H_{\mathrm{int}},
+\qquad
+[P_i,H_{\mathrm{int}}] = 0,\qquad [J_i,H_{\mathrm{int}}] = 0,\qquad [K_i,H_{\mathrm{int}}] = 0.
+\label{eq:constrained-hamiltonian}
+\end{equation}
+\end{linenomath}
+The internal Hamiltonian $H_{\mathrm{int}}$ must be a Galilean scalar: it commutes with every generator of the spacetime algebra. For a particle without internal structure, $H_{\mathrm{int}} = \mathrm{const}$, and the free-particle form \eqref{eq:mass-shell} is recovered. The proof is the computation of \eqref{eq:mass-shell}, restated:
+\begin{linenomath}
+\begin{equation*}
+\bigl[K_i,\,H - \tfrac{\bm P^{2}}{2M}\bigr] = -i\hbar P_i - \tfrac{1}{2M}((-i\hbar\delta_{ij}M)P_j + P_j(-i\hbar\delta_{ij}M)) = 0 .
+\end{equation*}
+\end{linenomath}
+The same quantity commutes with $\bm P$ and with $\bm J$, so it is a central element and, for an irreducible representation, proportional to the identity --- exactly $E_{\mathrm{int}}$ in \eqref{eq:mass-shell}.
+
+\medskip\noindent\textbf{Constraint on interactions.} For two particles, the most general Galilean-invariant interaction potential is
+\begin{linenomath}
+\begin{equation}
+V = V(|\bm r_{1} - \bm r_{2}|, |\bm p_{1} - \bm p_{2}|^{2}, (\bm r_{1}-\bm r_{2})\!\cdot\!(\bm p_{1}-\bm p_{2}), \bm S_{1},\bm S_{2}, \ldots),
+\label{eq:galilei-potential}
+\end{equation}
+\end{linenomath}
+a function of the relative coordinate and relative momentum, rotationally invariant, and possibly carrying spin dependence. The center-of-mass motion separates exactly:
+\begin{linenomath}
+\begin{equation}
+H = \frac{\bm P_{\mathrm{CM}}^{2}}{2M_{\mathrm{tot}}} + H_{\mathrm{rel}},
+\label{eq:cm-separation}
+\end{equation}
+\end{linenomath}
+with $M_{\mathrm{tot}} = m_{1}+m_{2}$, $\bm P_{\mathrm{CM}} = \bm p_{1}+\bm p_{2}$, and $H_{\mathrm{rel}} = \bm p_{\mathrm{rel}}^{2}/2\mu + V$, where $\mu = m_{1}m_{2}/(m_{1}+m_{2})$ is the reduced mass. The separation is a theorem of Galilean covariance, not an approximation.
+
+\medskip\noindent\textbf{Behavior of wavefunctions under boosts.} In the Schr\"odinger representation, a Galilean boost acts on a wavefunction as
+\begin{linenomath}
+\begin{equation}
+\psi'(\bm r, t) = \exp\!\Bigl[\frac{i m}{\hbar}\bigl(\bm v\!\cdot\!\bm r - \tfrac{1}{2}\bm v^{2}t\bigr)\Bigr]\,
+\psi(\bm r - \bm v t, t).
+\label{eq:boosted-wavefunction}
+\end{equation}
+\end{linenomath}
+The phase factor is the \textbf{Galilean phase}. It arises because the Schr\"odinger equation is not invariant under boosts --- the wavefunction acquires a spacetime-dependent phase. Yet every probability density $|\psi'|^{2} = |\psi|^{2}$ and every expectation value of a Galilean-covariant observable transforms correctly. The phase is the position-representation face of the boost-translation phase \eqref{eq:boost-translation-phase}: it ensures that the superposition principle operates coherently in every uniformly moving frame.
+
+\medskip\noindent\textbf{Galilean covariance of the Schr\"odinger equation.} Under the boost \eqref{eq:boosted-wavefunction}, the Schr\"odinger equation transforms as
+\begin{linenomath}
+\begin{equation}
+i\hbar\frac{\partial\psi'}{\partial t} = \Bigl(-\frac{\hbar^{2}}{2m}\nabla^{2} + V'\Bigr)\psi',
+\end{equation}
+\end{linenomath}
+with the boosted potential $V'(\bm r,t) = V(\bm r - \bm v t)$. The equation is \emph{covariant}: if $\psi$ satisfies the Schr\"odinger equation in the original frame, $\psi'$ satisfies it in the boosted frame with the appropriately transformed potential. The covariance ensures that the laws of physics have the same form in all inertial frames --- the operational content of Galilean relativity.
+
+\medskip\noindent\textbf{Superselection of mass as a theorem.} Within each mass sector $\mathcal{H}_{m}$, every observable commutes with the mass operator. An operator that connects different mass sectors would necessarily fail to commute with the boost generator $\bm K$ (because the boost--translation phase differs across sectors) and would therefore not be Galilean-covariant. Since all physical observables are Galilean-covariant, mass superselection follows: the mass is a fixed label of every physical preparation, and no coherent superposition of different-mass states exists. This is the operational content of Bargmann's analysis.
+
+\medskip\noindent\textbf{The In\"on\"u--Wigner contraction from the Poincar\'e group.} The Galilei group is the $c\to\infty$ \emph{contraction} of the Poincar\'e group. Rescale the Lorentz boost generators $\widetilde{\bm K}=\bm K/c$ (so that a finite boost is $e^{-i\bm v\cdot\widetilde{\bm K}/\hbar}$ with $\bm v=\bm\beta c$); the Poincar\'e bracket $[\widetilde K_{i},\widetilde K_{j}]=-(i\hbar/c^{2})\epsilon_{ijk}J_{k}$ tends to $0$ as $c\to\infty$, recovering the Galilean $[K_{i},K_{j}]=0$ --- the law of Galilean addition of velocities. The remaining brackets are unchanged in the limit, and the relativistic energy--momentum relation $E=\sqrt{\bm p^{2}c^{2}+m^{2}c^{4}}$ expands to $mc^{2}+\bm p^{2}/2m+\cdots$, the rest energy (an additive constant, absorbed into the internal $E_{\mathrm{int}}$) plus the nonrelativistic kinetic energy. The contraction is the structural reason the Galilean analysis of this section is exact within its domain, and the reason the Galilean mass superselection has no Poincar\'e analogue: in the relativistic theory mass is already a Casimir ($P_{\mu}P^{\mu}=m^{2}c^{2}$), not a central extension. The first correction away from the contraction --- the $O(1/c^{2})$ term $[K_{i},K_{j}]\ne0$ --- is the Thomas precession of the historical chapter (Section~\ref{subsec:spin}); the full relativistic structure (the Lorentz group and its $\mathrm{SL}(2,\mathbb C)$ cover) is developed in Appendix~\ref{sec:appendix-covering} and is this book's relativistic boundary.
+
+\medskip\noindent\textbf{Discrete Galilean symmetries.} The connected Galilei group analysed above comprises only the continuously connected transformations (rotations, translations, boosts, waiting). The \emph{full} Galilei group adjoins two discrete spacetime symmetries: space inversion $P:\bm r\mapsto-\bm r$, $t\mapsto t$, and time reversal $T:\bm r\mapsto\bm r$, $t\mapsto-t$. Their action on the generators, read off the transformation of the corresponding spacetime displacement, is
+\begin{linenomath}
+\begin{equation}
+\begin{array}{c|ccccc}
+ & \bm J & \bm P & \bm K & H & M\\[2pt]\hline
+P & +\bm J & -\bm P & -\bm K & +H & +M\\
+T & -\bm J & -\bm P & +\bm K & +H & +M
+\end{array}
+\label{eq:discrete-galilean}
+\end{equation}
+\end{linenomath}
+($P$ is unitary, $T$ antiunitary). Angular momentum $\bm J=\bm r\times\bm p$ is an \emph{axial} vector ($P$-even, $T$-odd, since $T$ flips both $\bm r$ and $\bm p$); linear momentum $\bm p$ is \emph{polar} ($P$-odd, $T$-odd); the boost generator $\bm K=m\bm r-\bm p\,t$ is $P$-odd, $T$-even. The mass $M$ and the Hamiltonian $H$ are invariant under both. These discrete actions extend the Galilean algebra consistently and are the spacetime-group avatars of the parity and time-reversal symmetries developed physically in Section~\ref{sec:discrete-symmetries}: $P$-invariance yields Laporte's rule \eqref{eq:parity-selection}, $T$-invariance yields Kramers degeneracy \eqref{eq:kramers}. The full Galilei group is the semidirect product of the connected group with $\mathbb Z_{2}^{P}\times\mathbb Z_{2}^{T}$; its projective representations are classified by extending Bargmann's analysis to the discrete generators, a refinement that changes nothing essential at the level of the continuous algebra.
+
+\subsection{Examples}
+\label{sec:galilei-examples}
+
+The Galilean structure is exercised on four concrete systems, each illuminating a different facet of the algebra.
+
+\medskip\noindent\textbf{(a) The free particle.} For a single particle of mass $m$ and spin $s$, the unirrep \eqref{eq:galilei-unirrep-space} is the complete quantum description. The Hamiltonian is $H = \bm P^{2}/2m$, with spectrum $\sigma(H) = [0,\infty)$ and generalized eigenstates $|\bm p,\sigma\rangle$ labelled by momentum and spin projection. The evolution operator $e^{-iHt/\hbar}$ propagates these states as plane waves --- the de Broglie wave of Chapter~1 (\eqref{subsec:debroglie}) is the momentum eigenstate in the position representation, and its Galilean covariance is the theorem \eqref{eq:boosted-wavefunction}.
+
+\medskip\noindent\textbf{(b) Two-body problem: center-of-mass decomposition.} Two particles of masses $m_{1}, m_{2}$ and spins $s_{1}, s_{2}$ are described by the tensor product $\mathcal{H}_{m_{1},s_{1}}\otimes\mathcal{H}_{m_{2},s_{2}}$. Galilean covariance forces the total generators to be the sums of the single-particle generators:
+\begin{linenomath}
+\begin{equation}
+\bm P_{\mathrm{tot}} = \bm P_{1}+\bm P_{2},\quad
+\bm J_{\mathrm{tot}} = \bm J_{1}+\bm J_{2},\quad
+\bm K_{\mathrm{tot}} = \bm K_{1}+\bm K_{2},\quad
+M_{\mathrm{tot}} = m_{1}+m_{2}.
+\label{eq:two-body-generators}
+\end{equation}
+\end{linenomath}
+The total Hamiltonian separates into center-of-mass and relative parts \eqref{eq:cm-separation}. The separation is exact and is the quantum analogue of the classical reduction of the two-body problem to a one-body problem.
+
+\medskip\noindent\textbf{(c) The harmonic oscillator.} For a particle of mass $m$ in a harmonic potential $V(\bm r) = \frac{1}{2}m\omega^{2}|\bm r|^{2}$, the Hamiltonian $H = \bm P^{2}/2m + V$ is not invariant under boosts: $[K_i,V] \neq 0$, reflecting that a boosted oscillator sees a displaced and moving potential. The bracket $[K_i,H] = -i\hbar P_i$ is nevertheless satisfied: the boost generates the correct transformation of the full Hamiltonian. The oscillator's spectrum $E_{\bm n} = \hbar\omega(n_{x}+n_{y}+n_{z}+3/2)$ is rotationally invariant ($[J_i,H]=0$) and translationally non-invariant ($[P_i,H] \neq 0$), correctly.
+
+\medskip\noindent\textbf{(d) A particle in an external potential.} An external potential $V(\bm r)$ breaks Galilean invariance partially. If $V$ is constant, the theory is fully Galilean-invariant (Galilean relativity is trivial for a free particle). If $V = V(|\bm r|)$ is central, rotational invariance survives: $[J_i,H]=0$. If $V$ is periodic, translation invariance is lost but a discrete subgroup survives. The Galilean algebra provides the framework for identifying which symmetries any given potential respects.
+
+\medskip\noindent\textbf{The internal two-state systems of this book.} Spin and polarization are \emph{internal}: the Galilean boost representative factors, acting on the motional state and as the identity on the internal $\mathbb C^{2}$ --- a boost does not turn a spin. A boosted qubit is the same qubit described from a moving frame: pure relabeling, no precession. The non-trivial content is the motional phase: $T(\bm a)B(\bm v)\ket{\psi}$ and $B(\bm v)T(\bm a)\ket{\psi}$ differ by $e^{-iM\bm a\cdot\bm v/\hbar}$ --- unobservable on a single mass sector by the ray theorem, would-be observable across a mass superposition. The phase's interferometric realization, species-dependent fringe shifts, is named and not developed; the point is the algebra's center and what it forbids.
+
+\medskip\noindent\textbf{Advantage of the Galilean analysis.} The whole spacetime kinematics of nonrelativistic quantum mechanics fits in one algebra, derived from ten generators and one central charge. The mass emerges as the central charge; the superselection of mass is exhibited as the reading the center forces; the free dynamics' form is constrained by symmetry alone; and every interaction is limited to the few shapes compatible with the algebra. The analysis is exact and algebraic: no assumption beyond Galilean symmetry enters.
+
+\medskip\noindent\textbf{Limitation.} The group is the \emph{nonrelativistic} kinematics.\footnote{In the relativistic upgrade the boosts cease to commute, $[K_i,K_j]\sim-i\epsilon_{ijk}J_k/c^{2}$, spin mixes with boosts, and the Thomas precession of the historical chapter is the first symptom. This book does not develop the Lorentz group.} One generator stands apart from the others already within the domain. $\bm P$, $\bm J$, $\bm K$ are symmetry charges whose families may or may not leave the dynamics invariant; $H$ is the dynamics itself. The asymmetry is not accidental --- it is what time \emph{is} in this theory, and it deserves a section of its own.
 
 \section{The Special Status of Time}
 \label{sec:time-status}
@@ -751,7 +1018,7 @@ The forward direction is \eqref{eq:expectation-eom} read off: a vanishing commut
 \end{linenomath}
 and the whole statistics of $G$ --- every moment, every outcome probability --- is conserved, not merely its average.
 
-\textbf{The Galilean reading.} Read against the algebra \eqref{eq:galilei-algebra}, the theorem is a census of the conserved quantities of nonrelativistic physics, generator by generator. Translation invariance of the law of waiting, $[P_i,H] = 0$, is momentum conservation --- the free law of Section~\ref{sec:galilean-group}, with the free generator \eqref{eq:free-hamiltonian} its paradigm. Rotation invariance, $[J_i,H] = 0$, is angular momentum conservation --- the symmetry of central problems, whose spectroscopic harvest, the hydrogen atom behind the historical chapter's Balmer terms, is the angular-momentum chapter's to reap. Time independence is energy conservation, the tautological case of Section~\ref{sec:time-status}: the homogeneity of time is its mother.\footnote{The general principle --- to each continuous symmetry of the dynamics, one conserved quantity --- is Noether's theorem of 1918, proved there for classical action principles. In this book's quantum setting its content is precisely the conservation theorem proved above; the classical variational theory is named, not developed.} The boost stands apart: its bracket $[K_i,H] = -i\hbar P_i$ never vanishes, so boosts furnish no conserved charge; their symmetry content survives only for the free system, where a boost carries motions to motions, and interactions destroy even that.
+\textbf{The Galilean reading.} Read against the algebra \eqref{eq:galilei-algebra}, the theorem is a census of the conserved quantities of nonrelativistic physics, generator by generator. Translation invariance of the law of waiting, $[P_i,H] = 0$, is momentum conservation --- the free law of Section~\ref{sec:galilean-group}, with the free generator \eqref{eq:mass-shell} its paradigm. Rotation invariance, $[J_i,H] = 0$, is angular momentum conservation --- the symmetry of central problems, whose spectroscopic harvest, the hydrogen atom behind the historical chapter's Balmer terms, is the angular-momentum chapter's to reap. Time independence is energy conservation, the tautological case of Section~\ref{sec:time-status}: the homogeneity of time is its mother.\footnote{The general principle --- to each continuous symmetry of the dynamics, one conserved quantity --- is Noether's theorem of 1918, proved there for classical action principles. In this book's quantum setting its content is precisely the conservation theorem proved above; the classical variational theory is named, not developed.} The boost stands apart: its bracket $[K_i,H] = -i\hbar P_i$ never vanishes, so boosts furnish no conserved charge; their symmetry content survives only for the free system, where a boost carries motions to motions, and interactions destroy even that.
 
 \textbf{Good quantum numbers.} The eigenvalues of a conserved $G$ are permanent labels: a preparation addressed by $g$ keeps that address under every waiting. A complete set of commuting observables containing $H$ (\eqref{eq:csco-joint}) therefore addresses every state by quantities that either set its phase rate --- the energy --- or never change at all. Such addresses are the \textbf{good quantum numbers}; the permanence of the label is the conservation theorem, and its precision as an address is the measurement chapter's completeness.
 
