@@ -125,3 +125,6 @@ chapters/*.aux
 .opencode/
 *.md
 *.py
+*.json
+
+md_chaps/
